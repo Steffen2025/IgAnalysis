@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm init *)",
+      "Bash(npm pkg *)",
+      "Bash(npm install *)",
+      "Bash(mkdir -p data)",
+      "Bash(npx drizzle-kit *)",
+      "Bash(npx tsx *)"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{"ts":"2026-05-24T10:00:45.648Z","cmd":"goto","args":"https://www.instagram.com/botlogix/","origin":"https://www.instagram.com/botlogix/","durationMs":3857,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-24T10:00:49.588Z","cmd":"screenshot","args":"C:/Users/steff/AppData/Local/Temp/botlogix-ig.png","origin":"https://www.instagram.com/botlogix/","durationMs":89,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-24T10:01:02.720Z","cmd":"press","args":"Escape","origin":"https://www.instagram.com/botlogix/","durationMs":10,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-24T10:01:02.870Z","cmd":"text","args":"","origin":"https://www.instagram.com/botlogix/","durationMs":8,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-24T10:01:08.163Z","cmd":"press","args":"Escape","origin":"https://www.instagram.com/botlogix/","durationMs":5,"status":"ok","hasCookies":false,"mode":"launched"}
+{"ts":"2026-05-24T10:01:08.726Z","cmd":"screenshot","args":"C:/Users/steff/AppData/Local/Temp/botlogix-ig2.png","origin":"https://www.instagram.com/botlogix/","durationMs":437,"status":"ok","hasCookies":false,"mode":"launched"}
