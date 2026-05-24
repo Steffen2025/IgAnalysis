@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deck:botlogix": "tsx src/scripts/generateBotLogixDeck.ts",
+    "deck:all": "tsx src/scripts/generateBotLogixDeck.ts"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +21,7 @@
     "marked": "^18.0.4"
   },
   "devDependencies": {
+    "@marp-team/marp-cli": "^4.4.0",
     "@types/better-sqlite3": "^7.6.13",
     "drizzle-kit": "^0.31.10",
     "tsx": "^4.22.3",
