@@ -1,25 +1,19 @@
 import type { ReportData } from "../../report/reportDataAssembler.js";
-import { scoreColor, scoreLabelClass, formatDate, escapeHTML } from "./utils.js";
+import { scoreColor, formatDate, escapeHTML } from "./utils.js";
 
-function scoreSummaryLine(data: ReportData): string {
-  const overall = data.scores.overall;
+function topOpportunityLabel(data: ReportData): { points: number; label: string } {
   const gaps = data.patterns?.gaps ?? [];
-
   if (gaps.length > 0) {
-    const topGap = gaps[0];
-    return `${overall}/100 overall — ${topGap.label ?? "posting frequency"} is your highest-leverage gap`;
+    return { points: gaps[0].weight ?? 25, label: gaps[0].label ?? "Posting frequency" };
   }
-
-  if (overall >= 70) return `${overall}/100 — strong foundation, refine and scale`;
-  if (overall >= 50) return `${overall}/100 — solid start, three clear gaps to close`;
-  return `${overall}/100 — significant growth opportunities identified`;
+  return { points: 25, label: "Posting frequency" };
 }
 
-export function renderCoverPage(data: ReportData, sections: Record<string, string>): string {
+export function renderCoverPage(data: ReportData): string {
   const { audit, scores } = data;
-  const overall = scores.overall;
+  const overall = scores.overall ?? 0;
   const color = scoreColor(overall);
-  const label = scoreSummaryLine(data);
+
   const dateStr = audit.created_at
     ? formatDate(new Date(audit.created_at))
     : formatDate(new Date());
@@ -29,30 +23,49 @@ export function renderCoverPage(data: ReportData, sections: Record<string, strin
   const handleStr = handle ? `@${escapeHTML(handle)}` : "";
   const category = escapeHTML(audit.business_category ?? "");
   const city = escapeHTML(audit.city ?? "");
-
   const subtitle = [handleStr, category, city].filter(Boolean).join(" · ");
+
+  const { points, label } = topOpportunityLabel(data);
 
   return `
 <section class="cover-page page">
-  <div class="cover-top">
-    <span class="cover-top-label">Instagram Growth Intelligence</span>
-    <span class="cover-audit-number">Audit #${audit.id}</span>
+  <div class="cover-meta-top">
+    <span class="cover-wordmark">BotLogix</span>
+    <span class="cover-audit-ref">Audit #${audit.id}</span>
   </div>
 
   <div class="cover-center">
     <div class="cover-business-name">${businessName}</div>
     <div class="cover-handle">${subtitle}</div>
 
-    <div class="cover-score-wrap">
-      <span class="cover-score-number" style="color: ${color}">${overall}</span>
-      <span class="cover-score-denom" style="color: ${color}">/100</span>
-      <span class="cover-score-label">${escapeHTML(label)}</span>
+    <div class="cover-stat-row">
+      <div class="cover-stat-cell">
+        <span class="cover-stat-label">Overall Score</span>
+        <div class="cover-stat-value" style="color:${color}">
+          ${overall}<span class="cover-stat-suffix">/100</span>
+        </div>
+        <div class="cover-stat-context">${overall < 50 ? "Significant headroom" : overall < 70 ? "Solid foundation" : "Strong position"}</div>
+      </div>
+      <div class="cover-stat-cell">
+        <span class="cover-stat-label">Top Opportunity</span>
+        <div class="cover-stat-value" style="color:var(--accent-warm)">
+          +${points}<span class="cover-stat-suffix">pts</span>
+        </div>
+        <div class="cover-stat-context">${escapeHTML(label)}</div>
+      </div>
+      <div class="cover-stat-cell">
+        <span class="cover-stat-label">Audit Completed</span>
+        <div class="cover-stat-value" style="font-size:1.4rem;line-height:1.2;padding-top:4px">
+          ${escapeHTML(dateStr)}
+        </div>
+        <div class="cover-stat-context">Instagram Growth Intelligence</div>
+      </div>
     </div>
   </div>
 
   <div class="cover-bottom">
-    <div class="cover-date">Audit completed ${dateStr}</div>
-    <div class="cover-brand">Prepared by BotLogix Growth Intelligence</div>
+    <span class="cover-tagline">AI that works the day you turn it on — botlogix.ca</span>
+    <span class="cover-date">Prepared by BotLogix Growth Intelligence</span>
   </div>
 </section>`;
 }

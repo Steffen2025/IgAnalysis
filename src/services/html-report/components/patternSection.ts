@@ -1,41 +1,62 @@
 import { markdownToHTML, escapeHTML } from "./utils.js";
+import { renderNarrativeQuote } from "./narrativeQuote.js";
+import { renderStatCallout } from "./statCallout.js";
 import type { ReportData } from "../../report/reportDataAssembler.js";
 
-function extractPullQuote(md: string, data: ReportData): string | null {
-  // Try to find a significant comparison sentence
-  const lines = md.split("\n").map(l => l.trim()).filter(Boolean);
-
+function extractPullQuote(md: string): { text: string; attr?: string } | null {
+  const lines = md.split("\n").map(l => l.trim().replace(/\*\*/g, "")).filter(Boolean);
   for (const line of lines) {
-    // Look for lines with numbers, percentages, or "x more"
-    if (/\d+x|times more|average|benchmark|reference/i.test(line) && line.length > 40 && line.length < 200) {
-      return line.replace(/\*\*/g, "").trim();
+    if (
+      line.length > 50 && line.length < 220 &&
+      !line.startsWith("#") &&
+      /\d+x|\d+%|average|benchmark|reference|more than|dominant|majority|single most/i.test(line)
+    ) {
+      // Pull attributed if mentions an @handle
+      const attrMatch = line.match(/@[a-z0-9._]+/i);
+      return {
+        text: line.replace(/@[a-z0-9._]+/gi, "").trim(),
+        attr: attrMatch ? `— pattern observed across ${attrMatch[0]}` : undefined,
+      };
     }
   }
-
-  // Fallback: use the biggest gap
-  const gaps = data.patterns?.gaps ?? [];
-  if (gaps.length > 0) {
-    return `The highest-leverage gap is ${gaps[0].label ?? "content frequency"} — closing it is worth more points than any other single change.`;
-  }
-
   return null;
+}
+
+function extractPatternStat(data: ReportData): { catPosts: number; clientAvgCaption: number; catAvgCaption: number } {
+  const cat = data.patterns?.category;
+  const client = data.patterns?.client;
+  return {
+    catPosts: cat?.postCount ?? 0,
+    clientAvgCaption: client?.captions?.avgLength ?? 0,
+    catAvgCaption: cat?.captions?.avgLength ?? 0,
+  };
 }
 
 export function renderPatternSection(md: string, data: ReportData): string {
   if (!md) return placeholder();
 
-  const cleanMd = md.replace(/^##.*\n/m, "").trim();
-  const pullQuote = extractPullQuote(cleanMd, data);
+  const cleanMd = md.replace(/^##[^\n]*\n/m, "").trim();
+  const quote = extractPullQuote(cleanMd);
+  const { catPosts, clientAvgCaption, catAvgCaption } = extractPatternStat(data);
+
+  const statCells = [];
+  if (catPosts > 0) statCells.push({ value: String(catPosts), label: "Category Posts Analyzed", context: "Benchmark sample" });
+  if (catAvgCaption > 0) statCells.push({ value: String(catAvgCaption), suffix: "ch", label: "Category Avg Caption", context: "Target length" });
+  if (clientAvgCaption > 0) statCells.push({ value: String(clientAvgCaption), suffix: "ch", label: "Your Avg Caption", context: clientAvgCaption > catAvgCaption ? "Above category" : "Below category" });
 
   return `
 <section class="page">
-  <div class="section-label">Content Pattern Analysis</div>
-  <h2>How this category performs</h2>
+  <span class="eyebrow">What's Working in Your Market</span>
+  <h2 class="section-title">Content patterns in your category</h2>
+
+  ${quote ? renderNarrativeQuote(quote.text, quote.attr) : ""}
+
   <div class="narrative-prose">${markdownToHTML(cleanMd)}</div>
-  ${pullQuote ? `<blockquote class="pull-quote">${escapeHTML(pullQuote)}</blockquote>` : ""}
+
+  ${statCells.length >= 2 ? renderStatCallout(statCells) : ""}
 </section>`;
 }
 
 function placeholder(): string {
-  return `<section class="page"><div class="section-label">Content Pattern Analysis</div><p><em>Section unavailable.</em></p></section>`;
+  return `<section class="page"><span class="eyebrow">Content Pattern Analysis</span><p><em>Section unavailable.</em></p></section>`;
 }

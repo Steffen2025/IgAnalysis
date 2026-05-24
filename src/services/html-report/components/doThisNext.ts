@@ -1,7 +1,7 @@
 import { parseActions, escapeHTML, markdownToHTML } from "./utils.js";
 
 function tagClass(tag: string): string {
-  if (tag === "TODAY") return "tag-today";
+  if (tag === "TODAY")    return "tag-today";
   if (tag === "THIS MONTH") return "tag-month";
   if (tag === "IN 30 DAYS") return "tag-30days";
   return "tag-week";
@@ -15,8 +15,8 @@ export function renderDoThisNext(md: string): string {
   if (actions.length === 0) {
     return `
 <section class="page">
-  <div class="section-label">Do This Next</div>
-  <h2>10 actions, time-boxed</h2>
+  <span class="eyebrow">Do This Next</span>
+  <h2 class="section-title">10 actions, time-boxed</h2>
   <div class="narrative-prose">${markdownToHTML(md)}</div>
 </section>`;
   }
@@ -26,7 +26,7 @@ export function renderDoThisNext(md: string): string {
     return `
     <div class="action-item${isLast ? " action-item-last" : ""}">
       <div class="action-circle"></div>
-      <span class="action-number">${a.number}</span>
+      <span class="action-num">${a.number}</span>
       <span class="action-text">${escapeHTML(a.text)}</span>
       <span class="action-tag ${tagClass(a.timeTag)}">${a.timeTag}</span>
     </div>`;
@@ -34,14 +34,12 @@ export function renderDoThisNext(md: string): string {
 
   return `
 <section class="page">
-  <div class="section-label">Do This Next</div>
-  <h2>10 actions, time-boxed</h2>
-  <div class="action-checklist">
-    ${items}
-  </div>
+  <span class="eyebrow">Do This Next</span>
+  <h2 class="section-title">10 actions, time-boxed</h2>
+  <div class="action-checklist">${items}</div>
 </section>`;
 }
 
 function placeholder(): string {
-  return `<section class="page"><div class="section-label">Do This Next</div><p><em>Section unavailable.</em></p></section>`;
+  return `<section class="page"><span class="eyebrow">Do This Next</span><p><em>Section unavailable.</em></p></section>`;
 }
