@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BotLogix - AI Solutions — Instagram Growth Intelligence Report</title>
+  <style>
+:root {
+  --bg: #FAFAF7;
+  --bg-soft: #F2F0EA;
+  --text: #1A1A1A;
+  --text-muted: #5C5A52;
+  --border: #E5E2D6;
+  --accent: #0F6E56;
+  --accent-soft: #DCEFE7;
+  --score-high: #0F6E56;
+  --score-mid: #B07D1E;
+  --score-low: #B23E3E;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-mono: "SF Mono", "Cascadia Mono", "Consolas", monospace;
+  --max-width: 760px;
+  --radius: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--bg);
+}
+
+.report-wrapper {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── PAGE ── */
+.page {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+.page:last-child { border-bottom: none; }
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: normal;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+p {
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+p:last-child { margin-bottom: 0; }
+
+ul, ol {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+
+li { margin-bottom: 6px; }
+
+strong { font-weight: 600; }
+
+/* ── COVER PAGE ── */
+.cover-page {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-top-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.cover-audit-number {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.cover-center {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.cover-business-name {
+  font-family: var(--font-serif);
+  font-size: 2.8rem;
+  font-weight: normal;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.cover-handle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+.cover-score-wrap {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.cover-score-number {
+  font-family: var(--font-serif);
+  font-size: 9rem;
+  line-height: 1;
+  font-weight: normal;
+  letter-spacing: -4px;
+}
+
+.cover-score-denom {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--text-muted);
+  margin-top: -12px;
+}
+
+.cover-score-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  max-width: 320px;
+  line-height: 1.4;
+}
+
+.cover-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.cover-date {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.cover-brand {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+/* ── BATTLE PLAN ── */
+.battle-plan-framing {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  line-height: 1.55;
+}
+
+.priority-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.priority-row {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.priority-number {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.priority-content {}
+
+.priority-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.priority-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ── SCORE CARD ── */
+.score-bars {
+  margin: 32px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.score-bar-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 48px;
+  align-items: center;
+  gap: 16px;
+}
+
+.score-bar-label {
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+.score-bar-track {
+  height: 8px;
+  background: var(--bg-soft);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.score-bar-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: right;
+}
+
+.score-caption {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+/* ── SNAPSHOT PROSE ── */
+.snapshot-prose p {
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── CARDS ── */
+.card {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 24px;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 20px;
+}
+
+.card:last-child { margin-bottom: 0; }
+
+/* ── FIX CARDS ── */
+.fix-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 24px;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 20px;
+}
+
+.fix-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.fix-number-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.fix-title {
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin-bottom: 0;
+  color: var(--text);
+}
+
+.fix-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.fix-meta-item {}
+
+.fix-meta-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.fix-meta-value {
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+/* ── DAY BLOCKS ── */
+.day-block {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 24px;
+  border-left: 3px solid var(--accent);
+  margin-bottom: 16px;
+}
+
+.day-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.day-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.day-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.day-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+.day-item-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text);
+  border-left: 3px solid var(--accent);
+  padding: 16px 24px;
+  margin: 32px 0;
+}
+
+/* ── NARRATIVE PROSE ── */
+.narrative-prose p {
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+/* ── HASHTAG CHIPS ── */
+.hashtag-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.hashtag-chip {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+}
+
+/* ── QUOTE BLOCKS ── */
+.quote-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 24px 0;
+}
+
+.quote-block {
+  border-left: 3px solid var(--accent);
+  padding: 12px 18px;
+  background: var(--bg-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ── REEL & CAROUSEL CARDS ── */
+.content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+.reel-card, .carousel-card {
+  background: var(--bg-soft);
+  border-radius: var(--radius);
+  padding: 28px;
+  border-left: 3px solid var(--accent);
+}
+
+.content-card-header {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.content-card-topic {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.reel-contrast {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  margin-bottom: 6px;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.reel-pattern {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.reel-hook {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.reel-body {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.reel-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reel-body li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.reel-body li::before {
+  content: "–";
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.reel-caption-label, .reel-cta-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.reel-caption {
+  font-size: 0.87rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 12px;
+  font-family: var(--font-mono);
+  background: white;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+
+.reel-cta {
+  font-size: 0.87rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.carousel-slides {
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.carousel-slide {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.carousel-slide-num {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.carousel-caption {
+  font-size: 0.87rem;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.55;
+}
+
+.carousel-cta {
+  font-size: 0.87rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── CHECKLIST ── */
+.action-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: transparent;
+}
+
+.action-item:nth-child(odd) {
+  background: var(--bg-soft);
+}
+
+.action-item-last {
+  background: var(--accent-soft) !important;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+.action-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.action-item-last .action-circle {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.action-number {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  width: 20px;
+  margin-top: 3px;
+}
+
+.action-text {
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+.action-item-last .action-text {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.action-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.tag-today { background: #FEF3C7; color: #92400E; }
+.tag-week { background: var(--accent-soft); color: var(--accent); }
+.tag-month { background: #F3F4F6; color: var(--text-muted); }
+.tag-30days { background: var(--accent); color: white; }
+
+/* ── FOOTER ── */
+.footer-page {
+  padding: 48px 0;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.kpi-cell {
+  background: var(--bg-soft);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.kpi-value {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.reaudit-banner {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin: 24px 0;
+  font-weight: 500;
+}
+
+.footer-disclaimer {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  margin-top: 20px;
+  line-height: 1.5;
+}
+
+/* ── DIVIDER ── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── PRINT ── */
+@media print {
+  html { font-size: 11pt; }
+
+  .report-wrapper { padding: 0; }
+
+  .page {
+    padding: 32px 0;
+    page-break-before: always;
+    page-break-inside: avoid;
+  }
+
+  .page:first-child { page-break-before: auto; }
+
+  .cover-page {
+    min-height: auto;
+    page-break-after: always;
+  }
+
+  .cover-score-number { font-size: 6rem; }
+
+  .fix-card, .day-block, .reel-card, .carousel-card, .card {
+    page-break-inside: avoid;
+  }
+
+  .hashtag-chip { border: 1px solid #ccc; }
+
+  .pull-quote { font-size: 1.1rem; }
+
+  body { background: white; }
+  .bg-soft { background: #f5f5f0; }
+}
+
+/* ── SCREEN ONLY ── */
+@media screen {
+  body {
+    padding: 24px 0 80px;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="report-wrapper">
+    
+<section class="cover-page page">
+  <div class="cover-top">
+    <span class="cover-top-label">Instagram Growth Intelligence</span>
+    <span class="cover-audit-number">Audit #14</span>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-business-name">BotLogix - AI Solutions</div>
+    <div class="cover-handle">@botlogix · Marketing agency · Burlington</div>
+
+    <div class="cover-score-wrap">
+      <span class="cover-score-number" style="color: var(--score-mid)">44</span>
+      <span class="cover-score-denom" style="color: var(--score-mid)">/100</span>
+      <span class="cover-score-label">44/100 overall — posting frequency is your highest-leverage gap</span>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-date">Audit completed May 24, 2026</div>
+    <div class="cover-brand">Prepared by BotLogix Growth Intelligence</div>
+  </div>
+</section>
+    
+<section class="page">
+  <div class="section-label">One-Page Battle Plan</div>
+  <h2>Where to Focus</h2>
+  <div class="battle-plan-framing">Your Instagram scores 44/100, and the single biggest lever is posting frequency — the audit identifies it as a 25-point unfired signal in content performance.</div>
+  <div class="priority-list">
+    
+        <div class="priority-row">
+          <div class="priority-number">1</div>
+          <div class="priority-content">
+            <div class="priority-title">Post consistently for the next 30 days.</div>
+            <div class="priority-body">Posts per week over the last 30 days is your highest-value gap at 25 points. The algorithm cannot rank an account it does not see. Start at three posts per week.</div>
+          </div>
+        </div>
+        <div class="priority-row">
+          <div class="priority-number">2</div>
+          <div class="priority-content">
+            <div class="priority-title">Add Burlington to your bio and hashtag set.</div>
+            <div class="priority-body">Local Visibility scores 0/100. You are running a Burlington-based agency that is geographically invisible on the platform. A bio edit and a saved hashtag set including `#burlington` and `#burlingtonontario` close most of this gap immediately.</div>
+          </div>
+        </div>
+        <div class="priority-row">
+          <div class="priority-number">3</div>
+          <div class="priority-content">
+            <div class="priority-title">Study @rootsmarketingagency as a structural model.</div>
+            <div class="priority-body">At 65,734 followers, they demonstrate what a marketing agency presence looks like at scale. Look at their post cadence, format mix, and how they talk about their service — not to copy, but to calibrate.</div>
+          </div>
+        </div>
+        <div class="priority-row">
+          <div class="priority-number">4</div>
+          <div class="priority-content">
+            <div class="priority-title">Show your own product working.</div>
+            <div class="priority-body">Your offer is Instagram DM automation and AI agents. Demo posts of your own automations are content you can produce in under an hour and directly serve your stated goal of inbound DM leads.</div>
+          </div>
+        </div>
+        <div class="priority-row">
+          <div class="priority-number">5</div>
+          <div class="priority-content">
+            <div class="priority-title">Start collecting comment data.</div>
+            <div class="priority-body">No comment data was collected in this audit, which means there is no read on what your audience actually responds to. Asking one question per caption fixes this within a week.</div>
+          </div>
+        </div>
+  </div>
+</section>
+    
+<section class="page">
+  <div class="section-label">Account Snapshot</div>
+  <h2>Where you stand</h2>
+
+  <div class="snapshot-prose"><p>@botlogix has 718 followers, 93 total posts, and an overall score of 44 out of 100 across five measurement areas. The strongest signals are in content structure — your posts consistently include calls to action and opening hooks — but the account carries three full-strength gaps, each scored 25 points below benchmark: posting frequency over the last 30 days, average engagement rate, and branded-local hashtag usage per post. Local Visibility scores 0 out of 100, meaning the account is not currently registering in Burlington-area discovery at all.</p>
+</div>
+
+  
+  <div class="score-bars">
+    
+      <div class="score-bar-row">
+        <div class="score-bar-label">Content Performance</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:50%;background:var(--score-mid)"></div>
+        </div>
+        <div class="score-bar-value" style="color:var(--score-mid)">50</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Local Visibility</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:0%;background:var(--score-low)"></div>
+        </div>
+        <div class="score-bar-value" style="color:var(--score-low)">0</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Competitor Gap</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:67%;background:var(--score-mid)"></div>
+        </div>
+        <div class="score-bar-value" style="color:var(--score-mid)">67</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Sales Readiness</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:46%;background:var(--score-mid)"></div>
+        </div>
+        <div class="score-bar-value" style="color:var(--score-mid)">46</div>
+      </div>
+      <div class="score-bar-row">
+        <div class="score-bar-label">Profile Conversion</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" style="width:55%;background:var(--score-mid)"></div>
+        </div>
+        <div class="score-bar-value" style="color:var(--score-mid)">55</div>
+      </div>
+  </div>
+  <p class="score-caption">Scores update each time you re-run this audit.</p>
+  
+</section>
+    
+<section class="page">
+  <div class="section-label">Top 5 Fixes</div>
+  <h2>Highest-leverage actions</h2>
+  
+    <div class="fix-card">
+      <div class="fix-card-header">
+        <div class="fix-number-badge">1</div>
+        <h3 class="fix-title">Start posting — at minimum 2x per week</h3>
+      </div>
+      <div class="fix-meta">
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Why it matters</div>
+          <div class="fix-meta-value">You have 0 posts in the last 30 days and a 0.00% engagement rate. The reference benchmark is 1.71 posts/week. There is nothing to measure until content exists.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">How to execute</div>
+          <div class="fix-meta-value">Draft and publish one post today. Schedule a second for later this week. Repeat. Even 2 posts/week puts you at benchmark parity.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Score impact</div>
+          <div class="fix-meta-value">Content Performance +25pts (frequency), Competitor Gap +25pts</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Effort</div>
+          <div class="fix-meta-value">Medium</div>
+        </div>
+      </div>
+    </div>
+    <div class="fix-card">
+      <div class="fix-card-header">
+        <div class="fix-number-badge">2</div>
+        <h3 class="fix-title">Add Burlington and Ontario to your bio</h3>
+      </div>
+      <div class="fix-meta">
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Why it matters</div>
+          <div class="fix-meta-value">Local Visibility is scored at 0/100 partly because your bio contains neither `burlington` nor `ontario`. This is a single-line text edit.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">How to execute</div>
+          <div class="fix-meta-value">Open your Instagram profile, tap Edit Profile, and add a line such as &quot;Serving small businesses in Burlington, ON.&quot; Save.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Score impact</div>
+          <div class="fix-meta-value">Local Visibility +20pts (bio signal)</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Effort</div>
+          <div class="fix-meta-value">Low</div>
+        </div>
+      </div>
+    </div>
+    <div class="fix-card">
+      <div class="fix-card-header">
+        <div class="fix-number-badge">3</div>
+        <h3 class="fix-title">Add a CTA verb to your bio</h3>
+      </div>
+      <div class="fix-meta">
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Why it matters</div>
+          <div class="fix-meta-value">Your bio currently contains no call-to-action verb, which is costing points in the Sales Readiness sub-score (currently 46/100).</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">How to execute</div>
+          <div class="fix-meta-value">Add a direct phrase to your bio such as &quot;Book a free demo&quot; or &quot;DM us to automate your Instagram&quot; followed by your link.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Score impact</div>
+          <div class="fix-meta-value">Sales Readiness +20pts</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Effort</div>
+          <div class="fix-meta-value">Low</div>
+        </div>
+      </div>
+    </div>
+    <div class="fix-card">
+      <div class="fix-card-header">
+        <div class="fix-number-badge">4</div>
+        <h3 class="fix-title">Tag Burlington as your post location on every new post</h3>
+      </div>
+      <div class="fix-meta">
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Why it matters</div>
+          <div class="fix-meta-value">Only 3 of your 50 posts carry a location tag. Location tagging is a discoverable signal for local audiences and accounts for 20pts in Local Visibility.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">How to execute</div>
+          <div class="fix-meta-value">When publishing, tap &quot;Add Location&quot; and select Burlington, Ontario before posting. Apply this to every post going forward.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Score impact</div>
+          <div class="fix-meta-value">Local Visibility +20pts (location tag %)</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Effort</div>
+          <div class="fix-meta-value">Low</div>
+        </div>
+      </div>
+    </div>
+    <div class="fix-card">
+      <div class="fix-card-header">
+        <div class="fix-number-badge">5</div>
+        <h3 class="fix-title">Add branded-local hashtags to every caption</h3>
+      </div>
+      <div class="fix-meta">
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Why it matters</div>
+          <div class="fix-meta-value">Zero posts currently use local hashtags, which is a 25pt gap in Local Visibility.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">How to execute</div>
+          <div class="fix-meta-value">Include tags such as `#BurlingtonON`, `#BurlingtonBusiness`, and `#HamOnt` in each caption or as a first comment. Build a saved set of 5-8 tags you can paste in under 30 seconds.</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Score impact</div>
+          <div class="fix-meta-value">Local Visibility +25pts</div>
+        </div>
+        <div class="fix-meta-item">
+          <div class="fix-meta-label">Effort</div>
+          <div class="fix-meta-value">Low</div>
+        </div>
+      </div>
+    </div>
+</section>
+    
+<section class="page">
+  <div class="section-label">Next 7 Days</div>
+  <h2>Your first week</h2>
+  
+    <div class="day-block">
+      <div class="day-label">Day 1</div>
+      <div class="day-title">Fix What People See First</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Add &quot;Burlington&quot; or &quot;Burlington, ON&quot; to your bio. Open the app, tap Edit Profile, add the city. (5 min)</span>
+      </li>
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Add `#burlington` and `#burlingtonontario` to a saved hashtag set so they are ready to paste into every post going forward. (5 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 2</div>
+      <div class="day-title">Understand the Gap</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Your posting frequency is 0.00 posts per week over the last 30 days. Reference accounts in comparable markets average 1.71 posts per week. Block two recurring 30-minute slots on your calendar this week and next — one for drafting, one for posting. (15 min)</span>
+      </li>
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Write down three questions a Burlington small business owner would ask before buying an AI DM workflow. You have no comment data yet, so this becomes your content brief for Days 3 and 4. (15 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 3</div>
+      <div class="day-title">Draft Your First Post</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Write a caption answering one of the three questions from Day 2. Your past captions average 669 characters — the category average is 518. Aim for 400–500 characters this time. Cut anything that does not answer the question directly. (20 min)</span>
+      </li>
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Select or photograph one image or graphic that illustrates the answer. No design tool required — a screenshot of a workflow, a before/after DM example, or a clean text graphic in Canva&#039;s free tier all qualify. (15 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 4</div>
+      <div class="day-title">Assemble and Schedule</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Finalize the caption. Open with the question itself as the first line — it stops the scroll. Close with one clear call to action, such as &quot;Send us a DM if this sounds familiar.&quot; (15 min)</span>
+      </li>
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Attach your hashtag set: your current tags plus `#burlington`, `#burlingtonontario`, and `#aimarketing`. Remove `#mobilemonkey` — it references a third-party brand and adds nothing to your positioning. (10 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 5</div>
+      <div class="day-title">Publish</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Post the content. Do it manually rather than scheduling so you can respond to any early comments in the first hour. Early engagement signals matter to reach. (10 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 6</div>
+      <div class="day-title">Engage</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Spend 20 minutes searching `#burlington` and `#burlingtonbusiness`. Leave three to five substantive comments on posts from local businesses. This builds local visibility without paid reach. (20 min)</span>
+      </li></ul>
+    </div>
+    <div class="day-block">
+      <div class="day-label">Day 7</div>
+      <div class="day-title">Review and Repeat</div>
+      <ul class="day-items">
+      <li class="day-item">
+        <div class="day-item-circle"></div>
+        <span>Check the post&#039;s reach and engagement figures. Note which number moved. Draft your next question-based caption using the same format. The goal this week is one post live and one in draft. (20 min)</span>
+      </li></ul>
+    </div>
+</section>
+    
+<section class="page">
+  <div class="section-label">Content Pattern Analysis</div>
+  <h2>How this category performs</h2>
+  <div class="narrative-prose"><p>Across 300 posts from comparable accounts in this category, the dominant content approach is description-led captions written in a mixed tone that blends educational, conversational, and promotional elements. That combination appears in the overwhelming majority of posts — 195 of 300 use description as the primary hook, and 284 of 300 use mixed tone. BotLogix is already aligned with both of those norms, which means the foundation is sound.</p>
+<p>Where category peers diverge from BotLogix is in caption length and hashtag volume. The category averages 518 characters per caption and 5.4 hashtags per post. BotLogix averages 669 characters and 17.0 hashtags — roughly 29% longer captions and more than three times the hashtag count.</p>
+<p>Accounts like <code>@rootsmarketingagency</code> (65,734 followers) and <code>@gutnewyork</code> (5,677 followers) both lead with claim-based hooks rather than description, which suggests a tighter, more assertive opening may be worth testing. Their top-performing content does not rely on volume to do the work.</p>
+<p>The single most actionable shift: trim your captions toward the 518-character category average. At 669 characters, your captions are asking more of a reader than peers in this space typically do. You can start by taking your next scheduled post and cutting it to 520 characters or under before publishing — remove qualifications, restate the core point once, and stop. Do this for four consecutive posts and watch whether saves or shares move relative to your current baseline.</p>
+</div>
+  <blockquote class="pull-quote">The highest-leverage gap is content frequency — closing it is worth more points than any other single change.</blockquote>
+</section>
+    
+<section class="page">
+  <div class="section-label">Audience Voice</div>
+  <h2>What your audience says</h2>
+  <div class="narrative-prose"><p>Comment data was not available for this audit. To build this signal manually, read through any comments on your top 3 posts and note recurring questions or phrases. Then search your DMs for the questions you answer most often — those patterns are your content brief.</p>
+<p>For a business selling AI solutions to marketing teams, two questions almost always surface:</p>
+<ul>
+<li><p>&quot;How do we know if this actually works?&quot; Consider a post addressing measurable outcomes your clients track.</p>
+</li>
+<li><p>&quot;How long does setup take?&quot; A post walking through your onboarding timeline can answer this before prospects even ask.</p>
+</li>
+</ul>
+</div>
+  
+  
+</section>
+    
+<section class="page">
+  <div class="section-label">Local Visibility Plan</div>
+  <h2>Building local signal</h2>
+  <div class="narrative-prose"><p>Local visibility is your single lowest-scoring area — 0 out of 100 — and also your fastest path to improvement because every signal here is unfired and fixable today without any cost.</p>
+<p><strong>Start with your bio.</strong> The words &quot;Burlington&quot; and &quot;Ontario&quot; appear nowhere in your profile. Adding &quot;Burlington, ON&quot; to your bio line earns an immediate signal that Instagram uses to surface local accounts in search.</p>
+<p><strong>Add these hashtags to every post:</strong> <code>#burlington</code>, <code>#burlingtonontario</code>, <code>#burlingtonbusiness</code>, <code>#hamiltonbusiness</code>. You are currently averaging 17 hashtags per post, which is healthy, so you have room to swap out lower-relevance tags like <code>#salesrep</code> or <code>#salescoach</code> to accommodate them.</p>
+<p><strong>Tag your location.</strong> Only 3 of your last 50 posts carry a location tag. Opening the location field and selecting Burlington, Ontario on every post takes ten seconds and fires a signal you are currently leaving dormant.</p>
+<p><strong>Work local references into captions.</strong> Zero of your last 50 captions mention Burlington or Ontario. A single phrase — &quot;working with businesses here in Burlington&quot; — counts toward this signal and makes your content more relevant to the audience most likely to become clients.</p>
+</div>
+  <p class="section-label" style="margin-top:24px">Recommended hashtags</p>
+       <div class="hashtag-grid">
+         <span class="hashtag-chip">#burlington</span><span class="hashtag-chip">#burlingtonontario</span><span class="hashtag-chip">#burlingtonbusiness</span><span class="hashtag-chip">#hamiltonbusiness</span><span class="hashtag-chip">#salesrep</span><span class="hashtag-chip">#salescoach</span>
+       </div>
+</section>
+    
+<section class="page">
+  <div class="section-label">Content Execution Kit</div>
+  <h2>Reel scripts</h2>
+  <div class="content-grid">
+      <div class="reel-card">
+        <div class="content-card-header">Reel 1</div>
+        <div class="content-card-topic">Why More Followers Isn&#039;t Fixing Your DM Problem</div>
+        <div class="reel-contrast">More followers means more sales → Your reply speed matters more than your reach</div>
+        <div class="reel-pattern">Pattern: contradiction · Score: 8/10</div>
+        <div class="reel-hook">Growing your Instagram following will not fix the real reason you are losing sales in the DMs.</div>
+        <div class="reel-body"><ul><li>Most small business owners spend money and time on content to grow their audience, then manually reply to DMs hours later — by which point the buyer has moved on</li><li>Response time, not follower count, is the variable most correlated with DM conversions; an automated workflow can reply in under 60 seconds, every time</li><li>BotLogix builds these workflows so your Instagram account is working the same at 2am as it is at noon</li></ul></div>
+        <div class="reel-caption-label">Caption</div><div class="reel-caption">You do not have a reach problem. You have a response problem. Small business owners lose real sales every week because DMs go unanswered for hours. An AI workflow changes that — your account responds instantly, qualifies the lead, and keeps the conversation moving while you focus on delivery.</div>
+        <div class="reel-cta-label">CTA</div><div class="reel-cta">Comment &quot;DEMO&quot; and we will show you exactly how this works.</div>
+      </div>
+      <div class="reel-card">
+        <div class="content-card-header">Reel 2</div>
+        <div class="content-card-topic">What Actually Happens in the First 30 Seconds After Someone DMs You</div>
+        <div class="reel-contrast">A DM is just an inquiry → The first 30 seconds after a DM determines whether you get the sale</div>
+        <div class="reel-pattern">Pattern: timeframe_tension · Score: 8.5/10</div>
+        <div class="reel-hook">In the first 30 seconds after someone DMs your business, one of two things happens — and most owners have no idea which.</div>
+        <div class="reel-body"><ul><li>If there is no instant reply, Instagram&#039;s algorithm reads that as low engagement; the prospect reads it as low priority</li><li>A configured AI agent replies immediately, asks the qualifying question, and keeps the lead warm until you are ready to close</li><li>This is not a chatbot giving generic answers — this is a workflow built around your specific offer and audience</li></ul></div>
+        <div class="reel-caption-label">Caption</div><div class="reel-caption">The 30 seconds after a DM is the highest-leverage moment in your Instagram sales process. Most small business owners are not there for it. An AI agent built on your offer can be. That is what Instagram automation looks like when it is done for your business, not a template.</div>
+        <div class="reel-cta-label">CTA</div><div class="reel-cta">Send us a DM with &quot;HOW&quot; and we will walk you through the workflow.</div>
+      </div>
+      <div class="reel-card">
+        <div class="content-card-header">Reel 3</div>
+        <div class="content-card-topic">The Honest Reason We Stopped Recommending Manual DM Outreach</div>
+        <div class="reel-contrast">Consistent manual outreach builds relationships → Manual DM outreach does not scale and quietly burns the owner out</div>
+        <div class="reel-pattern">Pattern: vulnerable_confession · Score: 7.5/10</div>
+        <div class="reel-hook">We used to tell clients to manually DM every new follower — we stopped recommending that, and here is why.</div>
+        <div class="reel-body"><ul><li>Manual outreach works until it does not: one vacation, one busy week, one sick day and the pipeline dries up completely</li><li>The businesses we work with that close the most from Instagram are not outworking everyone — they have removed themselves as the bottleneck</li><li>An AI agent handles the outreach sequence; the owner steps in only when there is a real buying signal</li></ul></div>
+        <div class="reel-caption-label">Caption</div><div class="reel-caption">Consistency is what converts on Instagram, and manual processes are not consistent — people are. If your DM strategy only works when you are personally on the app, it is not a strategy. It is a second job. AI workflows built for your offer fix that without replacing the human conversation that closes the deal.</div>
+        <div class="reel-cta-label">CTA</div><div class="reel-cta">Follow for one practical post on Instagram automation every week.</div>
+      </div></div>
+
+  <h2 style="margin-top:48px">Carousel outlines</h2>
+  <div class="content-grid">
+      <div class="carousel-card">
+        <div class="content-card-header">Carousel 1</div>
+        <div class="content-card-topic">The 5-Part DM Workflow That Qualifies Leads Automatically</div>
+        <div class="carousel-slides">
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">1</span>
+            <span>The 5-Part DM Workflow Small Businesses Use to Qualify Leads Without Lifting a Finger</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">2</span>
+            <span>Step 1 — The trigger (what activates the workflow)</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">3</span>
+            <span>Step 2 — The instant reply and qualifying question</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">4</span>
+            <span>Step 3 — How the AI agent handles objections and next steps</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">5</span>
+            <span>Step 4 &amp; 5 — Handoff to the owner and follow-up sequence</span>
+          </div></div>
+        <div class="carousel-caption">Most Instagram leads go cold because no one follows up fast enough. This five-step workflow runs automatically so every inquiry gets a response, every time. Built for e-commerce, service businesses, and coaches selling on Instagram.</div>
+        <div class="carousel-cta">Save this and DM us &quot;WORKFLOW&quot; to see it built for your offer.</div>
+      </div>
+      <div class="carousel-card">
+        <div class="content-card-header">Carousel 2</div>
+        <div class="content-card-topic">4 Signs Your Instagram DMs Are Costing You Sales</div>
+        <div class="carousel-slides">
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">1</span>
+            <span>4 Signs Your Instagram DMs Are Costing You Sales Right Now</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">2</span>
+            <span>Sign 1 — You reply to inquiries more than two hours after they arrive</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">3</span>
+            <span>Sign 2 — You have no follow-up sequence after the first reply</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">4</span>
+            <span>Sign 3 — Your responses are inconsistent depending on how busy you are</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">5</span>
+            <span>Sign 4 — You cannot tell which DMs turned into paying clients</span>
+          </div></div>
+        <div class="carousel-caption">None of these signs require more content or more followers to fix. They are workflow problems, and workflow problems have workflow solutions. If two or more of these are true for your account, automation is worth a serious look.</div>
+        <div class="carousel-cta">Comment &quot;SIGNS&quot; and we will send you the fix for whichever one is hurting you most.</div>
+      </div>
+      <div class="carousel-card">
+        <div class="content-card-header">Carousel 3</div>
+        <div class="content-card-topic">What an AI Agent Actually Does (And What It Does Not)</div>
+        <div class="carousel-slides">
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">1</span>
+            <span>What an AI Agent Actually Does on Your Instagram — And What It Does Not</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">2</span>
+            <span>It does: respond instantly to new DMs using language built around your offer</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">3</span>
+            <span>It does: qualify leads by asking the right questions before you are involved</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">4</span>
+            <span>It does not: replace the closing conversation — that stays human</span>
+          </div>
+          <div class="carousel-slide">
+            <span class="carousel-slide-num">5</span>
+            <span>The result: you spend your time only on leads that are ready to buy</span>
+          </div></div>
+        <div class="carousel-caption">A lot of small business owners assume automation means cold, robotic replies. The workflows we build are trained on your offer, your tone, and your audience. The goal is not to remove you from the sale — it is to make sure only real buyers reach you.</div>
+        <div class="carousel-cta">Follow to see exactly how these workflows are built, one post at a time.</div>
+      </div></div>
+</section>
+    
+<section class="page">
+  <div class="section-label">Do This Next</div>
+  <h2>10 actions, time-boxed</h2>
+  <div class="action-checklist">
+    
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">1</span>
+      <span class="action-text">Add &quot;Burlington, ON&quot; or &quot;Burlington, Ontario&quot; to your bio.</span>
+      <span class="action-tag tag-today">TODAY</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">2</span>
+      <span class="action-text">Add `#BurlingtonON` and `#BurlingtonBusiness` to your saved hashtag set.</span>
+      <span class="action-tag tag-today">TODAY</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">3</span>
+      <span class="action-text">Tag your business location on your 3 most recent posts using Instagram&#039;s location field.</span>
+      <span class="action-tag tag-today">TODAY</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">4</span>
+      <span class="action-text">Publish one post this week — anything counts, because your posting frequency is currently 0.00 per week against a reference average of 1.71 per week.</span>
+      <span class="action-tag tag-week">THIS WEEK</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">5</span>
+      <span class="action-text">Enable location tagging on every new post going forward. Only 3 of your last 50 posts carried a location tag.</span>
+      <span class="action-tag tag-week">THIS WEEK</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">6</span>
+      <span class="action-text">Draft a simple content calendar with one post per week for the next four weeks.</span>
+      <span class="action-tag tag-week">THIS WEEK</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">7</span>
+      <span class="action-text">Include a location-specific hashtag in every post caption from this point forward.</span>
+      <span class="action-tag tag-week">THIS WEEK</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">8</span>
+      <span class="action-text">Add a clear call to action in your bio that tells a Burlington visitor what to do next.</span>
+      <span class="action-tag tag-week">THIS WEEK</span>
+    </div>
+    <div class="action-item">
+      <div class="action-circle"></div>
+      <span class="action-number">9</span>
+      <span class="action-text">Review your top 3 performing posts and identify one format worth repeating.</span>
+      <span class="action-tag tag-month">THIS MONTH</span>
+    </div>
+    <div class="action-item action-item-last">
+      <div class="action-circle"></div>
+      <span class="action-number">10</span>
+      <span class="action-text">Re-run this audit in 30 days to measure movement against today&#039;s score of 44/100.</span>
+      <span class="action-tag tag-30days">IN 30 DAYS</span>
+    </div>
+  </div>
+</section>
+    
+<section class="footer-page page">
+  <div class="section-label">Baseline Snapshot</div>
+  <h2>Metrics at audit date</h2>
+
+  <div class="kpi-grid">
+    <div class="kpi-cell">
+      <div class="kpi-value">718</div>
+      <div class="kpi-label">Followers</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-value">93</div>
+      <div class="kpi-label">Total Posts</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-value">—</div>
+      <div class="kpi-label">Avg Engagement Rate</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-value">44</div>
+      <div class="kpi-label">Overall Score</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-value">May 24, 2026</div>
+      <div class="kpi-label">Audit Date</div>
+    </div>
+    <div class="kpi-cell">
+      <div class="kpi-value">Audit #14</div>
+      <div class="kpi-label">Reference</div>
+    </div>
+  </div>
+
+  <div class="reaudit-banner">
+    Re-audit recommended: June 23, 2026 — run the same audit to measure what moved.
+  </div>
+
+  <div class="footer-disclaimer">
+    Prepared by BotLogix Growth Intelligence for BotLogix - AI Solutions.<br>
+    Data sourced from public Instagram profile, posts, and comparable-account benchmarks collected at the time of audit. Engagement rates are calculated from publicly visible likes and comments. Competitor data reflects accounts in the same category and geography active on Instagram. This report is for internal strategic planning and is not for redistribution.
+  </div>
+</section>
+  </div>
+</body>
+</html>
