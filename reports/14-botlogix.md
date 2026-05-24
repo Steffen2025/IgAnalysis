@@ -124,94 +124,92 @@ Local visibility is your single lowest-scoring area — 0 out of 100 — and als
 
 ## Content Execution Kit
 
+## Content Execution Kit — BotLogix AI Solutions
+
+---
+
 ## 3 Reel Scripts
 
-**Reel 1 — What an AI DM Workflow Actually Looks Like**
-
-Hook: Here is exactly what happens when a small business owner connects an AI agent to their Instagram DMs.
+**Reel 1 — Why More Followers Isn't Fixing Your DM Problem**
+Contrast: More followers means more sales → Your reply speed matters more than your reach
+Hook pattern: contradiction | Composite score: 8/10
+Hook: Growing your Instagram following will not fix the real reason you are losing sales in the DMs.
 
 Body:
-- A new follower comments on your reel. The AI detects the trigger word, sends a personalized DM within seconds, and asks one qualifying question.
-- Based on their reply, the workflow routes them — booking link, product page, or a follow-up question — without you touching your phone.
-- You see the conversation in your dashboard after the fact. The lead either converted or didn't, and you know why.
+- Most small business owners spend money and time on content to grow their audience, then manually reply to DMs hours later — by which point the buyer has moved on
+- Response time, not follower count, is the variable most correlated with DM conversions; an automated workflow can reply in under 60 seconds, every time
+- BotLogix builds these workflows so your Instagram account is working the same at 2am as it is at noon
 
-Caption: Most small business owners are responding to DMs manually, hours late, and losing the sale before they even know it happened. This is what an automated DM workflow actually does — not a bot blasting strangers, but a system that responds to people who already raised their hand. This is what BotLogix builds.
+Caption: You do not have a reach problem. You have a response problem. Small business owners lose real sales every week because DMs go unanswered for hours. An AI workflow changes that — your account responds instantly, qualifies the lead, and keeps the conversation moving while you focus on delivery.
 
-CTA: Comment "DEMO" and we will send you a walkthrough.
+CTA: Comment "DEMO" and we will show you exactly how this works.
 
 ---
 
-**Reel 2 — The Response Time Problem**
-
-Hook: This is what your Instagram sales funnel looks like when a lead DMs you at 11pm and you reply at 9am.
+**Reel 2 — What Actually Happens in the First 30 Seconds After Someone DMs You**
+Contrast: A DM is just an inquiry → The first 30 seconds after a DM determines whether you get the sale
+Hook pattern: timeframe_tension | Composite score: 8.5/10
+Hook: In the first 30 seconds after someone DMs your business, one of two things happens — and most owners have no idea which.
 
 Body:
-- Research across e-commerce and service businesses consistently shows response time is one of the strongest predictors of conversion. A hours-long gap is not a minor inconvenience — it is a closed door.
-- An AI agent does not sleep, take weekends, or get buried in notifications. It responds to the right people with the right message at the right moment.
-- The business owner still closes the deal. The agent just keeps the lead warm until they do.
+- If there is no instant reply, Instagram's algorithm reads that as low engagement; the prospect reads it as low priority
+- A configured AI agent replies immediately, asks the qualifying question, and keeps the lead warm until you are ready to close
+- This is not a chatbot giving generic answers — this is a workflow built around your specific offer and audience
 
-Caption: If you are running an e-commerce store, a coaching practice, or a service business on Instagram, your close rate is partly a timing problem. AI agents do not replace the relationship — they protect it from dying in an ignored inbox. BotLogix sets this up for businesses in Burlington and beyond.
+Caption: The 30 seconds after a DM is the highest-leverage moment in your Instagram sales process. Most small business owners are not there for it. An AI agent built on your offer can be. That is what Instagram automation looks like when it is done for your business, not a template.
 
-CTA: Link in bio to book a free workflow audit.
+CTA: Send us a DM with "HOW" and we will walk you through the workflow.
 
 ---
 
-**Reel 3 — Three Things AI Agents Can Handle on Instagram Right Now**
-
-Hook: These are three specific tasks an AI agent can take off your plate on Instagram today.
+**Reel 3 — The Honest Reason We Stopped Recommending Manual DM Outreach**
+Contrast: Consistent manual outreach builds relationships → Manual DM outreach does not scale and quietly burns the owner out
+Hook pattern: vulnerable_confession | Composite score: 7.5/10
+Hook: We used to tell clients to manually DM every new follower — we stopped recommending that, and here is why.
 
 Body:
-- Answering the same five questions every new follower asks — pricing, availability, how it works — automatically, accurately, every time.
-- Qualifying leads before they reach you, so your calendar fills with people who are actually ready to buy.
-- Following up with anyone who went quiet after showing interest, without you tracking the conversation manually.
+- Manual outreach works until it does not: one vacation, one busy week, one sick day and the pipeline dries up completely
+- The businesses we work with that close the most from Instagram are not outworking everyone — they have removed themselves as the bottleneck
+- An AI agent handles the outreach sequence; the owner steps in only when there is a real buying signal
 
-Caption: Small business owners spend real hours every week on Instagram tasks that do not require a human — they just require a response. AI agents handle the repetitive work so you can focus on the conversations that actually need you. BotLogix builds these workflows for businesses ready to stop doing it manually.
+Caption: Consistency is what converts on Instagram, and manual processes are not consistent — people are. If your DM strategy only works when you are personally on the app, it is not a strategy. It is a second job. AI workflows built for your offer fix that without replacing the human conversation that closes the deal.
 
-CTA: Comment "AUTOMATE" and we will show you what this looks like for your business.
+CTA: Follow for one practical post on Instagram automation every week.
 
 ---
 
 ## 3 Carousel Outlines
 
-**Carousel 1 — Why Your Instagram DMs Are Leaking Revenue**
-
-Slide 1: Your DMs Are a Leaky Sales Funnel
-Slide 2: The problem — leads message you and wait
-Slide 3: What happens during that wait
-Slide 4: What an AI agent does differently
-Slide 5: What this looks like in practice for your business
-
-Caption: If Instagram is part of your sales process, your DM response time is either helping you or costing you. Most small business owners do not know which. This carousel breaks down the gap — and what closes it.
-
-CTA: Link in bio to book a free workflow audit.
+**Carousel 1 — The 5-Part DM Workflow That Qualifies Leads Automatically**
+Slide 1: The 5-Part DM Workflow Small Businesses Use to Qualify Leads Without Lifting a Finger
+Slide 2: Step 1 — The trigger (what activates the workflow)
+Slide 3: Step 2 — The instant reply and qualifying question
+Slide 4: Step 3 — How the AI agent handles objections and next steps
+Slide 5: Step 4 & 5 — Handoff to the owner and follow-up sequence
+Caption: Most Instagram leads go cold because no one follows up fast enough. This five-step workflow runs automatically so every inquiry gets a response, every time. Built for e-commerce, service businesses, and coaches selling on Instagram.
+CTA: Save this and DM us "WORKFLOW" to see it built for your offer.
 
 ---
 
-**Carousel 2 — What "Instagram Automation" Actually Means**
-
-Slide 1: Instagram Automation Is Not What You Think
-Slide 2: What it is not — spam, fake engagement, bots
-Slide 3: What it is — trigger-based, personalized, permission-aware
-Slide 4: The three workflows small businesses use most
-Slide 5: How to know if your business is ready for it
-
-Caption: The word "automation" makes some business owners nervous. That is fair — a lot of what gets sold under that label is genuinely bad. This is a plain-English breakdown of what legitimate Instagram automation does and does not do.
-
-CTA: Comment "EXPLAIN" and we will send you the full breakdown.
+**Carousel 2 — 4 Signs Your Instagram DMs Are Costing You Sales**
+Slide 1: 4 Signs Your Instagram DMs Are Costing You Sales Right Now
+Slide 2: Sign 1 — You reply to inquiries more than two hours after they arrive
+Slide 3: Sign 2 — You have no follow-up sequence after the first reply
+Slide 4: Sign 3 — Your responses are inconsistent depending on how busy you are
+Slide 5: Sign 4 — You cannot tell which DMs turned into paying clients
+Caption: None of these signs require more content or more followers to fix. They are workflow problems, and workflow problems have workflow solutions. If two or more of these are true for your account, automation is worth a serious look.
+CTA: Comment "SIGNS" and we will send you the fix for whichever one is hurting you most.
 
 ---
 
-**Carousel 3 — Before and After: Manual vs. Automated DM Workflow**
-
-Slide 1: This Is What Managing Instagram DMs Manually Costs You
-Slide 2: The manual version — what your week looks like
-Slide 3: The automated version — what changes
-Slide 4: What stays human (this part matters)
-Slide 5: The one question to ask before automating anything
-
-Caption: Automation works best when you are clear about what should stay human and what does not need to be. This carousel is a direct comparison — no sales pitch, just the practical difference between the two approaches for a small business owner running Instagram as a sales channel.
-
-CTA: Book a free audit at the link in bio.
+**Carousel 3 — What an AI Agent Actually Does (And What It Does Not)**
+Slide 1: What an AI Agent Actually Does on Your Instagram — And What It Does Not
+Slide 2: It does: respond instantly to new DMs using language built around your offer
+Slide 3: It does: qualify leads by asking the right questions before you are involved
+Slide 4: It does not: replace the closing conversation — that stays human
+Slide 5: The result: you spend your time only on leads that are ready to buy
+Caption: A lot of small business owners assume automation means cold, robotic replies. The workflows we build are trained on your offer, your tone, and your audience. The goal is not to remove you from the sale — it is to make sure only real buyers reach you.
+CTA: Follow to see exactly how these workflows are built, one post at a time.
 
 ---
 
