@@ -111,6 +111,41 @@ export function generateComplementaryTerms(input: CompetitorDiscoveryInput, extr
   return Array.from(terms).slice(0, 12);
 }
 
+/**
+ * Category hashtags for engagement-based discovery.
+ *
+ * The owners of TOP posts on a category hashtag are — by construction —
+ * accounts succeeding at reach/engagement, which is exactly the population the
+ * SEO-ranked Google net misses. Builds the bare category tag, common
+ * intent-suffixed variants, a city-scoped local tag, and single core words.
+ */
+const HASHTAG_SUFFIX_BY_KIND: Record<string, string[]> = {
+  service: ["repair", "installation", "contractor", "services", "tips"],
+  professional: ["advisor", "tips", "broker", "consultant"],
+  app: ["app", "tech", "tips"],
+  retail: ["shop", "store", "local"],
+  creator: ["creator", "tips"],
+  generic: ["tips", "local", "services"],
+};
+
+export function generateHashtags(input: CompetitorDiscoveryInput): string[] {
+  const tags = new Set<string>();
+  const add = (t: string) => {
+    const v = t.toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (v.length >= 4 && v.length <= 30) tags.add(v);
+  };
+  const core = coreWords(input);
+  const phrase = core.join("");
+  if (phrase) {
+    add(phrase);
+    const suffixes = HASHTAG_SUFFIX_BY_KIND[input.categoryKind ?? "generic"] ?? HASHTAG_SUFFIX_BY_KIND.generic;
+    for (const s of suffixes) add(`${phrase}${s}`);
+    if (input.city) { add(`${input.city}${phrase}`.replace(/\s/g, "")); }
+  }
+  for (const w of core) add(w);
+  return Array.from(tags).slice(0, 10);
+}
+
 /** Regional ring: same category across the client's region / nearby (middle ring). */
 export function generateRegionalSearchTerms(input: CompetitorDiscoveryInput): string[] {
   const terms = new Set<string>();

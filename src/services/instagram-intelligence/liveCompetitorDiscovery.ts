@@ -28,11 +28,11 @@ import {
   normalizePost,
   type NormalizedProfile,
 } from "../apify/index.js";
-import { getCached, setCached, makeCacheKey, TTL_GOOGLE, TTL_POSTS, TTL_PROFILE } from "../cache/cacheService.js";
+import { getCached, setCached, makeCacheKey, TTL_GOOGLE, TTL_HASHTAG, TTL_POSTS, TTL_PROFILE } from "../cache/cacheService.js";
 import { canSpendApifyRun } from "../audit/apifyBudget.js";
 import { normalizeCategory } from "../audit/categoryNormalizer.js";
 import { getClientConfig } from "./clientConfig.js";
-import { generateReferenceSearchTerms, generateRegionalSearchTerms, generateSearchTerms } from "./competitorDiscovery.js";
+import { generateHashtags, generateReferenceSearchTerms, generateRegionalSearchTerms, generateSearchTerms } from "./competitorDiscovery.js";
 import { referenceFollowerBand, inReferenceBand, referenceMarkets } from "./referenceConfig.js";
 
 export interface LiveDiscoveryOptions {
@@ -43,9 +43,11 @@ export interface LiveDiscoveryOptions {
 
 export interface LiveDiscoveryResult {
   searchTerms: string[];
+  hashtags: string[];
   candidateHandles: string[];
+  candidatesBySource: { hashtag: number; google: number };
   profilesScraped: number;
-  persisted: Array<{ handle: string; followers: number | null; market: string }>;
+  persisted: Array<{ handle: string; followers: number | null; market: string; source: "hashtag" | "google" }>;
   rejected: Array<{ handle: string; reason: string }>;
   apifyRuns: number;
   status: "complete" | "partial" | "no_candidates" | "budget_exhausted";
@@ -78,8 +80,8 @@ export async function discoverAndPersistReferences(
   auditId: number,
   opts: LiveDiscoveryOptions = {},
 ): Promise<LiveDiscoveryResult> {
-  const maxCandidates = opts.maxCandidates ?? 15;
-  const maxPersisted = opts.maxPersisted ?? 5;
+  const maxCandidates = opts.maxCandidates ?? 40;
+  const maxPersisted = opts.maxPersisted ?? 8;
   const postsPerProfile = opts.postsPerProfile ?? 6;
 
   const audit = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
@@ -98,52 +100,98 @@ export async function discoverAndPersistReferences(
   // Three rings of discovery: local (city) → regional (state/nearby) → national (metros).
   const ringInput = {
     auditId, handle: clientHandle, businessType: config.businessType ?? norm.label,
-    normalizedCategory: norm.label, city: audit.city ?? undefined, region: audit.service_area ?? undefined,
+    normalizedCategory: norm.label, categoryKind: norm.kind, city: audit.city ?? undefined, region: audit.service_area ?? undefined,
   };
   const localTerms = generateSearchTerms(ringInput);
   const regionalTerms = generateRegionalSearchTerms(ringInput);
   const nationalTerms = generateReferenceSearchTerms(ringInput);
   const searchTerms = Array.from(new Set([...localTerms, ...regionalTerms, ...nationalTerms]));
+  const hashtags = generateHashtags(ringInput);
 
   const result: LiveDiscoveryResult = {
-    searchTerms, candidateHandles: [], profilesScraped: 0, persisted: [], rejected: [], apifyRuns: 0, status: "complete",
+    searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, google: 0 },
+    profilesScraped: 0, persisted: [], rejected: [], apifyRuns: 0, status: "complete",
   };
 
-  // ── 1) Google search → candidate handles (1 run, cached) ──
-  // Force site:instagram.com so Google returns IG profile/post URLs, not the
-  // company websites that dominate organic results for local/B2B categories.
-  const queries = searchTerms.slice(0, 12).map((t) => `${t} site:instagram.com`).join("\n");
-  const gKey = makeCacheKey("reference_search", `${norm.label}:siteig:${referenceMarkets().join(",")}`);
-  let googleItems = await getCached<unknown[]>(gKey);
-  if (!googleItems) {
-    if (!(await canSpendApifyRun(auditId, 1))) { result.status = "budget_exhausted"; return result; }
-    const { items } = await runActorAndGetData({
-      actorId: ACTORS.GOOGLE_SEARCH.id, actorLabel: `Reference discovery: ${norm.label}`, auditId,
-      input: { ...INPUT_TEMPLATES.GOOGLE_LOCAL_COMPETITORS, queries, maxPagesPerQuery: 1, resultsPerPage: 10 },
-    });
-    googleItems = items; result.apifyRuns++;
-    await setCached(gKey, items, TTL_GOOGLE);
-  }
-  // google-search-scraper returns one item per query, with results nested in
-  // `organicResults[]`. Dig into each result's url/displayedUrl/description.
+  // Source of each candidate handle, so persistence can record provenance and we
+  // can rank hashtag-sourced (engagement-proven) candidates ahead of SEO hits.
+  const handleSource = new Map<string, "hashtag" | "google">();
   const handles: string[] = [];
-  const pushFrom = (text: string) => {
-    for (const h of extractHandles(text)) {
-      if (h === clientHandle || invalid.has(h) || handles.includes(h)) continue;
-      handles.push(h);
-    }
+  const addCandidate = (h: string, source: "hashtag" | "google") => {
+    if (!h || h === clientHandle || invalid.has(h) || HANDLE_SKIP.has(h) || handleSource.has(h)) return;
+    handleSource.set(h, source);
+    handles.push(h);
   };
-  for (const it of googleItems) {
-    const page = it as { organicResults?: Array<{ url?: string; displayedUrl?: string; description?: string; title?: string }> };
-    for (const r of page.organicResults ?? []) {
-      pushFrom(`${r.url ?? ""} ${r.displayedUrl ?? ""} ${r.description ?? ""} ${r.title ?? ""}`);
+
+  // ── 0) Hashtag TOP posts → engagement-ranked candidate owners (PRIMARY) ──
+  // Owners of the most-engaged posts on category hashtags are successful by
+  // construction — the population SEO-ranked Google results systematically miss.
+  if (hashtags.length > 0) {
+    const hKey = makeCacheKey("ig_hashtag_top", `${norm.label}:${hashtags.join(",")}`);
+    let tagItems = await getCached<unknown[]>(hKey);
+    if (!tagItems) {
+      if (!(await canSpendApifyRun(auditId, 1))) { result.status = "budget_exhausted"; return result; }
+      const { items } = await runActorAndGetData({
+        actorId: ACTORS.INSTAGRAM.id, actorLabel: `Hashtag top posts ×${hashtags.length}`, auditId,
+        input: { ...INPUT_TEMPLATES.INSTAGRAM_HASHTAG_SEARCH, hashtags, resultsLimit: hashtags.length * 12 },
+      });
+      tagItems = items; result.apifyRuns++;
+      await setCached(hKey, items, TTL_HASHTAG);
+    }
+    // Rank owners by their best observed engagement (comments weighted 3×).
+    const ownerEng = new Map<string, number>();
+    for (const it of tagItems) {
+      const r = it as { ownerUsername?: string; likesCount?: number; commentsCount?: number };
+      const h = (r.ownerUsername ?? "").toLowerCase();
+      if (!h) continue;
+      const eng = (r.likesCount ?? 0) + (r.commentsCount ?? 0) * 3;
+      ownerEng.set(h, Math.max(ownerEng.get(h) ?? 0, eng));
+    }
+    for (const [h] of [...ownerEng.entries()].sort((a, b) => b[1] - a[1])) {
+      addCandidate(h, "hashtag");
       if (handles.length >= maxCandidates) break;
     }
-    // Fallback: also scan the flat normalized form (older actor outputs).
-    if (handles.length === 0) { const g = normalizeGoogleResult(it); pushFrom(`${g.url ?? ""} ${g.description ?? ""}`); }
-    if (handles.length >= maxCandidates) break;
+    result.candidatesBySource.hashtag = handles.length;
+  }
+
+  // ── 1) Google search → SUPPLEMENTARY candidate handles (1 run, cached) ──
+  // Force site:instagram.com so Google returns IG profile/post URLs, not the
+  // company websites that dominate organic results for local/B2B categories.
+  // Skipped once the hashtag pool already fills the candidate cap.
+  if (handles.length < maxCandidates) {
+    const queries = searchTerms.slice(0, 12).map((t) => `${t} site:instagram.com`).join("\n");
+    const gKey = makeCacheKey("reference_search", `${norm.label}:siteig:${referenceMarkets().join(",")}`);
+    let googleItems = await getCached<unknown[]>(gKey);
+    if (!googleItems) {
+      if (!(await canSpendApifyRun(auditId, 1))) { result.status = "budget_exhausted"; return result; }
+      const { items } = await runActorAndGetData({
+        actorId: ACTORS.GOOGLE_SEARCH.id, actorLabel: `Reference discovery: ${norm.label}`, auditId,
+        input: { ...INPUT_TEMPLATES.GOOGLE_LOCAL_COMPETITORS, queries, maxPagesPerQuery: 1, resultsPerPage: 10 },
+      });
+      googleItems = items; result.apifyRuns++;
+      await setCached(gKey, items, TTL_GOOGLE);
+    }
+    // google-search-scraper returns one item per query, with results nested in
+    // `organicResults[]`. Dig into each result's url/displayedUrl/description.
+    const pushFrom = (text: string) => {
+      for (const h of extractHandles(text)) {
+        addCandidate(h, "google");
+        if (handles.length >= maxCandidates) break;
+      }
+    };
+    for (const it of googleItems) {
+      const page = it as { organicResults?: Array<{ url?: string; displayedUrl?: string; description?: string; title?: string }> };
+      for (const r of page.organicResults ?? []) {
+        pushFrom(`${r.url ?? ""} ${r.displayedUrl ?? ""} ${r.description ?? ""} ${r.title ?? ""}`);
+        if (handles.length >= maxCandidates) break;
+      }
+      // Fallback: also scan the flat normalized form (older actor outputs).
+      if (handles.length === 0) { const g = normalizeGoogleResult(it); pushFrom(`${g.url ?? ""} ${g.description ?? ""}`); }
+      if (handles.length >= maxCandidates) break;
+    }
   }
   result.candidateHandles = handles;
+  result.candidatesBySource.google = handles.length - result.candidatesBySource.hashtag;
   if (handles.length === 0) { result.status = "no_candidates"; return result; }
 
   // ── 2) Batched profile scrape (1 run, cached) ──
@@ -171,7 +219,9 @@ export async function discoverAndPersistReferences(
     if (!profileRelevant(p, vocab)) { result.rejected.push({ handle: h, reason: "no category relevance in bio" }); continue; }
     survivors.push(p);
   }
-  survivors.sort((a, b) => (b.follower_count ?? 0) - (a.follower_count ?? 0));
+  // Rank hashtag-sourced (engagement-proven) survivors first, then by followers.
+  const srcRank = (p: NormalizedProfile) => (handleSource.get((p.username ?? "").toLowerCase()) === "hashtag" ? 1 : 0);
+  survivors.sort((a, b) => srcRank(b) - srcRank(a) || (b.follower_count ?? 0) - (a.follower_count ?? 0));
   const keep = survivors.slice(0, maxPersisted);
   if (keep.length === 0) { result.status = handles.length ? "partial" : "no_candidates"; return result; }
 
@@ -191,7 +241,7 @@ export async function discoverAndPersistReferences(
       competitor_id: comp.id, audit_id: auditId, follower_count: p.follower_count, following_count: p.following_count,
       post_count: p.post_count, is_business: p.is_business, bio: p.bio, category: p.category, raw_json: p.raw_json,
     });
-    result.persisted.push({ handle: h, followers: p.follower_count, market });
+    result.persisted.push({ handle: h, followers: p.follower_count, market, source: handleSource.get(h) ?? "google" });
   }
 
   // ── 5) Batched posts scrape for survivors (1 run, cached) ──
