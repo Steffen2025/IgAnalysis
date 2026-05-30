@@ -41,13 +41,15 @@ export interface LiveDiscoveryOptions {
   postsPerProfile?: number;
 }
 
+export type CandidateSource = "hashtag" | "google" | "related";
+
 export interface LiveDiscoveryResult {
   searchTerms: string[];
   hashtags: string[];
   candidateHandles: string[];
-  candidatesBySource: { hashtag: number; google: number };
+  candidatesBySource: { hashtag: number; google: number; related: number };
   profilesScraped: number;
-  persisted: Array<{ handle: string; followers: number | null; market: string; source: "hashtag" | "google" }>;
+  persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource }>;
   rejected: Array<{ handle: string; reason: string }>;
   apifyRuns: number;
   status: "complete" | "partial" | "no_candidates" | "budget_exhausted";
@@ -109,15 +111,15 @@ export async function discoverAndPersistReferences(
   const hashtags = generateHashtags(ringInput);
 
   const result: LiveDiscoveryResult = {
-    searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, google: 0 },
+    searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, google: 0, related: 0 },
     profilesScraped: 0, persisted: [], rejected: [], apifyRuns: 0, status: "complete",
   };
 
   // Source of each candidate handle, so persistence can record provenance and we
   // can rank hashtag-sourced (engagement-proven) candidates ahead of SEO hits.
-  const handleSource = new Map<string, "hashtag" | "google">();
+  const handleSource = new Map<string, CandidateSource>();
   const handles: string[] = [];
-  const addCandidate = (h: string, source: "hashtag" | "google") => {
+  const addCandidate = (h: string, source: CandidateSource) => {
     if (!h || h === clientHandle || invalid.has(h) || HANDLE_SKIP.has(h) || handleSource.has(h)) return;
     handleSource.set(h, source);
     handles.push(h);
@@ -217,6 +219,43 @@ export async function discoverAndPersistReferences(
   }
   result.profilesScraped = profiles.length;
 
+  // ── 2b) relatedProfiles expansion (Instagram "similar accounts") ──
+  // Anchor ONLY on already-on-topic scraped profiles, then pull Instagram's own
+  // related-account suggestions from their payload. These are algorithmically
+  // similar to confirmed-good accounts — high-precision expansion when present
+  // (the field is often empty, so this is opportunistic and adds ≤1 run).
+  const seen = new Set(handles);
+  const relatedHandles: string[] = [];
+  for (const p of profiles) {
+    if (!profileRelevant(p, vocab)) continue;
+    try {
+      const raw = JSON.parse(p.raw_json) as { relatedProfiles?: Array<{ username?: string }> };
+      for (const rp of raw.relatedProfiles ?? []) {
+        const h = (rp.username ?? "").toLowerCase();
+        if (!h || h === clientHandle || invalid.has(h) || HANDLE_SKIP.has(h) || seen.has(h)) continue;
+        seen.add(h);
+        relatedHandles.push(h);
+      }
+    } catch { /* malformed payload — skip */ }
+  }
+  const relatedToScrape = relatedHandles.slice(0, 20);
+  if (relatedToScrape.length > 0 && (await canSpendApifyRun(auditId, 1))) {
+    const rKey = makeCacheKey("ig_profiles_related", relatedToScrape.join(","));
+    let relatedProfiles = await getCached<NormalizedProfile[]>(rKey);
+    if (!relatedProfiles) {
+      const { items } = await runActorAndGetData({
+        actorId: ACTORS.INSTAGRAM.id, actorLabel: `Related profiles ×${relatedToScrape.length}`, auditId,
+        input: { ...INPUT_TEMPLATES.INSTAGRAM_PROFILE_LOOKUP, directUrls: relatedToScrape.map(profileUrl), resultsLimit: relatedToScrape.length },
+      });
+      relatedProfiles = items.map((it) => normalizeProfile(it)); result.apifyRuns++;
+      await setCached(rKey, relatedProfiles, TTL_PROFILE);
+    }
+    for (const h of relatedToScrape) { handleSource.set(h, "related"); handles.push(h); }
+    profiles = profiles.concat(relatedProfiles);
+    result.candidatesBySource.related = relatedToScrape.length;
+    result.profilesScraped = profiles.length;
+  }
+
   // ── 3) Band + relevance gate ──
   const survivors: NormalizedProfile[] = [];
   for (const p of profiles) {
@@ -228,8 +267,12 @@ export async function discoverAndPersistReferences(
     if (!profileRelevant(p, vocab)) { result.rejected.push({ handle: h, reason: "no category relevance in bio" }); continue; }
     survivors.push(p);
   }
-  // Rank hashtag-sourced (engagement-proven) survivors first, then by followers.
-  const srcRank = (p: NormalizedProfile) => (handleSource.get((p.username ?? "").toLowerCase()) === "hashtag" ? 1 : 0);
+  // Rank engagement-proven (hashtag) and similarity-proven (related) survivors
+  // ahead of raw SEO (google) hits, then by followers.
+  const srcRank = (p: NormalizedProfile) => {
+    const s = handleSource.get((p.username ?? "").toLowerCase());
+    return s === "hashtag" || s === "related" ? 1 : 0;
+  };
   survivors.sort((a, b) => srcRank(b) - srcRank(a) || (b.follower_count ?? 0) - (a.follower_count ?? 0));
   const keep = survivors.slice(0, maxPersisted);
   if (keep.length === 0) { result.status = handles.length ? "partial" : "no_candidates"; return result; }
