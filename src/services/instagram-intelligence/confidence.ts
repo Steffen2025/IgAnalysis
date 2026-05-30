@@ -86,17 +86,41 @@ export function computeSectionConfidence(gm: GoldMasterIntelligence, evidence: E
     gm.marketPatterns.postsStudied === 0 ? ["No category corpus posts available"] : [],
   ));
 
-  // Competitors — the honest one. Selected count drives confidence.
-  const compBlocked = false;
-  const compScore = gm.competitors.length > 0 ? 80 : gm.competitorDebug.candidatesFound > 0 ? 35 : 20;
-  out.push(mk(
-    "competitors",
-    compScore,
-    compBlocked,
-    [`${gm.competitors.length} selected, ${gm.competitorDebug.rejected.length} rejected`],
-    gm.competitors.length ? ["scored competitor candidates"] : [],
-    gm.competitors.length === 0 ? [`No relevant competitors (${gm.competitorDebug.emptyReason})`] : [],
-  ));
+  // Competitors — the honest one. Confidence reflects actual data QUALITY:
+  // how many were selected, whether we found aspirational reference models (not
+  // just local peers), and how much post-level data backs them. A thin niche
+  // with only local peers is reported honestly at a lower score than a rich
+  // category with in-band reference models and full post coverage.
+  const cards = gm.competitors;
+  const n = cards.length;
+  const refs = cards.filter((c) => c.type === "reference").length;
+  const locals = n - refs;
+  const withPosts = cards.filter((c) => c.latestPostAvailable).length;
+  const postCoverage = n ? withPosts / n : 0;
+
+  let compScore: number;
+  const compReasons: string[] = [];
+  const compGaps: string[] = [];
+  if (n === 0) {
+    compScore = gm.competitorDebug.candidatesFound > 0 ? 35 : 20;
+    compReasons.push(`0 selected (${gm.competitorDebug.candidatesFound} candidates, ${gm.competitorDebug.emptyReason})`);
+    compGaps.push(`No relevant competitors (${gm.competitorDebug.emptyReason})`);
+  } else {
+    // Count alone caps ~74; reference models push into "high"; posts confirm depth.
+    let s = 50 + Math.min(n, 6) * 4;       // 1→54 … 6→74
+    s += Math.min(refs, 3) * 6;             // aspirational models, up to +18
+    s += Math.round(postCoverage * 8);      // post-level evidence, up to +8
+    compScore = Math.min(92, s);
+    compReasons.push(`${n} selected (${refs} reference, ${locals} local) · ${withPosts}/${n} with post data`);
+    if (refs === 0) compGaps.push("No aspirational reference models in band — only local peers (thin niche)");
+    else if (refs < 2) compGaps.push(`Limited aspirational reference models (${refs}) — niche has few large accounts`);
+    if (postCoverage < 0.5) compGaps.push("Several selected competitors lack post-level data");
+  }
+  const compCoverage: string[] = [];
+  if (n) compCoverage.push("scored competitor candidates");
+  if (refs) compCoverage.push("in-band reference models");
+  if (withPosts) compCoverage.push("competitor post-level data");
+  out.push(mk("competitors", compScore, false, compReasons, compCoverage, compGaps));
 
   // Observed posts / content mechanics — currently data-limited.
   out.push(mk("observedPosts", gm.observedPosts.length ? 80 : 20, false, [], gm.observedPosts.length ? ["competitor posts"] : [], gm.observedPosts.length ? [] : ["No post-level competitor data"]));
