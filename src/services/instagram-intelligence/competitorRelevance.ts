@@ -220,10 +220,24 @@ export interface RelevanceOutput {
   debug: CompetitorDebug;
 }
 
+/** Live-discovery sources are already vetted for relevance + success. */
+function isTrusted(c: ReportCompetitor): boolean {
+  return c.source === "reference_search" || c.source === "hashtag_discovery";
+}
+
 /**
  * Two-track evaluation. `comps` is the full candidate pool; each candidate is
  * routed to local or reference based on its competitor_type, then scored with
  * that track's rules.
+ *
+ * Trusted rows (persisted by live discovery, which already applied an
+ * engagement-success + relevance + soft-band gate) are believed: their
+ * classification and success score flow straight through, with only the hard
+ * safety rejects (known-invalid / wrong-industry) still able to drop them. This
+ * keeps the report's competitor section in lockstep with what discovery found,
+ * instead of re-deriving it with a stricter keyword gate that silently dropped
+ * valid reference models. When NO trusted rows exist (legacy audits, offline
+ * fixtures), the generic gate runs unchanged over the full pool.
  */
 export function evaluateCompetitors(
   comps: ReportCompetitor[],
@@ -231,25 +245,46 @@ export function evaluateCompetitors(
   searchTermsUsed: string[],
   maxCards = 6,
 ): RelevanceOutput {
+  const trusted = comps.filter(isTrusted);
+  const trustClassification = trusted.length > 0;
+  // With trusted rows present, evaluate ONLY them — legacy/unvetted rows from
+  // older runs are excluded so off-category leftovers can't leak into the report.
+  const pool = trustClassification ? trusted : comps;
+
   const selected: CompetitorDecision[] = [];
   const rejected: CompetitorDecision[] = [];
-  const localCards: CompetitorCard[] = [];
-  const refCards: CompetitorCard[] = [];
+  const picked: Array<{ card: CompetitorCard; track: CompetitorTrack; conf: number }> = [];
 
-  for (const c of comps) {
+  for (const c of pool) {
     const track: CompetitorTrack = c.competitor_type === "reference_model" ? "reference" : "local";
     const decision = scoreCandidate(c, ctx, track);
-    if (decision.code.startsWith("selected")) {
-      selected.push(decision);
-      (track === "reference" ? refCards : localCards).push(toCard(c, decision));
+    let finalDecision = decision;
+
+    if (trustClassification) {
+      // Hard safety rejects still win; otherwise believe the discovery verdict
+      // and ALWAYS rank by the persisted success score so trusted rows share one
+      // scale (mixing recomputed + persisted confidence corrupts the ordering).
+      const hardReject = decision.code === "rejected_known_invalid" || decision.code === "rejected_category_mismatch";
+      if (!hardReject) {
+        const isSel = decision.code.startsWith("selected");
+        finalDecision = {
+          ...decision,
+          code: isSel ? decision.code : (track === "reference" ? "selected_reference_model" : "selected_category_match"),
+          confidenceScore: c.confidence_score ?? decision.confidenceScore,
+          reason: isSel ? decision.reason : `Vetted by live discovery (success ${c.confidence_score ?? decision.successScore})`,
+        };
+      }
+    }
+
+    if (finalDecision.code.startsWith("selected")) {
+      selected.push(finalDecision);
+      picked.push({ card: toCard(c, finalDecision), track, conf: finalDecision.confidenceScore });
     } else {
-      rejected.push(decision);
+      rejected.push(finalDecision);
     }
   }
 
   selected.sort((a, b) => b.confidenceScore - a.confidenceScore);
-  localCards.sort((a, b) => (b.followers ?? 0) - (a.followers ?? 0));
-  refCards.sort((a, b) => (b.followers ?? 0) - (a.followers ?? 0));
 
   let emptyReason: CompetitorDebug["emptyReason"] = "none";
   if (selected.length === 0) {
@@ -267,7 +302,15 @@ export function evaluateCompetitors(
     recommendedSearchTerms: ctx.config.categorySearchTerms ?? ctx.vocabulary.slice(0, 16),
   };
 
-  // Interleave: local peers first, then reference models, capped.
-  const cards = [...localCards, ...refCards].slice(0, maxCards);
+  // Rank by confidence (success), but guarantee reference models aren't buried:
+  // reserve up to half the slots for references when any were selected.
+  const refs = picked.filter((p) => p.track === "reference").sort((a, b) => b.conf - a.conf);
+  const locals = picked.filter((p) => p.track === "local").sort((a, b) => b.conf - a.conf);
+  const refQuota = Math.min(refs.length, Math.ceil(maxCards / 2));
+  const chosen = [...refs.slice(0, refQuota), ...locals]
+    .concat(refs.slice(refQuota))
+    .slice(0, maxCards)
+    .sort((a, b) => b.conf - a.conf);
+  const cards = chosen.map((p) => p.card);
   return { cards, debug };
 }

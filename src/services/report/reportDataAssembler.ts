@@ -38,6 +38,8 @@ export interface ReportCompetitor {
   username: string;
   full_name: string | null;
   competitor_type: string | null;
+  /** Discovery source — live-discovery sources are trusted (already vetted). */
+  source: string | null;
   geographic_market: string | null;
   confidence_score: number | null;
   deep_scraped: boolean;
@@ -275,7 +277,12 @@ export async function assembleReportData(auditId: number): Promise<ReportData> {
 
     const safeToReference = comp.competitor_type !== "local_intel";
 
-    if (comp.competitor_type === "reference_model" && !isAllowedReferenceMarketLabel(comp.geographic_market)) {
+    // The legacy market-label filter exists to drop stale reference rows from old
+    // audit runs. Live-discovery sources are already vetted and use the
+    // intelligence pipeline's own market labels (e.g. "New York, NY"), which the
+    // legacy filter doesn't recognize — so trust them and skip the filter.
+    const trustedSource = comp.source === "reference_search" || comp.source === "hashtag_discovery";
+    if (comp.competitor_type === "reference_model" && !trustedSource && !isAllowedReferenceMarketLabel(comp.geographic_market)) {
       continue;
     }
 
@@ -314,6 +321,7 @@ export async function assembleReportData(auditId: number): Promise<ReportData> {
       username: comp.username,
       full_name: fullName,
       competitor_type: comp.competitor_type,
+      source: comp.source,
       geographic_market: comp.geographic_market,
       confidence_score: comp.confidence_score,
       deep_scraped: comp.deep_scraped,
