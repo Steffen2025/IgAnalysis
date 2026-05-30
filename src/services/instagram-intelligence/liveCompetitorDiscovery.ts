@@ -41,13 +41,13 @@ export interface LiveDiscoveryOptions {
   postsPerProfile?: number;
 }
 
-export type CandidateSource = "hashtag" | "google" | "related";
+export type CandidateSource = "hashtag" | "search" | "google" | "related";
 
 export interface LiveDiscoveryResult {
   searchTerms: string[];
   hashtags: string[];
   candidateHandles: string[];
-  candidatesBySource: { hashtag: number; google: number; related: number };
+  candidatesBySource: { hashtag: number; search: number; google: number; related: number };
   profilesScraped: number;
   persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource; successScore: number; type: "reference_model" | "local_intel" }>;
   rejected: Array<{ handle: string; reason: string }>;
@@ -137,7 +137,7 @@ export async function discoverAndPersistReferences(
   const hashtags = generateHashtags(ringInput);
 
   const result: LiveDiscoveryResult = {
-    searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, google: 0, related: 0 },
+    searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, search: 0, google: 0, related: 0 },
     profilesScraped: 0, persisted: [], rejected: [], apifyRuns: 0, status: "complete",
   };
 
@@ -188,7 +188,32 @@ export async function discoverAndPersistReferences(
       addCandidate(h, "hashtag");
       if (handles.length >= hashtagCap) break;
     }
-    result.candidatesBySource.hashtag = handles.length;
+  }
+
+  // ── 0b) Instagram NATIVE user search (Phase 4) ──
+  // Instagram's own account search — relevance/popularity-ranked by the platform
+  // itself, with no Google SEO bias and no relatedProfiles-empty problem. An
+  // independent same-category lever on the existing scraper (no new actor).
+  if (handles.length < maxCandidates) {
+    const userQuery = (config.categorySearchTerms?.[0] ?? norm.label).trim();
+    const sKey = makeCacheKey("ig_user_search", `${norm.label}:${userQuery}`);
+    let searchItems = await getCached<unknown[]>(sKey);
+    if (!searchItems) {
+      if (await canSpendApifyRun(auditId, 1)) {
+        const { items } = await runActorAndGetData({
+          actorId: ACTORS.INSTAGRAM.id, actorLabel: `IG user search: ${userQuery}`, auditId,
+          input: { search: userQuery, searchType: "user", searchLimit: 30, resultsType: "details", resultsLimit: 30 },
+        });
+        searchItems = items; result.apifyRuns++;
+        await setCached(sKey, items, TTL_PROFILE);
+      } else { searchItems = []; }
+    }
+    const searchCap = handles.length + Math.ceil(maxCandidates * 0.4);
+    for (const it of searchItems) {
+      const r = it as { username?: string };
+      addCandidate((r.username ?? "").toLowerCase(), "search");
+      if (handles.length >= searchCap) break;
+    }
   }
 
   // ── 1) Google search → SUPPLEMENTARY candidate handles (1 run, cached) ──
@@ -228,7 +253,6 @@ export async function discoverAndPersistReferences(
     }
   }
   result.candidateHandles = handles;
-  result.candidatesBySource.google = handles.length - result.candidatesBySource.hashtag;
   if (handles.length === 0) { result.status = "no_candidates"; return result; }
 
   // ── 2) Batched profile scrape (1 run, cached) ──
@@ -278,9 +302,14 @@ export async function discoverAndPersistReferences(
     }
     for (const h of relatedToScrape) { handleSource.set(h, "related"); handles.push(h); }
     profiles = profiles.concat(relatedProfiles);
-    result.candidatesBySource.related = relatedToScrape.length;
     result.profilesScraped = profiles.length;
   }
+
+  // Final per-source candidate tally (single source of truth across all 4 lanes).
+  const countSrc = (s: CandidateSource) => [...handleSource.values()].filter((v) => v === s).length;
+  result.candidatesBySource = {
+    hashtag: countSrc("hashtag"), search: countSrc("search"), google: countSrc("google"), related: countSrc("related"),
+  };
 
   // ── 3) Soft band + relevance gate, ranked by engagement success ──
   // Phase 3: the follower band is a SANITY bound, not a hard floor. Relevance is

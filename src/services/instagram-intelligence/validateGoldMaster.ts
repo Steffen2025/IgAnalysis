@@ -132,9 +132,11 @@ export function validateGoldMaster(
       warn("selected_has_reason_code", `Selected @${card.handle} has no matching decision/reason code in debug.`);
     }
   }
-  // Weak-relevance selected competitors → warning (confidence stays honest).
+  // Low-confidence selected competitors → warning (confidence stays honest).
+  // For vetted discovery rows the score is engagement success, so a low value
+  // signals a thin, low-engagement niche — not an irrelevant pick.
   for (const s of gm.competitorDebug.selected) {
-    if (s.confidenceScore < 25) warn("selected_relevance_threshold", `Selected @${s.handle} has low relevance confidence (${s.confidenceScore}).`);
+    if (s.confidenceScore < 25) warn("selected_relevance_threshold", `Selected @${s.handle} has a low confidence score (${s.confidenceScore}) — low-engagement peer in a thin niche.`);
   }
 
   // Hashtag sanity.

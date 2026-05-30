@@ -108,7 +108,7 @@ async function main(): Promise<void> {
     const r = await discoverAndPersistReferences(auditId);
     console.log(`Search terms: ${r.searchTerms.slice(0, 6).join(", ")}…`);
     console.log(`Hashtags: ${r.hashtags.map((h) => `#${h}`).join(" ")}`);
-    console.log(`Candidates: ${r.candidateHandles.length} (hashtag ${r.candidatesBySource.hashtag} · google ${r.candidatesBySource.google} · related ${r.candidatesBySource.related}) · profiles scraped: ${r.profilesScraped} · Apify runs: ${r.apifyRuns}`);
+    console.log(`Candidates: ${r.candidateHandles.length} (hashtag ${r.candidatesBySource.hashtag} · search ${r.candidatesBySource.search} · google ${r.candidatesBySource.google} · related ${r.candidatesBySource.related}) · profiles scraped: ${r.profilesScraped} · Apify runs: ${r.apifyRuns}`);
     console.log(`Persisted (${r.persisted.length}):`);
     for (const p of r.persisted) console.log(`  ✓ @${p.handle} — ${p.followers ?? "?"} followers · success ${p.successScore} · ${p.type === "local_intel" ? "local peer" : "reference"} (via ${p.source})`);
     for (const x of r.rejected.slice(0, 10)) console.log(`  ✗ @${x.handle} — ${x.reason}`);
