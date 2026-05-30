@@ -10,7 +10,7 @@
     "marketLabel": "Toronto, Ontario",
     "city": "Toronto",
     "region": "Ontario",
-    "generatedAt": "2026-05-30T11:15:48.421Z",
+    "generatedAt": "2026-05-30T22:08:11.810Z",
     "reviewDate": "June 27, 2026",
     "modelUsed": "openai/gpt-5.4-nano",
     "promptVersion": "instagram-intelligence-v1.1.0",
@@ -271,12 +271,12 @@
       {
         "metric": "Avg caption length",
         "client": "456 chars",
-        "market": "357 chars"
+        "market": "175 chars"
       },
       {
         "metric": "Avg hashtags / post",
         "client": "13.8",
-        "market": "5.4"
+        "market": "3.1"
       },
       {
         "metric": "Top format",
@@ -289,44 +289,44 @@
     "cadenceVerdict": "refine"
   },
   "marketPatterns": {
-    "postsStudied": 300,
-    "avgCaptionChars": 357,
-    "avgHashtags": 5.4,
-    "avgEmojis": 1.8,
+    "postsStudied": 509,
+    "avgCaptionChars": 175,
+    "avgHashtags": 3.1,
+    "avgEmojis": 0.8,
     "topFormats": [
       {
         "label": "carousel",
-        "pct": 45
+        "pct": 41
       },
       {
         "label": "reel",
-        "pct": 35
+        "pct": 30
       },
       {
         "label": "image",
-        "pct": 20
+        "pct": 29
       }
     ],
     "hookDistribution": [
       {
         "label": "description",
-        "pct": 76
+        "pct": 89
       },
       {
         "label": "claim",
-        "pct": 15
+        "pct": 8
       },
       {
         "label": "question",
-        "pct": 4
+        "pct": 1
       },
       {
         "label": "direct address",
-        "pct": 3
+        "pct": 1
       },
       {
         "label": "number list",
-        "pct": 2
+        "pct": 1
       }
     ],
     "contentElementDistribution": [
@@ -336,15 +336,15 @@
       },
       {
         "label": "personality",
-        "pct": 26
+        "pct": 24
       },
       {
         "label": "product media",
-        "pct": 15
+        "pct": 16
       },
       {
         "label": "location anchored",
-        "pct": 13
+        "pct": 14
       },
       {
         "label": "process shown",
@@ -373,83 +373,125 @@
       "moving home inventory",
       "moving home inventory tips"
     ],
-    "candidatesFound": 5,
-    "selected": [],
-    "rejected": [
+    "candidatesFound": 11,
+    "selected": [
       {
-        "handle": "devwindsor",
-        "track": "reference",
-        "code": "rejected_known_invalid",
-        "reason": "Known invalid account for this client (@devwindsor)",
-        "categoryMatchScore": 0,
+        "handle": "cottonhome2025",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: home, toronto",
+        "categoryMatchScore": 50,
         "contentMatchScore": 0,
-        "locationMatchScore": 0,
+        "locationMatchScore": 60,
         "recencyScore": 100,
         "embeddingScore": null,
         "followerBandFit": 0,
-        "confidenceScore": 0
+        "successScore": 35,
+        "confidenceScore": 97
       },
       {
-        "handle": "windsorone",
-        "track": "reference",
-        "code": "rejected_known_invalid",
-        "reason": "Known invalid account for this client (@windsorone)",
-        "categoryMatchScore": 0,
-        "contentMatchScore": 0,
-        "locationMatchScore": 0,
+        "handle": "einsteinmoving",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: moving, home; content: free, moving",
+        "categoryMatchScore": 75,
+        "contentMatchScore": 45,
+        "locationMatchScore": 60,
         "recencyScore": 100,
         "embeddingScore": null,
-        "followerBandFit": 100,
-        "confidenceScore": 0
+        "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 61
       },
       {
-        "handle": "fredagainagainagainagainagain",
+        "handle": "onedaymovers",
         "track": "local",
-        "code": "rejected_known_invalid",
-        "reason": "Known invalid account for this client (@fredagainagainagainagainagain)",
-        "categoryMatchScore": 0,
-        "contentMatchScore": 0,
-        "locationMatchScore": 0,
+        "code": "selected_location_match",
+        "reason": "category: moving, packing; content: free, moving",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 75,
+        "locationMatchScore": 60,
         "recencyScore": 60,
         "embeddingScore": null,
         "followerBandFit": 0,
-        "confidenceScore": 0
+        "successScore": 35,
+        "confidenceScore": 56
       },
       {
-        "handle": "none_like_mine",
-        "track": "local",
-        "code": "rejected_known_invalid",
-        "reason": "Known invalid account for this client (@none_like_mine)",
-        "categoryMatchScore": 0,
+        "handle": "homeart",
+        "track": "reference",
+        "code": "selected_reference_model",
+        "reason": "category: home; 92990 followers (in band), success 45",
+        "categoryMatchScore": 25,
         "contentMatchScore": 0,
         "locationMatchScore": 0,
         "recencyScore": 100,
         "embeddingScore": null,
         "followerBandFit": 100,
-        "confidenceScore": 0
+        "successScore": 45,
+        "confidenceScore": 36
       },
       {
-        "handle": "none_tattooer",
+        "handle": "inventory.co",
         "track": "local",
-        "code": "rejected_known_invalid",
-        "reason": "Known invalid account for this client (@none_tattooer)",
-        "categoryMatchScore": 25,
+        "code": "selected_location_match",
+        "reason": "category: inventory, toronto",
+        "categoryMatchScore": 50,
         "contentMatchScore": 0,
         "locationMatchScore": 60,
-        "recencyScore": 30,
+        "recencyScore": 100,
         "embeddingScore": null,
         "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 34
+      },
+      {
+        "handle": "carriedawaymoving",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: moving, packing; content: moving, pack",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 32
+      },
+      {
+        "handle": "specialforcemovers",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: moving, packing; content: moving, pack",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 24,
+        "confidenceScore": 32
+      }
+    ],
+    "rejected": [
+      {
+        "handle": "inventoryband",
+        "track": "local",
+        "code": "rejected_category_mismatch",
+        "reason": "Category mismatch: musician",
+        "categoryMatchScore": 50,
+        "contentMatchScore": 0,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 17,
         "confidenceScore": 0
       }
     ],
-    "emptyReason": "relevance_filter",
+    "emptyReason": "none",
     "recommendedSearchTerms": [
-      "moving home inventory",
-      "best moving home inventory",
-      "top moving home inventory",
-      "moving home inventory new york, ny",
-      "moving home inventory boston, ma",
-      "moving home inventory chicago, il",
       "moving app",
       "moving checklist",
       "packing app",
@@ -459,11 +501,276 @@
       "home organization",
       "decluttering",
       "storage",
-      "moving tips"
+      "moving tips",
+      "toronto moving",
+      "condo moving",
+      "apartment moving",
+      "family moving",
+      "packing tips",
+      "moving day checklist",
+      "moving home inventory",
+      "moving home inventory tips"
     ]
   },
-  "competitors": [],
-  "observedPosts": [],
+  "competitors": [
+    {
+      "handle": "cottonhome2025",
+      "displayName": "Yeşim Yağmur",
+      "type": "local",
+      "followers": 1279,
+      "posts": 143,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-27T16:24:17.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "carousel",
+      "latestPostHook": "Yumuşacık dokulu kumaşı ve şık tasarımıyla konforlu bir uyku deneyimi sunan nevresim takımı günlük kullanım için dayanıklı ve",
+      "whySelected": "category: home, toronto",
+      "borrow": "Their carousel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "einsteinmoving",
+      "displayName": "Einstein Moving Company | Best Movers in Texas",
+      "type": "local",
+      "followers": 1701,
+      "posts": 523,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-27T17:04:46.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "carousel",
+      "latestPostHook": "Moving out for the first time? Before the boxes start multiplying, make a plan for the big stuff: budget, utilities, renter’s",
+      "whySelected": "category: moving, home; content: free, moving",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "onedaymovers",
+      "displayName": "One Day Movers",
+      "type": "local",
+      "followers": 2273,
+      "posts": 600,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-06T19:44:36.000Z",
+      "activityStatus": "cooling",
+      "latestPostType": "image",
+      "latestPostHook": "Moving day doesn’t have to mean “Do It Yourself” day. 📦🏠 Our pro team at One Day Movers handles the heavy lifting, navigati",
+      "whySelected": "category: moving, packing; content: free, moving",
+      "borrow": "Their reel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "homeart",
+      "displayName": "Home Art",
+      "type": "reference",
+      "followers": 92990,
+      "posts": 2768,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-30T09:28:24.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "carousel",
+      "latestPostHook": "Bursa Bademli’de konumlanan bu üç katlı konut, modern çizgilerle zarif dokunuşları bir araya getiren stillerüstü bir dekorasy",
+      "whySelected": "category: home; 92990 followers (in band), success 45",
+      "borrow": "Their carousel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "inventory.co",
+      "displayName": "@inventory.co",
+      "type": "local",
+      "followers": 946,
+      "posts": 1021,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-16T08:06:55.000Z",
+      "activityStatus": "active",
+      "latestPostType": "image",
+      "latestPostHook": "Milan street style – through the lens of Scott Schuman. Image via @thesartorialist. . . . .",
+      "whySelected": "category: inventory, toronto",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "carriedawaymoving",
+      "displayName": "Carried Away",
+      "type": "local",
+      "followers": 2898,
+      "posts": 1023,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-26T02:09:42.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "carousel",
+      "latestPostHook": "THIS is how you get it started! Take the 'least' square items you have and fill them out while the options are plentiful. By",
+      "whySelected": "category: moving, packing; content: moving, pack",
+      "borrow": "Their reel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    }
+  ],
+  "localSignal": {
+    "successStories": [
+      {
+        "handle": "none_like_mine",
+        "followers": 47884,
+        "successScore": 30,
+        "whatTheyDoWell": "Consistent carousel with steady local following."
+      },
+      {
+        "handle": "none_tattooer",
+        "followers": 13062,
+        "successScore": 30,
+        "whatTheyDoWell": "Consistent carousel with steady local following."
+      }
+    ],
+    "localHashtags": [
+      "ke",
+      "einsteinmoving",
+      "inventoryguide",
+      "nevresim",
+      "carsaf",
+      "yast",
+      "cottonhome2025",
+      "hal",
+      "istanbul",
+      "diyarbak",
+      "hakk",
+      "firstapartmenttips",
+      "movingtips",
+      "movingchecklist",
+      "packingtips"
+    ],
+    "spotlightedAccounts": [
+      "gmail.com",
+      "velours.studio",
+      "foliedouceatelier",
+      "deleteafterdeathtattoo",
+      "sleeptalktattoo",
+      "i_am_tugboat",
+      "swashband",
+      "peltstheband"
+    ],
+    "localWording": [
+      "packing",
+      "every",
+      "first",
+      "boxes",
+      "full",
+      "furniture",
+      "free",
+      "show",
+      "toronto",
+      "services",
+      "studio",
+      "stress",
+      "hidden",
+      "professional",
+      "come"
+    ],
+    "complementaryTerms": [
+      "productivity app",
+      "toronto productivity app",
+      "lifestyle app",
+      "toronto lifestyle app",
+      "home organization",
+      "toronto home organization",
+      "tech for home",
+      "toronto tech for home",
+      "and home inventory app",
+      "free",
+      "toronto free",
+      "every"
+    ],
+    "note": "Local signal mined from the surrounding local business pool to complement the direct competitors."
+  },
+  "observedPosts": [
+    {
+      "account": "cottonhome2025",
+      "postType": "carousel",
+      "hook": "Yumuşacık dokulu kumaşı ve şık tasarımıyla konforlu bir uyku deneyimi sunan nevresim takımı günlük k",
+      "date": "2026-05-27T16:24:17.000Z",
+      "postUrl": "https://www.instagram.com/p/DY2URdQCsJf/",
+      "captionFirstLine": "KOMPLE GEÇİRMELİ KOLTUK ÖRTÜSÜ📍",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear carousel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "einsteinmoving",
+      "postType": "image",
+      "hook": "Moving out for the first time? Before the boxes start multiplying, make a plan for the big stuff: bu",
+      "date": "2026-05-27T17:04:46.000Z",
+      "postUrl": "https://www.instagram.com/p/DY2YsBbE1Yq/",
+      "captionFirstLine": "Moving with kids is not just moving",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "onedaymovers",
+      "postType": "reel",
+      "hook": "Moving day doesn’t have to mean “Do It Yourself” day. 📦🏠 Our pro team at One Day Movers handles th",
+      "date": "2026-05-06T19:44:36.000Z",
+      "postUrl": "https://www.instagram.com/p/DYAmESHkS_f/",
+      "captionFirstLine": "Every item has a story, every move has a feeling",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear reel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "homeart",
+      "postType": "carousel",
+      "hook": "Bursa Bademli’de konumlanan bu üç katlı konut, modern çizgilerle zarif dokunuşları bir araya getiren",
+      "date": "2026-05-30T09:28:24.000Z",
+      "postUrl": "https://www.instagram.com/p/DY9TD_miNZR/",
+      "captionFirstLine": "Endüstriyel stil, açıkta bırakılmış tuğla duvarlar, eski metal borular ve armatürler, masif ahşap ve",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear carousel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "inventory.co",
+      "postType": "image",
+      "hook": "Milan street style – through the lens of Scott Schuman. Image via @thesartorialist. . . . .",
+      "date": "2026-05-16T08:06:55.000Z",
+      "postUrl": "https://www.instagram.com/p/DYZGm7gidzJ/",
+      "captionFirstLine": "Acne Studios’ new Paris headquarters was designed by Stockholm-based studio Halleroed, led by Christ",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "carriedawaymoving",
+      "postType": "reel",
+      "hook": "THIS is how you get it started! Take the 'least' square items you have and fill them out while the o",
+      "date": "2026-05-26T02:09:42.000Z",
+      "postUrl": "https://www.instagram.com/p/DYyNrZQjY2K/",
+      "captionFirstLine": "Movers are conditioned to expect the unexpected",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear reel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle as a tip that ends in an app-download CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    }
+  ],
   "contentMechanics": [
     {
       "pattern": "description hooks",
@@ -772,20 +1079,7 @@
     "whyMonthlyMatters": "Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.",
     "nextRunCta": "Re-run the audit on your review date to measure what moved."
   },
-  "dataGaps": [
-    {
-      "area": "Competitor relevance",
-      "severity": "high",
-      "detail": "All 5 candidates failed the relevance gate (relevance_filter). 0 vetted seed(s) available from prior audits.",
-      "recommendedFix": "Re-run discovery with: moving home inventory, best moving home inventory, top moving home inventory, moving home inventory new york, ny, moving home inventory boston, ma, moving home inventory chicago, il, moving app, moving checklist, packing app, moving boxes, box inventory, home inventory."
-    },
-    {
-      "area": "Observed competitor posts",
-      "severity": "medium",
-      "detail": "No competitors selected, so no posts to observe.",
-      "recommendedFix": "Run competitor post scrape (fields: caption, displayUrl, url, timestamp, type) for the selected handles."
-    }
-  ],
+  "dataGaps": [],
   "evidence": [
     {
       "id": "cat.source",
@@ -833,7 +1127,7 @@
       "id": "market.postsStudied",
       "sourceType": "market_pattern",
       "label": "Category posts studied",
-      "value": 300,
+      "value": 509,
       "confidence": 85
     },
     {
@@ -847,15 +1141,15 @@
       "id": "competitors.candidates",
       "sourceType": "competitor",
       "label": "Competitor candidates found",
-      "value": 5,
+      "value": 11,
       "confidence": 70
     },
     {
       "id": "competitors.selected",
       "sourceType": "competitor",
       "label": "Competitors selected after relevance gate",
-      "value": 0,
-      "confidence": 40
+      "value": 6,
+      "confidence": 80
     }
   ],
   "sectionConfidence": [
@@ -922,7 +1216,7 @@
       "score": 88,
       "level": "medium",
       "reasons": [
-        "300 posts studied"
+        "509 posts studied"
       ],
       "sourceCoverage": [
         "category corpus"
@@ -931,25 +1225,29 @@
     },
     {
       "sectionId": "competitors",
-      "score": 35,
-      "level": "low",
+      "score": 88,
+      "level": "medium",
       "reasons": [
-        "0 selected, 5 rejected"
+        "6 selected (1 reference, 5 local) · 6/6 with post data"
       ],
-      "sourceCoverage": [],
+      "sourceCoverage": [
+        "scored competitor candidates",
+        "in-band reference models",
+        "competitor post-level data"
+      ],
       "dataGaps": [
-        "No relevant competitors (relevance_filter)"
+        "Limited aspirational reference models (1) — niche has few large accounts"
       ]
     },
     {
       "sectionId": "observedPosts",
-      "score": 20,
-      "level": "low",
+      "score": 80,
+      "level": "medium",
       "reasons": [],
-      "sourceCoverage": [],
-      "dataGaps": [
-        "No post-level competitor data"
-      ]
+      "sourceCoverage": [
+        "competitor posts"
+      ],
+      "dataGaps": []
     },
     {
       "sectionId": "hashtags",
@@ -989,7 +1287,7 @@
       "dataGaps": []
     }
   ],
-  "overallConfidence": 74,
+  "overallConfidence": 84,
   "validation": {
     "passed": true,
     "blockingCount": 0,

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tsc --noEmit && tsx src/scripts/intelligenceTests.ts",
     "admin": "tsx src/admin/server.ts",
     "admin:dev": "tsx watch src/admin/server.ts",
     "migrate": "tsx src/db/migrate.ts",

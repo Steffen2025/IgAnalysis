@@ -10,7 +10,7 @@
 - **Normalized category:** Moving and home inventory app
 - **Category kind:** app
 - **Market / location:** Toronto, Ontario
-- **Generated:** 2026-05-30T11:15:48.421Z
+- **Generated:** 2026-05-30T22:08:11.810Z
 - **Review date:** June 27, 2026
 - **Model used:** openai/gpt-5.4-nano
 - **Prompt version:** instagram-intelligence-v1.1.0
@@ -250,8 +250,8 @@ Use a Toronto geotag on the post.
 | Metric | You | Market avg |
 | --- | --- | --- |
 | Posts / week | 11.7 | 3.6 |
-| Avg caption length | 456 chars | 357 chars |
-| Avg hashtags / post | 13.8 | 5.4 |
+| Avg caption length | 456 chars | 175 chars |
+| Avg hashtags / post | 13.8 | 3.1 |
 | Top format | reel | carousel |
 
 **Activity level:** Above market volume
@@ -260,44 +260,126 @@ Use a Toronto geotag on the post.
 
 ## 9. Market Pattern Dashboard
 
-- **Posts studied:** 300
-- **Average caption:** 357 chars
-- **Average hashtags:** 5.4
-- **Average emojis:** 1.8
+- **Posts studied:** 509
+- **Average caption:** 175 chars
+- **Average hashtags:** 3.1
+- **Average emojis:** 0.8
 
-**Top formats:** carousel 45% · reel 35% · image 20%
+**Top formats:** carousel 41% · reel 30% · image 29%
 
-**Hook types:** description 76% · claim 15% · question 4% · direct address 3% · number list 2%
+**Hook types:** description 89% · claim 8% · question 1% · direct address 1% · number list 1%
 
-**Content elements:** offer present 40% · personality 26% · product media 15% · location anchored 13% · process shown 6%
+**Content elements:** offer present 40% · personality 24% · product media 16% · location anchored 14% · process shown 6%
 
 ## 10. Competitor Discovery Debug
 
 **Search terms used:** moving app, moving checklist, packing app, moving boxes, box inventory, home inventory, home organization, decluttering, storage, moving tips, toronto moving, condo moving, apartment moving, family moving, packing tips, moving day checklist, moving home inventory, moving home inventory tips
 
-**Candidates found:** 5 · **Selected:** 0 · **Rejected:** 5
+**Candidates found:** 11 · **Selected:** 7 · **Rejected:** 1
+
+**Selected:**
+| Handle | Track | Code | Cat | Content | Semantic | Band | Success | Conf | Reason |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| @cottonhome2025 | local | selected_location_match | 50 | 0 | — | 0 | 35 | 97 | category: home, toronto |
+| @einsteinmoving | local | selected_location_match | 75 | 45 | — | 0 | 45 | 61 | category: moving, home; content: free, moving |
+| @onedaymovers | local | selected_location_match | 100 | 75 | — | 0 | 35 | 56 | category: moving, packing; content: free, moving |
+| @homeart | reference | selected_reference_model | 25 | 0 | — | 100 | 45 | 36 | category: home; 92990 followers (in band), success 45 |
+| @inventory.co | local | selected_location_match | 50 | 0 | — | 0 | 45 | 34 | category: inventory, toronto |
+| @carriedawaymoving | local | selected_location_match | 100 | 60 | — | 0 | 45 | 32 | category: moving, packing; content: moving, pack |
+| @specialforcemovers | local | selected_location_match | 100 | 60 | — | 0 | 24 | 32 | category: moving, packing; content: moving, pack |
 
 **Rejected:**
-| Handle | Code | Cat | Loc | Rec | Conf | Reason |
-| --- | --- | --- | --- | --- | --- | --- |
-| @devwindsor | rejected_known_invalid | 0 | 0 | 100 | 0 | Known invalid account for this client (@devwindsor) |
-| @windsorone | rejected_known_invalid | 0 | 0 | 100 | 0 | Known invalid account for this client (@windsorone) |
-| @fredagainagainagainagainagain | rejected_known_invalid | 0 | 0 | 60 | 0 | Known invalid account for this client (@fredagainagainagainagainagain) |
-| @none_like_mine | rejected_known_invalid | 0 | 0 | 100 | 0 | Known invalid account for this client (@none_like_mine) |
-| @none_tattooer | rejected_known_invalid | 25 | 60 | 30 | 0 | Known invalid account for this client (@none_tattooer) |
-
-**No relevant competitors selected.** Classified as a **relevance filter**. Recommended next search terms: moving home inventory, best moving home inventory, top moving home inventory, moving home inventory new york, ny, moving home inventory boston, ma, moving home inventory chicago, il, moving app, moving checklist, packing app, moving boxes, box inventory, home inventory, home organization, decluttering, storage, moving tips.
+| Handle | Track | Code | Cat | Content | Semantic | Band | Success | Conf | Reason |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| @inventoryband | local | rejected_category_mismatch | 50 | 0 | — | 0 | 17 | 0 | Category mismatch: musician |
 
 ## 11. Competitor Relevance Board
 
-No competitors qualified for the client-facing board. This is a **relevance filter** issue.
-- Why none qualified: every candidate failed the category-relevance gate (see section 10).
-- Search terms to try next: moving home inventory, best moving home inventory, top moving home inventory, moving home inventory new york, ny, moving home inventory boston, ma, moving home inventory chicago, il, moving app, moving checklist, packing app, moving boxes, box inventory, home inventory, home organization, decluttering, storage, moving tips.
-- Data needed: profiles + recent posts for accounts matching the category terms above.
+**@cottonhome2025 — Yeşim Yağmur** (local)
+- Followers: 1279 · Posts: 143
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-27T16:24:17.000Z (fresh) · Type: carousel
+- Latest hook: “Yumuşacık dokulu kumaşı ve şık tasarımıyla konforlu bir uyku deneyimi sunan nevresim takımı günlük kullanım için dayanıklı ve”
+- Why selected: category: home, toronto
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@einsteinmoving — Einstein Moving Company | Best Movers in Texas** (local)
+- Followers: 1701 · Posts: 523
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-27T17:04:46.000Z (fresh) · Type: carousel
+- Latest hook: “Moving out for the first time? Before the boxes start multiplying, make a plan for the big stuff: budget, utilities, renter’s”
+- Why selected: category: moving, home; content: free, moving
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@onedaymovers — One Day Movers** (local)
+- Followers: 2273 · Posts: 600
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-06T19:44:36.000Z (cooling) · Type: image
+- Latest hook: “Moving day doesn’t have to mean “Do It Yourself” day. 📦🏠 Our pro team at One Day Movers handles the heavy lifting, navigati”
+- Why selected: category: moving, packing; content: free, moving
+- Borrow: Their reel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@homeart — Home Art** (reference)
+- Followers: 92990 · Posts: 2768
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-30T09:28:24.000Z (fresh) · Type: carousel
+- Latest hook: “Bursa Bademli’de konumlanan bu üç katlı konut, modern çizgilerle zarif dokunuşları bir araya getiren stillerüstü bir dekorasy”
+- Why selected: category: home; 92990 followers (in band), success 45
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@inventory.co — @inventory.co** (local)
+- Followers: 946 · Posts: 1021
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-16T08:06:55.000Z (active) · Type: image
+- Latest hook: “Milan street style – through the lens of Scott Schuman. Image via @thesartorialist. . . . .”
+- Why selected: category: inventory, toronto
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@carriedawaymoving — Carried Away** (local)
+- Followers: 2898 · Posts: 1023
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-26T02:09:42.000Z (fresh) · Type: carousel
+- Latest hook: “THIS is how you get it started! Take the 'least' square items you have and fill them out while the options are plentiful. By”
+- Why selected: category: moving, packing; content: moving, pack
+- Borrow: Their reel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
 
 ## 12. Observed Competitor Posts
 
-_No observed competitor posts available — competitor post-level scrape data is missing for the selected accounts._
+**@cottonhome2025 · carousel · 2026-05-27T16:24:17.000Z**
+- Hook: “Yumuşacık dokulu kumaşı ve şık tasarımıyla konforlu bir uyku deneyimi sunan nevresim takımı günlük k”
+- Why it works: Clear carousel format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
+
+**@einsteinmoving · image · 2026-05-27T17:04:46.000Z**
+- Hook: “Moving out for the first time? Before the boxes start multiplying, make a plan for the big stuff: bu”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
+
+**@onedaymovers · reel · 2026-05-06T19:44:36.000Z**
+- Hook: “Moving day doesn’t have to mean “Do It Yourself” day. 📦🏠 Our pro team at One Day Movers handles th”
+- Why it works: Clear reel format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
+
+**@homeart · carousel · 2026-05-30T09:28:24.000Z**
+- Hook: “Bursa Bademli’de konumlanan bu üç katlı konut, modern çizgilerle zarif dokunuşları bir araya getiren”
+- Why it works: Clear carousel format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
+
+**@inventory.co · image · 2026-05-16T08:06:55.000Z**
+- Hook: “Milan street style – through the lens of Scott Schuman. Image via @thesartorialist. . . . .”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
+
+**@carriedawaymoving · reel · 2026-05-26T02:09:42.000Z**
+- Hook: “THIS is how you get it started! Take the 'least' square items you have and fill them out while the o”
+- Why it works: Clear reel format that's easy to scan and save.
+- How to adapt: Recreate the angle as a tip that ends in an app-download CTA.
 
 ## 13. Content Mechanics To Borrow Ethically
 
@@ -320,6 +402,20 @@ _No observed competitor posts available — competitor post-level scrape data is
 - **Captions:** City/category in the first line.
 - **Hashtags:** 3 local + 3 category tags per post.
 - **App download path:** Make the store/download link the primary link.
+
+### Local intelligence
+
+Local signal mined from the surrounding local business pool to complement the direct competitors.
+
+**Local success stories (5k–50k, doing well):**
+- **@none_like_mine** — 47884 followers · success 30/100 · Consistent carousel with steady local following.
+- **@none_tattooer** — 13062 followers · success 30/100 · Consistent carousel with steady local following.
+
+**Accounts local businesses spotlight/tag:** @gmail.com, @velours.studio, @foliedouceatelier, @deleteafterdeathtattoo, @sleeptalktattoo, @i_am_tugboat, @swashband, @peltstheband
+
+**Local wording in use:** packing, every, first, boxes, full, furniture, free, show, toronto, services, studio, stress, hidden, professional, come
+
+**Complementary industries to study (same audience, thin direct niche):** productivity app, toronto productivity app, lifestyle app, toronto lifestyle app, home organization, toronto home organization, tech for home, toronto tech for home, and home inventory app, free, toronto free, every
 
 ## 15. Hashtag Strategy
 
@@ -519,10 +615,9 @@ Write a post whose single goal is to get the reader to download — no other ask
 
 ## 22. Data Gaps and Confidence
 
-- **[high] Competitor relevance:** All 5 candidates failed the relevance gate (relevance_filter). 0 vetted seed(s) available from prior audits. → _Re-run discovery with: moving home inventory, best moving home inventory, top moving home inventory, moving home inventory new york, ny, moving home inventory boston, ma, moving home inventory chicago, il, moving app, moving checklist, packing app, moving boxes, box inventory, home inventory._
-- **[medium] Observed competitor posts:** No competitors selected, so no posts to observe. → _Run competitor post scrape (fields: caption, displayUrl, url, timestamp, type) for the selected handles._
+_No significant data gaps detected._
 
-**Overall confidence:** 74/100
+**Overall confidence:** 84/100
 
 ## 23. Source Evidence Index
 
@@ -534,17 +629,17 @@ Write a post whose single goal is to get the reader to download — no other ask
 | score.overall | score | Overall score | 54 | 92 |
 | score.local | score | Local visibility score | 21 | 92 |
 | score.sales | score | Sales readiness score | 37 | 92 |
-| market.postsStudied | market_pattern | Category posts studied | 300 | 85 |
+| market.postsStudied | market_pattern | Category posts studied | 509 | 85 |
 | market.cadence | score | Client posts/week vs market | 11.7/wk | 80 |
-| competitors.candidates | competitor | Competitor candidates found | 5 | 70 |
-| competitors.selected | competitor | Competitors selected after relevance gate | 0 | 40 |
+| competitors.candidates | competitor | Competitor candidates found | 11 | 70 |
+| competitors.selected | competitor | Competitors selected after relevance gate | 6 | 80 |
 
 ## 24. Validation Summary
 
 - **Result:** PASSED
 - **Blocking:** 0
 - **Warnings:** 0
-- **Overall confidence:** 74/100
+- **Overall confidence:** 84/100
 
 **Section confidence:**
 | Section | Score | Level | Gaps |
@@ -555,8 +650,8 @@ Write a post whose single goal is to get the reader to download — no other ask
 | nextSevenDays | 85 | medium | — |
 | sprint | 88 | medium | — |
 | marketPatterns | 88 | medium | — |
-| competitors | 35 | low | No relevant competitors (relevance_filter) |
-| observedPosts | 20 | low | No post-level competitor data |
+| competitors | 88 | medium | Limited aspirational reference models (1) — niche has few large accounts |
+| observedPosts | 80 | medium | — |
 | hashtags | 75 | medium | — |
 | toolkit | 75 | medium | — |
 | aiPrompts | 80 | medium | — |
