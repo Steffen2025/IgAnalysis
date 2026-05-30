@@ -110,7 +110,7 @@ async function main(): Promise<void> {
     console.log(`Hashtags: ${r.hashtags.map((h) => `#${h}`).join(" ")}`);
     console.log(`Candidates: ${r.candidateHandles.length} (hashtag ${r.candidatesBySource.hashtag} · google ${r.candidatesBySource.google} · related ${r.candidatesBySource.related}) · profiles scraped: ${r.profilesScraped} · Apify runs: ${r.apifyRuns}`);
     console.log(`Persisted (${r.persisted.length}):`);
-    for (const p of r.persisted) console.log(`  ✓ @${p.handle} — ${p.followers ?? "?"} followers (${p.market}, via ${p.source})`);
+    for (const p of r.persisted) console.log(`  ✓ @${p.handle} — ${p.followers ?? "?"} followers · success ${p.successScore} · ${p.type === "local_intel" ? "local peer" : "reference"} (via ${p.source})`);
     for (const x of r.rejected.slice(0, 10)) console.log(`  ✗ @${x.handle} — ${x.reason}`);
     console.log(`Status: ${r.status}`);
     console.log(`\nNext: npx tsx src/scripts/intelligence.ts generate --auditId=${auditId}  (picks up the new references)`);

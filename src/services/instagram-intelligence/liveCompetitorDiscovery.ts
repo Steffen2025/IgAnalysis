@@ -15,7 +15,7 @@
  * when invoked explicitly (CLI `intelligence:discover`).
  */
 
-import { and, eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { db } from "../../db/index.js";
 import { first } from "../../db/query.js";
 import { audits, competitors, competitor_profiles, competitor_posts } from "../../db/schema.js";
@@ -49,7 +49,7 @@ export interface LiveDiscoveryResult {
   candidateHandles: string[];
   candidatesBySource: { hashtag: number; google: number; related: number };
   profilesScraped: number;
-  persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource }>;
+  persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource; successScore: number; type: "reference_model" | "local_intel" }>;
   rejected: Array<{ handle: string; reason: string }>;
   apifyRuns: number;
   status: "complete" | "partial" | "no_candidates" | "budget_exhausted";
@@ -76,6 +76,32 @@ function extractHandles(text: string): string[] {
 function profileRelevant(p: NormalizedProfile, vocab: string[]): boolean {
   const hay = `${p.full_name ?? ""} ${p.bio ?? ""} ${p.category ?? ""} ${p.username ?? ""}`.toLowerCase();
   return vocab.some((v) => v && hay.includes(v));
+}
+
+/**
+ * Engagement-based success score (0-100) from the profile's inline latestPosts.
+ *
+ * This is the PRIMARY signal Phase 3 ranks on: a 4k-follower account with a 12%
+ * engagement rate is a better model to study than a 60k account at 0.3%. The
+ * follower band becomes a soft sanity bound; success is what actually ranks.
+ * Returns 0 when no post engagement is available (falls back to source/size).
+ */
+function successScoreFromProfile(p: NormalizedProfile): number {
+  let eng = 0;
+  let n = 0;
+  try {
+    const raw = JSON.parse(p.raw_json) as { latestPosts?: Array<{ likesCount?: number; commentsCount?: number }> };
+    for (const post of raw.latestPosts ?? []) {
+      const e = (post.likesCount ?? 0) + (post.commentsCount ?? 0) * 3;
+      if (e > 0) { eng += e; n++; }
+    }
+  } catch { /* malformed payload */ }
+  const followers = p.follower_count ?? 0;
+  if (n === 0 || followers <= 0) return 0;
+  const rate = (eng / n) / followers;               // engagement rate
+  const rateScore = Math.min(100, rate * 1000);      // 0.10 ER → 100
+  const magnitude = Math.min(20, Math.log10(Math.max(followers, 1)) * 4); // small size bonus
+  return Math.round(Math.min(100, rateScore * 0.85 + magnitude));
 }
 
 export async function discoverAndPersistReferences(
@@ -256,54 +282,70 @@ export async function discoverAndPersistReferences(
     result.profilesScraped = profiles.length;
   }
 
-  // ── 3) Band + relevance gate ──
-  const survivors: NormalizedProfile[] = [];
+  // ── 3) Soft band + relevance gate, ranked by engagement success ──
+  // Phase 3: the follower band is a SANITY bound, not a hard floor. Relevance is
+  // required; we hard-reject only the truly un-learnable extremes (negligibly
+  // small, or national brands whose tactics won't transfer). Everything between
+  // is kept and ranked by engagement success — in-band accounts become reference
+  // models, below-band-but-relevant accounts become local peers (local_intel).
+  const HARD_FLOOR = 500;            // too small to learn from
+  const HARD_CEIL = band.max * 5;    // national-scale brand: tactics don't transfer
+  type Survivor = { p: NormalizedProfile; success: number; type: "reference_model" | "local_intel" };
+  const survivors: Survivor[] = [];
   for (const p of profiles) {
     const h = (p.username ?? "").toLowerCase();
     if (!h) continue;
-    const bandState = inReferenceBand(p.follower_count, band);
-    if (bandState === "out") { result.rejected.push({ handle: h, reason: `followers ${p.follower_count} out of ${band.min}-${band.max} band` }); continue; }
-    if (bandState === "unknown") { result.rejected.push({ handle: h, reason: "follower count unavailable" }); continue; }
+    const fc = p.follower_count;
+    if (fc == null) { result.rejected.push({ handle: h, reason: "follower count unavailable" }); continue; }
     if (!profileRelevant(p, vocab)) { result.rejected.push({ handle: h, reason: "no category relevance in bio" }); continue; }
-    survivors.push(p);
+    if (fc < HARD_FLOOR) { result.rejected.push({ handle: h, reason: `followers ${fc} below ${HARD_FLOOR} learn-floor` }); continue; }
+    if (fc > HARD_CEIL) { result.rejected.push({ handle: h, reason: `followers ${fc} above ${HARD_CEIL} (national brand — tactics don't transfer)` }); continue; }
+    const type = inReferenceBand(fc, band) === "in" ? "reference_model" : "local_intel";
+    survivors.push({ p, success: successScoreFromProfile(p), type });
   }
-  // Rank engagement-proven (hashtag) and similarity-proven (related) survivors
-  // ahead of raw SEO (google) hits, then by followers.
-  const srcRank = (p: NormalizedProfile) => {
-    const s = handleSource.get((p.username ?? "").toLowerCase());
-    return s === "hashtag" || s === "related" ? 1 : 0;
-  };
-  survivors.sort((a, b) => srcRank(b) - srcRank(a) || (b.follower_count ?? 0) - (a.follower_count ?? 0));
+  // Engagement success is the PRIMARY ranker; source proof and size break ties.
+  const srcRank = (h: string) => { const s = handleSource.get(h); return s === "hashtag" || s === "related" ? 1 : 0; };
+  survivors.sort((a, b) =>
+    b.success - a.success ||
+    srcRank((b.p.username ?? "").toLowerCase()) - srcRank((a.p.username ?? "").toLowerCase()) ||
+    (b.p.follower_count ?? 0) - (a.p.follower_count ?? 0),
+  );
   const keep = survivors.slice(0, maxPersisted);
   if (keep.length === 0) { result.status = handles.length ? "partial" : "no_candidates"; return result; }
 
   // ── 4) Persist competitors + profiles (idempotent: clear prior live refs) ──
   const market = referenceMarkets()[0] ?? "national";
-  await db.delete(competitors).where(and(eq(competitors.audit_id, auditId), eq(competitors.source, "reference_search")));
+  const sourceEnum = (h: string): "hashtag_discovery" | "reference_search" =>
+    handleSource.get(h) === "hashtag" ? "hashtag_discovery" : "reference_search";
+  await db.delete(competitors).where(and(
+    eq(competitors.audit_id, auditId),
+    inArray(competitors.source, ["reference_search", "hashtag_discovery"]),
+  ));
   const compIdByHandle = new Map<string, number>();
-  for (const p of keep) {
+  for (const { p, success, type } of keep) {
     const h = (p.username ?? "").toLowerCase();
+    const geoMarket = type === "local_intel" ? (audit.city ?? market) : market;
     const [comp] = await db.insert(competitors).values({
-      audit_id: auditId, username: h, source: "reference_search", competitor_type: "reference_model",
-      geographic_market: market, discovery_keyword: `${norm.label} reference`, discovery_query: searchTerms[0] ?? norm.label,
-      confidence_score: 80, deep_scraped: true,
+      audit_id: auditId, username: h, source: sourceEnum(h), competitor_type: type,
+      geographic_market: geoMarket, discovery_keyword: `${norm.label} ${type === "local_intel" ? "local peer" : "reference"}`,
+      discovery_query: searchTerms[0] ?? norm.label, confidence_score: success, deep_scraped: true,
     }).returning({ id: competitors.id });
     compIdByHandle.set(h, comp.id);
     await db.insert(competitor_profiles).values({
       competitor_id: comp.id, audit_id: auditId, follower_count: p.follower_count, following_count: p.following_count,
       post_count: p.post_count, is_business: p.is_business, bio: p.bio, category: p.category, raw_json: p.raw_json,
     });
-    result.persisted.push({ handle: h, followers: p.follower_count, market, source: handleSource.get(h) ?? "google" });
+    result.persisted.push({ handle: h, followers: p.follower_count, market: geoMarket, source: handleSource.get(h) ?? "google", successScore: success, type });
   }
 
   // ── 5) Batched posts scrape for survivors (1 run, cached) ──
   if (await canSpendApifyRun(auditId, 1)) {
-    const postKey = makeCacheKey("ig_posts_ref", keep.map((p) => p.username).join(","));
+    const postKey = makeCacheKey("ig_posts_ref", keep.map(({ p }) => p.username).join(","));
     let posts = await getCached<ReturnType<typeof normalizePost>[]>(postKey);
     if (!posts) {
       const { items } = await runActorAndGetData({
         actorId: ACTORS.INSTAGRAM.id, actorLabel: `Reference posts ×${keep.length}`, auditId,
-        input: { ...INPUT_TEMPLATES.INSTAGRAM_POSTS_FOR_PROFILE, directUrls: keep.map((p) => profileUrl(p.username ?? "")), resultsLimit: keep.length * postsPerProfile },
+        input: { ...INPUT_TEMPLATES.INSTAGRAM_POSTS_FOR_PROFILE, directUrls: keep.map(({ p }) => profileUrl(p.username ?? "")), resultsLimit: keep.length * postsPerProfile },
       });
       posts = items.map((it) => normalizePost(it)); result.apifyRuns++;
       await setCached(postKey, posts, TTL_POSTS);
