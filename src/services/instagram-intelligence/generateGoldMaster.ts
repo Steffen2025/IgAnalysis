@@ -359,7 +359,18 @@ export interface GoldMasterResult {
   passed: boolean;
 }
 
-export async function generateGoldMaster(auditId: number): Promise<GoldMasterResult> {
+export async function generateGoldMaster(
+  auditId: number,
+  opts: { liveDiscovery?: boolean } = {},
+): Promise<GoldMasterResult> {
+  // Optional PAID step: run the 4-lane live competitor discovery first so the
+  // report is built on freshly-discovered, vetted reference/local rows instead
+  // of whatever happened to be in the DB. Gated by the caller (CLI --live).
+  if (opts.liveDiscovery) {
+    const { discoverAndPersistReferences } = await import("./liveCompetitorDiscovery.js");
+    const disc = await discoverAndPersistReferences(auditId);
+    console.log(`Live discovery: ${disc.persisted.length} persisted (${disc.status}) across ${disc.apifyRuns} Apify run(s).`);
+  }
   const data = await assembleReportData(auditId);
   const ctx = data.reportContext;
   const config = getClientConfig(ctx.handle);

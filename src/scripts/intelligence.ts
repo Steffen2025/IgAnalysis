@@ -87,7 +87,9 @@ async function main(): Promise<void> {
     console.log(`\n═══ Analyze @${handleArg} (audit ${targetId}) ═══`);
     console.log("Deriving city/type from scraped profile…");
     await enrichAuditMarketFromPosts(targetId); // fills city from profile/posts if missing
-    const r = await generateGoldMaster(targetId);
+    const live = process.argv.includes("--live");
+    if (live) console.log("Live 4-lane competitor discovery enabled (PAID Apify runs)…");
+    const r = await generateGoldMaster(targetId, { liveDiscovery: live });
     console.log(`Category: ${r.gm.meta.normalizedCategory} (${r.gm.meta.categoryKind}) · city: ${r.gm.meta.city || "—"}`);
     console.log(`Validation: ${r.passed ? "PASSED ✅" : "FAILED ❌"} · confidence ${r.gm.overallConfidence}/100`);
     console.log(`Gold master: reports/intelligence/${targetId}/gold-master.md`);
@@ -186,7 +188,9 @@ async function main(): Promise<void> {
 
   // generate
   console.log(`\n═══ Gold Master — audit ${auditId} ═══\n`);
-  const result = await generateGoldMaster(auditId);
+  const live = process.argv.includes("--live");
+  if (live) console.log("Live 4-lane competitor discovery enabled (PAID Apify runs)…\n");
+  const result = await generateGoldMaster(auditId, { liveDiscovery: live });
   console.log("Artifacts:");
   for (const [k, v] of Object.entries(result.paths)) console.log(`  ${k}: ${v}`);
   console.log(`\nValidation: ${result.passed ? "PASSED ✅" : "FAILED ❌"} ` +
