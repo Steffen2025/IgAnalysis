@@ -131,9 +131,15 @@ export async function discoverAndPersistReferences(
     let tagItems = await getCached<unknown[]>(hKey);
     if (!tagItems) {
       if (!(await canSpendApifyRun(auditId, 1))) { result.status = "budget_exhausted"; return result; }
+      // The actor ignores a bare `hashtags` array ("Empty or private data");
+      // it wants explore-tag PAGE URLs via directUrls with resultsType "posts".
       const { items } = await runActorAndGetData({
         actorId: ACTORS.INSTAGRAM.id, actorLabel: `Hashtag top posts ×${hashtags.length}`, auditId,
-        input: { ...INPUT_TEMPLATES.INSTAGRAM_HASHTAG_SEARCH, hashtags, resultsLimit: hashtags.length * 12 },
+        input: {
+          directUrls: hashtags.map((h) => `https://www.instagram.com/explore/tags/${h}/`),
+          resultsType: "posts",
+          resultsLimit: hashtags.length * 12,
+        },
       });
       tagItems = items; result.apifyRuns++;
       await setCached(hKey, items, TTL_HASHTAG);
@@ -147,9 +153,12 @@ export async function discoverAndPersistReferences(
       const eng = (r.likesCount ?? 0) + (r.commentsCount ?? 0) * 3;
       ownerEng.set(h, Math.max(ownerEng.get(h) ?? 0, eng));
     }
+    // Cap hashtag's share so the curated Google net still contributes its
+    // (often larger, well-known) reference accounts — the two are complementary.
+    const hashtagCap = Math.ceil(maxCandidates * 0.6);
     for (const [h] of [...ownerEng.entries()].sort((a, b) => b[1] - a[1])) {
       addCandidate(h, "hashtag");
-      if (handles.length >= maxCandidates) break;
+      if (handles.length >= hashtagCap) break;
     }
     result.candidatesBySource.hashtag = handles.length;
   }

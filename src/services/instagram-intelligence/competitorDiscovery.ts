@@ -142,7 +142,9 @@ export function generateHashtags(input: CompetitorDiscoveryInput): string[] {
     for (const s of suffixes) add(`${phrase}${s}`);
     if (input.city) { add(`${input.city}${phrase}`.replace(/\s/g, "")); }
   }
-  for (const w of core) add(w);
+  // Single bare core words (#garage, #doors) are too generic and pull
+  // off-topic owners — only use them when the category is a single word.
+  if (core.length === 1) add(core[0]);
   return Array.from(tags).slice(0, 10);
 }
 
