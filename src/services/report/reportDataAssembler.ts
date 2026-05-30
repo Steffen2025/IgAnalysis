@@ -40,6 +40,8 @@ export interface ReportCompetitor {
   competitor_type: string | null;
   /** Discovery source — live-discovery sources are trusted (already vetted). */
   source: string | null;
+  /** Discovery keyword — "adjacent:<industry>" marks a complementary-industry reference. */
+  discovery_keyword: string | null;
   geographic_market: string | null;
   confidence_score: number | null;
   deep_scraped: boolean;
@@ -322,6 +324,7 @@ export async function assembleReportData(auditId: number): Promise<ReportData> {
       full_name: fullName,
       competitor_type: comp.competitor_type,
       source: comp.source,
+      discovery_keyword: comp.discovery_keyword,
       geographic_market: comp.geographic_market,
       confidence_score: comp.confidence_score,
       deep_scraped: comp.deep_scraped,

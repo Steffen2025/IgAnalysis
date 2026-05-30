@@ -197,6 +197,10 @@ function activityStatus(date: string | null | undefined): string {
 
 function toCard(c: ReportCompetitor, decision: CompetitorDecision): CompetitorCard {
   const top = c.top_posts?.[0];
+  // Complementary-industry references are tagged "adjacent:<industry>" at
+  // discovery — label them so the report is honest that they're an adjacent
+  // space reaching the same audience, not a same-category competitor.
+  const adjacent = c.discovery_keyword?.startsWith("adjacent:") ? c.discovery_keyword.slice("adjacent:".length) : null;
   return {
     handle: c.username ?? "(unknown)",
     displayName: c.full_name?.trim() || `@${c.username}`,
@@ -209,8 +213,10 @@ function toCard(c: ReportCompetitor, decision: CompetitorDecision): CompetitorCa
     activityStatus: activityStatus(c.latest_post?.posted_at),
     latestPostType: c.latest_post?.post_type ?? top?.post_type ?? null,
     latestPostHook: c.latest_post?.hook ?? c.latest_post?.caption?.slice(0, 90) ?? null,
-    whySelected: decision.reason,
-    borrow: `Their ${top?.post_type ?? "format"} + ${top?.hook_type ?? "hook"} structure — rewrite in your own voice.`,
+    whySelected: adjacent ? `Adjacent industry (${adjacent}) reaching the same audience — ${decision.reason}` : decision.reason,
+    borrow: adjacent
+      ? `Their ${top?.post_type ?? "format"} + ${top?.hook_type ?? "hook"} approach adapted to your niche — borrow the format, not the topic.`
+      : `Their ${top?.post_type ?? "format"} + ${top?.hook_type ?? "hook"} structure — rewrite in your own voice.`,
     avoid: "Copying their exact creative or captions word-for-word.",
   };
 }

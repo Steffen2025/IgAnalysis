@@ -32,7 +32,7 @@ import { getCached, setCached, makeCacheKey, TTL_GOOGLE, TTL_HASHTAG, TTL_POSTS,
 import { canSpendApifyRun } from "../audit/apifyBudget.js";
 import { normalizeCategory } from "../audit/categoryNormalizer.js";
 import { getClientConfig } from "./clientConfig.js";
-import { generateHashtags, generateReferenceSearchTerms, generateRegionalSearchTerms, generateSearchTerms } from "./competitorDiscovery.js";
+import { generateComplementaryTerms, generateHashtags, generateReferenceSearchTerms, generateRegionalSearchTerms, generateSearchTerms } from "./competitorDiscovery.js";
 import { referenceFollowerBand, inReferenceBand, referenceMarkets } from "./referenceConfig.js";
 
 export interface LiveDiscoveryOptions {
@@ -49,8 +49,9 @@ export interface LiveDiscoveryResult {
   candidateHandles: string[];
   candidatesBySource: { hashtag: number; search: number; google: number; related: number };
   profilesScraped: number;
-  persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource; successScore: number; type: "reference_model" | "local_intel" }>;
+  persisted: Array<{ handle: string; followers: number | null; market: string; source: CandidateSource; successScore: number; type: "reference_model" | "local_intel"; adjacency?: string }>;
   rejected: Array<{ handle: string; reason: string }>;
+  complementaryAdded: number;
   apifyRuns: number;
   status: "complete" | "partial" | "no_candidates" | "budget_exhausted";
 }
@@ -138,7 +139,7 @@ export async function discoverAndPersistReferences(
 
   const result: LiveDiscoveryResult = {
     searchTerms, hashtags, candidateHandles: [], candidatesBySource: { hashtag: 0, search: 0, google: 0, related: 0 },
-    profilesScraped: 0, persisted: [], rejected: [], apifyRuns: 0, status: "complete",
+    profilesScraped: 0, persisted: [], rejected: [], complementaryAdded: 0, apifyRuns: 0, status: "complete",
   };
 
   // Source of each candidate handle, so persistence can record provenance and we
@@ -319,7 +320,7 @@ export async function discoverAndPersistReferences(
   // models, below-band-but-relevant accounts become local peers (local_intel).
   const HARD_FLOOR = 500;            // too small to learn from
   const HARD_CEIL = band.max * 5;    // national-scale brand: tactics don't transfer
-  type Survivor = { p: NormalizedProfile; success: number; type: "reference_model" | "local_intel" };
+  type Survivor = { p: NormalizedProfile; success: number; type: "reference_model" | "local_intel"; adjacency?: string };
   const survivors: Survivor[] = [];
   for (const p of profiles) {
     const h = (p.username ?? "").toLowerCase();
@@ -339,6 +340,71 @@ export async function discoverAndPersistReferences(
     srcRank((b.p.username ?? "").toLowerCase()) - srcRank((a.p.username ?? "").toLowerCase()) ||
     (b.p.follower_count ?? 0) - (a.p.follower_count ?? 0),
   );
+
+  // ── 3b) Adjacent-industry references (thin-niche fallback) ──
+  // When the same-category niche has too few aspirational accounts, study
+  // *complementary* industries that reach the same audience (per the brief:
+  // "look at a complementary industry … what are they doing properly"). These
+  // are added as labeled reference models, gated to genuinely in-band accounts.
+  const MIN_REFERENCES = 2;
+  const referenceCount = survivors.filter((s) => s.type === "reference_model").length;
+  if (referenceCount < MIN_REFERENCES) {
+    const compTerms = generateComplementaryTerms(ringInput);
+    const compVocab = Array.from(new Set(compTerms.flatMap((t) => t.toLowerCase().split(/[^a-z]+/)).filter((w) => w.length >= 4)));
+    const compTags = Array.from(new Set(compTerms.map((t) => t.toLowerCase().replace(/[^a-z0-9]/g, "")).filter((t) => t.length >= 4 && t.length <= 30))).slice(0, 8);
+    if (compTags.length > 0 && (await canSpendApifyRun(auditId, 2))) {
+      const cKey = makeCacheKey("ig_hashtag_compl", `${norm.label}:${compTags.join(",")}`);
+      let cItems = await getCached<unknown[]>(cKey);
+      if (!cItems) {
+        const { items } = await runActorAndGetData({
+          actorId: ACTORS.INSTAGRAM.id, actorLabel: `Adjacent hashtags ×${compTags.length}`, auditId,
+          input: { directUrls: compTags.map((h) => `https://www.instagram.com/explore/tags/${h}/`), resultsType: "posts", resultsLimit: compTags.length * 10 },
+        });
+        cItems = items; result.apifyRuns++;
+        await setCached(cKey, items, TTL_HASHTAG);
+      }
+      const ownerEng = new Map<string, number>();
+      for (const it of cItems) {
+        const r = it as { ownerUsername?: string; likesCount?: number; commentsCount?: number };
+        const h = (r.ownerUsername ?? "").toLowerCase();
+        if (!h || h === clientHandle || invalid.has(h) || HANDLE_SKIP.has(h) || seen.has(h)) continue;
+        ownerEng.set(h, Math.max(ownerEng.get(h) ?? 0, (r.likesCount ?? 0) + (r.commentsCount ?? 0) * 3));
+      }
+      const compHandles = [...ownerEng.entries()].sort((a, b) => b[1] - a[1]).map(([h]) => h).slice(0, 15);
+      if (compHandles.length > 0 && (await canSpendApifyRun(auditId, 1))) {
+        const cpKey = makeCacheKey("ig_profiles_compl", compHandles.join(","));
+        let compProfiles = await getCached<NormalizedProfile[]>(cpKey);
+        if (!compProfiles) {
+          const { items } = await runActorAndGetData({
+            actorId: ACTORS.INSTAGRAM.id, actorLabel: `Adjacent profiles ×${compHandles.length}`, auditId,
+            input: { ...INPUT_TEMPLATES.INSTAGRAM_PROFILE_LOOKUP, directUrls: compHandles.map(profileUrl), resultsLimit: compHandles.length },
+          });
+          compProfiles = items.map((it) => normalizeProfile(it)); result.apifyRuns++;
+          await setCached(cpKey, compProfiles, TTL_PROFILE);
+        }
+        result.profilesScraped += compProfiles.length;
+        for (const p of compProfiles) {
+          const h = (p.username ?? "").toLowerCase();
+          const fc = p.follower_count;
+          if (!h || fc == null || seen.has(h)) continue;
+          if (fc < HARD_FLOOR || fc > HARD_CEIL || inReferenceBand(fc, band) !== "in") continue;
+          const hay = `${p.full_name ?? ""} ${p.bio ?? ""} ${p.category ?? ""}`.toLowerCase();
+          const matched = compVocab.find((v) => hay.includes(v));
+          if (!matched) continue;
+          seen.add(h);
+          handleSource.set(h, "hashtag");
+          survivors.push({ p, success: successScoreFromProfile(p), type: "reference_model", adjacency: matched });
+          result.complementaryAdded++;
+        }
+        survivors.sort((a, b) =>
+          b.success - a.success ||
+          srcRank((b.p.username ?? "").toLowerCase()) - srcRank((a.p.username ?? "").toLowerCase()) ||
+          (b.p.follower_count ?? 0) - (a.p.follower_count ?? 0),
+        );
+      }
+    }
+  }
+
   const keep = survivors.slice(0, maxPersisted);
   if (keep.length === 0) { result.status = handles.length ? "partial" : "no_candidates"; return result; }
 
@@ -351,12 +417,15 @@ export async function discoverAndPersistReferences(
     inArray(competitors.source, ["reference_search", "hashtag_discovery"]),
   ));
   const compIdByHandle = new Map<string, number>();
-  for (const { p, success, type } of keep) {
+  for (const { p, success, type, adjacency } of keep) {
     const h = (p.username ?? "").toLowerCase();
     const geoMarket = type === "local_intel" ? (audit.city ?? market) : market;
+    const discoveryKeyword = adjacency
+      ? `adjacent:${adjacency}`
+      : `${norm.label} ${type === "local_intel" ? "local peer" : "reference"}`;
     const [comp] = await db.insert(competitors).values({
       audit_id: auditId, username: h, source: sourceEnum(h), competitor_type: type,
-      geographic_market: geoMarket, discovery_keyword: `${norm.label} ${type === "local_intel" ? "local peer" : "reference"}`,
+      geographic_market: geoMarket, discovery_keyword: discoveryKeyword,
       discovery_query: searchTerms[0] ?? norm.label, confidence_score: success, deep_scraped: true,
     }).returning({ id: competitors.id });
     compIdByHandle.set(h, comp.id);
@@ -364,7 +433,7 @@ export async function discoverAndPersistReferences(
       competitor_id: comp.id, audit_id: auditId, follower_count: p.follower_count, following_count: p.following_count,
       post_count: p.post_count, is_business: p.is_business, bio: p.bio, category: p.category, raw_json: p.raw_json,
     });
-    result.persisted.push({ handle: h, followers: p.follower_count, market: geoMarket, source: handleSource.get(h) ?? "google", successScore: success, type });
+    result.persisted.push({ handle: h, followers: p.follower_count, market: geoMarket, source: handleSource.get(h) ?? "google", successScore: success, type, adjacency });
   }
 
   // ── 5) Batched posts scrape for survivors (1 run, cached) ──

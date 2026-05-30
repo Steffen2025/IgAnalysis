@@ -181,6 +181,13 @@ test("reference models are not buried under locals", () => {
   assert.ok(cards.some((c) => c.type === "reference"), "a reference must survive the card cap");
 });
 
+test("adjacent-industry reference is labeled in the card", () => {
+  const r = comp({ username: "adjacentbrand", source: "reference_search", competitor_type: "reference_model", confidence_score: 60, discovery_keyword: "adjacent:home services", bio: "home services brand", follower_count: 30000, latest_post: fresh() });
+  const { cards } = evaluateCompetitors([r], relCtx, [], 6);
+  assert.equal(cards.length, 1);
+  assert.match(cards[0].whySelected.toLowerCase(), /adjacent industry \(home services\)/);
+});
+
 // ── Data-quality competitor confidence ──
 function card(type: "reference" | "local") {
   return { handle: "h", displayName: "h", type, followers: 1000, posts: 50, profileImageAvailable: true, latestPostAvailable: true, latestPostDate: null, activityStatus: "active", latestPostType: "reel", latestPostHook: null, whySelected: "x", borrow: "b", avoid: "a" } as never;
