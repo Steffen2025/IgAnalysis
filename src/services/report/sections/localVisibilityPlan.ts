@@ -7,6 +7,7 @@ export const SECTION_KEY = "local_visibility";
 
 export async function generateLocalVisibilityPlan(data: ReportData): Promise<string> {
   const { audit, scores, hashtagHygiene } = data;
+  const ctx = data.reportContext;
 
   const localScore = scores.local_visibility ?? 0;
   const localSignals = scores.signals["local_visibility"] ?? [];
@@ -14,8 +15,10 @@ export async function generateLocalVisibilityPlan(data: ReportData): Promise<str
   const prompt = `Write the Local Visibility Plan section for ${audit.business_name ?? "this business"}.
 
 DATA:
-- City: ${audit.city}
-- Service area: ${audit.service_area}
+- City: ${ctx.businessLocation.city}
+- Region: ${ctx.businessLocation.region}
+- Local market: ${ctx.localMarketLabel}
+- Business type: ${ctx.businessClassification}
 - Local Visibility score: ${localScore}/100
 - Uses own geo hashtag: ${hashtagHygiene.clientUsesOwnGeo ? "YES" : "NO"}
 - Avg hashtags per post: ${hashtagHygiene.avgCountPerPost.toFixed(1)} [${hashtagHygiene.countAssessment}]
@@ -27,7 +30,7 @@ ${localSignals.map((s) => `  ${s.fired ? "FIRED" : "UNFIRED"} | ${s.label} | wei
 
 ${localScore < 30 ? "NOTE: Local Visibility is the lowest-scoring area. Frame this as the lowest-effort, highest-return opportunity available." : ""}
 
-Write 200 words max. Name specific hashtags to add (format with #). Name specific local content angles they haven't tried. Mention specific local references that should appear in bio and captions. Be concrete — not "use local hashtags" but "add #${audit.city?.toLowerCase().replace(/\s+/g, "") ?? "yourcity"} to every post."`;
+Write 200 words max. Name specific hashtags to add (format with #). Name specific local content angles they haven't tried. Mention specific local references that should appear in bio and captions. Be concrete — not "use local hashtags" but "add a ${ctx.businessClassification} hashtag set for ${ctx.localMarketLabel} to every post."`;
 
   const result = await callLLM({
     model: "sonnet",

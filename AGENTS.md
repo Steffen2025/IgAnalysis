@@ -1,101 +1,142 @@
 # AGENTS.md — Operating Rules
 
-> These are the standing instructions Claude follows in every session.
-> Update this file when a rule changes. Claude treats this as authoritative.
+> Standing instructions Claude follows every session. Update this file when a
+> rule changes; Claude treats it as authoritative. AGENTS.md and MEMORY.md are
+> the master repo-local memory files — merge into them, never overwrite. Keep
+> this file under ~300 lines.
 
 ---
 
 ## Session Start Protocol
 
-When a new session begins, Claude must:
+1. Read `MEMORY.md` — load current state, active projects, open loops.
+2. Read `AGENTS.md` — load operating rules (this file).
+3. Read or create today's daily log at `memory/daily/YYYY-MM-DD.md` (from
+   `memory/daily/TEMPLATE.md` if it doesn't exist); note carry-forward items.
+4. Read `memory/inbox.md` — route any unprocessed notes, then clear to header.
+5. Read the active `memory/projects/*.md` when the task maps to a project.
+6. Flag open loops in MEMORY.md older than 7 days.
+7. Confirm likely focus, stale loops, inbox status, and files loaded. Then wait.
 
-1. Read `MEMORY.md` — load current state, active projects, open loops
-2. Read `memory/inbox.md` — route any unprocessed notes to the right file
-3. Confirm what was last worked on and ask: *"Where do you want to start?"*
-4. If a daily log for today doesn't exist in `memory/daily/`, create one
+(The `/session-start` command runs this sequence.)
 
-[Add or remove steps here as the workflow evolves]
+---
+
+## Session End Protocol
+
+1. Write the End of Day Summary into today's daily log.
+2. Update `MEMORY.md`: mark resolved loops ✓, add new loops, update project
+   status, update Last Updated.
+3. Update any project files that had activity (decisions, status, contacts, loops).
+4. Add permanent behavior corrections to AGENTS.md → LEARNED if applicable.
+5. Show what was written and where. (The `/session-end` command runs this.)
 
 ---
 
 ## Memory Routing Rules
 
-Claude routes notes from `inbox.md` as follows:
-
 | Note type | Route to |
 |-----------|----------|
-| Project update or task | `memory/projects/[project-name].md` |
-| Client interaction | `memory/projects/[client-name].md` or MEMORY.md client table |
+| Project update or task | `memory/projects/[project].md` |
+| Client / business-unit interaction | `memory/projects/[name].md` or MEMORY.md table |
 | Decision that affects workflow | MEMORY.md → Decisions section |
-| Idea without a project yet | `memory/inbox.md` (leave in inbox, tag with `[idea]`) |
+| Idea without a project yet | leave in `memory/inbox.md`, tag `[idea]` |
 | Daily log entry | `memory/daily/YYYY-MM-DD.md` |
-| Hard rule or lesson learned | `AGENTS.md` → LEARNED section |
-
-[Add routing rules as edge cases emerge]
+| Hard rule or lesson learned | AGENTS.md → LEARNED |
 
 ---
 
 ## Daily Log Protocol
 
-- File naming: `memory/daily/YYYY-MM-DD.md`
-- Claude creates the file at session start if it doesn't exist
-- Log structure (see scaffold in `memory/daily/`)
-- At session end, Claude summarizes what was done and adds it to the log
-- Logs are never deleted — they are the permanent record
-
-[Add any custom fields to track in daily logs here]
+- Naming: `memory/daily/YYYY-MM-DD.md`. Created at session start if missing.
+- Structure: copy `memory/daily/TEMPLATE.md`.
+- At session end, summarize what was done into the log.
+- Logs are never deleted — they are the permanent record.
 
 ---
 
 ## Project File Protocol
 
-- One file per project or client: `memory/projects/[slug].md`
-- Each file tracks: goal, status, decisions, tasks, history
-- Claude updates the relevant project file whenever work is done on that project
-- Project files are the source of truth — MEMORY.md is just a summary index
+- One file per project/business unit: `memory/projects/[slug].md`.
+- Each tracks: state, purpose, decisions, tasks, history, references.
+- Update the relevant project file whenever work is done on it.
+- Project files are the source of truth; MEMORY.md is the summary index.
 
-[Add naming conventions or required fields here]
+---
+
+## Context Efficiency Rules
+
+- Keep always-loaded instructions short.
+- MEMORY.md is for current state, not long history.
+- AGENTS.md is for operating rules, not project details.
+- Project files hold project-specific context.
+- Skills explain how to perform tasks.
+- References store long examples, templates, and background material.
+- Do not load reference files unless the current task requires them.
+- Before reading large files, explain why they are needed.
+- Prefer reading targeted files over scanning the entire project.
+- Preserve raw data separately from interpretation.
+- Do not create designed reports until the markdown/report logic is proven.
+
+---
+
+## Skill Loading Rules
+
+- Project skills live in `.claude/skills/[name]/SKILL.md` and are short and
+  operational: purpose, when to use, inputs, process, output, quality rules.
+- A skill points to a reference file; it does not embed long examples.
+- Load a skill only when the task matches its trigger.
+
+---
+
+## Reference File Rules
+
+- Reference material lives in `.claude/references/`.
+- References are read on demand, never auto-loaded.
+- A skill or task says explicitly: "Read `.claude/references/[file]` only when
+  this task requires it."
+- Move long examples/templates/brand guides here, not into skills or memory.
 
 ---
 
 ## Hard Rules
 
-> Claude must follow these without exception.
-
-1. Never publish or schedule content without explicit confirmation
-2. Never delete or overwrite memory files — append only, or ask first
-3. Always route inbox notes before starting work — don't let inbox accumulate
-4. If context is ambiguous, ask — don't assume and proceed
-5. [Add rule — e.g. "Always write in first person when drafting my content"]
-6. [Add rule — e.g. "Never use emojis in LinkedIn posts"]
+1. Never publish or schedule content without explicit confirmation.
+2. Never delete or overwrite memory files — append only, or ask first.
+3. Always route inbox notes before starting work — don't let inbox accumulate.
+4. If context is ambiguous, ask — don't assume and proceed.
+5. Preserve existing AGENTS.md/MEMORY.md content when adopting a scaffold; merge
+   and organize, don't replace.
+6. Keep local intelligence region-specific; "Burlington" means Burlington, ON.
+7. Do not change application source code (`src/`) without explicit approval.
+8. Do not expose, move, print, or alter secrets, API keys, tokens, cookies, or
+   `.env` values.
+9. Do not modify global Claude folders without explicit approval.
+10. Do not commit to git unless asked.
 
 ---
 
 ## Platform Formatting
 
 ### Instagram
-- [Tone: e.g. casual, energetic, story-driven]
-- [Length: e.g. 150–300 words]
-- [Hashtag strategy: e.g. 5–10 niche tags, no banned tags]
-- [CTA style: e.g. always end with a question]
+- Tone: practical, human, direct — no hype.
+- Separate raw data from recommendations; mark uncertain findings `[TO CONFIRM]`.
+- Default output is structured markdown.
 
 ### LinkedIn
-- [Tone: e.g. professional but personal]
-- [Length: e.g. 3–5 short paragraphs]
-- [Hook format: e.g. bold first line, no more than 8 words]
-- [CTA style: e.g. invite comments, never hard-sell]
+- Tone: professional but personal. [Refine when LinkedIn work begins.]
 
 ### [Other Platform]
-- [Tone: placeholder]
-- [Length: placeholder]
-- [Format notes: placeholder]
+- [Add when needed.]
 
 ---
 
 ## LEARNED
 
-> Lessons from real sessions. Add entries as they happen.
+> Lessons from real sessions. Format: [YYYY-MM-DD] — rule.
 
-- [YYYY-MM-DD] [What Claude got wrong or right, and the corrected behavior]
-- [YYYY-MM-DD] [Preference discovered mid-session that should persist]
-- [YYYY-MM-DD] [Edge case handled — note how it was resolved]
+- [2026-05-25] Current AGENTS.md and MEMORY.md are master. Memory-system setup should merge into existing files and preserve project-specific rules.
+- [2026-05-27] The admin dashboard should keep setup and action screens readable by default; lighter surfaces and human-friendly phase labels are better for the new-audit workflow.
+- [2026-05-27] Test runs need an explicit cleanup path in the dashboard so temporary audits can be deleted without manual database work.
+- [2026-05-28] Before resuming feature QA after runtime interruptions, re-verify critical local dependencies first (Docker engine/Postgres), then rerun one full dashboard flow to confirm output integrity.
+- [2026-05-29] Keep the context system lean: skills are instructions, references are storage, memory is current state — never blend them. Heavy material goes to `.claude/references/` and is read only on demand.

@@ -1,14 +1,13 @@
 import type { Config } from "drizzle-kit";
-import path from "node:path";
 
 export default {
   schema: "./src/db/schema.ts",
-  out: "./drizzle",
-  dialect: "sqlite",
+  out: "./drizzle-pg",
+  dialect: "postgresql",
   dbCredentials: {
     url:
       process.env.DATABASE_URL ??
-      path.resolve(process.cwd(), "data/botlogix.db"),
+      "postgres://botlogix:botlogix@127.0.0.1:55432/botlogix",
   },
   strict: true,
   verbose: true,

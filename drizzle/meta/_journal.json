@@ -43,6 +43,20 @@
       "when": 1779590323634,
       "tag": "0005_military_phalanx",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1779642000000,
+      "tag": "0006_audit_dashboard",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1779645600000,
+      "tag": "0007_audit_delivery_email",
+      "breakpoints": true
     }
   ]
 }

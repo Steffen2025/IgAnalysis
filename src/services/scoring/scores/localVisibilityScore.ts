@@ -1,5 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { db } from "../../../db/index.js";
+import { first } from "../../../db/query.js";
 import { audits, posts, profiles } from "../../../db/schema.js";
 import { buildGeoTokens, isClientGeoTag } from "../../audit/geoTagFilter.js";
 import { buildLocalTerms } from "../enhancers/localReferenceEnhancer.js";
@@ -23,16 +24,15 @@ function parseJsonArray(blob: string | null | undefined): string[] {
   }
 }
 
-export function scoreLocalVisibility(auditId: number): ScoreResult {
-  const audit = db.select().from(audits).where(eq(audits.id, auditId)).limit(1).all()[0];
-  const profile = db
+export async function scoreLocalVisibility(auditId: number): Promise<ScoreResult> {
+  const audit = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
+  const profile = await first(db
     .select()
     .from(profiles)
     .where(eq(profiles.audit_id, auditId))
     .orderBy(desc(profiles.scraped_at))
-    .limit(1)
-    .all()[0];
-  const allPosts = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+    .limit(1));
+  const allPosts = await db.select().from(posts).where(eq(posts.audit_id, auditId));
 
   if (!audit || !profile || allPosts.length === 0) {
     return {

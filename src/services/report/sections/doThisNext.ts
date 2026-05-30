@@ -7,6 +7,7 @@ export const SECTION_KEY = "do_this_next";
 
 export async function generateDoThisNext(data: ReportData): Promise<string> {
   const { audit, scores } = data;
+  const ctx = data.reportContext;
 
   const unFired = Object.entries(scores.signals)
     .flatMap(([cat, sigs]) => sigs.map((s) => ({ ...s, category: cat })))
@@ -21,7 +22,7 @@ CURRENT SCORES: Overall ${scores.overall ?? "n/a"}/100 | Profile ${scores.profil
 TOP UNFIRED SIGNALS (the changes with the most point value):
 ${unFired.map((s) => `- [${s.category}] ${s.label} (${s.weight}pts)${s.note ? `: ${s.note}` : ""}`).join("\n")}
 
-Business: ${audit.business_name} | ${audit.business_category} | ${audit.city}
+Business: ${audit.business_name} | ${ctx.businessClassification} | ${ctx.localMarketLabel}
 
 Write exactly 10 actions, numbered 1-10. Each action is one sentence. Time-box each with (today), (this week), or (this month). The first 3 should be executable in under 10 minutes each. Action 10 must be: "Re-run this audit in 30 days to measure movement against today's score of ${scores.overall ?? "?"}/100." 200 words maximum.`;
 

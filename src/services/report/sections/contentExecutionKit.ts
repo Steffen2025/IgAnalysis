@@ -7,6 +7,7 @@ export const SECTION_KEY = "content_kit";
 
 export async function generateContentExecutionKit(data: ReportData): Promise<string> {
   const { audit, patterns, comments } = data;
+  const ctx = data.reportContext;
 
   const cat = patterns.category;
   const bestHook = cat.hooks.bestPerformingHookByEngagement ?? cat.hooks.topHook;
@@ -24,8 +25,8 @@ WHAT WORKS IN THIS CATEGORY (${cat.postCount} posts analyzed):
 
 BUSINESS CONTEXT:
 - Business: ${audit.business_name}
-- Category: ${audit.business_category}
-- City: ${audit.city}
+- Category: ${ctx.businessClassification}
+- Market: ${ctx.localMarketLabel}
 - Main offer: ${audit.main_offer}
 - Target audience: ${audit.target_audience}
 

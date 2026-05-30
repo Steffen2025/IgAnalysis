@@ -27,8 +27,8 @@ function extractPatternStat(data: ReportData): { catPosts: number; clientAvgCapt
   const client = data.patterns?.client;
   return {
     catPosts: cat?.postCount ?? 0,
-    clientAvgCaption: client?.captions?.avgLength ?? 0,
-    catAvgCaption: cat?.captions?.avgLength ?? 0,
+    clientAvgCaption: client?.caption?.avgLength ?? 0,
+    catAvgCaption: cat?.caption?.avgLength ?? 0,
   };
 }
 

@@ -13,14 +13,14 @@ function topGapDescription(data: ReportData): string {
   const gaps = data.patterns?.gaps ?? [];
   if (gaps.length === 0) return "The most actionable gap is posting frequency.";
   const g = gaps[0];
-  const label = g.label ?? "content frequency";
+  const label = g.dimension.replace(/_/g, " ") ?? "content frequency";
   return `The most actionable gap is ${label} — closing it is worth more than any other single change.`;
 }
 
 function fixableCount(data: ReportData): { points: number; habits: number } {
   // Estimate from gaps array
   const gaps = data.patterns?.gaps ?? [];
-  const points = gaps.slice(0, 5).reduce((s, g) => s + (g.weight ?? 10), 0);
+  const points = gaps.slice(0, 5).reduce((s) => s + 10, 0);
   return { points: Math.min(points, 60), habits: Math.min(gaps.length, 5) };
 }
 
@@ -42,8 +42,8 @@ export function renderOpeningNarrative(data: ReportData): string {
 
   // Biggest gap label for the stat
   const gaps = data.patterns?.gaps ?? [];
-  const topGapLabel = gaps[0]?.label ?? "Posting frequency";
-  const topGapPoints = gaps[0]?.weight ?? 25;
+  const topGapLabel = gaps[0]?.dimension.replace(/_/g, " ") ?? "Posting frequency";
+  const topGapPoints = gaps.length > 0 ? 25 : 0;
 
   const cells = [
     {

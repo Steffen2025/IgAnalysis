@@ -5,10 +5,19 @@ function e(s: string): string {
 interface Action {
   number: string;
   text: string;
-  timeTag: string;
 }
 
 const TIME_TAGS = ["TODAY", "THIS WEEK", "THIS MONTH", "IN 30 DAYS"];
+
+function detectTagFromText(text: string): string {
+  let timeTag = "THIS WEEK";
+  for (const tag of TIME_TAGS) {
+    if (text.toUpperCase().includes(tag)) { timeTag = tag; break; }
+  }
+  const bracketMatch = text.match(/\[(TODAY|THIS WEEK|THIS MONTH|IN 30 DAYS)\]/i);
+  if (bracketMatch) timeTag = bracketMatch[1].toUpperCase();
+  return timeTag;
+}
 
 function parseActions(md: string): Action[] {
   const actions: Action[] = [];
@@ -16,51 +25,36 @@ function parseActions(md: string): Action[] {
     const m = line.match(/^(\d+)[.)]\s*(.+)/);
     if (m) {
       const rawText = m[2].replace(/\*\*/g, "").trim();
-      let timeTag = "THIS WEEK";
-      for (const tag of TIME_TAGS) {
-        if (rawText.toUpperCase().includes(tag)) { timeTag = tag; break; }
-      }
-      // Also check bracket format [TODAY], etc.
-      const bracketMatch = rawText.match(/\[(TODAY|THIS WEEK|THIS MONTH|IN 30 DAYS)\]/i);
-      if (bracketMatch) timeTag = bracketMatch[1].toUpperCase();
       const text = rawText.replace(/\[TODAY\]|\[THIS WEEK\]|\[THIS MONTH\]|\[IN 30 DAYS\]/gi, "").trim();
-      actions.push({ number: m[1], text, timeTag });
+      actions.push({ number: m[1], text });
     }
   }
   return actions.slice(0, 10);
-}
-
-function tagColor(tag: string): string {
-  if (tag === "TODAY") return "#0F6E56";
-  if (tag === "THIS MONTH") return "#B07D1E";
-  if (tag === "IN 30 DAYS") return "#5C5A52";
-  return "#B07D1E";
 }
 
 export function doThisNextSlide(md: string): string {
   const actions = parseActions(md);
 
   if (actions.length === 0) {
-    return `<span class="eyebrow">Do This Next</span>
+    return `<span class="eyebrow">Action List</span>
 
-# 10 actions, time-boxed
+# 10 quick actions you can finish this week
 
-<div style="font-size:17px;color:#5C5A52;line-height:1.6">${e(md.slice(0, 700))}</div>`;
+<div style="font-size:17px;color:var(--text-secondary);line-height:1.6">${e(md.slice(0, 700))}</div>`;
   }
 
   const items = actions.map((a, i) => {
-    const isLast = i === actions.length - 1;
-    const color = tagColor(a.timeTag);
-    return `<li${isLast ? ' class="final"' : ""}>
-    <div class="check"></div>
-    <span class="text">${e(a.number)}. ${e(a.text)}</span>
-    <span class="tag" style="color:${color}">${e(a.timeTag)}</span>
+    const tag = i === 9 ? "IN 30 DAYS" : detectTagFromText(a.text);
+    return `<li class="checklist-row${i === 9 ? " final" : ""}">
+    <div class="checklist-check"></div>
+    <span class="checklist-text">${e(a.number)}. ${e(a.text)}</span>
+    <span class="checklist-tag">${e(tag)}</span>
   </li>`;
   }).join("\n  ");
 
-  return `<span class="eyebrow">Do This Next</span>
+  return `<span class="eyebrow">Action List</span>
 
-# 10 actions, time-boxed
+# 10 quick actions you can finish this week
 
 <ul class="checklist">
   ${items}

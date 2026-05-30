@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import {
   audits,
   competitor_posts,
@@ -18,6 +19,7 @@ import {
   makeCacheKey,
   setCached,
 } from "../cache/cacheService.js";
+import { isAllowedReferenceMarketLabel } from "./referenceMarkets.js";
 import { buildGeoTokens, isClientGeoTag, isGeoTag } from "./geoTagFilter.js";
 
 export interface TopHashtags {
@@ -76,28 +78,30 @@ function topN(counts: Map<string, number>, n: number): string[] {
 }
 
 export async function collectTopHashtags(auditId: number): Promise<TopHashtags> {
-  const audit = db
-    .select({ city: audits.city, reference_markets: audits.reference_markets })
+  const audit = await first(db
+    .select({
+      city: audits.city,
+      service_area: audits.service_area,
+      reference_markets: audits.reference_markets,
+    })
     .from(audits)
     .where(eq(audits.id, auditId))
-    .limit(1)
-    .all()[0];
+    .limit(1));
 
-  const clientPosts = db
+  const clientPosts = await db
     .select({ hashtags: posts.hashtags })
     .from(posts)
-    .where(eq(posts.audit_id, auditId))
-    .all();
+    .where(eq(posts.audit_id, auditId));
 
-  const compRows = db
+  const compRows = await db
     .select({
       hashtags: competitor_posts.hashtags,
       competitor_type: competitors.competitor_type,
+      geographic_market: competitors.geographic_market,
     })
     .from(competitor_posts)
     .innerJoin(competitors, eq(competitor_posts.competitor_id, competitors.id))
-    .where(eq(competitor_posts.audit_id, auditId))
-    .all();
+    .where(eq(competitor_posts.audit_id, auditId));
 
   const strategicCounts = new Map<string, number>();
   const localCounts = new Map<string, number>();
@@ -108,6 +112,9 @@ export async function collectTopHashtags(auditId: number): Promise<TopHashtags> 
     }
   }
   for (const r of compRows) {
+    if (r.competitor_type === "reference_model" && !isAllowedReferenceMarketLabel(r.geographic_market)) {
+      continue;
+    }
     const target =
       r.competitor_type === "reference_model" ? strategicCounts : localCounts;
     for (const t of parseTags(r.hashtags)) {
@@ -225,7 +232,7 @@ export async function scrapeHashtagPosts(
 
   for (const { tag, bucket } of capped) {
     const key = makeCacheKey("instagram_hashtag", tag);
-    const cached = getCached<unknown[]>(key);
+    const cached = await getCached<unknown[]>(key);
     let items: unknown[];
     if (cached) {
       console.log(`Cache hit: hashtag #${tag}`);
@@ -245,17 +252,16 @@ export async function scrapeHashtagPosts(
       });
       items = result.items;
       scraped += items.length;
-      setCached(key, items, TTL_HASHTAG);
+      await setCached(key, items, TTL_HASHTAG);
     }
 
-    db.insert(hashtags)
+    await db.insert(hashtags)
       .values({
         audit_id: auditId,
         hashtag: tag,
         source: bucket,
         post_count: items.length,
-      })
-      .run();
+      });
     rowsInserted += 1;
   }
 

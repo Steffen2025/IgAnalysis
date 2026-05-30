@@ -1,11 +1,5 @@
 import type { ReportData } from "../../report/reportDataAssembler.js";
 
-function scoreColor(n: number): string {
-  if (n >= 70) return "#0F6E56";
-  if (n >= 40) return "#B07D1E";
-  return "#8B3A2E";
-}
-
 function formatDate(d: Date): string {
   return d.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" });
 }
@@ -22,48 +16,88 @@ function e(s: string | null | undefined): string {
 
 export function closingSlide(data: ReportData): string {
   const { audit, scores, client } = data;
-  const businessName = e(audit.business_name ?? "");
+  const ctx = data.reportContext;
+  const businessName = e(ctx.preparedForName);
   const overall = scores.overall ?? 0;
-  const color = scoreColor(overall);
   const followers = (client?.profile?.follower_count ?? 0).toLocaleString();
   const postCount = client?.profile?.post_count ?? 0;
+  const instagramUrl = audit.instagram_url ?? "";
+  const websiteUrl = audit.website_url ?? client?.profile?.external_url_in_bio ?? client?.profile?.website_url ?? "";
   const auditDate = audit.created_at ? new Date(audit.created_at) : new Date();
   const reauditDate = addDays(auditDate, 30);
   const reauditStr = formatDate(reauditDate);
 
-  const postsPerWeek = (client as any)?.feature_summary?.posts_per_week;
-  const postsPerWeekStr = postsPerWeek != null ? `${Number(postsPerWeek).toFixed(1)}/wk` : "—";
+  const now = audit.created_at ? new Date(audit.created_at) : new Date();
+  const postsInLast30Days = client?.posts?.filter((post) => {
+    if (!post.posted_at) return false;
+    const postedAt = new Date(post.posted_at);
+    const ageDays = (now.getTime() - postedAt.getTime()) / 86400000;
+    return ageDays >= 0 && ageDays <= 30;
+  }).length ?? 0;
+  const postsPerWeekStr = `${((postsInLast30Days / 30) * 7).toFixed(1)}/wk`;
 
-  return `<span class="eyebrow">30 Days From Now</span>
+  const market = e(ctx.localMarketLabel);
+  const opportunity =
+    (scores.local_visibility ?? 0) < 50
+      ? `Your biggest opportunity is local visibility in ${market} — make the city obvious in bio, captions, and hashtags.`
+      : (scores.content_performance ?? 0) < 55
+        ? "Your biggest opportunity is posting with a clearer weekly rhythm and stronger hooks."
+        : "Your biggest opportunity is turning attention into DMs and bookings with a clearer call to action.";
 
-# The baseline to beat
+  return `<span class="eyebrow">What to do next</span>
 
-<p style="font-size:18px;color:#5C5A52;max-width:640px;margin-bottom:20px">Every score in this report is a baseline, not a verdict. Run the same audit on <strong>${reauditStr}</strong> and compare each number to what's below.</p>
+# Your workbook in one glance
 
-<div class="stat-row">
+<p>You do not need to understand Instagram analytics. Follow this workbook for 30 days, then come back on <strong>${reauditStr}</strong>.</p>
+
+<div class="closing-stats">
   <div class="stat-card">
-    <div class="num" style="color:${color}">${overall}<span class="suffix">/100</span></div>
-    <div class="label">Score Today</div>
+    <div class="num accent-text">${overall}<span class="suffix">/100</span></div>
+    <div class="label">Baseline today</div>
   </div>
   <div class="stat-card">
     <div class="num">${followers}</div>
-    <div class="label">Followers Today</div>
+    <div class="label">Followers</div>
   </div>
   <div class="stat-card">
     <div class="num">${postCount}</div>
-    <div class="label">Total Posts</div>
+    <div class="label">Posts</div>
   </div>
   <div class="stat-card">
     <div class="num">${postsPerWeekStr}</div>
-    <div class="label">Posts per Week</div>
+    <div class="label">Posts / week</div>
   </div>
 </div>
 
-<div style="margin-top:28px;padding-top:18px;border-top:1px solid #E5E2D6;display:flex;justify-content:space-between;align-items:flex-end">
-  <div>
-    <div style="font-family:var(--font-serif);font-style:italic;font-size:20px;color:#1A2238">BotLogix Growth Intelligence</div>
-    <div style="font-family:var(--font-mono);font-size:13px;color:#5C5A52">botlogix.ca · Audit #${audit.id}</div>
+<p><strong>Bottom line:</strong> ${opportunity}</p>
+<p><strong>Do today:</strong> Check off page 2, then publish one local post with ${market} in the caption.</p>
+<p><strong>Day 30:</strong> Bring this workbook back — we compare scores, competitors, and what moved.</p>
+
+<div class="guide-card full">
+  <div class="kicker">Want the full growth system built for your business?</div>
+  <div class="title">Turn this workbook into weekly execution.</div>
+  <div class="copy">BotLogix turns competitor data, local signals, and your sprint plan into a repeatable system: profile fixes, content calendar, local engagement, and monthly measurement.</div>
+</div>
+
+<div class="url-grid">
+  <div class="url-row">
+    <div class="url-label">Instagram audited</div>
+    <div class="url-value">${e(instagramUrl)}</div>
   </div>
-  <div style="font-size:13px;color:#5C5A52;text-align:right;max-width:400px">Prepared for ${businessName}. For internal strategic planning only.<br>Not for redistribution.</div>
-</div>`;
+  <div class="url-row">
+    <div class="url-label">Website</div>
+    <div class="url-value">${e(websiteUrl)}</div>
+  </div>
+</div>
+
+<div class="closing-brand">
+  <img src="../../BotLogix Master Logo.png" alt="BotLogix">
+  <div>
+    <div class="brand-text">BotLogix Growth Intelligence</div>
+    <div class="brand-sub">botlogix.ca · @BotLogix</div>
+  </div>
+</div>
+
+<p style="font-size:13px;margin-top:10px;color:var(--text-secondary)">Prepared for <strong>${businessName}</strong>. Execute the checklist, follow the sprint, measure on day 30.</p>
+<p style="font-size:11px;color:var(--text-muted);margin-top:6px">For internal strategic planning only. Not for redistribution.</p>`;
 }

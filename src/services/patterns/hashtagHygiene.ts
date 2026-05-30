@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { audits, competitors, posts } from "../../db/schema.js";
 
 export interface HashtagHygieneResult {
@@ -11,11 +12,11 @@ export interface HashtagHygieneResult {
   notes: string[];
 }
 
-export function checkHashtagHygiene(auditId: number): HashtagHygieneResult {
-  const audit = db.select().from(audits).where(eq(audits.id, auditId)).get();
+export async function checkHashtagHygiene(auditId: number): Promise<HashtagHygieneResult> {
+  const audit = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
   if (!audit) throw new Error(`checkHashtagHygiene: audit ${auditId} not found`);
 
-  const clientPosts = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+  const clientPosts = await db.select().from(posts).where(eq(posts.audit_id, auditId));
 
   const isValidTag = (h: unknown): h is string =>
     typeof h === "string" && h.replace(/^#/, "").length >= 3 && !/^\d+$/.test(h.replace(/^#/, ""));
@@ -49,11 +50,10 @@ export function checkHashtagHygiene(auditId: number): HashtagHygieneResult {
     .map(([t]) => "#" + t);
 
   // ── Brand pollution detection ──────────────────────────────────────────────
-  const allComps = db
+  const allComps = await db
     .select({ username: competitors.username })
     .from(competitors)
-    .where(eq(competitors.audit_id, auditId))
-    .all();
+    .where(eq(competitors.audit_id, auditId));
 
   const compUsernames = allComps.map((c) => c.username.toLowerCase());
   const brandPollutionDetected: string[] = [];

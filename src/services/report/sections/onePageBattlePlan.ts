@@ -10,6 +10,7 @@ export async function generateOnePageBattlePlan(
   priorSections: Record<string, string>,
 ): Promise<string> {
   const { audit, scores, patterns, comments } = data;
+  const ctx = data.reportContext;
 
   // Find the biggest scoring gap
   const scoreDims = [
@@ -45,7 +46,7 @@ FACTS:
 - Highest-value unfired signal: ${topFix ? `${topFix.label} (${topFix.weight}pts, category: ${topFix.category})` : "none"}
 - Best reference model: ${bestRef ? `@${bestRef.username} (${bestRef.follower_count?.toLocaleString() ?? "?"} followers)` : "none identified"}
 - Most surprising audience finding: ${topQuestion ? `A common question in comments: "${topQuestion}"` : topPraise ? `Top praise signal: "${topPraise.token}" appearing ${topPraise.count}x` : "no comment data collected"}
-- Business: ${audit.business_name} | ${audit.business_category} | ${audit.city}
+- Business: ${audit.business_name} | ${audit.business_category} | ${ctx.localMarketLabel}
 - Main offer: ${audit.main_offer}
 - Business outcome goal: ${audit.business_outcome}
 

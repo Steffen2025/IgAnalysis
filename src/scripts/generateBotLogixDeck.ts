@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { writeFileSync, statSync, mkdirSync } from "fs";
 import { join } from "path";
-import { db } from "../db/index.js";
+import { db, sqlClient } from "../db/index.js";
 import { audits } from "../db/schema.js";
 import { desc, eq } from "drizzle-orm";
 import { generateMarpMarkdown } from "../services/marp-report/marpGenerator.js";
@@ -10,55 +10,64 @@ import { convertDeck } from "../services/marp-report/marpConverter.js";
 const OUT_DIR = "reports/marp";
 mkdirSync(OUT_DIR, { recursive: true });
 
-// Find most recent @botlogix audit
-const botlogixAudits = db
-  .select()
-  .from(audits)
-  .where(eq(audits.instagram_url, "https://www.instagram.com/botlogix/"))
-  .orderBy(desc(audits.id))
-  .all();
+async function buildVariant(auditId: number, basename: string, theme: "dark" | "light") {
+  console.log(`\nBuilding ${theme} slide markdown…`);
+  const markdown = await generateMarpMarkdown(auditId, theme);
+  const variantBase = `${basename}-${theme}`;
+  const mdPath = join(OUT_DIR, `${variantBase}.md`);
+  writeFileSync(mdPath, markdown, "utf8");
 
-if (botlogixAudits.length === 0) {
-  console.error("No @botlogix audit found.");
-  process.exit(1);
+  const slideCount = (markdown.match(/^---$/gm) ?? []).length;
+  console.log(`  Slide separators: ${slideCount}  →  ~${slideCount} slides`);
+  console.log(`  Markdown: ${mdPath}  (${Math.round(Buffer.byteLength(markdown) / 1024)} KB)`);
+
+  console.log(`\nConverting ${theme} via Marp CLI…`);
+  const outputs = await convertDeck(mdPath, OUT_DIR, variantBase, `themes/botlogix-${theme}.css`);
+  return { theme, mdPath, slideCount, ...outputs };
 }
 
-const audit = botlogixAudits[0];
-console.log(`\nGenerating Marp deck for audit #${audit.id} — ${audit.business_name ?? "@botlogix"}`);
-console.log("─".repeat(60));
+try {
+  // Find most recent @botlogix audit
+  const botlogixAudits = await db
+    .select()
+    .from(audits)
+    .where(eq(audits.instagram_url, "https://www.instagram.com/botlogix/"))
+    .orderBy(desc(audits.id));
 
-// Generate markdown
-console.log("Building slide markdown…");
-const markdown = await generateMarpMarkdown(audit.id);
+  if (botlogixAudits.length === 0) {
+    throw new Error("No @botlogix audit found.");
+  }
 
-const basename = `botlogix-audit-${audit.id}`;
-const mdPath   = join(OUT_DIR, `${basename}.md`);
-writeFileSync(mdPath, markdown, "utf8");
+  const audit = botlogixAudits[0];
+  console.log(`\nGenerating Marp decks for audit #${audit.id} — ${audit.business_name ?? "@botlogix"}`);
+  console.log("─".repeat(60));
 
-const slideCount = (markdown.match(/^---$/gm) ?? []).length;  // separators = slides - 1
-const totalSlides = slideCount;  // front-matter separator + slide separators
-console.log(`  Slide separators: ${slideCount}  →  ~${slideCount} slides`);
-console.log(`  Markdown: ${mdPath}  (${Math.round(Buffer.byteLength(markdown) / 1024)} KB)`);
+  const basename = `botlogix-audit-${audit.id}`;
+  const light = await buildVariant(audit.id, basename, "light");
+  const dark = await buildVariant(audit.id, basename, "dark");
 
-// Convert to PDF / HTML / PPTX
-console.log("\nConverting via Marp CLI…");
-const { pdf, html, pptx } = convertDeck(mdPath, OUT_DIR, basename);
+  // Print summary
+  console.log("\n" + "═".repeat(60));
+  console.log("OUTPUTS");
+  console.log("─".repeat(60));
 
-// Print summary
-console.log("\n" + "═".repeat(60));
-console.log("OUTPUTS");
-console.log("─".repeat(60));
+  function kb(path: string): string {
+    try { return `${Math.round(statSync(path).size / 1024)} KB`; } catch { return "not found"; }
+  }
 
-function kb(path: string): string {
-  try { return `${Math.round(statSync(path).size / 1024)} KB`; } catch { return "not found"; }
+  for (const output of [light, dark]) {
+    console.log(`  ${output.theme.toUpperCase()}`);
+    console.log(`    .md   ${output.mdPath}  ${kb(output.mdPath)}`);
+    console.log(`    .pdf  ${output.pdf}  ${kb(output.pdf)}`);
+    console.log(`    .html ${output.html}  ${kb(output.html)}`);
+    console.log(`    .pptx ${output.pptx}  ${kb(output.pptx)}`);
+  }
+  console.log("─".repeat(60));
+  console.log(`  Total slides: ~${dark.slideCount}`);
+  console.log(`\n  Primary deliverable (30-Day Action Workbook — light):`);
+  console.log(`    start ${light.pdf}`);
+  console.log(`\n  Optional dark export:`);
+  console.log(`    start ${dark.pdf}`);
+} finally {
+  await sqlClient.end({ timeout: 5 });
 }
-
-console.log(`  .md   ${mdPath}            ${kb(mdPath)}`);
-console.log(`  .pdf  ${pdf}   ${kb(pdf)}`);
-console.log(`  .html ${html}  ${kb(html)}`);
-console.log(`  .pptx ${pptx}  ${kb(pptx)}`);
-console.log("─".repeat(60));
-console.log(`  Total slides: ~${totalSlides}`);
-console.log(`\n  Open PDF:`);
-console.log(`    start ${pdf}`);
-console.log("\nRe-run anytime. Cached LLM sections + Marp theme = instant regeneration, zero LLM cost.");

@@ -46,12 +46,11 @@ export async function callLLM(params: {
 
   // Check cache
   const now = new Date().toISOString();
-  const cached = db
+  const cached = await db
     .select()
     .from(llm_cache)
     .where(and(eq(llm_cache.prompt_hash, hash), gt(llm_cache.expires_at, now)))
-    .limit(1)
-    .all();
+    .limit(1);
 
   if (cached.length > 0) {
     return { text: cached[0].response, cached: true, model };
@@ -77,7 +76,7 @@ export async function callLLM(params: {
 
   // Store in cache
   const expiresAt = new Date(Date.now() + cacheTTLDays * 24 * 3600 * 1000).toISOString();
-  db.insert(llm_cache)
+  await db.insert(llm_cache)
     .values({
       prompt_hash: hash,
       model: modelId,
@@ -88,8 +87,7 @@ export async function callLLM(params: {
     .onConflictDoUpdate({
       target: llm_cache.prompt_hash,
       set: { response: text, expires_at: expiresAt, updated_at: now },
-    })
-    .run();
+    });
 
   return { text, cached: false, model };
 }

@@ -1,6 +1,8 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { audits, competitors, competitor_posts, posts } from "../../db/schema.js";
+import { isAllowedReferenceMarketLabel } from "../audit/referenceMarkets.js";
 
 export type PatternScope = "category_corpus" | "client_only" | "reference_only" | "local_only";
 
@@ -112,19 +114,19 @@ interface AnalysisRow {
   source: "posts" | "competitor_posts";
 }
 
-export function analyzePatterns(auditId: number, scope: PatternScope): PatternResult {
+export async function analyzePatterns(auditId: number, scope: PatternScope): Promise<PatternResult> {
   const rows: AnalysisRow[] = [];
 
   // ── Pull client posts ──────────────────────────────────────────────────────
   if (scope === "client_only" || scope === "category_corpus") {
-    const profileRow = db
+    const profileRow = await first(db
       .select({ id: audits.id, instagram_url: audits.instagram_url })
       .from(audits)
       .where(eq(audits.id, auditId))
-      .get();
+      .limit(1));
     const username = profileRow?.instagram_url?.split("/").filter(Boolean).at(-1) ?? "client";
 
-    const clientPosts = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+    const clientPosts = await db.select().from(posts).where(eq(posts.audit_id, auditId));
     for (const p of clientPosts) {
       rows.push({
         id: p.id,
@@ -154,20 +156,20 @@ export function analyzePatterns(auditId: number, scope: PatternScope): PatternRe
         ? ["reference_model"]
         : ["local_intel", "reference_model"]; // category_corpus
 
-    const comps = db
+    const comps = (await db
       .select()
       .from(competitors)
-      .where(eq(competitors.audit_id, auditId))
-      .all()
+      .where(eq(competitors.audit_id, auditId)))
       .filter(
         (c) =>
           c.competitor_type != null &&
           compFilter.includes(c.competitor_type as "local_intel" | "reference_model") &&
-          c.deep_scraped,
+          c.deep_scraped &&
+          (c.competitor_type !== "reference_model" || isAllowedReferenceMarketLabel(c.geographic_market)),
       );
 
     for (const comp of comps) {
-      const cposts = db
+      const cposts = await db
         .select()
         .from(competitor_posts)
         .where(
@@ -175,8 +177,7 @@ export function analyzePatterns(auditId: number, scope: PatternScope): PatternRe
             eq(competitor_posts.audit_id, auditId),
             eq(competitor_posts.competitor_id, comp.id),
           ),
-        )
-        .all();
+        );
 
       for (const p of cposts) {
         rows.push({

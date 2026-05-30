@@ -1,0 +1,1 @@
+ALTER TABLE "competitor_posts" ADD COLUMN "shortcode" text;

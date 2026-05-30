@@ -26,7 +26,7 @@ export async function runEnrichment(auditId: number): Promise<EnrichmentResult> 
   const errors: string[] = [];
 
   // Verify phase
-  const phase = getPhase(auditId);
+  const phase = await getPhase(auditId);
   const completedPhases: AuditPhase[] = [
     AuditPhase.CONTENT_PATTERNS_COMPLETE,
     AuditPhase.ENRICHMENT_COMPLETE,
@@ -92,7 +92,7 @@ export async function runEnrichment(auditId: number): Promise<EnrichmentResult> 
 
   // Step 5: Advance phase
   try {
-    setPhase(auditId, AuditPhase.ENRICHMENT_COMPLETE);
+    await setPhase(auditId, AuditPhase.ENRICHMENT_COMPLETE);
   } catch (err) {
     errors.push(`setPhase: ${(err as Error).message}`);
   }

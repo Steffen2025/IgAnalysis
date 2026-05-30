@@ -37,11 +37,10 @@ const CONCERN_WORDS = [
 ];
 
 export async function analyzeComments(auditId: number): Promise<CommentAnalysisResult> {
-  const allComments = db
+  const allComments = await db
     .select()
     .from(comments)
-    .where(eq(comments.audit_id, auditId))
-    .all();
+    .where(eq(comments.audit_id, auditId));
 
   if (allComments.length === 0) {
     return {
@@ -68,13 +67,12 @@ export async function analyzeComments(auditId: number): Promise<CommentAnalysisR
   const compTypeMap: Record<number, string> = {};
   if (compPostIds.length > 0) {
     for (const cpId of compPostIds) {
-      const row = db
+      const row = await db
         .select({ competitor_type: competitors.competitor_type })
         .from(competitor_posts)
         .innerJoin(competitors, eq(competitor_posts.competitor_id, competitors.id))
         .where(eq(competitor_posts.id, cpId))
-        .limit(1)
-        .all();
+        .limit(1);
       if (row[0]?.competitor_type) {
         compTypeMap[cpId] = row[0].competitor_type;
       }

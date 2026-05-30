@@ -7,6 +7,7 @@ export const SECTION_KEY = "next_7_days";
 
 export async function generateNext7Days(data: ReportData, top5FixesContent?: string): Promise<string> {
   const { audit, scores, patterns, hashtagHygiene, comments } = data;
+  const ctx = data.reportContext;
 
   const topGaps = [...patterns.gaps]
     .sort((a, b) => ({ high: 3, medium: 2, low: 1 }[b.severity] ?? 0) - ({ high: 3, medium: 2, low: 1 }[a.severity] ?? 0))
@@ -22,8 +23,8 @@ export async function generateNext7Days(data: ReportData, top5FixesContent?: str
 
 BUSINESS CONTEXT:
 - Business: ${audit.business_name}
-- Category: ${audit.business_category}
-- City: ${audit.city}
+- Category: ${ctx.businessClassification}
+- Market: ${ctx.localMarketLabel}
 - Main offer: ${audit.main_offer}
 - Current local score: ${scores.local_visibility ?? "n/a"}/100
 - Geo hashtag status: ${hashtagHygiene.clientUsesOwnGeo ? "Uses geo hashtag" : "NOT using geo hashtag — quick win"}

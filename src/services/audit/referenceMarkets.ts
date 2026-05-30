@@ -6,6 +6,18 @@ export interface ReferenceMarket {
   country: "CA" | "US";
 }
 
+export const CANADIAN_REFERENCE_MARKETS: ReferenceMarket[] = [
+  { city: "Windsor", region: "ON", country: "CA" },
+  { city: "London", region: "ON", country: "CA" },
+  { city: "Ottawa", region: "ON", country: "CA" },
+];
+
+export const AMERICAN_REFERENCE_MARKETS: ReferenceMarket[] = [
+  { city: "New York City", region: "NY", country: "US" },
+  { city: "Chicago", region: "IL", country: "US" },
+  { city: "Denver", region: "CO", country: "US" },
+];
+
 export const MAJOR_NA_CITIES: ReferenceMarket[] = [
   { city: "Toronto", region: "ON", country: "CA" },
   { city: "Vancouver", region: "BC", country: "CA" },
@@ -29,8 +41,10 @@ export const MAJOR_NA_CITIES: ReferenceMarket[] = [
   { city: "Phoenix", region: "AZ", country: "US" },
 ];
 
-const CA_REGIONS = new Set(MAJOR_NA_CITIES.filter((c) => c.country === "CA").map((c) => c.region));
-const US_REGIONS = new Set(MAJOR_NA_CITIES.filter((c) => c.country === "US").map((c) => c.region));
+export const includeAmericanReferenceModels = (process.env.INCLUDE_AMERICAN_REFERENCE_MODELS ?? "").toLowerCase() === "true";
+
+const CA_REGIONS = new Set(["ON", "QC", "BC", "AB", "MB", "SK", "NS", "NB", "NL", "PE", "NT", "NU", "YT"]);
+const US_REGIONS = new Set(["TX", "TN", "CO", "NY", "CA", "OR", "WA", "FL", "MA", "GA", "AZ", "IL"]);
 
 function inferCountry(region: string): "CA" | "US" | null {
   if (CA_REGIONS.has(region)) return "CA";
@@ -43,29 +57,20 @@ export function suggestReferenceMarkets(
   clientRegion: string,
   count = 3,
 ): ReferenceMarket[] {
-  const cityLower = (clientCity ?? "").trim().toLowerCase();
   const region = (clientRegion ?? "").trim().toUpperCase();
   const clientCountry = inferCountry(region);
 
-  const eligible = MAJOR_NA_CITIES.filter((c) => {
-    if (c.city.toLowerCase() === cityLower) return false;
-    if (region && c.region === region) return false;
-    return true;
-  });
+  const base = [...CANADIAN_REFERENCE_MARKETS];
+  if (includeAmericanReferenceModels) {
+    base.push(...AMERICAN_REFERENCE_MARKETS);
+  }
 
-  if (clientCountry === null) return eligible.slice(0, count);
+  if (clientCountry === "US" && includeAmericanReferenceModels) {
+    const ordered = [...AMERICAN_REFERENCE_MARKETS, ...CANADIAN_REFERENCE_MARKETS];
+    return ordered.slice(0, count);
+  }
 
-  const otherCountry = eligible.filter((c) => c.country !== clientCountry);
-  const sameCountry = eligible.filter((c) => c.country === clientCountry);
-
-  // Canadian client → one US market first, then fill from same country.
-  // US client → one Canadian market first, then fill from same country.
-  const ordered: ReferenceMarket[] = [];
-  if (otherCountry.length > 0) ordered.push(otherCountry[0]);
-  ordered.push(...sameCountry);
-  ordered.push(...otherCountry.slice(1));
-
-  return ordered.slice(0, count);
+  return base.slice(0, count);
 }
 
 export function resolveReferenceMarkets(audit: Audit): string[] {
@@ -82,8 +87,93 @@ export function resolveReferenceMarkets(audit: Audit): string[] {
 
   const city = audit.city ?? "";
   const region = guessRegionFromServiceArea(audit.service_area) ?? "";
-  const suggestions = suggestReferenceMarkets(city, region, 3);
+  const suggestions = referenceMarketsForAudit(city, region, audit.business_category, 5);
   return suggestions.map((m) => `${m.city}, ${m.region}`);
+}
+
+/** Canadian province/territory suffix in "City, ON" style labels. */
+const CA_REGION_SUFFIX =
+  /,\s*(on|qc|bc|ab|mb|sk|ns|nb|nl|pe|nt|nu|yt)\b/i;
+
+function dedupeMarketsByCity(
+  markets: ReferenceMarket[],
+  excludeCity: string,
+): ReferenceMarket[] {
+  const exclude = excludeCity.trim().toLowerCase();
+  const seen = new Set<string>();
+  const out: ReferenceMarket[] = [];
+  for (const market of markets) {
+    const key = market.city.trim().toLowerCase();
+    if (!key || key === exclude || seen.has(key)) continue;
+    seen.add(key);
+    out.push(market);
+  }
+  return out;
+}
+
+/** Reference cities used for discovery — wider for marketing categories in ON. */
+export function referenceMarketsForAudit(
+  clientCity: string,
+  clientRegion: string,
+  businessCategory: string | null | undefined,
+  count = 3,
+): ReferenceMarket[] {
+  const base = suggestReferenceMarkets(clientCity, clientRegion, count);
+  const cat = (businessCategory ?? "").toLowerCase();
+  const region = clientRegion.trim().toUpperCase();
+  if (region === "ON" && /marketing|social media|digital|agency|advertis/.test(cat)) {
+    return dedupeMarketsByCity(
+      [
+        { city: "Toronto", region: "ON", country: "CA" },
+        { city: "Hamilton", region: "ON", country: "CA" },
+        ...CANADIAN_REFERENCE_MARKETS,
+      ],
+      clientCity,
+    ).slice(0, Math.max(count, 5));
+  }
+  return base;
+}
+
+export function isAllowedReferenceMarketLabel(label: string | null | undefined): boolean {
+  const text = (label ?? "").toLowerCase();
+  if (!text) return false;
+  if (CA_REGION_SUFFIX.test(label ?? "")) return true;
+  if (
+    text.includes("windsor")
+    || text.includes("ottawa")
+    || text.includes("toronto")
+    || text.includes("hamilton")
+    || text.includes("kitchener")
+    || text.includes("waterloo")
+    || text.includes("mississauga")
+  ) {
+    return true;
+  }
+  // "London, ON" — avoid matching London UK without province suffix
+  if (text.includes("london") && text.includes(", on")) return true;
+  if (!includeAmericanReferenceModels) return false;
+  return text.includes("new york city") || text.includes("chicago") || text.includes("denver");
+}
+
+export function formatMarketLabel(
+  city: string | null | undefined,
+  serviceArea: string | null | undefined,
+): string {
+  const cleanCity = (city ?? "").trim();
+  const region = guessRegionFromServiceArea(serviceArea);
+
+  if (cleanCity && region) return `${cleanCity}, ${region}`;
+  if (cleanCity) return cleanCity;
+  return (serviceArea ?? "local market").trim();
+}
+
+export function formatMarketSearchTerm(
+  city: string | null | undefined,
+  serviceArea: string | null | undefined,
+): string {
+  const cleanServiceArea = (serviceArea ?? "").trim();
+  if (cleanServiceArea) return cleanServiceArea;
+  return formatMarketLabel(city, serviceArea);
 }
 
 /** Full province/state name → abbreviation. Covers common forms that appear in service_area text. */
@@ -115,7 +205,7 @@ const PROVINCE_STATE_NAMES: Record<string, string> = {
   ARIZONA: "AZ",
 };
 
-function guessRegionFromServiceArea(serviceArea: string | null | undefined): string | null {
+export function guessRegionFromServiceArea(serviceArea: string | null | undefined): string | null {
   if (!serviceArea) return null;
   const upper = serviceArea.toUpperCase();
 

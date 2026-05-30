@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/index.js";
 import { competitor_posts, competitors, posts } from "../../../db/schema.js";
+import { isAllowedReferenceMarketLabel } from "../../audit/referenceMarkets.js";
 import { signal, tallyScore, type ScoreResult } from "../types.js";
 
 export const W = {
@@ -34,8 +35,8 @@ function parseJsonArray(blob: string | null | undefined): unknown[] {
   }
 }
 
-function metricsForClient(auditId: number): Metrics | null {
-  const all = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+async function metricsForClient(auditId: number): Promise<Metrics | null> {
+  const all = await db.select().from(posts).where(eq(posts.audit_id, auditId));
   if (all.length === 0) return null;
   return aggregate(
     all.map((p) => ({
@@ -49,20 +50,12 @@ function metricsForClient(auditId: number): Metrics | null {
   );
 }
 
-function metricsForReferenceModels(auditId: number): Metrics | null {
-  const refIds = db
-    .select({ id: competitors.id })
-    .from(competitors)
-    .where(eq(competitors.audit_id, auditId))
-    .all()
-    .filter((r) => r) // already filtered below in query
-    ;
-  const refRows = db
+async function metricsForReferenceModels(auditId: number): Promise<Metrics | null> {
+  const refRows = (await db
     .select()
     .from(competitors)
-    .where(eq(competitors.audit_id, auditId))
-    .all()
-    .filter((c) => c.competitor_type === "reference_model");
+    .where(eq(competitors.audit_id, auditId)))
+    .filter((c) => c.competitor_type === "reference_model" && isAllowedReferenceMarketLabel(c.geographic_market));
   if (refRows.length === 0) return null;
 
   const allPosts: {
@@ -74,11 +67,10 @@ function metricsForReferenceModels(auditId: number): Metrics | null {
     hashtags: string | null;
   }[] = [];
   for (const r of refRows) {
-    const cp = db
+    const cp = await db
       .select()
       .from(competitor_posts)
-      .where(eq(competitor_posts.competitor_id, r.id))
-      .all();
+      .where(eq(competitor_posts.competitor_id, r.id));
     for (const p of cp) {
       allPosts.push({
         posted_at: p.posted_at,
@@ -91,16 +83,14 @@ function metricsForReferenceModels(auditId: number): Metrics | null {
     }
   }
   if (allPosts.length === 0) return null;
-  void refIds;
   // For posting frequency, average per-competitor rate to avoid 6× weighting
   // against a single client. Engagement etc. averaged over all posts is fine.
   const perComp: number[] = [];
   for (const r of refRows) {
-    const cp = db
+    const cp = await db
       .select({ posted_at: competitor_posts.posted_at })
       .from(competitor_posts)
-      .where(eq(competitor_posts.competitor_id, r.id))
-      .all();
+      .where(eq(competitor_posts.competitor_id, r.id));
     const cutoff = Date.now() - 30 * DAY_MS;
     const recent = cp
       .map((x) => (x.posted_at ? new Date(x.posted_at).getTime() : NaN))
@@ -164,9 +154,9 @@ function ratioEarned(client: number, ref: number, weight: number): number {
   return weight * ratio;
 }
 
-export function scoreCompetitorGap(auditId: number): ScoreResult {
-  const clientM = metricsForClient(auditId);
-  const refM = metricsForReferenceModels(auditId);
+export async function scoreCompetitorGap(auditId: number): Promise<ScoreResult> {
+  const clientM = await metricsForClient(auditId);
+  const refM = await metricsForReferenceModels(auditId);
 
   if (!refM) {
     return {

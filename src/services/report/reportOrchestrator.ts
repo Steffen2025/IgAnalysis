@@ -1,6 +1,3 @@
-import { eq } from "drizzle-orm";
-import { db } from "../../db/index.js";
-import { report_sections } from "../../db/schema.js";
 import { AuditPhase, setPhase } from "../audit/auditState.js";
 import { assembleReportData } from "./reportDataAssembler.js";
 import { loadSection } from "./sectionPersist.js";
@@ -47,6 +44,18 @@ const SECTION_HEADINGS: Record<string, string> = {
   [K_DONEXT]: "## Do This Next",
 };
 
+function stripLeadingHeading(content: string): string {
+  const lines = content.split("\n");
+  let idx = 0;
+  while (idx < lines.length && lines[idx].trim() === "") idx++;
+  if (idx < lines.length && /^#{1,6}\s+/.test(lines[idx].trim())) {
+    idx += 1;
+    while (idx < lines.length && lines[idx].trim() === "") idx++;
+    return lines.slice(idx).join("\n");
+  }
+  return content;
+}
+
 export async function generateReport(
   auditId: number,
   options?: { forceRegenerate?: boolean },
@@ -58,10 +67,14 @@ export async function generateReport(
 
   const forceRegen = options?.forceRegenerate ?? false;
 
-  // If force-regenerating, wipe existing sections for this audit
+  // NOTE: force-regenerate must be NON-DESTRUCTIVE. We previously deleted all
+  // sections up-front, which meant a generation failure (e.g. missing API key)
+  // left the audit with empty sections and shipped a broken PDF. Now we keep
+  // existing rows; `runSection` bypasses the cache-load when forcing, and the
+  // generators overwrite per-section only on success (persistSection upserts).
+  // A failed section therefore retains its previous good content.
   if (forceRegen) {
-    db.delete(report_sections).where(eq(report_sections.audit_id, auditId)).run();
-    console.log(`  [report] Force-regenerating all sections for audit ${auditId}`);
+    console.log(`  [report] Force-regenerating sections for audit ${auditId} (non-destructive)`);
   }
 
   // Assemble data once
@@ -73,7 +86,7 @@ export async function generateReport(
     generator: () => Promise<string>,
   ): Promise<void> {
     if (!forceRegen) {
-      const existing = loadSection(auditId, key);
+      const existing = await loadSection(auditId, key);
       if (existing) {
         sections[key] = existing;
         cached++;
@@ -110,10 +123,11 @@ export async function generateReport(
   await runSection(K_BATTLE, () => generateOnePageBattlePlan(data, sections));
 
   // ── Compile markdown ────────────────────────────────────────────────────────
+  const ctx = data.reportContext;
   const header = [
     `# Instagram Growth Audit`,
-    `**${data.audit.business_name ?? "Business"}** · @${data.client.profile?.username ?? "unknown"} · ${data.audit.city ?? ""}`,
-    `**Overall Score: ${data.scores.overall ?? "n/a"}/100** · Audit #${auditId} · ${new Date().toLocaleDateString("en-CA")}`,
+    `**${ctx.displayName}** · @${ctx.handle} · ${ctx.businessClassification} · ${ctx.localMarketLabel}`,
+    `**Overall Score: ${data.scores.overall ?? "n/a"}/100** · ${new Date().toLocaleDateString("en-CA")}`,
     "",
     "---",
     "",
@@ -121,7 +135,7 @@ export async function generateReport(
 
   const body = SECTION_ORDER_FINAL.map((key) => {
     const heading = SECTION_HEADINGS[key] ?? `## ${key}`;
-    const content = sections[key] ?? "_Section unavailable_";
+    const content = stripLeadingHeading(sections[key] ?? "_Section unavailable_");
     return `${heading}\n\n${content}`;
   }).join("\n\n---\n\n");
 
@@ -129,7 +143,7 @@ export async function generateReport(
 
   // ── Phase advance ────────────────────────────────────────────────────────────
   try {
-    setPhase(auditId, AuditPhase.REPORT_GENERATED);
+    await setPhase(auditId, AuditPhase.REPORT_GENERATED);
   } catch (err) {
     errors.push(`setPhase: ${(err as Error).message}`);
   }

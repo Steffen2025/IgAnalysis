@@ -22,13 +22,12 @@ function postsPerWeekLast30Days(postedAtList: (string | null)[]): { count: numbe
   return { count: recent.length, rate: recent.length / weeks };
 }
 
-export function scoreContentPerformance(auditId: number): ScoreResult {
-  const all = db
+export async function scoreContentPerformance(auditId: number): Promise<ScoreResult> {
+  const all = await db
     .select()
     .from(posts)
     .where(eq(posts.audit_id, auditId))
-    .orderBy(desc(posts.posted_at))
-    .all();
+    .orderBy(desc(posts.posted_at));
 
   if (all.length === 0) {
     return {

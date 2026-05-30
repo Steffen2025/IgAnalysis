@@ -46,17 +46,17 @@ function findExample(
   };
 }
 
-export function analyzeClientGap(auditId: number): {
+export async function analyzeClientGap(auditId: number): Promise<{
   clientPatterns: PatternResult;
   categoryPatterns: PatternResult;
   gaps: GapFinding[];
-} {
-  const client = analyzePatterns(auditId, "client_only");
+}> {
+  const client = await analyzePatterns(auditId, "client_only");
 
   // Category corpus = competitor posts only (excluding client to avoid self-comparison bias)
   // We request "category_corpus" which includes both; if there are enough competitor posts
   // the signal will still be meaningful. The client posts are a minority.
-  const category = analyzePatterns(auditId, "category_corpus");
+  const category = await analyzePatterns(auditId, "category_corpus");
 
   const gaps: GapFinding[] = [];
 

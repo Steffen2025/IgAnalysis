@@ -1,5 +1,6 @@
 import { and, eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import {
   audits,
   competitors,
@@ -26,6 +27,11 @@ import {
 } from "../cache/cacheService.js";
 import { AuditPhase, getPhase, setPhase } from "./auditState.js";
 import { discoverCompetitors } from "./competitorDiscovery.js";
+import {
+  enrichAuditContextFromProfile,
+  enrichAuditMarketFromPosts,
+} from "./auditContextInference.js";
+import { ensurePresentableLocalCompetitors } from "./competitorBackfill.js";
 import { scrapeCompetitorProfileAndPosts } from "./competitorScrape.js";
 import {
   collectTopHashtags,
@@ -49,10 +55,10 @@ interface Ctx {
   errors: string[];
 }
 
-function loadAudit(auditId: number): Audit {
-  const rows = db.select().from(audits).where(eq(audits.id, auditId)).limit(1).all();
-  if (rows.length === 0) throw new Error(`Audit ${auditId} not found`);
-  return rows[0];
+async function loadAudit(auditId: number): Promise<Audit> {
+  const row = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
+  if (!row) throw new Error(`Audit ${auditId} not found`);
+  return row;
 }
 
 export function usernameFromUrl(url: string | null | undefined): string {
@@ -68,7 +74,7 @@ export function usernameFromUrl(url: string | null | undefined): string {
 async function doClientProfile(ctx: Ctx, audit: Audit): Promise<void> {
   const username = usernameFromUrl(audit.instagram_url);
   const key = makeCacheKey("instagram_profile", username);
-  const cached = getCached<NormalizedProfile>(key);
+  const cached = await getCached<NormalizedProfile>(key);
 
   let normalized: NormalizedProfile;
   if (cached) {
@@ -87,13 +93,24 @@ async function doClientProfile(ctx: Ctx, audit: Audit): Promise<void> {
       },
     });
     if (items.length === 0) throw new Error("Profile scrape returned no items");
+    const rawProfile = items[0] as { error?: unknown; errorDescription?: unknown };
+    if (typeof rawProfile.error === "string") {
+      throw new Error(
+        `Instagram profile lookup failed: ${
+          typeof rawProfile.errorDescription === "string"
+            ? rawProfile.errorDescription
+            : rawProfile.error
+        }`,
+      );
+    }
     normalized = normalizeProfile(items[0]);
     ctx.itemsScraped += items.length;
-    setCached(key, normalized, TTL_PROFILE);
+    await setCached(key, normalized, TTL_PROFILE);
   }
 
-  db.insert(profiles).values({ audit_id: ctx.auditId, ...normalized }).run();
-  setPhase(ctx.auditId, AuditPhase.CLIENT_PROFILE);
+  await db.insert(profiles).values({ audit_id: ctx.auditId, ...normalized });
+  await enrichAuditContextFromProfile(audit, normalized);
+  await setPhase(ctx.auditId, AuditPhase.CLIENT_PROFILE);
 }
 
 async function doClientPosts(ctx: Ctx, audit: Audit): Promise<void> {
@@ -101,16 +118,15 @@ async function doClientPosts(ctx: Ctx, audit: Audit): Promise<void> {
   const postsLimit = ctx.tier === "preview" ? 10 : 50;
   const key = makeCacheKey("instagram_posts", `${username}:${postsLimit}`);
 
-  const profileRows = db
+  const profileRows = await db
     .select({ id: profiles.id })
     .from(profiles)
     .where(eq(profiles.audit_id, ctx.auditId))
-    .limit(1)
-    .all();
+    .limit(1);
   if (profileRows.length === 0) throw new Error("No profile row for audit — cannot link posts");
   const profileId = profileRows[0].id;
 
-  const cached = getCached<NormalizedPost[]>(key);
+  const cached = await getCached<NormalizedPost[]>(key);
   let normalized: NormalizedPost[];
   if (cached) {
     console.log(`Cache hit: client posts (${username}, limit=${postsLimit})`);
@@ -130,32 +146,31 @@ async function doClientPosts(ctx: Ctx, audit: Audit): Promise<void> {
     });
     normalized = items.map((it) => normalizePost(it));
     ctx.itemsScraped += items.length;
-    setCached(key, normalized, TTL_POSTS);
+    await setCached(key, normalized, TTL_POSTS);
   }
 
   if (normalized.length > 0) {
-    db.insert(posts)
+    await db.insert(posts)
       .values(
         normalized.map((p) => ({
           audit_id: ctx.auditId,
           profile_id: profileId,
           ...p,
         })),
-      )
-      .run();
+      );
   }
 
-  setPhase(ctx.auditId, AuditPhase.CLIENT_POSTS);
+  await enrichAuditMarketFromPosts(ctx.auditId);
+  await setPhase(ctx.auditId, AuditPhase.CLIENT_POSTS);
 }
 
 async function doReferenceDiscovery(ctx: Ctx, audit: Audit): Promise<void> {
   // Unified discovery: local + reference passes with the "local wins" dedup rule.
   // Resumable: if competitors already exist for this audit, skip re-discovery.
-  const existing = db
-    .select({ id: competitors.id })
+  const existing = await db
+    .select({ id: competitors.id, username: competitors.username })
     .from(competitors)
-    .where(eq(competitors.audit_id, ctx.auditId))
-    .all();
+    .where(eq(competitors.audit_id, ctx.auditId));
 
   if (existing.length === 0) {
     const { inserted, counts } = await discoverCompetitors(audit);
@@ -166,18 +181,26 @@ async function doReferenceDiscovery(ctx: Ctx, audit: Audit): Promise<void> {
     console.log(
       `Discovered ${localCount} local_intel, ${referenceCount} reference_model`,
     );
+  } else if (existing.length < 3) {
+    const exclude = new Set(existing.map((c) => c.username.toLowerCase()));
+    console.log(
+      `Thin competitor set (${existing.length}) — running supplementary geo discovery`,
+    );
+    const { inserted, counts } = await discoverCompetitors(audit, { excludeUsernames: exclude });
+    ctx.itemsScraped += counts.scraped;
+    ctx.cacheHits += counts.cacheHits;
+    console.log(`Supplementary discovery added ${inserted.length} competitor(s)`);
   } else {
     console.log(`Skipping discovery — ${existing.length} competitors already on audit`);
   }
-  setPhase(ctx.auditId, AuditPhase.REFERENCE_DISCOVERY);
+  await setPhase(ctx.auditId, AuditPhase.REFERENCE_DISCOVERY);
 }
 
 async function doCompetitorScraping(ctx: Ctx): Promise<void> {
-  const comps = db
+  const comps = await db
     .select()
     .from(competitors)
-    .where(eq(competitors.audit_id, ctx.auditId))
-    .all();
+    .where(eq(competitors.audit_id, ctx.auditId));
 
   for (const c of comps) {
     // Resumability: skip competitors already deep-scraped, AND any whose first
@@ -186,7 +209,7 @@ async function doCompetitorScraping(ctx: Ctx): Promise<void> {
       console.log(`Already deep_scraped @${c.username}, skipping`);
       continue;
     }
-    const priorJobs = db
+    const priorJobs = await db
       .select({ id: scrape_jobs.id })
       .from(scrape_jobs)
       .where(
@@ -194,8 +217,7 @@ async function doCompetitorScraping(ctx: Ctx): Promise<void> {
           eq(scrape_jobs.audit_id, ctx.auditId),
           eq(scrape_jobs.status, "complete"),
         ),
-      )
-      .all();
+      );
     const alreadyTouched = priorJobs.length > 0 && c.confidence_score !== null;
     if (alreadyTouched && !c.deep_scraped && c.skip_reason) {
       console.log(`Previously gated @${c.username} (skip_reason=${c.skip_reason}), not retrying`);
@@ -216,14 +238,21 @@ async function doCompetitorScraping(ctx: Ctx): Promise<void> {
       const msg = (err as Error).message ?? String(err);
       console.error(`Competitor @${c.username} failed: ${msg}`);
       ctx.errors.push(`@${c.username}: ${msg}`);
-      db.update(competitors)
+      await db.update(competitors)
         .set({ skip_reason: `scrape_error: ${msg.slice(0, 200)}` })
-        .where(eq(competitors.id, c.id))
-        .run();
+        .where(eq(competitors.id, c.id));
     }
   }
 
-  setPhase(ctx.auditId, AuditPhase.COMPETITORS_DONE);
+  const audit = await loadAudit(ctx.auditId);
+  const backfill = await ensurePresentableLocalCompetitors(audit, ctx);
+  ctx.itemsScraped += backfill.scraped;
+  ctx.cacheHits += backfill.cacheHits;
+  if (backfill.added > 0) {
+    console.log(`Backfill added ${backfill.added} gated competitor(s) for audit ${ctx.auditId}`);
+  }
+
+  await setPhase(ctx.auditId, AuditPhase.COMPETITORS_DONE);
 }
 
 async function doHashtagAnalysis(ctx: Ctx): Promise<void> {
@@ -236,7 +265,7 @@ async function doHashtagAnalysis(ctx: Ctx): Promise<void> {
   const r = await scrapeHashtagPosts(ctx.auditId, top);
   ctx.itemsScraped += r.scraped;
   ctx.cacheHits += r.cacheHits;
-  setPhase(ctx.auditId, AuditPhase.HASHTAGS_DONE);
+  await setPhase(ctx.auditId, AuditPhase.HASHTAGS_DONE);
 }
 
 function summary(ctx: Ctx, finalPhase: AuditPhase): RunAuditResult {
@@ -267,19 +296,19 @@ export async function runAudit(params: {
 
   let audit: Audit;
   try {
-    audit = loadAudit(ctx.auditId);
+    audit = await loadAudit(ctx.auditId);
   } catch (err) {
     ctx.errors.push((err as Error).message);
     return summary(ctx, AuditPhase.FAILED);
   }
 
-  let phase = getPhase(ctx.auditId);
+  let phase = await getPhase(ctx.auditId);
   let guard = 0;
 
   while (phase !== AuditPhase.READY_FOR_ANALYSIS && phase !== AuditPhase.FAILED) {
     if (++guard > 30) {
       ctx.errors.push(`State machine guard tripped at phase=${phase}`);
-      setPhase(ctx.auditId, AuditPhase.FAILED);
+      await setPhase(ctx.auditId, AuditPhase.FAILED);
       return summary(ctx, AuditPhase.FAILED);
     }
 
@@ -291,20 +320,20 @@ export async function runAudit(params: {
         case AuditPhase.CLIENT_PROFILE:
           await doClientPosts(ctx, audit);
           if (ctx.tier === "preview") {
-            setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
+            await setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
             return summary(ctx, AuditPhase.READY_FOR_ANALYSIS);
           }
           break;
         case AuditPhase.CLIENT_POSTS:
           // LOCAL_DISCOVERY is now a transition marker; the unified
           // discoverCompetitors runs at the REFERENCE_DISCOVERY step.
-          setPhase(ctx.auditId, AuditPhase.LOCAL_DISCOVERY);
+          await setPhase(ctx.auditId, AuditPhase.LOCAL_DISCOVERY);
           break;
         case AuditPhase.LOCAL_DISCOVERY:
           await doReferenceDiscovery(ctx, audit);
           break;
         case AuditPhase.REFERENCE_DISCOVERY:
-          setPhase(ctx.auditId, AuditPhase.COMPETITORS_QUEUED);
+          await setPhase(ctx.auditId, AuditPhase.COMPETITORS_QUEUED);
           break;
         case AuditPhase.COMPETITORS_QUEUED:
           await doCompetitorScraping(ctx);
@@ -313,22 +342,23 @@ export async function runAudit(params: {
           await doHashtagAnalysis(ctx);
           break;
         case AuditPhase.HASHTAGS_DONE:
-          setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
+          await setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
           break;
         case AuditPhase.ANALYZING:
         case AuditPhase.COMPLETE:
-          setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
+          await setPhase(ctx.auditId, AuditPhase.READY_FOR_ANALYSIS);
           break;
       }
     } catch (err) {
       const msg = (err as Error).message ?? String(err);
       console.error(`Phase ${phase} failed:`, msg);
       ctx.errors.push(`${phase}: ${msg}`);
-      setPhase(ctx.auditId, AuditPhase.FAILED);
+      await setPhase(ctx.auditId, AuditPhase.FAILED);
       return summary(ctx, AuditPhase.FAILED);
     }
 
-    phase = getPhase(ctx.auditId);
+    phase = await getPhase(ctx.auditId);
+    audit = await loadAudit(ctx.auditId);
   }
 
   return summary(ctx, phase);

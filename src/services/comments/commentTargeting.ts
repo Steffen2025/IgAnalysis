@@ -2,6 +2,7 @@ import { and, eq, isNotNull } from "drizzle-orm";
 import { db } from "../../db/index.js";
 import { competitors, competitor_posts, posts, profiles } from "../../db/schema.js";
 import { content_patterns } from "../../db/schema.js";
+import { isAllowedReferenceMarketLabel } from "../audit/referenceMarkets.js";
 
 export interface TargetPost {
   sourceTable: "posts" | "competitor_posts";
@@ -26,12 +27,11 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
 
   // ── Reference model competitor posts ─────────────────────────────────────
   // Load pattern result to get topPostExamples from reference_model competitors
-  const patternRows = db
+  const patternRows = await db
     .select({ patterns_json: content_patterns.patterns_json })
     .from(content_patterns)
     .where(and(eq(content_patterns.audit_id, auditId), eq(content_patterns.scope, "category_corpus")))
-    .limit(1)
-    .all();
+    .limit(1);
 
   const referenceCompetitorIds = new Set<number>();
 
@@ -50,8 +50,8 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
 
   // Fallback: pull all reference_model competitors for this audit if pattern data empty
   if (referenceCompetitorIds.size === 0) {
-    const refComps = db
-      .select({ id: competitors.id })
+    const refComps = await db
+      .select({ id: competitors.id, geographic_market: competitors.geographic_market })
       .from(competitors)
       .where(
         and(
@@ -59,22 +59,22 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
           eq(competitors.competitor_type, "reference_model"),
           eq(competitors.deep_scraped, true),
         ),
-      )
-      .all();
-    for (const c of refComps) referenceCompetitorIds.add(c.id);
+      );
+    for (const c of refComps) {
+      if (isAllowedReferenceMarketLabel(c.geographic_market)) referenceCompetitorIds.add(c.id);
+    }
   }
 
   // For each reference competitor, get their posts sorted by ER
   const competitorUsernames: Record<number, string> = {};
-  const refCompRows = db
+  const refCompRows = await db
     .select({ id: competitors.id, username: competitors.username })
     .from(competitors)
-    .where(eq(competitors.audit_id, auditId))
-    .all();
+    .where(eq(competitors.audit_id, auditId));
   for (const r of refCompRows) competitorUsernames[r.id] = r.username;
 
   for (const compId of referenceCompetitorIds) {
-    const topPosts = db
+    const topPosts = (await db
       .select()
       .from(competitor_posts)
       .where(
@@ -83,8 +83,7 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
           eq(competitor_posts.audit_id, auditId),
           isNotNull(competitor_posts.engagement_rate),
         ),
-      )
-      .all()
+      ))
       .filter((p) => p.shortcode != null)
       .sort((a, b) => (b.engagement_rate ?? 0) - (a.engagement_rate ?? 0))
       .slice(0, 3);
@@ -104,16 +103,15 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
   }
 
   // ── Client posts ──────────────────────────────────────────────────────────
-  const profileRow = db
+  const profileRow = await db
     .select({ username: profiles.username })
     .from(profiles)
     .where(eq(profiles.audit_id, auditId))
-    .limit(1)
-    .all();
+    .limit(1);
 
   const clientUsername = profileRow[0]?.username ?? "client";
 
-  const clientPosts = db
+  const clientPosts = (await db
     .select()
     .from(posts)
     .where(
@@ -121,8 +119,7 @@ export async function findTargetPostsForComments(auditId: number): Promise<Targe
         eq(posts.audit_id, auditId),
         isNotNull(posts.engagement_rate),
       ),
-    )
-    .all()
+    ))
     .filter((p) => p.shortcode != null)
     .sort((a, b) => (b.engagement_rate ?? 0) - (a.engagement_rate ?? 0))
     .slice(0, 3);

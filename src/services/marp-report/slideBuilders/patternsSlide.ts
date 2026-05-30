@@ -59,8 +59,8 @@ export function patternsSlide(data: ReportData, patternMd: string): string {
 
 # Pattern analysis
 
-${prose ? `<p style="font-size:18px;color:#5C5A52;margin-bottom:12px">${e(prose.slice(0, 260))}</p>` : ""}
+${prose ? `<p style="font-size:18px;margin-bottom:12px">${e(prose.slice(0, 260))}</p>` : ""}
 ${quote ? `<div class="pull-quote">${e(quote)}</div>` : ""}
-${topGap ? `<p style="font-size:16px;color:#B07D1E;margin-bottom:12px">Gap: ${e(topGap)}</p>` : ""}
+${topGap ? `<p style="font-size:16px;margin-bottom:12px"><strong>Gap:</strong> ${e(topGap)}</p>` : ""}
 ${statCards.length > 0 ? `<div class="stat-row" style="margin-top:16px">${statCards.slice(0, 3).join("")}</div>` : ""}`;
 }

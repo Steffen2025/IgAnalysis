@@ -1,5 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { db } from "../../../db/index.js";
+import { first } from "../../../db/query.js";
 import { posts, profiles } from "../../../db/schema.js";
 import { signal, tallyScore, type ScoreResult } from "../types.js";
 
@@ -31,15 +32,14 @@ function parseJsonArray(blob: string | null | undefined): string[] {
   }
 }
 
-export function scoreSalesReadiness(auditId: number): ScoreResult {
-  const profile = db
+export async function scoreSalesReadiness(auditId: number): Promise<ScoreResult> {
+  const profile = await first(db
     .select()
     .from(profiles)
     .where(eq(profiles.audit_id, auditId))
     .orderBy(desc(profiles.scraped_at))
-    .limit(1)
-    .all()[0];
-  const allPosts = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+    .limit(1));
+  const allPosts = await db.select().from(posts).where(eq(posts.audit_id, auditId));
 
   if (!profile || allPosts.length === 0) {
     return {

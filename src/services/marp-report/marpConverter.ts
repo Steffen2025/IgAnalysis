@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { join } from "path";
+import { assertValidPdf } from "./workbookManifest.js";
 
 export interface ConvertResult {
   pdf: string;
@@ -19,9 +20,8 @@ function run(cmd: string): void {
   }
 }
 
-export function convertDeck(mdPath: string, outDir: string, basename: string): ConvertResult {
-  // Resolve theme path relative to cwd (the project root)
-  const themeArg = `--theme-set themes/botlogix.css`;
+export async function convertDeck(mdPath: string, outDir: string, basename: string, themePath: string): Promise<ConvertResult> {
+  const themeArg = `--theme-set "${themePath}"`;
   const flags    = `${themeArg} --allow-local-files`;
 
   const pdf  = join(outDir, `${basename}.pdf`);
@@ -30,6 +30,12 @@ export function convertDeck(mdPath: string, outDir: string, basename: string): C
 
   console.log("  → Generating PDF…");
   run(`npx marp "${mdPath}" --pdf  ${flags} --output "${pdf}"`);
+
+  // Integrity gate: extract the rendered PDF text and refuse to proceed if it
+  // contains any blocking term (bad handles, Slot placeholders, clipped tokens).
+  // This is the last line of defense before a deck is treated as complete.
+  console.log("  → Validating rendered PDF…");
+  assertValidPdf(pdf);
 
   console.log("  → Generating HTML…");
   run(`npx marp "${mdPath}" --html ${flags} --output "${html}"`);

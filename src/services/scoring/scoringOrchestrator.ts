@@ -33,7 +33,7 @@ export async function runScoring(auditId: number): Promise<ScoringRun> {
 
   // 1. Enhancer pass — flags has_local_reference on posts before scoring.
   try {
-    const r = enhanceLocalReferences(auditId);
+    const r = await enhanceLocalReferences(auditId);
     console.log(
       `Local-reference enhancer: scanned ${r.postsScanned}, flagged ${r.postsFlagged} (terms: ${r.terms.join(", ") || "—"})`,
     );
@@ -55,7 +55,7 @@ export async function runScoring(auditId: number): Promise<ScoringRun> {
   const subResults = await Promise.all(
     subEntries.map(async ([key, fn]) => {
       try {
-        return { key, result: fn() };
+        return { key, result: await fn() };
       } catch (err) {
         const msg = (err as Error).message ?? String(err);
         errors.push(`${key}: ${msg}`);
@@ -87,8 +87,8 @@ export async function runScoring(auditId: number): Promise<ScoringRun> {
   map.overall = overall;
 
   // 4. Persist — delete prior row for this audit, insert fresh.
-  db.delete(scores).where(eq(scores.audit_id, auditId)).run();
-  db.insert(scores)
+  await db.delete(scores).where(eq(scores.audit_id, auditId));
+  await db.insert(scores)
     .values({
       audit_id: auditId,
       profile_conversion_score: map.profile_conversion.score ?? null,
@@ -99,12 +99,11 @@ export async function runScoring(auditId: number): Promise<ScoringRun> {
       overall_score: map.overall.score ?? null,
       score_explanations: JSON.stringify(map),
       calculated_at: new Date().toISOString(),
-    })
-    .run();
+    });
 
   // 5. Phase advance.
   try {
-    setPhase(auditId, AuditPhase.SCORING_COMPLETE);
+    await setPhase(auditId, AuditPhase.SCORING_COMPLETE);
   } catch (err) {
     errors.push(`setPhase: ${(err as Error).message}`);
   }

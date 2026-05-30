@@ -3,7 +3,7 @@ export function toolkitIntroSlide(): string {
 
 # Copy. Adapt. Post.
 
-<p style="font-size:20px;color:#5C5A52;max-width:720px">Four post templates, three hashtag sets, and three AI prompts — all pre-loaded with your business data. Copy, fill the brackets, and feed back into Claude or ChatGPT when you need more.</p>
+<p style="font-size:20px;max-width:720px">Four post templates, three hashtag sets, and three AI prompts — all pre-loaded with your business data. Copy, fill the brackets, and feed back into Claude or ChatGPT when you need more.</p>
 
 <div class="toolkit-parts">
   <div class="toolkit-part">

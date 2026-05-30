@@ -1,0 +1,999 @@
+{
+  "meta": {
+    "auditId": 27,
+    "account": "boxbuddyapp",
+    "handle": "boxbuddyapp",
+    "website": "https://boxbuddy.tech/links",
+    "rawCategory": "Moving & home inventory app",
+    "normalizedCategory": "Moving and home inventory app",
+    "categoryKind": "app",
+    "marketLabel": "Toronto, Ontario",
+    "city": "Toronto",
+    "region": "Ontario",
+    "generatedAt": "2026-05-30T11:15:48.421Z",
+    "reviewDate": "June 27, 2026",
+    "modelUsed": "openai/gpt-5.4-nano",
+    "promptVersion": "instagram-intelligence-v1.1.0",
+    "dataConfidence": 85
+  },
+  "account": {
+    "displayName": "boxbuddyapp",
+    "handle": "boxbuddyapp",
+    "bio": "BoxBuddy | Your Smart Moving App 📦\nPlanning & organizing made easy 📱\nTrack every box with seamless storage solutions\nSimplify your next move ✨",
+    "rawCategory": "Moving & home inventory app",
+    "normalizedBusinessType": "Moving and home inventory app",
+    "website": "https://boxbuddy.tech/links",
+    "followerCount": 353,
+    "postCount": 157,
+    "postsPerWeek": 11.666666666705556,
+    "profileGaps": [
+      "Bio lacks a clear who/offer/CTA",
+      "Missing city/category signals"
+    ],
+    "ctaStatus": "Weak — no obvious next step",
+    "localSignalStatus": "Under-labeled for the market"
+  },
+  "category": {
+    "normalizedCategory": "Moving and home inventory app",
+    "categoryKind": "app",
+    "confidence": 90,
+    "source": "raw",
+    "whatItSells": "Products/services in the \"Moving and home inventory app\" space.",
+    "likelyAudience": "People searching for help in this category.",
+    "contentThatWorks": "How-to tips, before/after, and use-case demos that lead to a download.",
+    "ctaType": "download",
+    "ctaOptions": [
+      "Download the app",
+      "Get the app — link in bio",
+      "Tap the link in bio to download and start your move.",
+      "download"
+    ]
+  },
+  "scores": [
+    {
+      "dimension": "Overall",
+      "score": 54,
+      "whatWeSaw": "Weighted blend of the five dimensions below.",
+      "whyItMatters": "Contributes to overall discoverability and conversion.",
+      "nextMove": "Keep the momentum and measure on day 30."
+    },
+    {
+      "dimension": "Profile conversion",
+      "score": 55,
+      "whatWeSaw": "BoxBuddy | Your Smart Moving App 📦\nPlanning & organizing made easy 📱\nTrack eve",
+      "whyItMatters": "A visitor decides in seconds whether to follow or leave.",
+      "nextMove": "A/B test the link-in-bio destination and pinned posts."
+    },
+    {
+      "dimension": "Content performance",
+      "score": 60,
+      "whatWeSaw": "0.00% across 0 posts",
+      "whyItMatters": "Saves and shares drive reach far more than likes.",
+      "nextMove": "Double down on your best format and cut low performers."
+    },
+    {
+      "dimension": "Local visibility",
+      "score": 21,
+      "whatWeSaw": "terms checked: toronto, the 6ix, the 6, the six",
+      "whyItMatters": "Discovery depends on clear category + location signals.",
+      "nextMove": "Add city + category to the name field, captions, and geotags."
+    },
+    {
+      "dimension": "Sales readiness",
+      "score": 37,
+      "whatWeSaw": "25/50",
+      "whyItMatters": "Attention is wasted without an obvious next step.",
+      "nextMove": "Add one explicit CTA to every post and a clear link path."
+    },
+    {
+      "dimension": "Competitor gap",
+      "score": 90,
+      "whatWeSaw": "client=11.67/wk  ref=3.62/wk",
+      "whyItMatters": "You're judged against active accounts in your space.",
+      "nextMove": "Differentiate with a signature format competitors don't use."
+    }
+  ],
+  "fixes": [
+    {
+      "title": "Fix Toronto local visibility signals (name + captions + geotags)",
+      "impact": "high",
+      "effort": "low",
+      "scoreArea": "local",
+      "whyItMatters": "Discovery is currently constrained by weak, inconsistent location/category signals; adding clear Toronto + category cues helps people in the 6ix find BoxBuddy when searching and browsing locally.",
+      "exactAction": "Update your Instagram name field and captions to include: \"Toronto moving app\" or \"moving & home inventory app in Toronto\". Add a Toronto geotag to every post for the next 30 days (use a consistent one, e.g., a Toronto landmark or 'Toronto, ON'). Also include one explicit Toronto keyword in the first line of each caption (e.g., 'Moving in Toronto?').",
+      "timeRequired": "60 min",
+      "expectedLift": "+15 local",
+      "evidence": "Local visibility score is 21/100, and the only location signals noted are 'toronto, the 6ix, the 6, the six'."
+    },
+    {
+      "title": "Create and pin a link path to get installs (A/B test link-in-bio + pinned posts)",
+      "impact": "high",
+      "effort": "medium",
+      "scoreArea": "profile",
+      "whyItMatters": "Profile conversion is 55/100; visitors likely decide quickly. A clear, tested install pathway (optimized link target + pinned proof posts) increases the chance they follow through.",
+      "exactAction": "Do an A/B test for 14 days: change the link-in-bio URL target between (A) the main https://boxbuddy.tech/links and (B) a more direct install landing page if available on that domain. Then pin TWO posts: Pin 1 = 'Track every box' demo, Pin 2 = 'Home inventory made easy' checklist. Keep both pinned descriptions under 2 lines and end each with: 'Download BoxBuddy from the link in bio.'",
+      "timeRequired": "2 hours",
+      "expectedLift": "+10 profile conversion",
+      "evidence": "Profile conversion score is 55/100, and the next move listed is 'A/B test the link-in-bio destination and pinned posts.'"
+    },
+    {
+      "title": "Build a signature content format that drives saves/shares (and stop posting the rest)",
+      "impact": "high",
+      "effort": "medium",
+      "scoreArea": "content",
+      "whyItMatters": "Content performance score is 60/100 but the data says '0.00% across 0 posts', indicating tracking gaps or insufficient reliable measurement. A repeatable, high-save format will create measurable engagement and improve reach via shares.",
+      "exactAction": "Switch your next 3 posts to one repeatable format called: 'Toronto Move Checklist (BoxBuddy)' carousel. Slide-by-slide: (1) hook: 'Moving in Toronto? Save this box checklist', (2) materials list, (3) room-by-room labeling plan, (4) inventory photo template, (5) how to track boxes in BoxBuddy, (6) closing: 'Download BoxBuddy from the link in bio.' After you post the 3, keep only posts that are clearly carousel-based for the next 14 days; pause or rewrite any non-checklist formats to fit this structure.",
+      "timeRequired": "4 hours",
+      "expectedLift": "+12 content reach",
+      "evidence": "Content performance score is 60/100 and the dataset shows '0.00% across 0 posts'; the category context suggests checklists/carousels are save/share magnets, and the competitor-gap note implies you need a differentiating signature format."
+    },
+    {
+      "title": "Add one explicit app install CTA to every post (aligned to 'app' kind)",
+      "impact": "medium",
+      "effort": "low",
+      "scoreArea": "sales",
+      "whyItMatters": "Sales readiness is 37/50; attention without a clear next step reduces conversion. As an app, your CTAs must point to download/try/link-in-bio.",
+      "exactAction": "Edit the caption (and, if you use it, the first pinned comment) on every upcoming post so the last line is exactly: 'Download BoxBuddy from the link in bio to track every box.' If you do Stories: add a story slide with the same line and include a swipe-up only if you have it; otherwise point to link-in-bio.",
+      "timeRequired": "30 min",
+      "expectedLift": "+6 sales readiness",
+      "evidence": "Sales readiness is 37/50 and the next move listed is 'Add one explicit CTA to every post and a clear link path.'"
+    },
+    {
+      "title": "Differentiate with a signature 'Box Labels + Inventory' system competitors don’t use",
+      "impact": "medium",
+      "effort": "medium",
+      "scoreArea": "competitor",
+      "whyItMatters": "Competitor gap is strong (90/100), but you still need visible differentiation. A consistent system (label templates + inventory workflow) makes BoxBuddy instantly recognizable versus generic moving planners.",
+      "exactAction": "Create 3 assets in one batch: (1) a printable/visual 'Room + Box Number' label example, (2) a 'Photo inventory template' (what to photograph + how to name), (3) a short workflow graphic: 'Label → Scan/track → Find room quickly'. Post as a carousel under the same hook: 'Your BoxBuddy Label System (Toronto Edition)'. End each carousel with: 'Try BoxBuddy from the link in bio.'",
+      "timeRequired": "3 hours",
+      "expectedLift": "+8 competitor differentiation",
+      "evidence": "Competitor gap score is 90/100 and suggests you can differentiate; the listed next move is 'Differentiate with a signature format competitors don't use.'"
+    }
+  ],
+  "nextSevenDays": [
+    {
+      "day": 1,
+      "objective": "Lock in Toronto local signals across your profile and first content cues.",
+      "action": "Update bio/name text and make one batch caption edit with Toronto keywords and a Toronto geotag plan.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "1) Change your Instagram name field to include a Toronto + app cue (pick one): \"Toronto moving app\" OR \"Moving & home inventory app in Toronto\".\n2) Update your most recent 3 captions so the first line includes an explicit Toronto keyword: \"Moving in Toronto?\".\n3) Choose one consistent Toronto geotag to reuse for the next 30 days (example: a Toronto landmark or \"Toronto, ON\"). For today’s next post/caption, add that geotag.",
+      "outputByEndOfDay": "Your name field includes Toronto + moving/inventory wording, and the last edited 3 captions start with \"Moving in Toronto?\" with a clear geotag set for the next 30 days.",
+      "whyItMatters": "Your local visibility is constrained by inconsistent location signals; clearer Toronto + category cues increase discovery in Toronto searches and browsing."
+    },
+    {
+      "day": 2,
+      "objective": "Start your profile-to-install conversion pathway with pinned proof.",
+      "action": "Pin two posts that directly demonstrate tracking and inventory organization, each ending with the download line.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "1) Pin Post #1: the clearest demo for tracking every box in BoxBuddy.\n2) Pin Post #2: the clearest post for home inventory made easy (checklist style if you have it).\n3) Edit each pinned caption description (or the first pinned comment) so the last line is exactly: \"Download BoxBuddy from the link in bio to track every box.\" \n4) Add the same last line to both pinned items so visitors get one consistent next step.",
+      "outputByEndOfDay": "Two pinned posts are live with matching, explicit app-install CTAs ending in the exact download line.",
+      "whyItMatters": "Your profile conversion score is moderate; pinned proof plus one consistent app CTA reduces drop-off and increases installs."
+    },
+    {
+      "day": 3,
+      "objective": "Launch the signature content format to drive saves and shares.",
+      "action": "Create and post Day 1 of your \"Toronto Move Checklist (BoxBuddy)\" carousel series.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Post a carousel titled with this hook in the caption first line: \"Moving in Toronto? Save this box checklist\".\nCarousel slide text (keep each slide short):\nSlide 1: \"Moving in Toronto? Save this box checklist\"\nSlide 2: \"Materials: labels, marker, tape, phone camera\"\nSlide 3: \"Room-by-room plan: Kitchen → Living → Bedrooms\"\nSlide 4: \"Inventory photo template: take 1 photo per box\"\nSlide 5: \"How to track boxes in BoxBuddy\"\nSlide 6 (closing): \"Download BoxBuddy from the link in bio to track every box.\"\nUse a Toronto geotag on the post.",
+      "outputByEndOfDay": "One new carousel is posted with the checklist structure, Toronto hook, and the exact app download line in the closing slide (and/or caption).",
+      "whyItMatters": "A repeatable checklist carousel is more likely to be saved and shared, which should improve reach for a moving and inventory app audience."
+    },
+    {
+      "day": 4,
+      "objective": "Add consistent app-install CTA discipline across your recent posts.",
+      "action": "Edit the last 3 posts’ captions so the CTA is identical and ends the post.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "For your last 3 feed posts (most recent first), edit each caption so the final line is exactly: \"Download BoxBuddy from the link in bio to track every box.\" \nIf a post already has a CTA, replace it so the final line matches exactly.",
+      "outputByEndOfDay": "Three recent captions end with the exact app install CTA line.",
+      "whyItMatters": "Sales readiness is currently limited; consistent, app-appropriate CTAs help attention convert into installs."
+    },
+    {
+      "day": 5,
+      "objective": "Create your differentiation assets for labels and inventory workflow.",
+      "action": "Design and post the \"Box Labels + Inventory\" differentiation carousel (Toronto edition).",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Create and post a carousel with the caption first line: \"Your BoxBuddy Label System (Toronto Edition)\".\nInclude these slides (short text):\nSlide 1: \"Room + Box Number\"\nSlide 2: \"Example label: Living-R3\"\nSlide 3: \"Photo inventory template: Box label + contents\"\nSlide 4: \"Workflow: Label → Scan/track → Find room\"\nSlide 5 (closing): \"Download BoxBuddy from the link in bio to track every box.\" \nAdd a Toronto geotag to the post.",
+      "outputByEndOfDay": "One differentiation carousel is posted showcasing the Box Labels + Inventory workflow with a clear Toronto angle.",
+      "whyItMatters": "You have a strong opportunity to stand out; a visible label/inventory system makes BoxBuddy more memorable than generic moving planners."
+    },
+    {
+      "day": 6,
+      "objective": "Strengthen your Toronto Move Checklist series to continue saves/shares momentum.",
+      "action": "Post Day 2 of the \"Toronto Move Checklist (BoxBuddy)\" carousel series.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Post a second carousel using this caption first line: \"Moving in Toronto? Save this box checklist\".\nCarousel slide text:\nSlide 1: \"Moving in Toronto? Save this box checklist\"\nSlide 2: \"Labeling rule: Room first, then box number\"\nSlide 3: \"Numbering tip: start at 1 per room\"\nSlide 4: \"What to photograph: contents + fragile items close-up\"\nSlide 5: \"Upload/track in BoxBuddy\"\nSlide 6 (closing): \"Download BoxBuddy from the link in bio to track every box.\" \nUse a Toronto geotag on the post.",
+      "outputByEndOfDay": "Second checklist carousel is posted with Toronto hook and the exact app download CTA.",
+      "whyItMatters": "Continuing the signature format builds audience familiarity and increases the probability people save the content for their move."
+    },
+    {
+      "day": 7,
+      "objective": "Set up your install-focused link pathway test by finalizing the next 14-day link-in-bio target plan.",
+      "action": "Document the A/B split for link-in-bio and prepare the first pinned post to support it.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "1) Decide the 14-day A/B plan for your link-in-bio destination between: (A) https://boxbuddy.tech/links and (B) the more direct install landing page if available on that domain. If you do NOT have a second direct install URL, write \"Second URL missing\" in your notes and keep A as https://boxbuddy.tech/links for now.\n2) Choose which one you will use for Day 1 of the test and confirm it matches the current link-in-bio setting.\n3) Ensure both pinned posts (from day 2) still end with the exact line: \"Download BoxBuddy from the link in bio to track every box.\"",
+      "outputByEndOfDay": "A clear A/B test plan is set for the next 14 days (or confirmed that the second URL is missing), and pinned posts are verified to contain the exact CTA line.",
+      "whyItMatters": "Your profile conversion is moderate; a clean, planned link destination test helps you identify what actually drives installs from Instagram traffic."
+    }
+  ],
+  "sprint": [
+    {
+      "week": 1,
+      "goal": "Fix the foundation",
+      "actions": [
+        "Rewrite bio + link path",
+        "Save 3 highlights",
+        "Add city/category signals"
+      ],
+      "output": "Conversion-ready profile",
+      "measure": "Profile visits → follows"
+    },
+    {
+      "week": 2,
+      "goal": "Post with a rhythm",
+      "actions": [
+        "Publish 3–4 posts",
+        "Use the market's top format once",
+        "Add hooks + hashtags every post"
+      ],
+      "output": "Consistent week of content",
+      "measure": "Reach + saves per post"
+    },
+    {
+      "week": 3,
+      "goal": "Turn attention into action",
+      "actions": [
+        "Add explicit \"download\" CTA to every post",
+        "Reply to all comments < 2h",
+        "Pin a how-to-start post"
+      ],
+      "output": "Clear conversion path",
+      "measure": "Link taps / DMs"
+    },
+    {
+      "week": 4,
+      "goal": "Measure & prepare review",
+      "actions": [
+        "Screenshot 28-day insights",
+        "List top 3 + worst 2 posts",
+        "Note what to stop"
+      ],
+      "output": "Review-ready data",
+      "measure": "Trend vs week-1 baseline"
+    }
+  ],
+  "marketComparison": {
+    "rows": [
+      {
+        "metric": "Posts / week",
+        "client": "11.7",
+        "market": "3.6"
+      },
+      {
+        "metric": "Avg caption length",
+        "client": "456 chars",
+        "market": "357 chars"
+      },
+      {
+        "metric": "Avg hashtags / post",
+        "client": "13.8",
+        "market": "5.4"
+      },
+      {
+        "metric": "Top format",
+        "client": "reel",
+        "market": "carousel"
+      }
+    ],
+    "activityLevel": "Above market volume",
+    "interpretation": "Your volume is not the problem. You already post 11.7×/week vs a market average near 3.6×. The gap is sharper positioning, stronger hooks, and a clearer CTA — not more posts. Trade a few low-effort posts for fewer, more intentional ones.",
+    "cadenceVerdict": "refine"
+  },
+  "marketPatterns": {
+    "postsStudied": 300,
+    "avgCaptionChars": 357,
+    "avgHashtags": 5.4,
+    "avgEmojis": 1.8,
+    "topFormats": [
+      {
+        "label": "carousel",
+        "pct": 45
+      },
+      {
+        "label": "reel",
+        "pct": 35
+      },
+      {
+        "label": "image",
+        "pct": 20
+      }
+    ],
+    "hookDistribution": [
+      {
+        "label": "description",
+        "pct": 76
+      },
+      {
+        "label": "claim",
+        "pct": 15
+      },
+      {
+        "label": "question",
+        "pct": 4
+      },
+      {
+        "label": "direct address",
+        "pct": 3
+      },
+      {
+        "label": "number list",
+        "pct": 2
+      }
+    ],
+    "contentElementDistribution": [
+      {
+        "label": "offer present",
+        "pct": 40
+      },
+      {
+        "label": "personality",
+        "pct": 26
+      },
+      {
+        "label": "product media",
+        "pct": 15
+      },
+      {
+        "label": "location anchored",
+        "pct": 13
+      },
+      {
+        "label": "process shown",
+        "pct": 6
+      }
+    ]
+  },
+  "competitorDebug": {
+    "searchTermsUsed": [
+      "moving app",
+      "moving checklist",
+      "packing app",
+      "moving boxes",
+      "box inventory",
+      "home inventory",
+      "home organization",
+      "decluttering",
+      "storage",
+      "moving tips",
+      "toronto moving",
+      "condo moving",
+      "apartment moving",
+      "family moving",
+      "packing tips",
+      "moving day checklist",
+      "moving home inventory",
+      "moving home inventory tips"
+    ],
+    "candidatesFound": 5,
+    "selected": [],
+    "rejected": [
+      {
+        "handle": "devwindsor",
+        "track": "reference",
+        "code": "rejected_known_invalid",
+        "reason": "Known invalid account for this client (@devwindsor)",
+        "categoryMatchScore": 0,
+        "contentMatchScore": 0,
+        "locationMatchScore": 0,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "confidenceScore": 0
+      },
+      {
+        "handle": "windsorone",
+        "track": "reference",
+        "code": "rejected_known_invalid",
+        "reason": "Known invalid account for this client (@windsorone)",
+        "categoryMatchScore": 0,
+        "contentMatchScore": 0,
+        "locationMatchScore": 0,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 100,
+        "confidenceScore": 0
+      },
+      {
+        "handle": "fredagainagainagainagainagain",
+        "track": "local",
+        "code": "rejected_known_invalid",
+        "reason": "Known invalid account for this client (@fredagainagainagainagainagain)",
+        "categoryMatchScore": 0,
+        "contentMatchScore": 0,
+        "locationMatchScore": 0,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "confidenceScore": 0
+      },
+      {
+        "handle": "none_like_mine",
+        "track": "local",
+        "code": "rejected_known_invalid",
+        "reason": "Known invalid account for this client (@none_like_mine)",
+        "categoryMatchScore": 0,
+        "contentMatchScore": 0,
+        "locationMatchScore": 0,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 100,
+        "confidenceScore": 0
+      },
+      {
+        "handle": "none_tattooer",
+        "track": "local",
+        "code": "rejected_known_invalid",
+        "reason": "Known invalid account for this client (@none_tattooer)",
+        "categoryMatchScore": 25,
+        "contentMatchScore": 0,
+        "locationMatchScore": 60,
+        "recencyScore": 30,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "confidenceScore": 0
+      }
+    ],
+    "emptyReason": "relevance_filter",
+    "recommendedSearchTerms": [
+      "moving home inventory",
+      "best moving home inventory",
+      "top moving home inventory",
+      "moving home inventory new york, ny",
+      "moving home inventory boston, ma",
+      "moving home inventory chicago, il",
+      "moving app",
+      "moving checklist",
+      "packing app",
+      "moving boxes",
+      "box inventory",
+      "home inventory",
+      "home organization",
+      "decluttering",
+      "storage",
+      "moving tips"
+    ]
+  },
+  "competitors": [],
+  "observedPosts": [],
+  "contentMechanics": [
+    {
+      "pattern": "description hooks",
+      "whyItWorks": "description openers are the most common high-performers in this market.",
+      "howToAdapt": "Open posts with a description line, then deliver one concrete takeaway.",
+      "examplePostIdea": "A description-style hook about your category, then 3 quick points, then end on an app-download CTA.",
+      "whatNotToCopy": "Their exact wording or branded creative."
+    },
+    {
+      "pattern": "carousel format",
+      "whyItWorks": "carousel is the market's top-performing format.",
+      "howToAdapt": "Publish at least one carousel per week in your own style.",
+      "examplePostIdea": "A carousel showing a before/after or quick how-to, end on an app-download CTA.",
+      "whatNotToCopy": "Copying their footage or layout 1:1."
+    }
+  ],
+  "visibilityStrategy": [
+    {
+      "surface": "Name field",
+      "recommendation": "Include \"Moving and home inventory app\" + city for search."
+    },
+    {
+      "surface": "Bio",
+      "recommendation": "One-line value + CTA \"download\"."
+    },
+    {
+      "surface": "Captions",
+      "recommendation": "City/category in the first line."
+    },
+    {
+      "surface": "Hashtags",
+      "recommendation": "3 local + 3 category tags per post."
+    },
+    {
+      "surface": "App download path",
+      "recommendation": "Make the store/download link the primary link."
+    }
+  ],
+  "hashtags": [
+    {
+      "group": "local",
+      "tags": [
+        "toronto",
+        "torontomoving",
+        "torontorealestate",
+        "gta",
+        "markhammovers",
+        "scarborough",
+        "etobicoke",
+        "northyork"
+      ]
+    },
+    {
+      "group": "category",
+      "tags": [
+        "movingapp",
+        "movingtips",
+        "movingchecklist",
+        "packinghacks",
+        "homeinventory",
+        "boxorganization",
+        "movingday",
+        "declutteringtips"
+      ]
+    },
+    {
+      "group": "audience",
+      "tags": [
+        "firsttimehomebuyer",
+        "rentertips",
+        "newhome",
+        "downsizing",
+        "relocationcanada",
+        "householdorganization",
+        "familymove",
+        "storagemadesimple"
+      ]
+    },
+    {
+      "group": "authority",
+      "tags": [
+        "canadaliving",
+        "canadahome",
+        "ontariolife",
+        "movingprepared",
+        "organizationalgoals",
+        "lifeadmin",
+        "homeplanning",
+        "propertymanagement"
+      ]
+    },
+    {
+      "group": "branded",
+      "tags": [
+        "boxbuddyapp",
+        "boxbuddy",
+        "boxbuddytech",
+        "smartmoving",
+        "trackyourboxes",
+        "storagebuddy",
+        "yourmovenext",
+        "boxbuddyjourney"
+      ]
+    },
+    {
+      "group": "test",
+      "tags": [
+        "movingontario",
+        "torontopackingtips",
+        "homeinventorycheck",
+        "packinglist",
+        "boxtracking",
+        "easeyourmove",
+        "moveinready",
+        "organizedmove"
+      ]
+    }
+  ],
+  "toolkit": {
+    "hookFormulas": [
+      "Toronto checklist: {pain} in 3 steps (with {appName})",
+      "Stop losing track of boxes during your move in {city}: here’s the quick system",
+      "If you’re moving in {month/season} in Toronto, do this before you pack",
+      "The easiest way to inventory your home: {simple action} → {result}",
+      "Moving day chaos vs. your plan: use {appName} to {outcome}",
+      "Before you move: {number} minutes to make unpacking easier",
+      "Your boxes have a story—turn it into an inventory you can find in seconds",
+      "What to label your boxes (Toronto move edition) — no guessing",
+      "Packing hacks for small spaces in Toronto: inventory first, pack second",
+      "New place, same mess? Try the box tracking workflow that prevents it"
+    ],
+    "captionFormulas": [
+      "Hook (1 line) → Problem (1–2 lines) → Simple system (3–5 lines) → Toronto-specific example (1 line) → Benefit (1 line) → How to get started (1 line with link-in-bio/download language).\n\nExample: “Toronto move? Don’t ‘hope you’ll remember.’ Build your box inventory while packing. Here’s the workflow: (1) Create rooms, (2) Scan/track boxes, (3) Note priority items, (4) Keep a quick unpack plan. Imagine labeling boxes for your Yonge/Eglinton move or a condo storage locker—then finding everything when you need it.”",
+      "Mini-story: “We’ve all done this…” → What went wrong → The fix → Result → CTA (download/try via link in bio).\n\nTemplate: “We’ve all done this… but it costs time on moving day. The fix is simple: track each box as you pack. Your future self will thank you when you’re searching for essentials.”",
+      "Pain → Promise → Steps → Proof prompt (ask a question) → CTA.\n\nTemplate: “Tired of opening the wrong box? Promise: you’ll know what’s inside before you unpack. Steps: 1) assign boxes to rooms, 2) track them, 3) set an unpack order. Question: what’s the one box you never want to lose? Try BoxBuddy via the link in bio.”",
+      "Myth vs. Reality: “Myth: labeling is enough. Reality: inventory is what saves you time.” → What to do instead → CTA.\n\nTemplate: “Labeling helps, but inventory + tracking is what makes your move predictable. Build your box list as you pack—then keep it for storage and future moves. Get the app via the link in bio.”",
+      "Feature-to-outcome mapping (non-technical): “Create plan → Track boxes → Simplify unpacking.” Include a Toronto context line (condo, stairs, storage locker, small-space packing).\n\nTemplate: “Create your moving & home inventory plan, track every box, and simplify unpacking—especially helpful in Toronto condos where storage space is tight. Try BoxBuddy via link in bio.”"
+    ],
+    "ctaOptions": [
+      "Try BoxBuddy on your next move — link in bio",
+      "Download BoxBuddy 📦 — start tracking your boxes today (link in bio)",
+      "Use BoxBuddy to build your home inventory — link in bio",
+      "Get started in minutes — BoxBuddy is ready via the link in bio",
+      "Simplify unpacking before it happens — download BoxBuddy (link in bio)"
+    ],
+    "reelIdeas": [
+      "“Toronto Move in Real Time” — show packing a single room while updating a box inventory (fast cuts: label → track → quick room list). End with “find essentials faster” message + CTA via link in bio.",
+      "“What to label your boxes (Toronto condo edition)” — reel shows sample labels/box numbering system on-screen; voiceover: what goes on label + why inventory helps when you’re juggling elevators/stairs.",
+      "“Stop unpacking blindly” — show opening three “random” boxes in a mock scenario, then reveal how an inventory prevents the wasted minutes (inventory screenshot-style).",
+      "“Storage locker clarity” — show how to track boxes you’ll keep in storage (inventory view) so you don’t forget what’s where later.",
+      "“5-minute pre-move setup” — quick walkthrough: create rooms, plan essentials priority, then start tracking boxes as you pack.",
+      "“Unpacking order” — demonstrate setting an unpack priority (essentials first), then show the inventory list guiding you room by room."
+    ],
+    "carouselIdeas": [
+      "Carousel: “Toronto Moving Checklist: inventory-first method”\nSlides: (1) Title: Inventory-first = faster unpacking (Toronto) (2) Create room list (3) Decide essentials priority (4) Track each box as you pack (5) Keep inventory notes for storage (6) Unpack in your planned order (7) CTA slide: “Download BoxBuddy via link in bio.”",
+      "Carousel: “Box Labeling System (that actually works)”\nSlides: (1) Why ‘misc’ fails (2) Room codes example (3) Box number rules (4) Priority tags (5) What to record inside notes (6) How inventory ties it together (7) CTA slide.",
+      "Carousel: “Home Inventory for Toronto Households”\nSlides: (1) Why home inventory helps beyond moving (2) What to include (3) Room-by-room approach (4) Storage / seasonal items (5) Search/find mindset (6) Build it gradually (7) CTA slide with link in bio.",
+      "Carousel: “Packing without regret: a single-room workflow”\nSlides: (1) Pick one room (2) Create that room in your inventory (3) Track each box (4) Add a quick contents note (5) Set unpack order (6) Finish with a simple ‘essentials’ list (7) CTA slide.",
+      "Carousel: “Before you move: the 3 things to do today”\nSlides: (1) Don’t wait—plan rooms (2) Start inventory early (3) Assign priority items (4) Track storage boxes (5) Screenshot/keep your inventory list (6) Unpack faster (7) CTA slide."
+    ],
+    "proofIdeas": [
+      "Process proof (no stats): “Before/After workflow” carousel: Before = unlabeled boxes + guessing; After = tracked boxes by room with an unpack order.",
+      "User-intent proof: “Essentials test” reel where you show finding essentials in the inventory list before opening boxes (visual proof of reduced searching).",
+      "Consistency proof: “Week of moving” carousel sequence: Room 1 inventory complete → Room 2 → Room 3; show the list growing and making unpacking easier.",
+      "Storage proof: “What’s in this box?” scenario for items kept in storage; show how inventory notes prevent forgetting.",
+      "Clarity proof: “One-room example” graphic: a single room inventory list with box names/contents and how it maps to unpacking order."
+    ]
+  },
+  "aiPrompts": [
+    {
+      "label": "Daily post",
+      "prompt": "Write an Instagram caption for boxbuddyapp, a Moving and home inventory app. Hook in line 1, 3 quick points, end with CTA \"download\"."
+    },
+    {
+      "label": "Carousel",
+      "prompt": "Outline a 5-slide carousel for a Moving and home inventory app teaching one useful thing to people who need moving and home inventory app. End on CTA \"download\"."
+    },
+    {
+      "label": "Reel",
+      "prompt": "Script a 15-second Reel for a Moving and home inventory app: hook, 3 beats, CTA \"download\"."
+    },
+    {
+      "label": "FAQ",
+      "prompt": "Write an FAQ post answering the top question a Moving and home inventory app customer asks, ending with \"download\"."
+    },
+    {
+      "label": "Authority post",
+      "prompt": "Write a Toronto + Moving and home inventory app authority post that builds trust and ends with \"download\"."
+    },
+    {
+      "label": "CTA post",
+      "prompt": "Write a post whose single goal is to get the reader to download — no other ask."
+    }
+  ],
+  "immediateContent": {
+    "hooks": [
+      "The #1 mistake people make with [topic]",
+      "Before you [action], read this",
+      "[Number] things nobody tells you about [topic]",
+      "Save this for your next [event]",
+      "Stop doing [X]. Do [Y] instead.",
+      "Here's what [audience] always gets wrong",
+      "The fastest way to [outcome]",
+      "If you only do one thing this week…",
+      "[Topic] in 30 seconds",
+      "What I wish I knew before [event]"
+    ],
+    "captionTopics": [
+      "A common mistake + fix",
+      "A quick how-to",
+      "A myth vs truth",
+      "A behind-the-scenes",
+      "A customer win",
+      "An FAQ",
+      "A seasonal tip"
+    ],
+    "carouselIdeas": [
+      "5-step checklist",
+      "Before/after",
+      "Myth vs truth"
+    ],
+    "reelIdeas": [
+      "Quick tip",
+      "Transformation",
+      "Common mistake"
+    ],
+    "storyIdeas": [
+      "Poll a question",
+      "Share a tip",
+      "Repost a customer result"
+    ]
+  },
+  "quickActions": [
+    {
+      "when": "today",
+      "action": "Update bio with one benefit + CTA \"download\"."
+    },
+    {
+      "when": "today",
+      "action": "Add city + category to your name field."
+    },
+    {
+      "when": "this_week",
+      "action": "Publish one hook-led post and one in the market's top format."
+    },
+    {
+      "when": "this_week",
+      "action": "Save 3 Story highlights (Services, Proof, FAQ)."
+    },
+    {
+      "when": "this_week",
+      "action": "Comment on 5 relevant accounts per day."
+    },
+    {
+      "when": "this_month",
+      "action": "Build a 4-post/week rhythm with hashtags every post."
+    },
+    {
+      "when": "this_month",
+      "action": "Add a pinned how-to-start/how-to-buy post."
+    },
+    {
+      "when": "this_month",
+      "action": "Test one new format and keep the winner."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Screenshot 28-day insights and compare to baseline."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Re-run this audit to measure movement."
+    }
+  ],
+  "measurement": [
+    {
+      "dayMark": 7,
+      "measure": "Profile visits, reach, saves, DMs",
+      "goodSign": "Profile visits trending up",
+      "adjustIf": "No movement → sharpen hooks + bio"
+    },
+    {
+      "dayMark": 14,
+      "measure": "Saves/shares per post, follower delta",
+      "goodSign": "Saves rising on tip posts",
+      "adjustIf": "Flat saves → change formats"
+    },
+    {
+      "dayMark": 30,
+      "measure": "All KPIs vs baseline + score re-run",
+      "goodSign": "Overall score up 5+",
+      "adjustIf": "Stalled → revisit weakest dimension"
+    }
+  ],
+  "day30": {
+    "bringBack": [
+      "28-day insights screenshots",
+      "Top 3 + worst 2 posts",
+      "Which fixes you completed"
+    ],
+    "whatWeCompare": [
+      "Scores vs baseline",
+      "Cadence + format mix",
+      "Competitor movement"
+    ],
+    "whyMonthlyMatters": "Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.",
+    "nextRunCta": "Re-run the audit on your review date to measure what moved."
+  },
+  "dataGaps": [
+    {
+      "area": "Competitor relevance",
+      "severity": "high",
+      "detail": "All 5 candidates failed the relevance gate (relevance_filter). 0 vetted seed(s) available from prior audits.",
+      "recommendedFix": "Re-run discovery with: moving home inventory, best moving home inventory, top moving home inventory, moving home inventory new york, ny, moving home inventory boston, ma, moving home inventory chicago, il, moving app, moving checklist, packing app, moving boxes, box inventory, home inventory."
+    },
+    {
+      "area": "Observed competitor posts",
+      "severity": "medium",
+      "detail": "No competitors selected, so no posts to observe.",
+      "recommendedFix": "Run competitor post scrape (fields: caption, displayUrl, url, timestamp, type) for the selected handles."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "cat.source",
+      "sourceType": "profile",
+      "label": "Category inference source",
+      "value": "raw",
+      "confidence": 90
+    },
+    {
+      "id": "profile.bio",
+      "sourceType": "profile",
+      "label": "Bio present",
+      "value": true,
+      "confidence": 90
+    },
+    {
+      "id": "profile.followers",
+      "sourceType": "profile",
+      "label": "Follower count",
+      "value": 353,
+      "confidence": 90
+    },
+    {
+      "id": "score.overall",
+      "sourceType": "score",
+      "label": "Overall score",
+      "value": 54,
+      "confidence": 92
+    },
+    {
+      "id": "score.local",
+      "sourceType": "score",
+      "label": "Local visibility score",
+      "value": 21,
+      "confidence": 92
+    },
+    {
+      "id": "score.sales",
+      "sourceType": "score",
+      "label": "Sales readiness score",
+      "value": 37,
+      "confidence": 92
+    },
+    {
+      "id": "market.postsStudied",
+      "sourceType": "market_pattern",
+      "label": "Category posts studied",
+      "value": 300,
+      "confidence": 85
+    },
+    {
+      "id": "market.cadence",
+      "sourceType": "score",
+      "label": "Client posts/week vs market",
+      "value": "11.7/wk",
+      "confidence": 80
+    },
+    {
+      "id": "competitors.candidates",
+      "sourceType": "competitor",
+      "label": "Competitor candidates found",
+      "value": 5,
+      "confidence": 70
+    },
+    {
+      "id": "competitors.selected",
+      "sourceType": "competitor",
+      "label": "Competitors selected after relevance gate",
+      "value": 0,
+      "confidence": 40
+    }
+  ],
+  "sectionConfidence": [
+    {
+      "sectionId": "category",
+      "score": 90,
+      "level": "high",
+      "reasons": [
+        "Category source: raw"
+      ],
+      "sourceCoverage": [
+        "profile bio/website"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "scores",
+      "score": 92,
+      "level": "high",
+      "reasons": [
+        "Derived from the audit scoring model"
+      ],
+      "sourceCoverage": [
+        "audit scores + signals"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "fixes",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "audit scores"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "nextSevenDays",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "top moves"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "sprint",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "Standard 4-week structure"
+      ],
+      "sourceCoverage": [],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "marketPatterns",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "300 posts studied"
+      ],
+      "sourceCoverage": [
+        "category corpus"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "competitors",
+      "score": 35,
+      "level": "low",
+      "reasons": [
+        "0 selected, 5 rejected"
+      ],
+      "sourceCoverage": [],
+      "dataGaps": [
+        "No relevant competitors (relevance_filter)"
+      ]
+    },
+    {
+      "sectionId": "observedPosts",
+      "score": 20,
+      "level": "low",
+      "reasons": [],
+      "sourceCoverage": [],
+      "dataGaps": [
+        "No post-level competitor data"
+      ]
+    },
+    {
+      "sectionId": "hashtags",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived, human-realistic"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "toolkit",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived formulas"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "aiPrompts",
+      "score": 80,
+      "level": "medium",
+      "reasons": [
+        "Category + CTA aware"
+      ],
+      "sourceCoverage": [
+        "category",
+        "cta"
+      ],
+      "dataGaps": []
+    }
+  ],
+  "overallConfidence": 74,
+  "validation": {
+    "passed": true,
+    "blockingCount": 0,
+    "warningCount": 0,
+    "issues": []
+  }
+}

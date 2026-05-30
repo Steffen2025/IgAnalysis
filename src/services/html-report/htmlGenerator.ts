@@ -18,18 +18,18 @@ import { renderDoThisNext } from "./components/doThisNext.js";
 import { renderFooter } from "./components/footer.js";
 import { escapeHTML } from "./components/utils.js";
 
-function loadSections(auditId: number): Record<string, string> {
-  const rows = db.select().from(report_sections).where(eq(report_sections.audit_id, auditId)).all();
+async function loadSections(auditId: number): Promise<Record<string, string>> {
+  const rows = await db.select().from(report_sections).where(eq(report_sections.audit_id, auditId));
   const map: Record<string, string> = {};
   for (const row of rows) {
-    map[row.section_key] = row.content_markdown;
+    map[row.section_key] = row.content_markdown ?? "";
   }
   return map;
 }
 
 export async function generateHTMLReport(auditId: number): Promise<string> {
   const data = await assembleReportData(auditId);
-  const s = loadSections(auditId);
+  const s = await loadSections(auditId);
 
   const businessName = escapeHTML(data.audit.business_name ?? "Instagram Growth Report");
 

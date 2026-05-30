@@ -47,51 +47,118 @@ function parseFixRows(md: string): FixRow[] {
 }
 
 function renderFixRow(f: FixRow): string {
-  return `<div class="fix-row">
-  <div class="fix-num">${e(f.number)}</div>
-  <div>
-    <div class="fix-title">${e(f.fix.replace(/\*\*/g, ""))}</div>
-    ${f.why ? `<div class="fix-col-label">Why it matters</div><div style="font-size:14px;color:#5C5A52">${e(f.why)}</div>` : ""}
+  const support = [f.why, f.how].filter(Boolean).join(" ");
+  const cite = [f.impact, f.effort].filter(Boolean).join(" · ");
+  return `<li class="priority-row">
+  <div class="priority-num">${e(f.number)}</div>
+  <div class="priority-body">
+    <div class="priority-title">${e(f.fix.replace(/\*\*/g, ""))}</div>
+    ${support ? `<p class="priority-support">${e(support)}</p>` : ""}
+    ${cite ? `<div class="priority-cite">${e(cite)}</div>` : ""}
   </div>
-  <div>
-    ${f.how ? `<div class="fix-col-label">How to execute</div><div style="font-size:14px;color:#5C5A52">${e(f.how)}</div>` : ""}
+</li>`;
+}
+
+function normLevel(raw: string, fallback: "high" | "medium" | "low"): "high" | "medium" | "low" {
+  const v = raw.toLowerCase();
+  if (v.includes("high")) return "high";
+  if (v.includes("low")) return "low";
+  if (v.includes("med")) return "medium";
+  return fallback;
+}
+
+/**
+ * Ranked Impact-vs-Effort card grid. Replaces the old absolutely-positioned
+ * matrix dots, which collapsed to a pile of digits ("43251") whenever the PDF
+ * renderer dropped the inline left/top styles. A grid of badge cards renders
+ * identically every time.
+ */
+function renderMoveGrid(fixes: FixRow[]): string {
+  const cards = fixes.slice(0, 5).map((f, i) => {
+    const impact = normLevel(f.impact, "high");
+    const effort = normLevel(f.effort, "medium");
+    const title = e(f.fix.replace(/\*\*/g, "").trim().slice(0, 64));
+    return `<div class="move-card move-impact-${impact}">
+  <div class="move-rank">${i + 1}</div>
+  <div class="move-body">
+    <div class="move-title">${title}</div>
+    <div class="move-badges">
+      <span class="move-badge impact-${impact}">${impact} impact</span>
+      <span class="move-badge effort-${effort}">${effort} effort</span>
+    </div>
   </div>
-  <div>
-    ${f.impact ? `<div class="fix-col-label">Score impact</div><div style="font-size:14px;color:#5C5A52">${e(f.impact)}</div>` : ""}
-  </div>
-  <div class="fix-effort">${e(f.effort || "—")}</div>
 </div>`;
+  });
+  return `<div class="move-grid">
+${cards.join("\n")}
+</div>`;
+}
+
+/** Workbook: impact/effort matrix + ranked five moves (action-first). */
+export function fiveMovesWorkbookSlides(md: string): string[] {
+  const fixes = parseFixRows(md);
+
+  if (fixes.length === 0) {
+    return [`<span class="eyebrow">Five moves that matter most</span>
+
+# Your highest-leverage actions
+
+<div style="font-size:17px;color:var(--text-secondary);line-height:1.6">${e(md.slice(0, 700))}</div>`];
+  }
+
+  const moveGrid = renderMoveGrid(fixes);
+
+  return [
+    `<span class="eyebrow">Five moves that matter most</span>
+
+# Do these first
+
+<p>This is your 30-day sprint, not a score lecture. Ranked by leverage — start at #1.</p>
+
+${moveGrid}
+
+<div class="guide-card full">
+  <div class="kicker">How to read this</div>
+  <div class="copy">High-impact / low-effort moves come first. Knock out one move at a time — the detail and timing live on the sprint and Week 1 pages next.</div>
+</div>`,
+  ];
 }
 
 export function top5FixesSlides(md: string): string[] {
   const fixes = parseFixRows(md);
 
   if (fixes.length === 0) {
-    return [`<span class="eyebrow">The Five Moves That Matter Most</span>
+    return [`<span class="eyebrow">05 · Top priorities</span>
 
-# Highest-leverage actions
+# The five moves that matter most
 
-<div style="font-size:17px;color:#5C5A52;line-height:1.6">${e(md.slice(0, 800))}</div>`];
+<div style="font-size:17px;color:var(--text-secondary);line-height:1.6">${e(md.slice(0, 800))}</div>`];
   }
 
   if (fixes.length <= 3) {
-    return [`<span class="eyebrow">The Five Moves That Matter Most</span>
+    return [`<span class="eyebrow">05 · Top priorities</span>
 
-# Highest-leverage actions
+# The five moves that matter most
 
-${fixes.map(renderFixRow).join("\n")}`];
+<ul class="priority-list">
+${fixes.map(renderFixRow).join("\n")}
+</ul>`];
   }
 
   return [
-    `<span class="eyebrow">The Five Moves That Matter Most · 1–3</span>
+    `<span class="eyebrow">05 · Top priorities · 1–3</span>
 
-# Highest-leverage actions
+# The five moves that matter most
 
-${fixes.slice(0, 3).map(renderFixRow).join("\n")}`,
-    `<span class="eyebrow">The Five Moves That Matter Most · 4–5</span>
+<ul class="priority-list">
+${fixes.slice(0, 3).map(renderFixRow).join("\n")}
+</ul>`,
+    `<span class="eyebrow">05 · Top priorities · 4–5</span>
 
-# Highest-leverage actions _(continued)_
+# The five moves that matter most _(continued)_
 
-${fixes.slice(3, 5).map(renderFixRow).join("\n")}`,
+<ul class="priority-list">
+${fixes.slice(3, 5).map(renderFixRow).join("\n")}
+</ul>`,
   ];
 }

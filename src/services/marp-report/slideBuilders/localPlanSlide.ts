@@ -15,7 +15,7 @@ function extractHashtags(md: string): string[] {
 }
 
 export function localPlanSlide(data: ReportData, localMd: string): string {
-  const city = e(data.audit.city ?? "your city");
+  const city = e(data.reportContext.localMarketLabel ?? "your city");
   const tags = extractHashtags(localMd);
 
   const prose = localMd
@@ -32,9 +32,9 @@ export function localPlanSlide(data: ReportData, localMd: string): string {
 
 # ${city} visibility
 
-${prose ? `<p style="font-size:17px;color:#5C5A52;margin-bottom:16px">${e(prose)}</p>` : ""}
+${prose ? `<p style="font-size:17px;margin-bottom:16px">${e(prose)}</p>` : ""}
 
 ${chips ? `<div class="hashtag-group-label">Competitor hashtags in your market</div>
 <div>${chips}</div>
-<p class="hashtag-note">Borrow the hashtags. Never the content.</p>` : `<p style="color:#5C5A52">No local hashtag data available. The 7-day plan includes specific local tagging instructions for ${city}.</p>`}`;
+<p class="hashtag-note">Borrow the hashtags. Never the content.</p>` : `<p>No local hashtag data available. The 7-day plan includes specific local tagging instructions for ${city}.</p>`}`;
 }

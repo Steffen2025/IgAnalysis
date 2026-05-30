@@ -1,0 +1,1011 @@
+{
+  "meta": {
+    "auditId": 22,
+    "account": "Activedoor",
+    "handle": "activedoor",
+    "website": "https://activedoor.ca/",
+    "rawCategory": "Garage Doors",
+    "normalizedCategory": "Garage door company",
+    "categoryKind": "service",
+    "marketLabel": "Burlington, Ontario",
+    "city": "Burlington",
+    "region": "Ontario",
+    "generatedAt": "2026-05-30T16:03:12.074Z",
+    "reviewDate": "June 26, 2026",
+    "modelUsed": "openai/gpt-5.4-nano",
+    "promptVersion": "instagram-intelligence-v1.1.0",
+    "dataConfidence": 85
+  },
+  "account": {
+    "displayName": "Activedoor",
+    "handle": "activedoor",
+    "bio": "Commercial/Residentialtal Garage Doors, Garage Door Operators, and Gates \n⭐️ Sales ⭐️ Service ⭐️ Installation\nOffice: (905)689-5308 activedoor.ca",
+    "rawCategory": "Garage Doors",
+    "normalizedBusinessType": "Garage door company",
+    "website": "https://activedoor.ca/",
+    "followerCount": 634,
+    "postCount": 100,
+    "postsPerWeek": 0.4666666666682222,
+    "profileGaps": [
+      "Missing city/category signals"
+    ],
+    "ctaStatus": "Weak — no obvious next step",
+    "localSignalStatus": "Under-labeled for the market"
+  },
+  "category": {
+    "normalizedCategory": "Garage door company",
+    "categoryKind": "service",
+    "confidence": 90,
+    "source": "raw",
+    "whatItSells": "Products/services in the \"Garage door company\" space.",
+    "likelyAudience": "People searching for help in this category.",
+    "contentThatWorks": "Local proof, FAQs, and behind-the-scenes that build trust.",
+    "ctaType": "book",
+    "ctaOptions": [
+      "Book a free quote",
+      "Book now — link in bio",
+      "DM us or tap the link in bio to book.",
+      "book"
+    ]
+  },
+  "scores": [
+    {
+      "dimension": "Overall",
+      "score": 54,
+      "whatWeSaw": "Weighted blend of the five dimensions below.",
+      "whyItMatters": "Contributes to overall discoverability and conversion.",
+      "nextMove": "Keep the momentum and measure on day 30."
+    },
+    {
+      "dimension": "Profile conversion",
+      "score": 70,
+      "whatWeSaw": "Commercial/Residentialtal Garage Doors, Garage Door Operators, and Gates \n⭐️ Sal",
+      "whyItMatters": "A visitor decides in seconds whether to follow or leave.",
+      "nextMove": "A/B test the link-in-bio destination and pinned posts."
+    },
+    {
+      "dimension": "Content performance",
+      "score": 40,
+      "whatWeSaw": "3 posts in last 30 days (~0.70/wk)",
+      "whyItMatters": "Saves and shares drive reach far more than likes.",
+      "nextMove": "Lead posts with a strong first-line hook and a save-worthy takeaway."
+    },
+    {
+      "dimension": "Local visibility",
+      "score": 37,
+      "whatWeSaw": "terms checked: burlington, ontario",
+      "whyItMatters": "Discovery depends on clear category + location signals.",
+      "nextMove": "Add city + category to the name field, captions, and geotags."
+    },
+    {
+      "dimension": "Sales readiness",
+      "score": 29,
+      "whatWeSaw": "6/50",
+      "whyItMatters": "Attention is wasted without an obvious next step.",
+      "nextMove": "Add one explicit CTA to every post and a clear link path."
+    },
+    {
+      "dimension": "Competitor gap",
+      "score": 93,
+      "whatWeSaw": "client=0.70/wk  ref=0.31/wk",
+      "whyItMatters": "You're judged against active accounts in your space.",
+      "nextMove": "Differentiate with a signature format competitors don't use."
+    }
+  ],
+  "fixes": [
+    {
+      "title": "Fix local + category signals in Bio name and captions (Burlington + garage doors/operator/gates)",
+      "impact": "high",
+      "effort": "medium",
+      "scoreArea": "local",
+      "whyItMatters": "Right now local visibility is weak (score 37) even though Burlington is mentioned in checks; making the city + category explicit in the most visible fields improves discovery for “garage door” searches around Burlington, Ontario.",
+      "exactAction": "Update the Instagram display name to: \"Activedoor Garage Doors | Burlington, ON\" and update the first line of your bio to: \"Commercial & Residential Garage Doors, Operators & Gates in Burlington, Ontario\". Then, for the next 5 posts, add a caption first line like: \"Burlington, Ontario — Garage door repair/installation\" and tag geolocation \"Burlington, Ontario\" on each.",
+      "timeRequired": "60 min",
+      "expectedLift": "+10 local",
+      "evidence": "Local visibility score is 37 and the only location signal noted is terms checked: burlington, ontario; competitor gap is high (93), so discovery must be tightened."
+    },
+    {
+      "title": "Strengthen sales readiness with one clear “service next step” on every post (consistent CTA + link path)",
+      "impact": "high",
+      "effort": "low",
+      "scoreArea": "sales",
+      "whyItMatters": "Sales readiness is very low (29/100). Visitors may engage but not know what to do next; one consistent, explicit next step plus a clear link-in-bio path increases conversions.",
+      "exactAction": "Add this CTA to the last line of every new caption for 2 weeks: \"For help in Burlington, call (905) 689-5308 or visit activedoor.ca.\" Also pin one comment on each of your top 3 posts with the same message and include the website in your link-in-bio landing section titled \"Garage Door Service in Burlington\" (ensure users land on the relevant service page from that section).",
+      "timeRequired": "45 min",
+      "expectedLift": "+12 sales readiness",
+      "evidence": "Sales readiness score is 29 (6/50) indicating low readiness, while profile conversion is strong (70), meaning visitors are showing interest but likely not converting."
+    },
+    {
+      "title": "Turn your current content into save/share magnets using a repeatable hook + takeaway format",
+      "impact": "high",
+      "effort": "medium",
+      "scoreArea": "content",
+      "whyItMatters": "Content performance is lagging (score 40) and you only have about 3 posts in the last 30 days; with garage doors, “what to do/check” posts earn saves, which is where local reach comes from.",
+      "exactAction": "Create 3 carousel/Reels using this exact structure: Slide 1 (hook): \"Garage door not working in Burlington? Check this first.\" Slide 2: \"Quick safety check: disconnect power before troubleshooting.\" Slide 3: \"Common cause: sensor alignment (what it looks like).\" Slide 4: \"If it’s the motor/rollers: what signs to watch for.\" Slide 5 (takeaway): \"Save this checklist and call Activedoor when you’re ready.\" Caption first line: \"Burlington, Ontario — Garage door troubleshooting checklist\". Finish caption with: \"Call (905) 689-5308\".",
+      "timeRequired": "2–3 hours",
+      "expectedLift": "+10 content",
+      "evidence": "Content performance score is 40 and recent posting is low (~0.70/wk) which makes each post need higher save/share value; competitor gap is large (93), so differentiated format matters."
+    },
+    {
+      "title": "Differentiate with a signature “Burlington Garage Door Fix Guide” series (competitor-proof format)",
+      "impact": "medium",
+      "effort": "medium",
+      "scoreArea": "competitor",
+      "whyItMatters": "Competitor gap is already strong (93), but that also means you’re competing in a crowded category. A unique series name and consistent format gives people a reason to follow and returns improve reach over time.",
+      "exactAction": "Launch a named series in captions and covers: \"Burlington Garage Door Fix Guide #1–#5\". For each episode, use the same layout: (1) Problem photo/video, (2) 3 likely causes, (3) 1 do/don’t safety tip, (4) when to call (include phone), (5) one cost-factor note (no pricing—just factors like rollers/sensors/motor type). Use consistent cover text colors and keep episode length to 20–35 seconds for Reels.",
+      "timeRequired": "3–4 hours (create first 3 episodes + covers)",
+      "expectedLift": "+8 competitor",
+      "evidence": "Competitor gap score is 93 and notes a client posting cadence advantage (client=0.70/wk vs ref=0.31/wk). The missing piece is signature differentiation rather than generic informational posts."
+    },
+    {
+      "title": "Upgrade pinned posts to reduce decision time (make them match the top visitor intent)",
+      "impact": "medium",
+      "effort": "low",
+      "scoreArea": "profile",
+      "whyItMatters": "Profile conversion is solid (70) but you can make the follow decision faster by pinning posts that answer the most common intents immediately: repair help, installation, and gates/operators.",
+      "exactAction": "Update your 3 pinned slots to: (1) \"Residential Garage Door Service in Burlington\" (before/after or problem/solution), (2) \"Commercial Garage Door Operators & Gates\" (work examples), (3) \"Garage Door Troubleshooting Checklist\" (save-worthy carousel). In each pinned post caption, include the first line with service + location, and end with: \"Call (905) 689-5308 or visit activedoor.ca.\" Then set a highlight titled \"Service Areas\" linking to a Burlington-focused page on your website.",
+      "timeRequired": "30 min",
+      "expectedLift": "+6 profile conversion",
+      "evidence": "Profile conversion score is 70 and content frequency is low; pinned posts are a high-leverage fix because they shape the visitor’s first 5–10 seconds without requiring more posting."
+    }
+  ],
+  "nextSevenDays": [
+    {
+      "day": 1,
+      "objective": "Lock in stronger Burlington local signals in your most visible profile fields",
+      "action": "Update display name + first bio line, then geotag your next post(s)",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "1) Change Instagram display name to: \"Activedoor Garage Doors | Burlington, ON\".\n2) Update the first line of your bio to: \"Commercial & Residential Garage Doors, Operators & Gates in Burlington, Ontario\".\n3) When you post (or if you post today), add location tag: \"Burlington, Ontario\" and start the caption first line with: \"Burlington, Ontario — Garage door repair/installation\".",
+      "outputByEndOfDay": "Your display name and first bio line clearly mention Burlington + your service category; any new post today is geotagged to Burlington with the location-first caption line.",
+      "whyItMatters": "Right now local visibility is weak for Burlington-specific searches, so tightening the city + category signals in the profile improves discovery before you even change content volume."
+    },
+    {
+      "day": 2,
+      "objective": "Increase conversions with one consistent service next step across content",
+      "action": "Add a single CTA to today’s caption and set a comment template for quick reuse",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Copy/paste this CTA as the last line of every new caption for the next 2 weeks: \"For help in Burlington, call (905) 689-5308 or visit activedoor.ca.\" \nThen create a reusable first pinned-comment template text (keep it exactly the same) for later pinning: \"Need garage door help in Burlington? Call (905) 689-5308 or visit activedoor.ca.\"",
+      "outputByEndOfDay": "Your CTA is standardized for today’s new post (if you post today) and you have a pinned-comment template ready to use immediately on your top posts.",
+      "whyItMatters": "Your audience is engaging (profile conversion is solid), but sales readiness is low—people need one clear next step tied to Burlington."
+    },
+    {
+      "day": 3,
+      "objective": "Create a save/share magnet that targets urgent local troubleshooting intent",
+      "action": "Draft and film one troubleshooting reel/carousel for Burlington",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Make a Reel or carousel with this exact structure:\nSlide/Reel text overlay sequence:\n1) Hook: \"Garage door not working in Burlington? Check this first.\" \n2) Safety: \"Quick safety check: disconnect power before troubleshooting.\" \n3) Common cause: \"Sensor alignment (what it looks like).\" \n4) If not sensors: \"Signs it’s the motor/rollers.\" \n5) Takeaway: \"Save this checklist and call Activedoor when you’re ready.\" \nCaption first line: \"Burlington, Ontario — Garage door troubleshooting checklist\".\nAdd the standardized CTA as the last line: \"For help in Burlington, call (905) 689-5308 or visit activedoor.ca.\"",
+      "outputByEndOfDay": "A fully drafted and filmed Reel/carousel ready to upload (or uploaded if you’re set up to publish quickly).",
+      "whyItMatters": "Garage door content wins when it helps people take the next safe step—those posts earn saves/shares, which boosts local reach in Burlington."
+    },
+    {
+      "day": 4,
+      "objective": "Differentiate with a consistent signature series that builds returning viewers",
+      "action": "Create the first episode of your \"Burlington Garage Door Fix Guide\" series",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Create Reel/Episode #1 using this layout and exact series naming:\nSeries name in caption: \"Burlington Garage Door Fix Guide #1\".\nEpisode layout:\n(1) Show the problem moment (door not responding, weird noise, or blinking lights).\n(2) List 3 likely causes on-screen: \"Sensors\", \"Track/rollers\", \"Opener/motor\".\n(3) One safety do/don’t on-screen: \"Do: unplug before checking. Don’t: force the door.\" \n(4) When to call text overlay including phone: \"If it keeps happening, call (905) 689-5308\".\n(5) One cost-factor note (no pricing): \"Cost factors: sensors, rollers, or opener parts.\" \nCaption first line: \"Burlington, Ontario — Garage door fix guide\" then end with the standardized CTA: \"For help in Burlington, call (905) 689-5308 or visit activedoor.ca.\"",
+      "outputByEndOfDay": "Episode #1 is created and either uploaded or scheduled, with consistent series naming and the same end-CTA as your other posts.",
+      "whyItMatters": "A signature series gives people a reason to follow and helps you stand out in a crowded garage door category."
+    },
+    {
+      "day": 5,
+      "objective": "Reduce decision time by improving what people see first (pinned posts)",
+      "action": "Update your 3 pinned posts to match the top intents: service, operators/gates, troubleshooting checklist",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Update your 3 pinned posts as follows:\n1) Pin a post that targets residential service with wording including Burlington in the caption first line (add if needed): first line \"Residential Garage Door Service in Burlington\". End with: \"Call (905) 689-5308 or visit activedoor.ca.\".\n2) Pin a post that targets commercial operators & gates; include Burlington in the caption first line if possible, and end with the same line: \"Call (905) 689-5308 or visit activedoor.ca.\".\n3) Pin your troubleshooting checklist post (from Day 3) with first line including Burlington; end with: \"Call (905) 689-5308 or visit activedoor.ca.\".\nAfter updating captions, repin the posts in those exact slots.",
+      "outputByEndOfDay": "All three pinned posts are aligned to the main buying intents and include Burlington + the same service next step at the end.",
+      "whyItMatters": "Even with decent profile conversion, people still need faster answers. Pinned posts shape the visitor’s first 5–10 seconds and increase the chance they take action."
+    },
+    {
+      "day": 6,
+      "objective": "Turn top content into a sales funnel with pinned comments",
+      "action": "Pin the same CTA comment on your top 3 posts",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Find your top 3 posts (by views/engagement you’re already seeing) and for each one:\n1) Reply or add a comment using this exact text: \"Need garage door help in Burlington? Call (905) 689-5308 or visit activedoor.ca.\" \n2) Pin that comment to the top.\n3) Do not change the wording—keep it identical on all three posts.",
+      "outputByEndOfDay": "Pinned CTA comments are live on your top 3 posts, all using the exact same Burlington service next-step message.",
+      "whyItMatters": "Sales readiness is low—pinned comments reduce friction by giving the visitor a clear action prompt while the post is still fresh in their mind."
+    },
+    {
+      "day": 7,
+      "objective": "Publish enough momentum while staying focused on local, save-worthy troubleshooting",
+      "action": "Post the next checklist or series episode and ensure every post includes geotag + standardized CTA",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Upload either:\nOption A: \"Burlington Garage Door Fix Guide #2\" (use the same series format as Day 4), OR\nOption B: a second troubleshooting carousel focused on a different common issue (example: opener not responding + remote/battery/sensor quick checks).\nMandatory settings:\n1) Caption first line must include: \"Burlington, Ontario —\".\n2) Add the location tag: \"Burlington, Ontario\".\n3) End caption with exactly: \"For help in Burlington, call (905) 689-5308 or visit activedoor.ca.\"",
+      "outputByEndOfDay": "A new Burlington-focused post is live with location tagging, a clear troubleshooting intent, and the standardized service CTA at the end of the caption.",
+      "whyItMatters": "With low posting frequency, each post must earn saves/shares and convert. Publishing another Burlington-first troubleshooting piece sustains reach while continuing to drive calls to the office."
+    }
+  ],
+  "sprint": [
+    {
+      "week": 1,
+      "goal": "Fix the foundation",
+      "actions": [
+        "Rewrite bio + link path",
+        "Save 3 highlights",
+        "Add city/category signals"
+      ],
+      "output": "Conversion-ready profile",
+      "measure": "Profile visits → follows"
+    },
+    {
+      "week": 2,
+      "goal": "Post with a rhythm",
+      "actions": [
+        "Publish 3–4 posts",
+        "Use the market's top format once",
+        "Add hooks + hashtags every post"
+      ],
+      "output": "Consistent week of content",
+      "measure": "Reach + saves per post"
+    },
+    {
+      "week": 3,
+      "goal": "Turn attention into action",
+      "actions": [
+        "Add explicit \"book\" CTA to every post",
+        "Reply to all comments < 2h",
+        "Pin a how-to-start post"
+      ],
+      "output": "Clear conversion path",
+      "measure": "Link taps / DMs"
+    },
+    {
+      "week": 4,
+      "goal": "Measure & prepare review",
+      "actions": [
+        "Screenshot 28-day insights",
+        "List top 3 + worst 2 posts",
+        "Note what to stop"
+      ],
+      "output": "Review-ready data",
+      "measure": "Trend vs week-1 baseline"
+    }
+  ],
+  "marketComparison": {
+    "rows": [
+      {
+        "metric": "Posts / week",
+        "client": "0.5",
+        "market": "0.3"
+      },
+      {
+        "metric": "Avg caption length",
+        "client": "441 chars",
+        "market": "496 chars"
+      },
+      {
+        "metric": "Avg hashtags / post",
+        "client": "5.4",
+        "market": "6.5"
+      },
+      {
+        "metric": "Top format",
+        "client": "image",
+        "market": "image"
+      }
+    ],
+    "activityLevel": "Above market volume",
+    "interpretation": "Your volume is not the problem. You already post 0.5×/week vs a market average near 0.3×. The gap is sharper positioning, stronger hooks, and a clearer CTA — not more posts. Trade a few low-effort posts for fewer, more intentional ones.",
+    "cadenceVerdict": "refine"
+  },
+  "marketPatterns": {
+    "postsStudied": 100,
+    "avgCaptionChars": 496,
+    "avgHashtags": 6.5,
+    "avgEmojis": 1.7,
+    "topFormats": [
+      {
+        "label": "image",
+        "pct": 38
+      },
+      {
+        "label": "carousel",
+        "pct": 35
+      },
+      {
+        "label": "reel",
+        "pct": 27
+      }
+    ],
+    "hookDistribution": [
+      {
+        "label": "description",
+        "pct": 60
+      },
+      {
+        "label": "question",
+        "pct": 24
+      },
+      {
+        "label": "claim",
+        "pct": 8
+      },
+      {
+        "label": "number list",
+        "pct": 4
+      },
+      {
+        "label": "announcement",
+        "pct": 4
+      }
+    ],
+    "contentElementDistribution": [
+      {
+        "label": "offer present",
+        "pct": 44
+      },
+      {
+        "label": "location anchored",
+        "pct": 27
+      },
+      {
+        "label": "owner team",
+        "pct": 10
+      },
+      {
+        "label": "product media",
+        "pct": 9
+      },
+      {
+        "label": "customer focus",
+        "pct": 9
+      }
+    ]
+  },
+  "competitorDebug": {
+    "searchTermsUsed": [
+      "garage door",
+      "garage door repair",
+      "garage door installation",
+      "garage door opener",
+      "garage door spring",
+      "burlington garage door",
+      "oakville garage door",
+      "hamilton garage door",
+      "overhead door",
+      "garage door service",
+      "garage door tips",
+      "garage door burlington",
+      "garage door ontario",
+      "garage",
+      "burlington garage",
+      "door",
+      "burlington door"
+    ],
+    "candidatesFound": 1,
+    "selected": [
+      {
+        "handle": "cagaragedoors.ca",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 75,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 100,
+        "successScore": 30,
+        "confidenceScore": 87
+      }
+    ],
+    "rejected": [],
+    "emptyReason": "none",
+    "recommendedSearchTerms": [
+      "garage door",
+      "garage door repair",
+      "garage door installation",
+      "garage door opener",
+      "garage door spring",
+      "burlington garage door",
+      "oakville garage door",
+      "hamilton garage door",
+      "overhead door",
+      "garage door service",
+      "garage door tips",
+      "garage door burlington",
+      "garage door ontario",
+      "garage",
+      "burlington garage",
+      "door",
+      "burlington door",
+      "best garage door ontario"
+    ]
+  },
+  "competitors": [
+    {
+      "handle": "cagaragedoors.ca",
+      "displayName": "CA Garage Doors",
+      "type": "local",
+      "followers": 4548,
+      "posts": 70,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-19T13:14:51.000Z",
+      "activityStatus": "active",
+      "latestPostType": "reel",
+      "latestPostHook": "🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeowner, especially seniors,",
+      "whySelected": "category: garage, door; content: garage, door",
+      "borrow": "Their carousel + description structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    }
+  ],
+  "localSignal": {
+    "successStories": [],
+    "localHashtags": [
+      "forsale",
+      "garagedoors",
+      "mississaugaontario",
+      "homerenovation",
+      "garagegoals",
+      "newgaragedoor",
+      "ontarioscam",
+      "seniorfraud",
+      "garagedoorscam",
+      "consumeralert",
+      "protectseniors",
+      "torontoscam",
+      "cagaragedoors",
+      "reportfraud",
+      "adyvernescu"
+    ],
+    "spotlightedAccounts": [],
+    "localWording": [
+      "company",
+      "price",
+      "business",
+      "canada",
+      "best",
+      "ontario",
+      "services",
+      "based",
+      "also",
+      "look",
+      "saying",
+      "about",
+      "website",
+      "trust",
+      "guaranteed"
+    ],
+    "complementaryTerms": [
+      "home services",
+      "burlington home services",
+      "home improvement",
+      "burlington home improvement",
+      "contractor",
+      "burlington contractor",
+      "local renovation",
+      "burlington local renovation",
+      "home maintenance",
+      "burlington home maintenance",
+      "door company",
+      "garage"
+    ],
+    "note": "Local signal mined from the surrounding local business pool to complement the direct competitors."
+  },
+  "observedPosts": [
+    {
+      "account": "cagaragedoors.ca",
+      "postType": "carousel",
+      "hook": "🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeow",
+      "date": "2026-05-19T13:14:51.000Z",
+      "postUrl": "https://www.instagram.com/p/DYhYK6dCECg/",
+      "captionFirstLine": "Best Quality Garage Doors",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear carousel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    }
+  ],
+  "contentMechanics": [
+    {
+      "pattern": "description hooks",
+      "whyItWorks": "description openers are the most common high-performers in this market.",
+      "howToAdapt": "Open posts with a description line, then deliver one concrete takeaway.",
+      "examplePostIdea": "A description-style hook about your category, then 3 quick points, then end on your booking/contact CTA.",
+      "whatNotToCopy": "Their exact wording or branded creative."
+    },
+    {
+      "pattern": "image format",
+      "whyItWorks": "image is the market's top-performing format.",
+      "howToAdapt": "Publish at least one image per week in your own style.",
+      "examplePostIdea": "A image showing a before/after or quick how-to, end on your booking/contact CTA.",
+      "whatNotToCopy": "Copying their footage or layout 1:1."
+    }
+  ],
+  "visibilityStrategy": [
+    {
+      "surface": "Name field",
+      "recommendation": "Include \"Garage door company\" + city for search."
+    },
+    {
+      "surface": "Bio",
+      "recommendation": "One-line value + CTA \"book\"."
+    },
+    {
+      "surface": "Captions",
+      "recommendation": "City/category in the first line."
+    },
+    {
+      "surface": "Hashtags",
+      "recommendation": "3 local + 3 category tags per post."
+    },
+    {
+      "surface": "Link in bio",
+      "recommendation": "Point to the single highest-value action."
+    }
+  ],
+  "hashtags": [
+    {
+      "group": "local",
+      "tags": [
+        "burlingtonontario",
+        "burlington",
+        "haltonregion",
+        "hamiltonontario",
+        "oakvilleontario",
+        "mississaugaontario",
+        "forsale",
+        "garagedoors"
+      ]
+    },
+    {
+      "group": "category",
+      "tags": [
+        "garagedoorrepair",
+        "garagedoorinstallation",
+        "garagedoorservice",
+        "garageoperators",
+        "garagegateoperator",
+        "garageinstallation",
+        "overheaddoor"
+      ]
+    },
+    {
+      "group": "audience",
+      "tags": [
+        "homeowners",
+        "commercialproperty",
+        "propertymaintenance",
+        "homeimprovement",
+        "curbappeal",
+        "safetyfirst",
+        "familyhome"
+      ]
+    },
+    {
+      "group": "authority",
+      "tags": [
+        "licensedandinsured",
+        "qualityservice",
+        "trustedlocalbusiness",
+        "oninstall",
+        "serviceandinstallation"
+      ]
+    },
+    {
+      "group": "branded",
+      "tags": [
+        "activedoor",
+        "activedoorca",
+        "activedoorgarage",
+        "activedoorontario"
+      ]
+    },
+    {
+      "group": "test",
+      "tags": [
+        "garagedooropener",
+        "gateinstallation",
+        "rollerspringsreplacement",
+        "weatherseals",
+        "safetyreversetest"
+      ]
+    }
+  ],
+  "toolkit": {
+    "hookFormulas": [
+      "If your garage door {is/does} [symptom] in Burlington, here’s what usually causes it",
+      "Before you spend money on a new garage door in Burlington, check {3 things} first",
+      "The #1 mistake homeowners make with {garage door springs/openers} (and how to avoid it)",
+      "Garage door won’t close? Try this {quick safety check} first",
+      "{Burlington season} makes garage doors act up—watch for these warning signs",
+      "Commercial vs residential garage doors: {the real difference} most people miss",
+      "How to tell if you need {repair} or {replacement} (without guessing)",
+      "Your garage door opener is running, but the door won’t move—most common reasons",
+      "Noisy garage door in Burlington? Here’s what to inspect",
+      "Did you just notice {gap/uneven door/jerking}? What it could mean",
+      "Gate not opening smoothly? This is often maintenance-related",
+      "A 30-second inspection that can prevent a bigger repair later"
+    ],
+    "captionFormulas": [
+      "Burlington homeowners: if your garage door {symptom}, it’s usually caused by {cause category}. \n\n✅ What to check: \n1) {check #1}\n2) {check #2}\n3) {check #3}\n\nIf you want help diagnosing it, we can inspect and recommend the safest repair for your door/operator. \n\nLearn more: https://activedoor.ca/",
+      "Commercial door problems slow everything down. If your {door/operator/gate} is {problem}, here’s how teams typically address it: \n\n• {step 1}\n• {step 2}\n• {step 3}\n\nWe service and install for businesses around Burlington. \n\nWebsite: https://activedoor.ca/",
+      "Quick safety reminder for Burlington: {1 short safety rule related to garage doors/gates}. \n\nThen, {solution path}.\n\nWant to see what we handle? https://activedoor.ca/",
+      "Repair vs replacement—what matters most: \n1) {factor}\n2) {factor}\n3) {factor}\n\nIf your door/opener is showing {symptoms}, it may be time for an inspection before the issue gets worse. \n\nSee options: https://activedoor.ca/",
+      "Common Burlington service question: “How do I stop my garage door from {noise/uneven closing/hesitation}?”\n\nMost cases come down to {main category}. Here’s what we look for during service: \n• {what we inspect}\n• {what we test}\n• {what we adjust}\n\nMore info: https://activedoor.ca/",
+      "Before winter/summer ramps up: {seasonal maintenance theme}.\n\nHere’s a simple checklist you can follow, and what we can handle for you in Burlington: \n1) {task}\n2) {task}\n3) {task}\n\nhttps://activedoor.ca/"
+    ],
+    "ctaOptions": [
+      "For garage doors, operators, and gates in Burlington: https://activedoor.ca/",
+      "See service & installation info at https://activedoor.ca/",
+      "Find the right solution for your door/operator at https://activedoor.ca/",
+      "Learn about our garage door services (Burlington) here: https://activedoor.ca/",
+      "Visit activedoor.ca for details: https://activedoor.ca/"
+    ],
+    "reelIdeas": [
+      "A 15s \"Garage door company\" tip",
+      "Before/after transformation",
+      "Common mistake + fix"
+    ],
+    "carouselIdeas": [
+      "5-step how-to",
+      "Checklist people will save",
+      "Myth vs truth"
+    ],
+    "proofIdeas": [
+      "Customer result screenshot",
+      "Before/after",
+      "Testimonial quote card"
+    ]
+  },
+  "aiPrompts": [
+    {
+      "label": "Daily post",
+      "prompt": "Write an Instagram caption for Activedoor, a Garage door company. Hook in line 1, 3 quick points, end with CTA \"book\"."
+    },
+    {
+      "label": "Carousel",
+      "prompt": "Outline a 5-slide carousel for a Garage door company teaching one useful thing to People looking for garage doors help  in and around Burlington. End on CTA \"book\"."
+    },
+    {
+      "label": "Reel",
+      "prompt": "Script a 15-second Reel for a Garage door company: hook, 3 beats, CTA \"book\"."
+    },
+    {
+      "label": "FAQ",
+      "prompt": "Write an FAQ post answering the top question a Garage door company customer asks, ending with \"book\"."
+    },
+    {
+      "label": "Authority post",
+      "prompt": "Write a Burlington + Garage door company authority post that builds trust and ends with \"book\"."
+    },
+    {
+      "label": "CTA post",
+      "prompt": "Write a post whose single goal is to get the reader to book — no other ask."
+    }
+  ],
+  "immediateContent": {
+    "hooks": [
+      "The #1 mistake people make with [topic]",
+      "Before you [action], read this",
+      "[Number] things nobody tells you about [topic]",
+      "Save this for your next [event]",
+      "Stop doing [X]. Do [Y] instead.",
+      "Here's what [audience] always gets wrong",
+      "The fastest way to [outcome]",
+      "If you only do one thing this week…",
+      "[Topic] in 30 seconds",
+      "What I wish I knew before [event]"
+    ],
+    "captionTopics": [
+      "A common mistake + fix",
+      "A quick how-to",
+      "A myth vs truth",
+      "A behind-the-scenes",
+      "A customer win",
+      "An FAQ",
+      "A seasonal tip"
+    ],
+    "carouselIdeas": [
+      "5-step checklist",
+      "Before/after",
+      "Myth vs truth"
+    ],
+    "reelIdeas": [
+      "Quick tip",
+      "Transformation",
+      "Common mistake"
+    ],
+    "storyIdeas": [
+      "Poll a question",
+      "Share a tip",
+      "Repost a customer result"
+    ]
+  },
+  "quickActions": [
+    {
+      "when": "today",
+      "action": "Update bio with one benefit + CTA \"book\"."
+    },
+    {
+      "when": "today",
+      "action": "Add city + category to your name field."
+    },
+    {
+      "when": "this_week",
+      "action": "Publish one hook-led post and one in the market's top format."
+    },
+    {
+      "when": "this_week",
+      "action": "Save 3 Story highlights (Services, Proof, FAQ)."
+    },
+    {
+      "when": "this_week",
+      "action": "Comment on 5 relevant accounts per day."
+    },
+    {
+      "when": "this_month",
+      "action": "Build a 4-post/week rhythm with hashtags every post."
+    },
+    {
+      "when": "this_month",
+      "action": "Add a pinned how-to-start/how-to-buy post."
+    },
+    {
+      "when": "this_month",
+      "action": "Test one new format and keep the winner."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Screenshot 28-day insights and compare to baseline."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Re-run this audit to measure movement."
+    }
+  ],
+  "measurement": [
+    {
+      "dayMark": 7,
+      "measure": "Profile visits, reach, saves, DMs",
+      "goodSign": "Profile visits trending up",
+      "adjustIf": "No movement → sharpen hooks + bio"
+    },
+    {
+      "dayMark": 14,
+      "measure": "Saves/shares per post, follower delta",
+      "goodSign": "Saves rising on tip posts",
+      "adjustIf": "Flat saves → change formats"
+    },
+    {
+      "dayMark": 30,
+      "measure": "All KPIs vs baseline + score re-run",
+      "goodSign": "Overall score up 5+",
+      "adjustIf": "Stalled → revisit weakest dimension"
+    }
+  ],
+  "day30": {
+    "bringBack": [
+      "28-day insights screenshots",
+      "Top 3 + worst 2 posts",
+      "Which fixes you completed"
+    ],
+    "whatWeCompare": [
+      "Scores vs baseline",
+      "Cadence + format mix",
+      "Competitor movement"
+    ],
+    "whyMonthlyMatters": "Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.",
+    "nextRunCta": "Re-run the audit on your review date to measure what moved."
+  },
+  "dataGaps": [
+    {
+      "area": "Competitor coverage",
+      "severity": "medium",
+      "detail": "Only 1 relevant competitor(s) selected.",
+      "recommendedFix": "Expand discovery to reference markets (garage door, best garage door, top garage door, garage door new york, ny, garage door boston, ma, garage door chicago, il)."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "cat.source",
+      "sourceType": "profile",
+      "label": "Category inference source",
+      "value": "raw",
+      "confidence": 90
+    },
+    {
+      "id": "profile.bio",
+      "sourceType": "profile",
+      "label": "Bio present",
+      "value": true,
+      "confidence": 90
+    },
+    {
+      "id": "profile.followers",
+      "sourceType": "profile",
+      "label": "Follower count",
+      "value": 634,
+      "confidence": 90
+    },
+    {
+      "id": "score.overall",
+      "sourceType": "score",
+      "label": "Overall score",
+      "value": 54,
+      "confidence": 92
+    },
+    {
+      "id": "score.local",
+      "sourceType": "score",
+      "label": "Local visibility score",
+      "value": 37,
+      "confidence": 92
+    },
+    {
+      "id": "score.sales",
+      "sourceType": "score",
+      "label": "Sales readiness score",
+      "value": 29,
+      "confidence": 92
+    },
+    {
+      "id": "market.postsStudied",
+      "sourceType": "market_pattern",
+      "label": "Category posts studied",
+      "value": 100,
+      "confidence": 85
+    },
+    {
+      "id": "market.cadence",
+      "sourceType": "score",
+      "label": "Client posts/week vs market",
+      "value": "0.5/wk",
+      "confidence": 80
+    },
+    {
+      "id": "competitors.candidates",
+      "sourceType": "competitor",
+      "label": "Competitor candidates found",
+      "value": 1,
+      "confidence": 70
+    },
+    {
+      "id": "competitors.selected",
+      "sourceType": "competitor",
+      "label": "Competitors selected after relevance gate",
+      "value": 1,
+      "confidence": 80
+    }
+  ],
+  "sectionConfidence": [
+    {
+      "sectionId": "category",
+      "score": 90,
+      "level": "high",
+      "reasons": [
+        "Category source: raw"
+      ],
+      "sourceCoverage": [
+        "profile bio/website"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "scores",
+      "score": 92,
+      "level": "high",
+      "reasons": [
+        "Derived from the audit scoring model"
+      ],
+      "sourceCoverage": [
+        "audit scores + signals"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "fixes",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "audit scores"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "nextSevenDays",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "top moves"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "sprint",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "Standard 4-week structure"
+      ],
+      "sourceCoverage": [],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "marketPatterns",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "100 posts studied"
+      ],
+      "sourceCoverage": [
+        "category corpus"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "competitors",
+      "score": 80,
+      "level": "medium",
+      "reasons": [
+        "1 selected, 0 rejected"
+      ],
+      "sourceCoverage": [
+        "scored competitor candidates"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "observedPosts",
+      "score": 80,
+      "level": "medium",
+      "reasons": [],
+      "sourceCoverage": [
+        "competitor posts"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "hashtags",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived, human-realistic"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "toolkit",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived formulas"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "aiPrompts",
+      "score": 80,
+      "level": "medium",
+      "reasons": [
+        "Category + CTA aware"
+      ],
+      "sourceCoverage": [
+        "category",
+        "cta"
+      ],
+      "dataGaps": []
+    }
+  ],
+  "overallConfidence": 83,
+  "validation": {
+    "passed": true,
+    "blockingCount": 0,
+    "warningCount": 0,
+    "issues": []
+  }
+}

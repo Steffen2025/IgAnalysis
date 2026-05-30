@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { audits } from "../../db/schema.js";
 
 export const AuditPhase = {
@@ -50,31 +51,28 @@ function phaseToStatus(phase: AuditPhase): AuditStatus {
   }
 }
 
-export function setPhase(auditId: number, phase: AuditPhase): void {
-  db.update(audits)
+export async function setPhase(auditId: number, phase: AuditPhase): Promise<void> {
+  await db.update(audits)
     .set({ status_detail: phase, status: phaseToStatus(phase) })
-    .where(eq(audits.id, auditId))
-    .run();
+    .where(eq(audits.id, auditId));
 }
 
-export function getPhase(auditId: number): AuditPhase {
-  const rows = db
+export async function getPhase(auditId: number): Promise<AuditPhase> {
+  const row = await first(db
     .select({ status_detail: audits.status_detail })
     .from(audits)
     .where(eq(audits.id, auditId))
-    .limit(1)
-    .all();
-  const sd = rows[0]?.status_detail;
+    .limit(1));
+  const sd = row?.status_detail;
   return (sd as AuditPhase) ?? AuditPhase.CREATED;
 }
 
-export function canResume(auditId: number): boolean {
-  const rows = db
+export async function canResume(auditId: number): Promise<boolean> {
+  const row = await first(db
     .select({ status: audits.status })
     .from(audits)
     .where(eq(audits.id, auditId))
-    .limit(1)
-    .all();
-  const s = rows[0]?.status;
+    .limit(1));
+  const s = row?.status;
   return s === "failed" || s === "scraping";
 }

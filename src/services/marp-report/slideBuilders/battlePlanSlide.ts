@@ -48,12 +48,12 @@ function parsePriorities(md: string): Priority[] {
 
 function renderPriorityList(priorities: Priority[]): string {
   return `<ul class="priority-list">
-${priorities.map(p => `  <li>
-    <div class="pri-num">${e(p.number)}</div>
-    <div>
-      <div class="pri-title">${e(p.title)}</div>
-      ${p.support ? `<p class="pri-support">${e(p.support)}</p>` : ""}
-      ${p.cite ? `<div class="pri-cite">${e(p.cite)}</div>` : ""}
+${priorities.map(p => `  <li class="priority-row">
+    <div class="priority-num">${e(p.number)}</div>
+    <div class="priority-body">
+      <div class="priority-title">${e(p.title)}</div>
+      ${p.support ? `<p class="priority-support">${e(p.support)}</p>` : ""}
+      ${p.cite ? `<div class="priority-cite">${e(p.cite)}</div>` : ""}
     </div>
   </li>`).join("\n")}
 </ul>`;
@@ -68,7 +68,7 @@ export function battlePlanSlides(md: string, scores: ScoreResult): string[] {
 
 # Where to focus
 
-<div style="font-size:17px;color:#5C5A52;line-height:1.6">${e(md.slice(0, 800))}</div>`];
+<div style="font-size:17px;color:var(--text-secondary);line-height:1.6">${e(md.slice(0, 800))}</div>`];
   }
 
   const overall = scores.overall ?? 0;
@@ -79,7 +79,7 @@ export function battlePlanSlides(md: string, scores: ScoreResult): string[] {
 
 # Where to focus
 
-<p style="color:#5C5A52;font-size:18px;margin-bottom:16px">${framing}</p>
+<p style="font-size:18px;margin-bottom:16px">${framing}</p>
 
 ${renderPriorityList(priorities)}`];
   }
@@ -90,7 +90,7 @@ ${renderPriorityList(priorities)}`];
 
 # Where to focus
 
-<p style="color:#5C5A52;font-size:18px;margin-bottom:16px">${framing}</p>
+<p style="font-size:18px;margin-bottom:16px">${framing}</p>
 
 ${renderPriorityList(priorities.slice(0, 3))}`,
 

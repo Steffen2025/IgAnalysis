@@ -1,6 +1,7 @@
 import crypto from "node:crypto";
 import { and, eq, gt, lt } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { scrape_cache } from "../../db/schema.js";
 
 export const TTL_PROFILE = 7 * 24 * 3600;
@@ -17,29 +18,28 @@ export function makeCacheKey(actorKey: string, identifier: string): string {
   return `${actorKey}:${id}`;
 }
 
-export function getCached<T>(key: string): T | null {
+export async function getCached<T>(key: string): Promise<T | null> {
   const now = new Date().toISOString();
-  const rows = db
+  const row = await first(db
     .select()
     .from(scrape_cache)
     .where(and(eq(scrape_cache.cache_key, key), gt(scrape_cache.expires_at, now)))
-    .limit(1)
-    .all();
-  if (rows.length === 0) return null;
+    .limit(1));
+  if (!row) return null;
   try {
-    return JSON.parse(rows[0].data_json) as T;
+    return JSON.parse(row.data_json) as T;
   } catch {
     return null;
   }
 }
 
-export function setCached(key: string, data: unknown, ttlSeconds: number): void {
+export async function setCached(key: string, data: unknown, ttlSeconds: number): Promise<void> {
   const now = new Date();
   const expires_at = new Date(now.getTime() + ttlSeconds * 1000).toISOString();
   const scraped_at = now.toISOString();
   const data_json = JSON.stringify(data);
 
-  db.insert(scrape_cache)
+  await db.insert(scrape_cache)
     .values({ cache_key: key, data_json, scraped_at, expires_at })
     .onConflictDoUpdate({
       target: scrape_cache.cache_key,
@@ -49,16 +49,14 @@ export function setCached(key: string, data: unknown, ttlSeconds: number): void 
         expires_at,
         updated_at: scraped_at,
       },
-    })
-    .run();
+    });
 }
 
-export function clearExpired(): number {
+export async function clearExpired(): Promise<number> {
   const now = new Date().toISOString();
-  const deleted = db
+  const deleted = await db
     .delete(scrape_cache)
     .where(lt(scrape_cache.expires_at, now))
-    .returning({ id: scrape_cache.id })
-    .all();
+    .returning({ id: scrape_cache.id });
   return deleted.length;
 }

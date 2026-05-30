@@ -34,7 +34,7 @@ export async function scrapeCommentsForTargets(
         has_tag: boolean;
         emoji_count: number;
       };
-      const cached = getCached<CachedComment[]>(cacheKey);
+      const cached = await getCached<CachedComment[]>(cacheKey);
 
       let normalizedComments: CachedComment[];
 
@@ -55,23 +55,23 @@ export async function scrapeCommentsForTargets(
           },
         });
         normalizedComments = items.map(normalizeComment);
-        setCached(cacheKey, normalizedComments, TTL_COMMENTS);
+        await setCached(cacheKey, normalizedComments, TTL_COMMENTS);
         console.log(`    → ${normalizedComments.length} comments scraped`);
       }
 
       // Insert into DB (delete existing first for idempotency)
       if (target.sourceTable === "posts") {
-        db.delete(comments)
+        await db.delete(comments)
           .where(eq(comments.post_id, target.rowId))
-          .run();
+          ;
       } else {
-        db.delete(comments)
+        await db.delete(comments)
           .where(eq(comments.competitor_post_id, target.rowId))
-          .run();
+          ;
       }
 
       for (const c of normalizedComments) {
-        db.insert(comments)
+        await db.insert(comments)
           .values({
             audit_id: auditId,
             post_id: target.sourceTable === "posts" ? target.rowId : null,
@@ -82,8 +82,7 @@ export async function scrapeCommentsForTargets(
             has_question: c.has_question,
             has_tag: c.has_tag,
             emoji_count: c.emoji_count,
-          })
-          .run();
+          });
       }
 
       scraped += normalizedComments.length;

@@ -1,5 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../../../db/index.js";
+import { first } from "../../../db/query.js";
 import { audits, posts, type Audit } from "../../../db/schema.js";
 
 /** City-specific nickname/variant table — extend as needed. */
@@ -49,22 +50,21 @@ export interface EnhanceResult {
   terms: string[];
 }
 
-export function enhanceLocalReferences(auditId: number): EnhanceResult {
-  const audit = db.select().from(audits).where(eq(audits.id, auditId)).limit(1).all()[0];
+export async function enhanceLocalReferences(auditId: number): Promise<EnhanceResult> {
+  const audit = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
   if (!audit) throw new Error(`enhanceLocalReferences: audit ${auditId} not found`);
 
   const terms = buildLocalTerms(audit);
-  const all = db.select().from(posts).where(eq(posts.audit_id, auditId)).all();
+  const all = await db.select().from(posts).where(eq(posts.audit_id, auditId));
 
   let flagged = 0;
   for (const p of all) {
     const cap = (p.caption ?? "").toLowerCase();
     const hit = terms.some((t) => cap.includes(t));
     if (hit !== !!p.has_local_reference) {
-      db.update(posts)
+      await db.update(posts)
         .set({ has_local_reference: hit })
-        .where(eq(posts.id, p.id))
-        .run();
+        .where(eq(posts.id, p.id));
     }
     if (hit) flagged++;
   }

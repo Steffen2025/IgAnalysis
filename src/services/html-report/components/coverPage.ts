@@ -4,7 +4,7 @@ import { scoreColor, formatDate, escapeHTML } from "./utils.js";
 function topOpportunityLabel(data: ReportData): { points: number; label: string } {
   const gaps = data.patterns?.gaps ?? [];
   if (gaps.length > 0) {
-    return { points: gaps[0].weight ?? 25, label: gaps[0].label ?? "Posting frequency" };
+    return { points: 25, label: gaps[0].insight ?? gaps[0].dimension ?? "Posting frequency" };
   }
   return { points: 25, label: "Posting frequency" };
 }
@@ -19,11 +19,11 @@ export function renderCoverPage(data: ReportData): string {
     : formatDate(new Date());
 
   const businessName = escapeHTML(audit.business_name ?? "Instagram Account");
-  const handle = audit.instagram_url?.match(/instagram\.com\/([^/?]+)/)?.[1] ?? "";
+  const handle = data.reportContext.handle;
   const handleStr = handle ? `@${escapeHTML(handle)}` : "";
-  const category = escapeHTML(audit.business_category ?? "");
-  const city = escapeHTML(audit.city ?? "");
-  const subtitle = [handleStr, category, city].filter(Boolean).join(" · ");
+  const category = escapeHTML(data.reportContext.businessClassification);
+  const market = escapeHTML(data.reportContext.localMarketLabel);
+  const subtitle = [handleStr, category, market].filter(Boolean).join(" · ");
 
   const { points, label } = topOpportunityLabel(data);
 
@@ -31,7 +31,7 @@ export function renderCoverPage(data: ReportData): string {
 <section class="cover-page page">
   <div class="cover-meta-top">
     <span class="cover-wordmark">BotLogix</span>
-    <span class="cover-audit-ref">Audit #${audit.id}</span>
+    <span class="cover-audit-ref">Growth Intelligence</span>
   </div>
 
   <div class="cover-center">

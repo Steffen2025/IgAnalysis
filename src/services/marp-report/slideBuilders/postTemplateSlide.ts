@@ -14,11 +14,13 @@ interface PostTemplate {
 }
 
 function buildTemplates(data: ReportData): PostTemplate[] {
-  const city = data.audit.city ?? "[city]";
-  const cat = data.audit.business_category ?? "service business";
-  const offer = data.audit.main_offer ?? "AI automation";
+  const city = data.reportContext.businessLocation.city;
+  const market = data.reportContext.localMarketLabel;
+  const cat = data.reportContext.businessClassification;
+  const offer = data.audit.main_offer ?? `${cat} services`;
   const audience = data.audit.target_audience ?? "small business owners";
   const citySlug = city.toLowerCase().replace(/\s+/g, "");
+  const catSlug = cat.toLowerCase().replace(/[^a-z0-9]+/g, "");
 
   return [
     {
@@ -34,9 +36,9 @@ What we built: [1–2 sentences describing the ${offer} solution]
 
 What it's doing now: [specific numbers]
 
-If your week looks like that, send "AUTOMATE" in a DM.
+If this is on your mind, send us a DM.
 
-#${citySlug}business #aiautomation #[clientindustry] #${citySlug}agency`,
+#${citySlug}business #${citySlug}${catSlug} #${catSlug}tips`,
       whenToUse: "Monday. Once per week. Builds trust and generates DMs.",
     },
     {
@@ -48,11 +50,11 @@ If your week looks like that, send "AUTOMATE" in a DM.
 
 Most ${audience} I talk to do this manually. Three follow-up emails per lead, every day. By Friday, it's a part-time job nobody got hired for.
 
-Here's what one ${city} client did differently: [1 sentence]
+Here's what one ${market} client did differently: [1 sentence]
 
 What's the one task you'd hand off first?
 
-#${citySlug}business #aiautomation #smallbiz${citySlug} #productivity`,
+#${citySlug}business #${citySlug}${catSlug} #local${catSlug}`,
       whenToUse: "Mid-week. The comments you get back are content for the next audit.",
     },
     {
@@ -60,32 +62,32 @@ What's the one task you'd hand off first?
       style: "THE BEHIND-THE-SCENES",
       title: "Show the work. Build personality.",
       purpose: `Reference accounts in the ${cat} category post this kind of content far more. It humanizes the offer and shows competence without claiming it.`,
-      copy: `Here's what we set up for a [client type] in ${city} this week:
+      copy: `Here's what we set up for a [client type] in ${market} this week:
 
-→ [Specific automation 1]
-→ [Specific automation 2]
-→ [Specific automation 3]
+→ [Specific step 1]
+→ [Specific step 2]
+→ [Specific step 3]
 
 Took us [time]. Will save them [hours/week].
 
-Manual work compounds. Every week your team spends 4 hours on something a system could handle is 200 hours a year you can't get back.
+Details compound. Showing the process helps buyers understand why the right help matters.
 
 DM us.
 
-#${citySlug}business #${citySlug}ontario #automation #aiconsulting`,
+#${citySlug}business #${citySlug}${catSlug} #${catSlug}advice`,
       whenToUse: "Friday. Show the work week. Tag the city every time.",
     },
     {
       number: 4,
       style: "THE TOOL DEMO (REEL)",
-      title: "Show your product working in 30 seconds",
-      purpose: `Highest-engagement format for ${cat} on Instagram. Screen recording + real numbers + one DM CTA.`,
+      title: "Show the result in 30 seconds",
+      purpose: `High-engagement ${cat} content makes one answer or result easy to understand quickly.`,
       copy: `HOOK (0–3s): "Watch this AI [action] in 30 seconds."
 
-BODY (3–25s): Screen recording of the workflow.
-Voiceover: "I gave it [input]. It returned [output]. The whole thing took [time]. Built for a [client type] in ${city} — runs [X times/day] in the background."
+BODY (3–25s): Show the question, situation, or result.
+Voiceover: "Here is what we checked first. Here is what changed after the right next step."
 
-CTA (25–30s): "Send AUTOMATE in a DM."
+CTA (25–30s): "Send us a DM if this is on your mind."
 
 Caption: [Restate demo + CTA + 8 hashtags including #${citySlug}business]`,
       whenToUse: "Bi-weekly. Highest-conversion format for this category in 2026.",
@@ -102,7 +104,7 @@ export function postTemplateSlide(data: ReportData, num: 1 | 2 | 3 | 4): string 
 
   return `<span class="eyebrow">Toolkit · Post Template ${t.number} of 4</span>
 
-<div class="post-template-card">
+<div class="post-template">
   <div class="badge">${t.number}</div>
   <span class="style-label">${e(t.style)}</span>
   <div class="style-title">${e(t.title)}</div>

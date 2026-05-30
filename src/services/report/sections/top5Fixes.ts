@@ -7,6 +7,7 @@ export const SECTION_KEY = "top_5_fixes";
 
 export async function generateTop5Fixes(data: ReportData): Promise<string> {
   const { audit, scores, patterns } = data;
+  const ctx = data.reportContext;
 
   // All unfired signals, sorted by weight descending
   const unFired = Object.entries(scores.signals)
@@ -39,7 +40,7 @@ ${topGaps.map((g) => `- [${g.severity.toUpperCase()}] ${g.dimension}: ${g.insigh
 Business context:
 - Business: ${audit.business_name}
 - Category: ${audit.business_category}
-- City: ${audit.city}
+- City: ${ctx.localMarketLabel}
 - Main offer: ${audit.main_offer}
 - Target audience: ${audit.target_audience}
 

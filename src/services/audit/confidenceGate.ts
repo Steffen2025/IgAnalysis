@@ -1,5 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { competitor_posts, competitor_profiles, competitors } from "../../db/schema.js";
 
 export interface ConfidenceResult {
@@ -13,21 +14,19 @@ const DAY_MS = 24 * 3600 * 1000;
 export async function evaluateCompetitorConfidence(
   competitorId: number,
 ): Promise<ConfidenceResult> {
-  const profile = db
+  const profile = await first(db
     .select()
     .from(competitor_profiles)
     .where(eq(competitor_profiles.competitor_id, competitorId))
     .orderBy(desc(competitor_profiles.scraped_at))
-    .limit(1)
-    .all()[0];
+    .limit(1));
 
-  const posts = db
+  const posts = await db
     .select()
     .from(competitor_posts)
     .where(eq(competitor_posts.competitor_id, competitorId))
     .orderBy(desc(competitor_posts.posted_at))
-    .limit(10)
-    .all();
+    .limit(10);
 
   const reasons: string[] = [];
   let score = 0;
@@ -38,7 +37,7 @@ export async function evaluateCompetitorConfidence(
       shouldDeepScrape: false,
       reasons: ["no_posts"],
     };
-    persistResult(competitorId, result);
+    await persistResult(competitorId, result);
     return result;
   }
 
@@ -69,16 +68,15 @@ export async function evaluateCompetitorConfidence(
 
   const shouldDeepScrape = score >= 60;
   const result: ConfidenceResult = { score, shouldDeepScrape, reasons };
-  persistResult(competitorId, result);
+  await persistResult(competitorId, result);
   return result;
 }
 
-function persistResult(competitorId: number, r: ConfidenceResult): void {
-  db.update(competitors)
+async function persistResult(competitorId: number, r: ConfidenceResult): Promise<void> {
+  await db.update(competitors)
     .set({
       confidence_score: r.score,
       skip_reason: r.shouldDeepScrape ? null : (r.reasons[0] ?? "low_confidence"),
     })
-    .where(eq(competitors.id, competitorId))
-    .run();
+    .where(eq(competitors.id, competitorId));
 }

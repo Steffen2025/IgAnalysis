@@ -7,6 +7,7 @@ export const SECTION_KEY = "account_snapshot";
 
 export async function generateAccountSnapshot(data: ReportData): Promise<string> {
   const { audit, client, scores } = data;
+  const ctx = data.reportContext;
 
   const firingSignals = Object.entries(scores.signals)
     .flatMap(([, sigs]) => sigs)
@@ -27,7 +28,7 @@ export async function generateAccountSnapshot(data: ReportData): Promise<string>
 DATA:
 - Business: ${audit.business_name}
 - Category: ${audit.business_category}
-- City: ${audit.city}
+- City: ${ctx.localMarketLabel}
 - Followers: ${client.profile?.follower_count ?? "unknown"}
 - Following: ${client.profile?.following_count ?? "unknown"}
 - Total posts: ${client.profile?.post_count ?? "unknown"}
@@ -41,7 +42,7 @@ DATA:
 - Top 3 strengths firing: ${firingSignals.join("; ") || "none"}
 - Top 3 gaps: ${gapSignals.join("; ") || "none"}
 
-Write 3 tight sentences that state the factual baseline. The reader should finish knowing exactly where they stand. No recommendations here — this section is diagnosis only. 150 words maximum.`;
+Write 3 tight sentences that state the factual baseline. The reader should finish knowing exactly where they stand. No recommendations here — this section is diagnosis only. Use the normalized market label ${ctx.localMarketLabel}. 150 words maximum.`;
 
   const result = await callLLM({
     model: "sonnet",

@@ -6,7 +6,9 @@
       "Bash(npm install *)",
       "Bash(mkdir -p data)",
       "Bash(npx drizzle-kit *)",
-      "Bash(npx tsx *)"
+      "Bash(npx tsx *)",
+      "Bash(awk -F: '{print \"hits:\",$1}')",
+      "Bash(sed -n '/## 11/,/## 12/p' gold-master.md)"
     ]
   }
 }

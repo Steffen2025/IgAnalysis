@@ -12,7 +12,7 @@ export function renderFooter(data: ReportData): string {
   const auditDate = audit.created_at ? new Date(audit.created_at) : new Date();
   const dateStr = formatDate(auditDate);
   const reauditStr = addReauditDate(auditDate);
-  const businessName = escapeHTML(audit.business_name ?? "");
+  const businessName = escapeHTML(data.reportContext.preparedForName);
 
   // Posting freq from feature summary
   const postsPerWeek = (data.client as any)?.feature_summary?.posts_per_week;
@@ -49,8 +49,8 @@ export function renderFooter(data: ReportData): string {
       <div class="kpi-label">Audit Date</div>
     </div>
     <div class="kpi-cell">
-      <div class="kpi-value">Audit #${audit.id}</div>
-      <div class="kpi-label">Reference</div>
+      <div class="kpi-value" style="font-size:1rem;line-height:1.3">BotLogix</div>
+      <div class="kpi-label">Growth Intelligence</div>
     </div>
   </div>
 

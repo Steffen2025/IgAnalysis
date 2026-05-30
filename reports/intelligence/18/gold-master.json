@@ -1,0 +1,961 @@
+{
+  "meta": {
+    "auditId": 18,
+    "account": "Jelinekmortgages",
+    "handle": "jelinekmortgages",
+    "website": "https://linktr.ee/JelinekMortgages",
+    "rawCategory": "Mortgage Broker",
+    "normalizedCategory": "Mortgage broker",
+    "categoryKind": "professional",
+    "marketLabel": "Waterdown, Ontario",
+    "city": "Waterdown",
+    "region": "Ontario",
+    "generatedAt": "2026-05-30T11:15:48.687Z",
+    "reviewDate": "June 26, 2026",
+    "modelUsed": "openai/gpt-5.4-nano",
+    "promptVersion": "instagram-intelligence-v1.1.0",
+    "dataConfidence": 85
+  },
+  "account": {
+    "displayName": "Jelinekmortgages",
+    "handle": "jelinekmortgages",
+    "bio": "Mortgage Broker | Brokerage Lic #13324\nTrusted experience and in-depth industry knowledge of residential, investment and commercial mortgages",
+    "rawCategory": "Mortgage Broker",
+    "normalizedBusinessType": "Mortgage broker",
+    "website": "https://linktr.ee/JelinekMortgages",
+    "followerCount": 345,
+    "postCount": 142,
+    "postsPerWeek": 0.9333333333364444,
+    "profileGaps": [
+      "Missing city/category signals"
+    ],
+    "ctaStatus": "Weak — no obvious next step",
+    "localSignalStatus": "Under-labeled for the market"
+  },
+  "category": {
+    "normalizedCategory": "Mortgage broker",
+    "categoryKind": "professional",
+    "confidence": 90,
+    "source": "raw",
+    "whatItSells": "Products/services in the \"Mortgage broker\" space.",
+    "likelyAudience": "People searching for help in this category.",
+    "contentThatWorks": "Local proof, FAQs, and behind-the-scenes that build trust.",
+    "ctaType": "book a call",
+    "ctaOptions": [
+      "Book a call",
+      "Book a call — link in bio",
+      "Ready to talk? Book a call via the link in bio.",
+      "book a call"
+    ]
+  },
+  "scores": [
+    {
+      "dimension": "Overall",
+      "score": 58,
+      "whatWeSaw": "Weighted blend of the five dimensions below.",
+      "whyItMatters": "Contributes to overall discoverability and conversion.",
+      "nextMove": "Keep the momentum and measure on day 30."
+    },
+    {
+      "dimension": "Profile conversion",
+      "score": 70,
+      "whatWeSaw": "Mortgage Broker | Brokerage Lic #13324\nTrusted experience and in-depth industry ",
+      "whyItMatters": "A visitor decides in seconds whether to follow or leave.",
+      "nextMove": "A/B test the link-in-bio destination and pinned posts."
+    },
+    {
+      "dimension": "Content performance",
+      "score": 55,
+      "whatWeSaw": "0.00% across 0 posts",
+      "whyItMatters": "Saves and shares drive reach far more than likes.",
+      "nextMove": "Double down on your best format and cut low performers."
+    },
+    {
+      "dimension": "Local visibility",
+      "score": 20,
+      "whatWeSaw": "terms checked: waterdown, ontario",
+      "whyItMatters": "Discovery depends on clear category + location signals.",
+      "nextMove": "Add city + category to the name field, captions, and geotags."
+    },
+    {
+      "dimension": "Sales readiness",
+      "score": 48,
+      "whatWeSaw": "12/50",
+      "whyItMatters": "Attention is wasted without an obvious next step.",
+      "nextMove": "Add one explicit CTA to every post and a clear link path."
+    },
+    {
+      "dimension": "Competitor gap",
+      "score": 97,
+      "whatWeSaw": "client=1.17/wk  ref=1.09/wk",
+      "whyItMatters": "You're judged against active accounts in your space.",
+      "nextMove": "Differentiate with a signature format competitors don't use."
+    }
+  ],
+  "fixes": [
+    {
+      "title": "Fix Local Signals: Waterdown + Mortgage Broker everywhere",
+      "impact": "high",
+      "effort": "low",
+      "scoreArea": "local",
+      "whyItMatters": "Your local visibility score is very low (20). Instagram discovery for local intent depends on clear category + city signals in high-weight fields like name, captions, and geotags.",
+      "exactAction": "Update the account name field to include location and category (example: \"Jelinek Mortgages | Waterdown Mortgage Broker\"). Then, for the next 10 posts: add “Waterdown” and “mortgage broker” in the first 2 lines of each caption and tag the location “Waterdown, ON” on every post.",
+      "timeRequired": "45 min",
+      "expectedLift": "+20 local",
+      "evidence": "Local visibility score is 20 and the only checked term shown is “waterdown, ontario”."
+    },
+    {
+      "title": "Install a single clear pre-approval CTA + link path on every post",
+      "impact": "high",
+      "effort": "medium",
+      "scoreArea": "sales",
+      "whyItMatters": "Sales readiness is middling (48) with only 12/50. Mortgage audiences need an obvious next step and a clear route through your Linktree to reduce drop-off.",
+      "exactAction": "Add one explicit line at the end of every post caption in a consistent format: \"For help with a pre-approval in Waterdown, use the link in bio.\" Then, inside Linktree, ensure the top link is labeled exactly \"Pre-approval (Waterdown)\" and points to the intended landing page/form.",
+      "timeRequired": "60 min",
+      "expectedLift": "+10 sales readiness",
+      "evidence": "Sales readiness score is 48 and evidence shows 12/50; website is a Linktree, so the missing piece is an obvious CTA and link path."
+    },
+    {
+      "title": "A/B test your Link-in-bio destination using pinned posts",
+      "impact": "medium",
+      "effort": "medium",
+      "scoreArea": "profile",
+      "whyItMatters": "Profile conversion is strong (70), meaning visitors are already interested—but the next step (your Linktree path) may not be converting at the highest rate. A/B testing reduces guesswork.",
+      "exactAction": "Create two pinned posts: Pin A uses a caption centered on \"Residential mortgages\" and ends with \"Use the link in bio for residential help in Waterdown.\" Pin B centers on \"Investment & commercial mortgages\" and ends with the same CTA wording. In Linktree, make the first two links match these exact intents (e.g., \"Residential help (Waterdown)\" and \"Investment/Commercial help (Waterdown)\"). Over 14 days, keep Pin A live on half the time by swapping pins weekly, and compare which pin gets more profile clicks.",
+      "timeRequired": "90 min",
+      "expectedLift": "+8 profile conversion",
+      "evidence": "Profile conversion score is 70 and the nextMove in the data is to A/B test link-in-bio and pinned posts."
+    },
+    {
+      "title": "Standardize a signature “Waterdown mortgage scenarios” carousel format",
+      "impact": "medium",
+      "effort": "medium",
+      "scoreArea": "content",
+      "whyItMatters": "Content performance shows a problem signal (55, with 0.00% across 0 posts). Even if that’s a reporting artifact, the leverage move is to produce a repeatable, save/share-friendly format tailored to local needs.",
+      "exactAction": "For your next 6 posts, publish only carousels using this template: Slide 1: “Waterdown mortgage scenarios (quick answers)”. Slide 2: “Scenario: First-time buyer in Waterdown” (1-line situation). Slide 3: “What to ask your broker” (3 bullet questions). Slide 4: “Common pitfalls” (2 bullets). Slide 5: “What info we’ll need” (3 bullets). Slide 6: “Next step: pre-approval support via link in bio.” Keep the caption first line: “Waterdown mortgage broker: …” and include “Waterdown” in the caption and geotag.",
+      "timeRequired": "3-4 hours",
+      "expectedLift": "+10 content engagement",
+      "evidence": "Content performance score is 55 and Competitor gap is 97, so a repeatable signature format can differentiate while also improving saves/shares."
+    },
+    {
+      "title": "Differentiate against competitors with a “Broker knowledge” series (licensing + depth)",
+      "impact": "low",
+      "effort": "low",
+      "scoreArea": "competitor",
+      "whyItMatters": "Competitor gap is very favorable (97), but you still need visible differentiation in the feed. Your bio already signals “Trusted experience and in-depth industry knowledge,” so turn that into a recognizable series competitors don’t typically structure.",
+      "exactAction": "Start a weekly series called: “Broker License Insights (Broker #13324)”. Create one post per week for 4 weeks using the same structure: (1) a licensing/eligibility misconception, (2) the corrected explanation in plain language, (3) 2 “questions to ask” prompts for Waterdown borrowers, (4) CTA line: “For pre-approval help, use the link in bio.”",
+      "timeRequired": "60 min per post",
+      "expectedLift": "+5 competitor advantage",
+      "evidence": "Competitor gap score is 97 with nextMove to differentiate with a signature format competitors don’t use."
+    }
+  ],
+  "nextSevenDays": [
+    {
+      "day": 1,
+      "objective": "Lock in stronger local discovery signals for Waterdown.",
+      "action": "Update the account name field and prep a local caption pattern.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Go to Instagram Profile > Edit Profile > Name. Change it to: \"Jelinek Mortgages | Waterdown Mortgage Broker\". Then create a note you’ll reuse for every post: First 2 lines must include “Waterdown” and “mortgage broker”. Also ensure every post includes the location tag “Waterdown, ON”.",
+      "outputByEndOfDay": "Account name updated and a reusable caption pattern saved (Waterdown + mortgage broker in first 2 lines; Waterdown, ON geotag).",
+      "whyItMatters": "Local discovery depends heavily on clear category + city signals in high-weight places like your name, captions, and geotags—your current local visibility is very low."
+    },
+    {
+      "day": 2,
+      "objective": "Improve sales readiness with one consistent pre-approval path on every post.",
+      "action": "Add a single CTA line and confirm Linktree top-link label.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Edit your next post caption draft to end with this exact line (one line only): \"For help with a pre-approval in Waterdown, use the link in bio.\" Then open https://linktr.ee/JelinekMortgages and verify the top Linktree link is labeled exactly: \"Pre-approval (Waterdown)\". If it isn’t, change the label to that exact text and point it to the intended pre-approval landing/form.",
+      "outputByEndOfDay": "Every new caption you prepare ends with the same pre-approval CTA line; Linktree top link is verified/adjusted to “Pre-approval (Waterdown)”.",
+      "whyItMatters": "Mortgage audiences need an obvious next step; with a middling sales readiness score, a clear CTA + correct Linktree path reduces drop-off."
+    },
+    {
+      "day": 3,
+      "objective": "Prepare pinned-post A/B test for higher profile clicks.",
+      "action": "Write the two pinned-post captions and decide the first pairing order.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Create two pinned post drafts and keep the CTA wording identical in each. Pin A caption text must center on “Residential mortgages” and include this exact ending sentence: \"Use the link in bio for residential help in Waterdown.\" Pin B caption text must center on “Investment & commercial mortgages” and include this exact ending sentence: \"Use the link in bio for residential help in Waterdown.\" (Yes, same ending sentence for consistency.) Decide Pin A will be pinned for days 3-7 initially, and Pin B will be pinned next week after you swap.",
+      "outputByEndOfDay": "Two caption versions are ready for two posts to be pinned, each with the required ending sentence and correct topic focus.",
+      "whyItMatters": "Your profile conversion score is strong; the fastest way to lift results is to test which intent (residential vs investment/commercial) drives more profile clicks to your Linktree."
+    },
+    {
+      "day": 4,
+      "objective": "Publish local signature content format (carousel) to drive saves/shares.",
+      "action": "Create and post Carousel #1 of your “Waterdown mortgage scenarios” series.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Post Carousel 1 using this slide text (one line per slide where possible). Slide 1: “Waterdown mortgage scenarios (quick answers)”. Slide 2: “Scenario: First-time buyer in Waterdown”. Slide 3: “What to ask your broker” with 3 bullet questions: “What deposit options can I qualify for?”, “What rates/terms fit my plan?”, “How do closing costs affect my budget?”. Slide 4: “Common pitfalls” with 2 bullets: “Underestimating total monthly costs”, “Assuming you qualify without reviewing debt and income”. Slide 5: “What info we’ll need” with 3 bullets: “Your income + debts”, “Your property details or target budget”, “Your down payment source”. Slide 6: “Next step: pre-approval support via link in bio.” In the caption, make the first line exactly: “Waterdown mortgage broker: First-time buyer scenario—quick checklist”. Add “Waterdown” in the caption and tag “Waterdown, ON”.",
+      "outputByEndOfDay": "Carousel #1 is published with the standardized Waterdown scenarios structure and correct caption/local tagging.",
+      "whyItMatters": "Content performance is currently flagged; a repeatable, save/share-friendly carousel tailored to Waterdown increases engagement and differentiation."
+    },
+    {
+      "day": 5,
+      "objective": "Reinforce differentiation with a weekly “Broker License Insights” post draft.",
+      "action": "Write the script for your Broker License Insights post (week 1).",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Create a new post draft titled “Broker License Insights (Broker #13324)”. Use this exact structure in the copy (don’t change headers): Header 1: “Common misconception” (write 1 sentence about a licensing/eligibility misunderstanding borrowers may assume). Header 2: “The real answer” (explain in plain language what a mortgage broker’s licensing/role means for clients in Ontario). Header 3: “Questions to ask in Waterdown” (2 short questions). End with this exact CTA line: \"For pre-approval help, use the link in bio.\" Also include “Waterdown” in the caption and tag “Waterdown, ON”.",
+      "outputByEndOfDay": "A completed post draft is ready to publish for the Broker License Insights series (Week 1 format + required CTA).",
+      "whyItMatters": "Even with a strong competitor gap, you still need visible, consistent differentiation—using your licensing/knowledge as a recognizable series helps."
+    },
+    {
+      "day": 6,
+      "objective": "Standardize local caption CTA execution for the next post.",
+      "action": "Batch-edit one existing post draft to ensure first-2-lines + CTA rules are followed.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Pick the next post you plan to publish and open the caption editor. Ensure: (1) The first 2 lines contain both words “Waterdown” and “mortgage broker”. (2) The caption ends with exactly: \"For help with a pre-approval in Waterdown, use the link in bio.\" (3) Location tag is set to “Waterdown, ON”. Save the draft without publishing yet (so you can publish tomorrow confidently).",
+      "outputByEndOfDay": "One post draft is fully compliant with your local signals + single pre-approval CTA + Waterdown geotag.",
+      "whyItMatters": "Consistency reduces friction for local intent—Instagram discovery and user conversion both improve when your messaging pattern is predictable."
+    },
+    {
+      "day": 7,
+      "objective": "Finalize pinned-post plan and publish Carousel #2 if ready (content momentum).",
+      "action": "Pin the best-matching post and prep Carousel #2.",
+      "timeEstimate": "15-30 min",
+      "exactInstruction": "Go to your profile and pin Pin A (the post that matches “Residential mortgages”). Confirm its caption ends with exactly: \"Use the link in bio for residential help in Waterdown.\" Then prepare Carousel #2 slides using the same template and change Slide 2 to: “Scenario: Investment property mortgage in Waterdown”. Keep Slides 1, 3, 4, 5, and 6 consistent with the Waterdown scenarios format, and ensure your caption first line is “Waterdown mortgage broker: Investment scenario—quick checklist” with “Waterdown” in the caption and location tag “Waterdown, ON”.",
+      "outputByEndOfDay": "Pin A is active; Carousel #2 is fully prepared (or published if time allows) using the same signature Waterdown scenarios format.",
+      "whyItMatters": "Pinning boosts what new visitors see first (profile conversion), and maintaining the carousel series sustains engagement while you A/B test intent."
+    }
+  ],
+  "sprint": [
+    {
+      "week": 1,
+      "goal": "Fix the foundation",
+      "actions": [
+        "Rewrite bio + link path",
+        "Save 3 highlights",
+        "Add city/category signals"
+      ],
+      "output": "Conversion-ready profile",
+      "measure": "Profile visits → follows"
+    },
+    {
+      "week": 2,
+      "goal": "Post with a rhythm",
+      "actions": [
+        "Publish 3–4 posts",
+        "Use the market's top format once",
+        "Add hooks + hashtags every post"
+      ],
+      "output": "Consistent week of content",
+      "measure": "Reach + saves per post"
+    },
+    {
+      "week": 3,
+      "goal": "Turn attention into action",
+      "actions": [
+        "Add explicit \"book a call\" CTA to every post",
+        "Reply to all comments < 2h",
+        "Pin a how-to-start post"
+      ],
+      "output": "Clear conversion path",
+      "measure": "Link taps / DMs"
+    },
+    {
+      "week": 4,
+      "goal": "Measure & prepare review",
+      "actions": [
+        "Screenshot 28-day insights",
+        "List top 3 + worst 2 posts",
+        "Note what to stop"
+      ],
+      "output": "Review-ready data",
+      "measure": "Trend vs week-1 baseline"
+    }
+  ],
+  "marketComparison": {
+    "rows": [
+      {
+        "metric": "Posts / week",
+        "client": "0.9",
+        "market": "1.1"
+      },
+      {
+        "metric": "Avg caption length",
+        "client": "674 chars",
+        "market": "886 chars"
+      },
+      {
+        "metric": "Avg hashtags / post",
+        "client": "6.3",
+        "market": "4.8"
+      },
+      {
+        "metric": "Top format",
+        "client": "image",
+        "market": "reel"
+      }
+    ],
+    "activityLevel": "On par with market",
+    "interpretation": "Hold your cadence, sharpen the content. Your 0.9 posts/week is in a healthy range. Keep the rhythm and put the effort into hooks, formats, and conversion.",
+    "cadenceVerdict": "maintain"
+  },
+  "marketPatterns": {
+    "postsStudied": 100,
+    "avgCaptionChars": 886,
+    "avgHashtags": 4.8,
+    "avgEmojis": 2.7,
+    "topFormats": [
+      {
+        "label": "reel",
+        "pct": 38
+      },
+      {
+        "label": "image",
+        "pct": 34
+      },
+      {
+        "label": "carousel",
+        "pct": 28
+      }
+    ],
+    "hookDistribution": [
+      {
+        "label": "description",
+        "pct": 75
+      },
+      {
+        "label": "question",
+        "pct": 20
+      },
+      {
+        "label": "claim",
+        "pct": 2
+      },
+      {
+        "label": "direct address",
+        "pct": 2
+      },
+      {
+        "label": "announcement",
+        "pct": 1
+      }
+    ],
+    "contentElementDistribution": [
+      {
+        "label": "personality",
+        "pct": 30
+      },
+      {
+        "label": "location anchored",
+        "pct": 30
+      },
+      {
+        "label": "offer present",
+        "pct": 24
+      },
+      {
+        "label": "owner team",
+        "pct": 11
+      },
+      {
+        "label": "customer focus",
+        "pct": 6
+      }
+    ]
+  },
+  "competitorDebug": {
+    "searchTermsUsed": [
+      "mortgage broker",
+      "mortgage rates",
+      "first time home buyer",
+      "mortgage refinance",
+      "pre-approval",
+      "home loan",
+      "waterdown mortgage",
+      "hamilton mortgage",
+      "burlington mortgage",
+      "mortgage tips",
+      "mortgage broker tips",
+      "waterdown mortgage broker",
+      "mortgage broker waterdown",
+      "mortgage broker ontario",
+      "mortgage",
+      "broker",
+      "waterdown broker"
+    ],
+    "candidatesFound": 1,
+    "selected": [
+      {
+        "handle": "lindsaygordonrealestate",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: home, waterdown; content: home, help",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 30,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "confidenceScore": 70
+      }
+    ],
+    "rejected": [],
+    "emptyReason": "none",
+    "recommendedSearchTerms": [
+      "mortgage broker",
+      "best mortgage broker",
+      "top mortgage broker",
+      "mortgage broker new york, ny",
+      "mortgage broker boston, ma",
+      "mortgage broker chicago, il",
+      "mortgage rates",
+      "first time home buyer",
+      "mortgage refinance",
+      "pre-approval",
+      "home loan",
+      "waterdown mortgage",
+      "hamilton mortgage",
+      "burlington mortgage",
+      "mortgage tips",
+      "mortgage broker tips"
+    ]
+  },
+  "competitors": [
+    {
+      "handle": "lindsaygordonrealestate",
+      "displayName": "BURLINGTON ONTARIO + WATERDOWN REAL ESTATE AGENT",
+      "type": "local",
+      "followers": 2830,
+      "posts": 1010,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-06T19:02:45.000Z",
+      "activityStatus": "cooling",
+      "latestPostType": "carousel",
+      "latestPostHook": "Spring has officially arrived in the Burlington market — and we’re starting to see momentum build. Here’s what’s happening: •",
+      "whySelected": "category: home, waterdown; content: home, help",
+      "borrow": "Their carousel + question structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    }
+  ],
+  "observedPosts": [
+    {
+      "account": "lindsaygordonrealestate",
+      "postType": "carousel",
+      "hook": "Spring has officially arrived in the Burlington market — and we’re starting to see momentum build. H",
+      "date": "2026-05-06T19:02:45.000Z",
+      "postUrl": "https://www.instagram.com/p/DYAhtsBG1nr/",
+      "captionFirstLine": "What do you have planned for April in Burlington? 🌷",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Question hook invites comments and replies.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    }
+  ],
+  "contentMechanics": [
+    {
+      "pattern": "description hooks",
+      "whyItWorks": "description openers are the most common high-performers in this market.",
+      "howToAdapt": "Open posts with a description line, then deliver one concrete takeaway.",
+      "examplePostIdea": "A description-style hook about your category, then 3 quick points, then end on your booking/contact CTA.",
+      "whatNotToCopy": "Their exact wording or branded creative."
+    },
+    {
+      "pattern": "reel format",
+      "whyItWorks": "reel is the market's top-performing format.",
+      "howToAdapt": "Publish at least one reel per week in your own style.",
+      "examplePostIdea": "A reel showing a before/after or quick how-to, end on your booking/contact CTA.",
+      "whatNotToCopy": "Copying their footage or layout 1:1."
+    }
+  ],
+  "visibilityStrategy": [
+    {
+      "surface": "Name field",
+      "recommendation": "Include \"Mortgage broker\" + city for search."
+    },
+    {
+      "surface": "Bio",
+      "recommendation": "One-line value + CTA \"book a call\"."
+    },
+    {
+      "surface": "Captions",
+      "recommendation": "City/category in the first line."
+    },
+    {
+      "surface": "Hashtags",
+      "recommendation": "3 local + 3 category tags per post."
+    },
+    {
+      "surface": "Link in bio",
+      "recommendation": "Point to the single highest-value action."
+    }
+  ],
+  "hashtags": [
+    {
+      "group": "local",
+      "tags": [
+        "waterdown",
+        "waterdownontario",
+        "hamiltonontario",
+        "haltonhills",
+        "niagararegion",
+        "gta"
+      ]
+    },
+    {
+      "group": "category",
+      "tags": [
+        "mortgagebroker",
+        "mortgagebrokerontario",
+        "mortgagelending",
+        "homefinancing",
+        "mortgageadvice",
+        "refinance",
+        "firsttimehomebuyer"
+      ]
+    },
+    {
+      "group": "audience",
+      "tags": [
+        "homebuyers",
+        "firsttimehomebuyerontario",
+        "renewalmortgage",
+        "investorloans",
+        "commercialmortgage",
+        "mortgagespecialist"
+      ]
+    },
+    {
+      "group": "authority",
+      "tags": [
+        "licensedbroker",
+        "mortgageprofessional",
+        "trustedadvisor",
+        "localexpert",
+        "experiencedbroker"
+      ]
+    },
+    {
+      "group": "branded",
+      "tags": [
+        "jelinekmortgages",
+        "jelinek",
+        "jelinekmortgagebroker"
+      ]
+    },
+    {
+      "group": "test",
+      "tags": [
+        "waterdownhomes",
+        "hamiltoncondos",
+        "preapproval",
+        "mortgageoptions"
+      ]
+    }
+  ],
+  "toolkit": {
+    "hookFormulas": [
+      "If you’re buying a home in Waterdown and you’re unsure about {mortgage topic}, this is for you.",
+      "Stop guessing: {common mortgage mistake} is why many Waterdown buyers get surprised at closing.",
+      "Waterdown homeowners: before you renew your mortgage, check {key decision point}.",
+      "You don’t need perfect credit to get help—here’s what matters most for {mortgage topic}.",
+      "One thing lenders care about that most people miss: {factor} (Waterdown edition).",
+      "Investment property in Waterdown? Here’s the practical difference between {two loan types}.",
+      "Commercial mortgage basics for Waterdown business owners: {simplified concept}.",
+      "The fastest way to avoid delays on a mortgage in Waterdown is {process step}.",
+      "Before you switch mortgage brokers in Waterdown, verify {checklist item}.",
+      "I see this every week with residential/investment/commercial clients in Waterdown: {problem}.",
+      "What your mortgage rate actually depends on: {3–4 factors}."
+    ],
+    "captionFormulas": [
+      "{Hook} \n\nHere’s how it works in plain language for Waterdown borrowers:\n1) {step 1}\n2) {step 2}\n3) {step 3}\n\nIf you’re dealing with {specific situation}, a mortgage review can help you understand your options and next steps.",
+      "Quick Waterdown mortgage truth: {myth vs reality}. \n\nWhat to do instead:\n• {action 1}\n• {action 2}\n• {action 3}\n\nYour goal should be a plan, not a guess—especially with {renewal / pre-approval / investment purchase}.",
+      "Waterdown mortgage checklist (save this):\n✅ {item 1}\n✅ {item 2}\n✅ {item 3}\n\nComment “CHECKLIST” and I’ll share what to look for based on your situation. (If you prefer, you can also find resources via the link in bio.)",
+      "If you’re a {buyer / homeowner renewing / investor / small business owner} in and around Waterdown, this matters:\n\n{Single key insight} \n\nWhy it matters: {short explanation}\nWhat to ask your mortgage professional: {question}\n\n{Optional line:} Trusted brokerage support means fewer surprises.",
+      "Common question: “{frequently asked question}”\n\nAnswer:\n• {short answer}\n• {what to consider}\n• {what I can help you review}\n\nFor residential, investment, and commercial mortgages—start with a clear picture of your options (link in bio).",
+      "Before you lock anything in, know this:\n\n{risk or decision point} \n\nIn Waterdown, borrowers usually benefit from:\n1) {consideration 1}\n2) {consideration 2}\n3) {consideration 3}\n\nWant your situation assessed? Use the Link in bio to access the right resources."
+    ],
+    "ctaOptions": [
+      "Use the link in bio to explore mortgage support options.",
+      "Visit the Linktree in bio for resources and next steps.",
+      "Download/Review options via the link in bio.",
+      "For personalized guidance for Waterdown residential, investment, or commercial mortgages, use the link in bio to get started."
+    ],
+    "reelIdeas": [
+      "“Waterdown mortgage rates: what actually affects your rate?” (30–45s, quick bullets on factors to ask about)",
+      "“Pre-approval vs approval—what’s the difference?” (explain for Waterdown buyers, highlight timelines and what documents matter)",
+      "“Renewal mistakes Waterdown homeowners make” (arm yourself with 3 things to review before renewal)",
+      "“Investment property mortgage: 3 practical questions to ask” (cash flow, down payment considerations, rental income treatment—kept general)",
+      "“Commercial mortgage 101 for Waterdown business owners” (what lenders typically look for; keep it high-level)",
+      "“How to avoid mortgage delays in Waterdown” (document readiness + communication + timeline planning)",
+      "“What’s included in a typical mortgage application package?” (walkthrough-style, general list)",
+      "“Should you refinance? Here’s how to think about it” (frame as decision questions: rate, term, goals—no promises)",
+      "“Condo / rental / residential—what changes?” (compare at a high level and what to confirm)"
+    ],
+    "carouselIdeas": [
+      "Waterdown Mortgage Options: Residential vs Investment vs Commercial (who it’s for + what to consider)",
+      "Pre-Approval Checklist for Waterdown Buyers (documents + timeline + next steps)",
+      "Mortgage Renewal Prep (what to review 90 days before renewal—general checklist)",
+      "Top 10 Questions to Ask Your Mortgage Broker (tailor sections: residential, investment, commercial)",
+      "Common Mortgage Myths (Waterdown edition) + what’s true instead",
+      "“Your Mortgage Payment Breakdown” (principal/interest + factors that influence changes—kept conceptual)",
+      "Down Payment Planning for First-Time Buyers in Waterdown (decision framework, not exact rates)",
+      "Refinance Decision Framework (when it helps, when to pause, what to compare)"
+    ],
+    "proofIdeas": [
+      "Showcase your professionalism: post a carousel titled “Broker Lic #13324 — What it means for clients” (education-focused, no claims beyond the license).",
+      "Client journey-style content: “From first questions to funding—what the process usually looks like” (keep generic; no personal data).",
+      "Educational proof: “What I review for Waterdown residential, investment, and commercial borrowers” (create a framework that demonstrates expertise).",
+      "Authority posts: “What industry knowledge looks like—how I compare options for different scenarios” (process-based proof).",
+      "Trust-building Reel: “How to prepare for your mortgage conversation” (demonstrates readiness and care; invite viewers to use link in bio)."
+    ]
+  },
+  "aiPrompts": [
+    {
+      "label": "Daily post",
+      "prompt": "Write an Instagram caption for Jelinekmortgages, a Mortgage broker. Hook in line 1, 3 quick points, end with CTA \"book a call\"."
+    },
+    {
+      "label": "Carousel",
+      "prompt": "Outline a 5-slide carousel for a Mortgage broker teaching one useful thing to People looking for mortgage broker help  in and around waterdown. End on CTA \"book a call\"."
+    },
+    {
+      "label": "Reel",
+      "prompt": "Script a 15-second Reel for a Mortgage broker: hook, 3 beats, CTA \"book a call\"."
+    },
+    {
+      "label": "FAQ",
+      "prompt": "Write an FAQ post answering the top question a Mortgage broker customer asks, ending with \"book a call\"."
+    },
+    {
+      "label": "Authority post",
+      "prompt": "Write a Waterdown + Mortgage broker authority post that builds trust and ends with \"book a call\"."
+    },
+    {
+      "label": "CTA post",
+      "prompt": "Write a post whose single goal is to get the reader to book a call — no other ask."
+    }
+  ],
+  "immediateContent": {
+    "hooks": [
+      "The #1 mistake people make with [topic]",
+      "Before you [action], read this",
+      "[Number] things nobody tells you about [topic]",
+      "Save this for your next [event]",
+      "Stop doing [X]. Do [Y] instead.",
+      "Here's what [audience] always gets wrong",
+      "The fastest way to [outcome]",
+      "If you only do one thing this week…",
+      "[Topic] in 30 seconds",
+      "What I wish I knew before [event]"
+    ],
+    "captionTopics": [
+      "A common mistake + fix",
+      "A quick how-to",
+      "A myth vs truth",
+      "A behind-the-scenes",
+      "A customer win",
+      "An FAQ",
+      "A seasonal tip"
+    ],
+    "carouselIdeas": [
+      "5-step checklist",
+      "Before/after",
+      "Myth vs truth"
+    ],
+    "reelIdeas": [
+      "Quick tip",
+      "Transformation",
+      "Common mistake"
+    ],
+    "storyIdeas": [
+      "Poll a question",
+      "Share a tip",
+      "Repost a customer result"
+    ]
+  },
+  "quickActions": [
+    {
+      "when": "today",
+      "action": "Update bio with one benefit + CTA \"book a call\"."
+    },
+    {
+      "when": "today",
+      "action": "Add city + category to your name field."
+    },
+    {
+      "when": "this_week",
+      "action": "Publish one hook-led post and one in the market's top format."
+    },
+    {
+      "when": "this_week",
+      "action": "Save 3 Story highlights (Services, Proof, FAQ)."
+    },
+    {
+      "when": "this_week",
+      "action": "Comment on 5 relevant accounts per day."
+    },
+    {
+      "when": "this_month",
+      "action": "Build a 4-post/week rhythm with hashtags every post."
+    },
+    {
+      "when": "this_month",
+      "action": "Add a pinned how-to-start/how-to-buy post."
+    },
+    {
+      "when": "this_month",
+      "action": "Test one new format and keep the winner."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Screenshot 28-day insights and compare to baseline."
+    },
+    {
+      "when": "in_30_days",
+      "action": "Re-run this audit to measure movement."
+    }
+  ],
+  "measurement": [
+    {
+      "dayMark": 7,
+      "measure": "Profile visits, reach, saves, DMs",
+      "goodSign": "Profile visits trending up",
+      "adjustIf": "No movement → sharpen hooks + bio"
+    },
+    {
+      "dayMark": 14,
+      "measure": "Saves/shares per post, follower delta",
+      "goodSign": "Saves rising on tip posts",
+      "adjustIf": "Flat saves → change formats"
+    },
+    {
+      "dayMark": 30,
+      "measure": "All KPIs vs baseline + score re-run",
+      "goodSign": "Overall score up 5+",
+      "adjustIf": "Stalled → revisit weakest dimension"
+    }
+  ],
+  "day30": {
+    "bringBack": [
+      "28-day insights screenshots",
+      "Top 3 + worst 2 posts",
+      "Which fixes you completed"
+    ],
+    "whatWeCompare": [
+      "Scores vs baseline",
+      "Cadence + format mix",
+      "Competitor movement"
+    ],
+    "whyMonthlyMatters": "Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.",
+    "nextRunCta": "Re-run the audit on your review date to measure what moved."
+  },
+  "dataGaps": [
+    {
+      "area": "Competitor coverage",
+      "severity": "medium",
+      "detail": "Only 1 relevant competitor(s) selected.",
+      "recommendedFix": "Expand discovery to reference markets (mortgage broker, best mortgage broker, top mortgage broker, mortgage broker new york, ny, mortgage broker boston, ma, mortgage broker chicago, il)."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "cat.source",
+      "sourceType": "profile",
+      "label": "Category inference source",
+      "value": "raw",
+      "confidence": 90
+    },
+    {
+      "id": "profile.bio",
+      "sourceType": "profile",
+      "label": "Bio present",
+      "value": true,
+      "confidence": 90
+    },
+    {
+      "id": "profile.followers",
+      "sourceType": "profile",
+      "label": "Follower count",
+      "value": 345,
+      "confidence": 90
+    },
+    {
+      "id": "score.overall",
+      "sourceType": "score",
+      "label": "Overall score",
+      "value": 58,
+      "confidence": 92
+    },
+    {
+      "id": "score.local",
+      "sourceType": "score",
+      "label": "Local visibility score",
+      "value": 20,
+      "confidence": 92
+    },
+    {
+      "id": "score.sales",
+      "sourceType": "score",
+      "label": "Sales readiness score",
+      "value": 48,
+      "confidence": 92
+    },
+    {
+      "id": "market.postsStudied",
+      "sourceType": "market_pattern",
+      "label": "Category posts studied",
+      "value": 100,
+      "confidence": 85
+    },
+    {
+      "id": "market.cadence",
+      "sourceType": "score",
+      "label": "Client posts/week vs market",
+      "value": "0.9/wk",
+      "confidence": 80
+    },
+    {
+      "id": "competitors.candidates",
+      "sourceType": "competitor",
+      "label": "Competitor candidates found",
+      "value": 1,
+      "confidence": 70
+    },
+    {
+      "id": "competitors.selected",
+      "sourceType": "competitor",
+      "label": "Competitors selected after relevance gate",
+      "value": 1,
+      "confidence": 80
+    }
+  ],
+  "sectionConfidence": [
+    {
+      "sectionId": "category",
+      "score": 90,
+      "level": "high",
+      "reasons": [
+        "Category source: raw"
+      ],
+      "sourceCoverage": [
+        "profile bio/website"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "scores",
+      "score": 92,
+      "level": "high",
+      "reasons": [
+        "Derived from the audit scoring model"
+      ],
+      "sourceCoverage": [
+        "audit scores + signals"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "fixes",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "audit scores"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "nextSevenDays",
+      "score": 85,
+      "level": "medium",
+      "reasons": [
+        "LLM-generated, schema-validated"
+      ],
+      "sourceCoverage": [
+        "top moves"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "sprint",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "Standard 4-week structure"
+      ],
+      "sourceCoverage": [],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "marketPatterns",
+      "score": 88,
+      "level": "medium",
+      "reasons": [
+        "100 posts studied"
+      ],
+      "sourceCoverage": [
+        "category corpus"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "competitors",
+      "score": 80,
+      "level": "medium",
+      "reasons": [
+        "1 selected, 0 rejected"
+      ],
+      "sourceCoverage": [
+        "scored competitor candidates"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "observedPosts",
+      "score": 80,
+      "level": "medium",
+      "reasons": [],
+      "sourceCoverage": [
+        "competitor posts"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "hashtags",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived, human-realistic"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "toolkit",
+      "score": 75,
+      "level": "medium",
+      "reasons": [
+        "Category-derived formulas"
+      ],
+      "sourceCoverage": [
+        "category"
+      ],
+      "dataGaps": []
+    },
+    {
+      "sectionId": "aiPrompts",
+      "score": 80,
+      "level": "medium",
+      "reasons": [
+        "Category + CTA aware"
+      ],
+      "sourceCoverage": [
+        "category",
+        "cta"
+      ],
+      "dataGaps": []
+    }
+  ],
+  "overallConfidence": 83,
+  "validation": {
+    "passed": true,
+    "blockingCount": 0,
+    "warningCount": 0,
+    "issues": []
+  }
+}

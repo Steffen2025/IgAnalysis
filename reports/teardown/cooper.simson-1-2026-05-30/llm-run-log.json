@@ -1,0 +1,100 @@
+{
+  "promptVersion": "instagram-intelligence-v1.1.0",
+  "provider": "openrouter",
+  "configured": true,
+  "calls": [
+    {
+      "task": "teardown_caption_system",
+      "model": "openai/gpt-5.4-nano",
+      "cached": false,
+      "escalated": false,
+      "ok": true,
+      "elapsedMs": 7279,
+      "usage": {
+        "prompt_tokens": 1579,
+        "completion_tokens": 884,
+        "total_tokens": 2463,
+        "cost": 0.0014208,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0014208,
+          "upstream_inference_prompt_cost": 0.0003158,
+          "upstream_inference_completions_cost": 0.001105
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "task": "teardown_comment_drivers",
+      "model": "openai/gpt-5.4-nano",
+      "cached": false,
+      "escalated": false,
+      "ok": true,
+      "elapsedMs": 5364,
+      "usage": {
+        "prompt_tokens": 742,
+        "completion_tokens": 764,
+        "total_tokens": 1506,
+        "cost": 0.0011034,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0011034,
+          "upstream_inference_prompt_cost": 0.0001484,
+          "upstream_inference_completions_cost": 0.000955
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    },
+    {
+      "task": "teardown_success_thesis",
+      "model": "openai/gpt-5.4-mini",
+      "cached": false,
+      "escalated": false,
+      "ok": true,
+      "elapsedMs": 9510,
+      "usage": {
+        "prompt_tokens": 3026,
+        "completion_tokens": 1196,
+        "total_tokens": 4222,
+        "cost": 0.0076515,
+        "is_byok": false,
+        "prompt_tokens_details": {
+          "cached_tokens": 0,
+          "cache_write_tokens": 0,
+          "audio_tokens": 0,
+          "video_tokens": 0
+        },
+        "cost_details": {
+          "upstream_inference_cost": 0.0076515,
+          "upstream_inference_prompt_cost": 0.0022695,
+          "upstream_inference_completions_cost": 0.005382
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0,
+          "image_tokens": 0,
+          "audio_tokens": 0
+        }
+      }
+    }
+  ]
+}

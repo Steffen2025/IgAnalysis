@@ -1,5 +1,6 @@
 import { and, eq, isNull } from "drizzle-orm";
 import { db } from "../../db/index.js";
+import { first } from "../../db/query.js";
 import { content_patterns, posts, competitor_posts } from "../../db/schema.js";
 import { AuditPhase, setPhase } from "../audit/auditState.js";
 import { extractFeatures } from "./featureExtractor.js";
@@ -21,19 +22,18 @@ export interface PatternRunResult {
 
 /** Inline backfill for any posts still missing hook_type (idempotent). */
 async function ensureFeatures(auditId: number): Promise<number> {
-  const audit = db.select({ city: audits.city }).from(audits).where(eq(audits.id, auditId)).get();
+  const audit = await first(db.select({ city: audits.city }).from(audits).where(eq(audits.id, auditId)).limit(1));
   const city = audit?.city ?? null;
 
   // Client posts missing features
-  const missingClient = db
+  const missingClient = await db
     .select()
     .from(posts)
-    .where(and(eq(posts.audit_id, auditId), isNull(posts.hook_type)))
-    .all();
+    .where(and(eq(posts.audit_id, auditId), isNull(posts.hook_type)));
 
   for (const p of missingClient) {
     const f = extractFeatures(p, city);
-    db.update(posts)
+    await db.update(posts)
       .set({
         caption_length: f.caption_length,
         emoji_count: f.emoji_count,
@@ -43,28 +43,25 @@ async function ensureFeatures(auditId: number): Promise<number> {
         content_elements: JSON.stringify(f.content_elements),
         hashtag_count: f.hashtag_count,
       })
-      .where(eq(posts.id, p.id))
-      .run();
+      .where(eq(posts.id, p.id));
   }
 
   // Competitor posts missing features
-  const compIds = db
+  const compIds = (await db
     .select({ id: competitors.id })
     .from(competitors)
-    .where(eq(competitors.audit_id, auditId))
-    .all()
+    .where(eq(competitors.audit_id, auditId)))
     .map((c) => c.id);
 
   let missingCompCount = 0;
   for (const compId of compIds) {
-    const missingComp = db
+    const missingComp = await db
       .select()
       .from(competitor_posts)
-      .where(and(eq(competitor_posts.competitor_id, compId), isNull(competitor_posts.hook_type)))
-      .all();
+      .where(and(eq(competitor_posts.competitor_id, compId), isNull(competitor_posts.hook_type)));
     for (const p of missingComp) {
       const f = extractFeatures(p, city);
-      db.update(competitor_posts)
+      await db.update(competitor_posts)
         .set({
           caption_length: f.caption_length,
           emoji_count: f.emoji_count,
@@ -74,8 +71,7 @@ async function ensureFeatures(auditId: number): Promise<number> {
           content_elements: JSON.stringify(f.content_elements),
           hashtag_count: f.hashtag_count,
         })
-        .where(eq(competitor_posts.id, p.id))
-        .run();
+        .where(eq(competitor_posts.id, p.id));
       missingCompCount++;
     }
   }
@@ -101,8 +97,8 @@ export async function runPatternAnalysis(auditId: number): Promise<PatternRunRes
   let categoryPatterns!: PatternResult;
   let clientPatterns!: PatternResult;
   try {
-    categoryPatterns = analyzePatterns(auditId, "category_corpus");
-    clientPatterns = analyzePatterns(auditId, "client_only");
+    categoryPatterns = await analyzePatterns(auditId, "category_corpus");
+    clientPatterns = await analyzePatterns(auditId, "client_only");
   } catch (err) {
     errors.push(`patternAnalysis: ${(err as Error).message}`);
     categoryPatterns = categoryPatterns ?? { scope: "category_corpus", postCount: 0, caption: { avgLength: 0, distribution: { short: 0, medium: 0, long: 0, very_long: 0 }, avgEmojiCount: 0, avgEmojiDensity: 0 }, hooks: { topHook: "unknown", distribution: {}, bestPerformingHookByEngagement: null }, tones: { topTone: "unknown", distribution: {}, bestPerformingToneByEngagement: null }, contentElements: { distribution: {}, bestPerformingElementByEngagement: null }, postTypes: { distribution: {}, bestPerformingByEngagement: null }, hashtags: { avgCountPerPost: 0, recommendedRange: [8, 15] }, topPostExamples: [] };
@@ -112,7 +108,7 @@ export async function runPatternAnalysis(auditId: number): Promise<PatternRunRes
   // 3. Hashtag hygiene
   let hashtagHygiene!: HashtagHygieneResult;
   try {
-    hashtagHygiene = checkHashtagHygiene(auditId);
+    hashtagHygiene = await checkHashtagHygiene(auditId);
   } catch (err) {
     errors.push(`hashtagHygiene: ${(err as Error).message}`);
     hashtagHygiene = { avgCountPerPost: 0, countAssessment: "too_few", brandPollutionDetected: [], clientUsesOwnGeo: false, topClientHashtags: [], notes: [] };
@@ -121,7 +117,7 @@ export async function runPatternAnalysis(auditId: number): Promise<PatternRunRes
   // 4. Gap analysis
   let gaps: GapFinding[] = [];
   try {
-    const gapResult = analyzeClientGap(auditId);
+    const gapResult = await analyzeClientGap(auditId);
     gaps = gapResult.gaps;
   } catch (err) {
     errors.push(`clientGapAnalysis: ${(err as Error).message}`);
@@ -132,18 +128,16 @@ export async function runPatternAnalysis(auditId: number): Promise<PatternRunRes
     for (const scope of ["category_corpus", "client_only"] as const) {
       const pat = scope === "category_corpus" ? categoryPatterns : clientPatterns;
       // Upsert: delete existing then insert
-      db.delete(content_patterns)
+      await db.delete(content_patterns)
         .where(and(eq(content_patterns.audit_id, auditId), eq(content_patterns.scope, scope)))
-        .run();
-      db.insert(content_patterns)
+      await db.insert(content_patterns)
         .values({
           audit_id: auditId,
           scope,
           patterns_json: JSON.stringify(pat),
           post_count: pat.postCount,
           calculated_at: new Date().toISOString(),
-        })
-        .run();
+        });
     }
   } catch (err) {
     errors.push(`persist: ${(err as Error).message}`);
@@ -151,7 +145,7 @@ export async function runPatternAnalysis(auditId: number): Promise<PatternRunRes
 
   // 6. Advance phase
   try {
-    setPhase(auditId, AuditPhase.CONTENT_PATTERNS_COMPLETE);
+    await setPhase(auditId, AuditPhase.CONTENT_PATTERNS_COMPLETE);
   } catch (err) {
     errors.push(`setPhase: ${(err as Error).message}`);
   }

@@ -64,11 +64,13 @@ function renderChipRow(chips: string[]): string {
 // ─── TEMPLATE COPY BUILDER ────────────────────────────────────────────────────
 
 function buildTemplates(data: ReportData): PostTemplateData[] {
-  const name = data.audit.business_name ?? "We";
-  const city = data.audit.city ?? "[city]";
-  const cat = data.audit.business_category ?? "service business";
-  const offer = data.audit.main_offer ?? "AI automation";
+  const city = data.reportContext.businessLocation.city;
+  const market = data.reportContext.localMarketLabel;
+  const cat = data.reportContext.businessClassification;
+  const offer = data.audit.main_offer ?? `${cat} services`;
   const audience = data.audit.target_audience ?? "small business owners";
+  const citySlug = city.toLowerCase().replace(/\s+/g, "");
+  const catSlug = cat.toLowerCase().replace(/[^a-z0-9]+/g, "");
 
   return [
     {
@@ -87,9 +89,9 @@ Here's what we built:
 Here's what it's doing now:
 [1–2 sentences describing the result — specific numbers if possible]
 
-If your week looks like that one did, send "AUTOMATE" in a DM and I'll show you what's possible.
+If this is on your mind, send us a DM and we'll point you in the right direction.
 
-#${city.toLowerCase().replace(/\s+/g, "")}business #aiautomation #[clientindustry] #${city.toLowerCase().replace(/\s+/g, "")}agency`,
+#${citySlug}business #${citySlug}${catSlug} #${catSlug}tips`,
       whenToUse: `Once a week. Make this your Monday post. It builds trust and brings DMs.`,
     },
     {
@@ -101,11 +103,11 @@ If your week looks like that one did, send "AUTOMATE" in a DM and I'll show you 
 
 Most ${audience} I talk to are doing this manually. Three follow-up emails per lead, every day. By Friday, it's a part-time job nobody got hired for.
 
-Here's what one of our clients in ${city} did differently → [1 sentence describing the change]
+Here's what one ${market} buyer did differently → [1 sentence describing the change]
 
 Question for you: What's the one task you'd hand off first if you could?
 
-#${city.toLowerCase().replace(/\s+/g, "")}business #aiautomation #smallbiz${city.toLowerCase().replace(/\s+/g, "")} #productivity`,
+#${citySlug}business #${citySlug}${catSlug} #local${catSlug}`,
       whenToUse: `Mid-week. The comments you get back are content for the next audit.`,
     },
     {
@@ -113,38 +115,38 @@ Question for you: What's the one task you'd hand off first if you could?
       style: "THE BEHIND-THE-SCENES",
       title: "Show the work. Build personality.",
       purpose: `Reference accounts in the ${cat} category post this kind of content far more than you do. It humanizes the offer and shows competence without claiming it.`,
-      copy: `Here's what we set up for a [client type] in ${city} this week:
+      copy: `Here's what we handled for a [client type] in ${market} this week:
 
-→ [Specific automation 1]
-→ [Specific automation 2]
-→ [Specific automation 3]
+→ [Specific step 1]
+→ [Specific step 2]
+→ [Specific step 3]
 
 Took us [time]. Will save them [estimated hours/week or month].
 
-We don't build AI for the sake of AI. We build it because manual work compounds. Every week your team spends 4 hours on something a system could handle is 200 hours a year you can't get back.
+The work looks simple from the outside, but details compound. Showing the process helps buyers understand why the right help matters.
 
 Working on something like this for your own business? DM us.
 
-#${city.toLowerCase().replace(/\s+/g, "")}business #${city.toLowerCase().replace(/\s+/g, "")}ontario #automation #aiconsulting`,
+#${citySlug}business #${citySlug}${catSlug} #${catSlug}advice`,
       whenToUse: `Friday. Show the work week. Tag the city every time.`,
     },
     {
       number: 4,
       style: "THE TOOL DEMO (REEL)",
-      title: "Show your product working in 30 seconds",
-      purpose: `Highest-engagement format for ${cat} on Instagram. Screen recording + real numbers + one DM CTA. You already built the thing — show it running.`,
+      title: "Show the result in 30 seconds",
+      purpose: `High-engagement ${cat} content usually makes one result or answer easy to understand quickly.`,
       copy: `HOOK (0–3s):
-"Watch this AI [specific action — e.g. answer 47 customer emails, qualify a lead, summarize a meeting] in 30 seconds."
+"One thing ${market} buyers should know before [decision]."
 
 BODY (3–25s):
-Screen recording of the actual workflow.
-Voiceover: "I gave it [input]. It returned [output]. The whole thing took [time]. The version we built for [client type — e.g. a roofing company in ${city}] does this [X times per day] in the background."
+Show the question, situation, or result.
+Voiceover: "Here is what we checked first. Here is what changed after the right next step."
 
 CTA (25–30s):
-"If your business has tasks like this, send me a DM with the word AUTOMATE. I'll show you what's possible."
+"If this is on your mind, send us a DM."
 
 Caption (60–80 words):
-[Restate what the demo showed + DM CTA + 8 hashtags including #${city.toLowerCase().replace(/\s+/g, "")}business]`,
+[Restate what the reel showed + DM CTA + 8 hashtags including #${citySlug}business]`,
       whenToUse: `Bi-weekly. Highest-conversion content type for ${cat} on Instagram in 2026.`,
     },
   ];
@@ -153,11 +155,11 @@ Caption (60–80 words):
 // ─── AI PROMPTS BUILDER ────────────────────────────────────────────────────────
 
 function buildAIPrompts(data: ReportData): AIPromptData[] {
-  const name = data.audit.business_name ?? "my business";
-  const city = data.audit.city ?? "[city]";
-  const region = data.audit.service_area ?? "Ontario";
-  const cat = data.audit.business_category ?? "service business";
-  const offer = data.audit.main_offer ?? "AI automation solutions";
+  const name = data.reportContext.displayName;
+  const city = data.reportContext.businessLocation.city;
+  const region = data.reportContext.businessLocation.region;
+  const cat = data.reportContext.businessClassification;
+  const offer = data.audit.main_offer ?? `${cat} services`;
   const audience = data.audit.target_audience ?? "small business owners";
 
   const cat_ = data.patterns?.category;
@@ -216,9 +218,10 @@ Brand voice: direct, confident, evidence-based, no jargon. Reference ${city} whe
 // ─── HASHTAG SETS ─────────────────────────────────────────────────────────────
 
 function buildHashtagSets(data: ReportData, localMd: string): { local: string[]; category: string[]; branded: string[] } {
-  const city = data.audit.city ?? "";
+  const city = data.reportContext.businessLocation.city;
   const citySlug = city.toLowerCase().replace(/\s+/g, "");
-  const cat = (data.audit.business_category ?? "").toLowerCase().replace(/\s+/g, "");
+  const regionSlug = data.reportContext.businessLocation.region.toLowerCase().replace(/\s+/g, "");
+  const cat = data.reportContext.businessClassification.toLowerCase().replace(/[^a-z0-9]+/g, "");
   const bizName = (data.audit.business_name ?? "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
   // Pull any hashtags already in the local visibility section
@@ -229,31 +232,23 @@ function buildHashtagSets(data: ReportData, localMd: string): { local: string[];
     ...fromMd.filter(t => t.toLowerCase().includes(citySlug.slice(0, 4))),
     citySlug ? `#${citySlug}` : "",
     citySlug ? `#${citySlug}business` : "",
-    citySlug ? `#${citySlug}ontario` : "",
-    "#hamOnt",
-    "#localON",
-    "#onbusiness",
+    citySlug && cat ? `#${citySlug}${cat}` : "",
+    regionSlug ? `#${regionSlug}business` : "",
     "#supportlocal",
   ].filter(Boolean))).slice(0, 8);
 
   // Category set
   const category = Array.from(new Set([
-    "#aiautomation",
-    "#instagramautomation",
-    "#smallbizmarketing",
-    "#dmautomation",
-    "#instagramgrowth",
-    "#digitalmarketing",
     `#${cat}`,
-    "#aibusiness",
+    `#${cat}tips`,
+    `#${cat}advice`,
+    `#local${cat}`,
+    citySlug && cat ? `#${citySlug}${cat}` : "",
   ].filter(t => t !== "#"))).slice(0, 8);
 
   // Branded
   const branded = [
     bizName ? `#${bizName}` : "",
-    "#botlogixai",
-    "#aiworkflows",
-    "#botlogix",
   ].filter(Boolean).slice(0, 4);
 
   return { local, category, branded };

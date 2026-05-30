@@ -14,11 +14,10 @@ export interface GeoEnhancerResult {
  * Updates geo_enhanced = true for those that are classified as place names.
  */
 export async function enhanceGeoHashtags(auditId: number): Promise<GeoEnhancerResult> {
-  const unclassified = db
+  const unclassified = await db
     .select()
     .from(hashtags)
-    .where(and(eq(hashtags.audit_id, auditId), eq(hashtags.geo_enhanced, false)))
-    .all();
+    .where(and(eq(hashtags.audit_id, auditId), eq(hashtags.geo_enhanced, false)));
 
   if (unclassified.length === 0) {
     console.log("  No unclassified hashtags to geo-enhance.");
@@ -65,10 +64,9 @@ Return a JSON object with a single key "geo_indices" containing an array of the 
 
   // Update geo_enhanced for matched hashtags
   for (const id of geoHashtagIds) {
-    db.update(hashtags)
+    await db.update(hashtags)
       .set({ geo_enhanced: true })
-      .where(eq(hashtags.id, id))
-      .run();
+      .where(eq(hashtags.id, id));
   }
 
   // Mark all unclassified as processed (set geo_enhanced true for non-geo too so we don't re-run)
@@ -78,10 +76,9 @@ Return a JSON object with a single key "geo_indices" containing an array of the 
   // (The column means "has been geo-classified", not "IS a geo hashtag".)
   for (const h of unclassified) {
     if (!geoHashtagIds.has(h.id)) {
-      db.update(hashtags)
+      await db.update(hashtags)
         .set({ geo_enhanced: true })
-        .where(eq(hashtags.id, h.id))
-        .run();
+        .where(eq(hashtags.id, h.id));
     }
   }
 
