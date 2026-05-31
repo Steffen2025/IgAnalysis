@@ -45,10 +45,12 @@ const CSS = `
 *{box-sizing:border-box}
 body{margin:0;background:#E9EDF3;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .page{max-width:820px;margin:0 auto;background:var(--bg);box-shadow:0 1px 40px rgba(10,22,40,.08)}
-header.cover{background:linear-gradient(135deg,#0A1628 0%,#0d2438 60%,#08323b 100%);color:#fff;padding:48px 56px 40px}
-header.cover img{height:34px;margin-bottom:28px;filter:brightness(0) invert(1)}
-header.cover .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#7fd3e0;font-weight:600;margin-bottom:8px}
-header.cover h1{font-family:var(--serif);font-size:38px;line-height:1.1;margin:0 0 14px;color:#fff;font-weight:600}
+header.cover{background:linear-gradient(135deg,#0A1628 0%,#0d2438 55%,#08323b 100%);color:#fff;padding:46px 56px 40px}
+header.cover .logo-chip{display:inline-block;background:#fff;padding:10px 16px;border-radius:14px;margin-bottom:30px;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+header.cover .logo-chip img{height:30px;display:block}
+header.cover .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7fd3e0;font-weight:600;margin-bottom:8px}
+header.cover h1{font-family:var(--serif);font-size:40px;line-height:1.08;margin:0 0 12px;color:#fff;font-weight:600}
+header.cover .tagline{font-size:15px;color:#cfe0ee;margin:0 0 18px;max-width:560px;line-height:1.5}
 header.cover .meta{font-size:13px;color:#9fb3c8}
 main{padding:8px 56px 56px}
 h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:44px 0 4px;padding-top:26px;border-top:2px solid var(--accent);color:var(--text)}
@@ -112,9 +114,10 @@ export function renderDeliverableHtml(gm: GoldMasterIntelligence): string {
 <body>
 <div class="page">
 <header class="cover">
-${logo ? `<img src="${logo}" alt="BotLogix">` : `<div class="kicker">BotLogix</div>`}
+${logo ? `<span class="logo-chip"><img src="${logo}" alt="BotLogix"></span>` : `<div class="kicker">BotLogix</div>`}
 <div class="kicker">Instagram Growth Plan</div>
 <h1>@${m.handle}</h1>
+<p class="tagline">A 30-day strategy to turn your Instagram into a discovery and lead channel — built from your own account, your market, and the accounts already winning in your space.</p>
 <div class="meta">${m.account} · ${m.normalizedCategory} · ${m.marketLabel || m.city}<br>Prepared by BotLogix · ${date} · Review on ${m.reviewDate}</div>
 </header>
 <main>

@@ -10,7 +10,7 @@
 - **Normalized category:** Mortgage broker
 - **Category kind:** professional
 - **Market / location:** Waterdown, Ontario
-- **Generated:** 2026-05-30T11:15:48.687Z
+- **Generated:** 2026-05-30T21:51:19.222Z
 - **Review date:** June 26, 2026
 - **Model used:** openai/gpt-5.4-nano
 - **Prompt version:** instagram-intelligence-v1.1.0
@@ -215,8 +215,8 @@ Trusted experience and in-depth industry
 | Metric | You | Market avg |
 | --- | --- | --- |
 | Posts / week | 0.9 | 1.1 |
-| Avg caption length | 674 chars | 886 chars |
-| Avg hashtags / post | 6.3 | 4.8 |
+| Avg caption length | 674 chars | 312 chars |
+| Avg hashtags / post | 6.3 | 1.7 |
 | Top format | image | reel |
 
 **Activity level:** On par with market
@@ -225,14 +225,14 @@ Trusted experience and in-depth industry
 
 ## 9. Market Pattern Dashboard
 
-- **Posts studied:** 100
-- **Average caption:** 886 chars
-- **Average hashtags:** 4.8
-- **Average emojis:** 2.7
+- **Posts studied:** 284
+- **Average caption:** 312 chars
+- **Average hashtags:** 1.7
+- **Average emojis:** 1
 
-**Top formats:** reel 38% · image 34% · carousel 28%
+**Top formats:** reel 37% · image 37% · carousel 26%
 
-**Hook types:** description 75% · question 20% · claim 2% · direct address 2% · announcement 1%
+**Hook types:** description 91% · question 7% · claim 1% · direct address 1% · announcement 0%
 
 **Content elements:** personality 30% · location anchored 30% · offer present 24% · owner team 11% · customer focus 6%
 
@@ -240,29 +240,106 @@ Trusted experience and in-depth industry
 
 **Search terms used:** mortgage broker, mortgage rates, first time home buyer, mortgage refinance, pre-approval, home loan, waterdown mortgage, hamilton mortgage, burlington mortgage, mortgage tips, mortgage broker tips, waterdown mortgage broker, mortgage broker waterdown, mortgage broker ontario, mortgage, broker, waterdown broker
 
-**Candidates found:** 1 · **Selected:** 1 · **Rejected:** 0
+**Candidates found:** 9 · **Selected:** 8 · **Rejected:** 0
 
 **Selected:**
-| Handle | Code | Cat | Loc | Rec | Conf | Reason |
-| --- | --- | --- | --- | --- | --- | --- |
-| @lindsaygordonrealestate | selected_location_match | 100 | 60 | 60 | 70 | category: home, waterdown; content: home, help |
+| Handle | Track | Code | Cat | Content | Semantic | Band | Success | Conf | Reason |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| @nextlevel_mortgages | local | selected_location_match | 50 | 15 | — | 0 | 32 | 96 | category: mortgage, waterdown; content: mortgage |
+| @barbarabaliltimortgages | local | selected_location_match | 100 | 30 | — | 0 | 30 | 58 | category: mortgage, broker; content: mortgage, broker |
+| @mortgageguytodd | local | selected_location_match | 75 | 15 | — | 0 | 38 | 55 | category: mortgage, loan; content: mortgage |
+| @_jordanalston | reference | selected_reference_model | 25 | 15 | — | 100 | 45 | 48 | category: mortgage; content: mortgage; 2631 followers (in band), success 45 |
+| @emma.cavazos.loans | reference | selected_reference_model | 75 | 30 | — | 50 | 45 | 46 | category: mortgage, broker; content: mortgage, broker; 1870 followers (in band), success 45 |
+| @mortgagebymariya | local | selected_location_match | 75 | 30 | — | 0 | 7 | 41 | category: mortgage, broker; content: mortgage, broker |
+| @laurenyourlender | local | selected_location_match | 100 | 30 | — | 0 | 33 | 38 | category: mortgage, home; content: mortgage, home |
+| @soldbysage | reference | selected_reference_model | 50 | 30 | — | 100 | 45 | 33 | category: mortgage, broker; content: mortgage, broker; 23022 followers (in band), success 45 |
 
 ## 11. Competitor Relevance Board
 
-**@lindsaygordonrealestate — BURLINGTON ONTARIO + WATERDOWN REAL ESTATE AGENT** (local)
-- Followers: 2830 · Posts: 1010
+**@nextlevel_mortgages — Jeremy Green | Licensed Mortgage Professional** (local)
+- Followers: 585 · Posts: 98
 - Profile image: yes · Latest post: yes
-- Last posted: 2026-05-06T19:02:45.000Z (cooling) · Type: carousel
-- Latest hook: “Spring has officially arrived in the Burlington market — and we’re starting to see momentum build. Here’s what’s happening: •”
-- Why selected: category: home, waterdown; content: home, help
-- Borrow: Their carousel + question structure — rewrite in your own voice.
+- Last posted: 2026-05-30T18:23:02.000Z (fresh) · Type: image
+- Latest hook: “Another deserving family served and officially closed! 🍾 Grateful for the trust and the opportunity to get them home and rea”
+- Why selected: category: mortgage, waterdown; content: mortgage
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@barbarabaliltimortgages — Barbara Balilti ~ Toronto Mortgage Broker🇨🇦** (local)
+- Followers: 963 · Posts: 82
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-30T19:52:56.000Z (fresh) · Type: image
+- Latest hook: “🏡 Open House Season Is Here! To all my Realtor partners: whenever you're hosting an open house and a buyer walks in with mor”
+- Why selected: category: mortgage, broker; content: mortgage, broker
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@mortgageguytodd — Todd French, MBA - Mortgage Advisor in HI, CA, FL, NV, TX, & WA** (local)
+- Followers: 1446 · Posts: 190
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-30T19:36:54.000Z (fresh) · Type: carousel
+- Latest hook: “Helping clients buy or refinance a home is never just about “getting a loan.” It’s about building a long-term strategy that p”
+- Why selected: category: mortgage, loan; content: mortgage
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@_jordanalston — Jordan Alston • Mortgages** (reference)
+- Followers: 2631 · Posts: 310
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-30T16:37:28.000Z (fresh) · Type: image
+- Latest hook: “Congrats to my first time home buyer client for closing on this beautiful home. We were able to secure over $23k in assistanc”
+- Why selected: category: mortgage; content: mortgage; 2631 followers (in band), success 45
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@emma.cavazos.loans — Emma Cavazos** (reference)
+- Followers: 1870 · Posts: 582
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-30T17:19:19.000Z (fresh) · Type: image
+- Latest hook: “Be honest. Because the answer is almost never just the rates. The rates are real. But I have had enough of these conversation”
+- Why selected: category: mortgage, broker; content: mortgage, broker; 1870 followers (in band), success 45
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@soldbysage — Sage Thompson| Real Estate Broker + Mortgage Broker** (reference)
+- Followers: 23022 · Posts: 3856
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-22T14:10:06.000Z (active) · Type: carousel
+- Latest hook: “Life lately.💚”
+- Why selected: category: mortgage, broker; content: mortgage, broker; 23022 followers (in band), success 45
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
 ## 12. Observed Competitor Posts
 
-**@lindsaygordonrealestate · carousel · 2026-05-06T19:02:45.000Z**
-- Hook: “Spring has officially arrived in the Burlington market — and we’re starting to see momentum build. H”
-- Why it works: Question hook invites comments and replies.
+**@nextlevel_mortgages · carousel · 2026-05-30T18:23:02.000Z**
+- Hook: “Another deserving family served and officially closed! 🍾 Grateful for the trust and the opportunity”
+- Why it works: Clear carousel format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@barbarabaliltimortgages · image · 2026-05-30T19:52:56.000Z**
+- Hook: “🏡 Open House Season Is Here! To all my Realtor partners: whenever you're hosting an open house and ”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@mortgageguytodd · carousel · 2026-05-30T19:36:54.000Z**
+- Hook: “Helping clients buy or refinance a home is never just about “getting a loan.” It’s about building a ”
+- Why it works: Clear carousel format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@_jordanalston · image · 2026-05-30T16:37:28.000Z**
+- Hook: “Congrats to my first time home buyer client for closing on this beautiful home. We were able to secu”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@emma.cavazos.loans · image · 2026-05-30T17:19:19.000Z**
+- Hook: “Be honest. Because the answer is almost never just the rates. The rates are real. But I have had eno”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@soldbysage · carousel · 2026-05-22T14:10:06.000Z**
+- Hook: “Life lately.💚”
+- Why it works: Clear carousel format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
 ## 13. Content Mechanics To Borrow Ethically
@@ -287,9 +364,21 @@ Trusted experience and in-depth industry
 - **Hashtags:** 3 local + 3 category tags per post.
 - **Link in bio:** Point to the single highest-value action.
 
+### Local intelligence
+
+Local signal mined from the surrounding local business pool to complement the direct competitors.
+
+_No local accounts in the 5k–50k success band were found — see complementary industries below._
+
+**Accounts local businesses spotlight/tag:** @pedinnailsburlington, @evensflorealrealtor
+
+**Local wording in use:** home, about, ready, market, month, buyers, loan, family, comes, buyer, house, clients, whether, thank, burlington
+
+**Complementary industries to study (same audience, thin direct niche):** financial services, waterdown financial services, local business advisor, waterdown local business advisor, real estate, waterdown real estate, small business tips, waterdown small business tips, broker, mortgage, waterdown mortgage, home
+
 ## 15. Hashtag Strategy
 
-- **local:** #waterdown #waterdownontario #hamiltonontario #haltonhills #niagararegion #gta
+- **local:** #waterdown #waterdownontario #hamiltonontario #haltonhills #niagararegion #gta #mortgagebroker #happyclients
 - **category:** #mortgagebroker #mortgagebrokerontario #mortgagelending #homefinancing #mortgageadvice #refinance #firsttimehomebuyer
 - **audience:** #homebuyers #firsttimehomebuyerontario #renewalmortgage #investorloans #commercialmortgage #mortgagespecialist
 - **authority:** #licensedbroker #mortgageprofessional #trustedadvisor #localexpert #experiencedbroker
@@ -519,9 +608,9 @@ Write a post whose single goal is to get the reader to book a call — no other 
 
 ## 22. Data Gaps and Confidence
 
-- **[medium] Competitor coverage:** Only 1 relevant competitor(s) selected. → _Expand discovery to reference markets (mortgage broker, best mortgage broker, top mortgage broker, mortgage broker new york, ny, mortgage broker boston, ma, mortgage broker chicago, il)._
+_No significant data gaps detected._
 
-**Overall confidence:** 83/100
+**Overall confidence:** 85/100
 
 ## 23. Source Evidence Index
 
@@ -533,17 +622,17 @@ Write a post whose single goal is to get the reader to book a call — no other 
 | score.overall | score | Overall score | 58 | 92 |
 | score.local | score | Local visibility score | 20 | 92 |
 | score.sales | score | Sales readiness score | 48 | 92 |
-| market.postsStudied | market_pattern | Category posts studied | 100 | 85 |
+| market.postsStudied | market_pattern | Category posts studied | 284 | 85 |
 | market.cadence | score | Client posts/week vs market | 0.9/wk | 80 |
-| competitors.candidates | competitor | Competitor candidates found | 1 | 70 |
-| competitors.selected | competitor | Competitors selected after relevance gate | 1 | 80 |
+| competitors.candidates | competitor | Competitor candidates found | 9 | 70 |
+| competitors.selected | competitor | Competitors selected after relevance gate | 6 | 80 |
 
 ## 24. Validation Summary
 
 - **Result:** PASSED
 - **Blocking:** 0
 - **Warnings:** 0
-- **Overall confidence:** 83/100
+- **Overall confidence:** 85/100
 
 **Section confidence:**
 | Section | Score | Level | Gaps |
@@ -554,7 +643,7 @@ Write a post whose single goal is to get the reader to book a call — no other 
 | nextSevenDays | 85 | medium | — |
 | sprint | 88 | medium | — |
 | marketPatterns | 88 | medium | — |
-| competitors | 80 | medium | — |
+| competitors | 92 | high | — |
 | observedPosts | 80 | medium | — |
 | hashtags | 75 | medium | — |
 | toolkit | 75 | medium | — |

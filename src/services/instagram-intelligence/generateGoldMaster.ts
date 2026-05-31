@@ -24,6 +24,7 @@ import { buildLocalSignal } from "./localIntelligence.js";
 import { renderGoldMasterMarkdown } from "./goldMasterMarkdown.js";
 import { renderDeliverable } from "./deliverableMarkdown.js";
 import { renderDeliverableHtml } from "./deliverableHtml.js";
+import { htmlToPdf } from "./htmlToPdf.js";
 import { validateGoldMaster, renderValidationReport } from "./validateGoldMaster.js";
 import { computeSectionConfidence, overallConfidence } from "./confidence.js";
 import { LlmRunLog, runLlmTask, type LlmTask } from "../llm/llmClient.js";
@@ -668,6 +669,9 @@ export async function generateGoldMaster(
   };
   writeFileSync(paths.report, renderDeliverable(gm), "utf-8");
   writeFileSync(paths.reportHtml, renderDeliverableHtml(gm), "utf-8");
+  // Best-effort PDF from the styled HTML (uses an installed browser; optional).
+  const pdfOut = htmlToPdf(paths.reportHtml, path.join(outDir, "report.pdf"));
+  if (pdfOut) console.log(`PDF: ${pdfOut}`);
   writeFileSync(paths.json, JSON.stringify(gm, null, 2), "utf-8");
   writeFileSync(paths.md, finalMarkdown, "utf-8");
   writeFileSync(paths.competitorDebug, renderCompetitorDebug(gm), "utf-8");

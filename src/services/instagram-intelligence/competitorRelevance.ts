@@ -232,6 +232,22 @@ function isTrusted(c: ReportCompetitor): boolean {
 }
 
 /**
+ * English-only gate (render side). Drops accounts whose name/bio/category is
+ * predominantly non-Latin even if they were persisted by an older run — the
+ * client must be able to read and adapt what they study.
+ */
+function isLikelyEnglish(c: ReportCompetitor): boolean {
+  const text = `${c.full_name ?? ""} ${c.bio ?? ""} ${c.category ?? ""}`;
+  if (!text.trim()) return true;
+  const cjk = (text.match(/[　-鿿가-힯＀-￯぀-ヿ]/g) ?? []).length;
+  const otherScript = (text.match(/[Ѐ-ӿ؀-ۿ֐-׿฀-๿]/g) ?? []).length;
+  const latin = (text.match(/[A-Za-z]/g) ?? []).length;
+  if (cjk >= 4) return false;
+  if (cjk + otherScript > latin) return false;
+  return true;
+}
+
+/**
  * Two-track evaluation. `comps` is the full candidate pool; each candidate is
  * routed to local or reference based on its competitor_type, then scored with
  * that track's rules.
@@ -263,6 +279,11 @@ export function evaluateCompetitors(
 
   for (const c of pool) {
     const track: CompetitorTrack = c.competitor_type === "reference_model" ? "reference" : "local";
+    // Hard English-only gate — applies even to trusted rows from older runs.
+    if (!isLikelyEnglish(c)) {
+      rejected.push(scoreCandidate(c, ctx, track));
+      continue;
+    }
     const decision = scoreCandidate(c, ctx, track);
     let finalDecision = decision;
 

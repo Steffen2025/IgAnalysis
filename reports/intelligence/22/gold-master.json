@@ -10,7 +10,7 @@
     "marketLabel": "Burlington, Ontario",
     "city": "Burlington",
     "region": "Ontario",
-    "generatedAt": "2026-05-30T16:03:12.074Z",
+    "generatedAt": "2026-05-30T21:58:27.710Z",
     "reviewDate": "June 26, 2026",
     "modelUsed": "openai/gpt-5.4-nano",
     "promptVersion": "instagram-intelligence-v1.1.0",
@@ -270,12 +270,12 @@
       {
         "metric": "Avg caption length",
         "client": "441 chars",
-        "market": "496 chars"
+        "market": "115 chars"
       },
       {
         "metric": "Avg hashtags / post",
         "client": "5.4",
-        "market": "6.5"
+        "market": "1.5"
       },
       {
         "metric": "Top format",
@@ -288,44 +288,44 @@
     "cadenceVerdict": "refine"
   },
   "marketPatterns": {
-    "postsStudied": 100,
-    "avgCaptionChars": 496,
-    "avgHashtags": 6.5,
-    "avgEmojis": 1.7,
+    "postsStudied": 432,
+    "avgCaptionChars": 115,
+    "avgHashtags": 1.5,
+    "avgEmojis": 0.4,
     "topFormats": [
       {
         "label": "image",
-        "pct": 38
+        "pct": 47
       },
       {
         "label": "carousel",
-        "pct": 35
+        "pct": 29
       },
       {
         "label": "reel",
-        "pct": 27
+        "pct": 25
       }
     ],
     "hookDistribution": [
       {
         "label": "description",
-        "pct": 60
+        "pct": 91
       },
       {
         "label": "question",
-        "pct": 24
+        "pct": 6
       },
       {
         "label": "claim",
-        "pct": 8
+        "pct": 2
       },
       {
         "label": "number list",
-        "pct": 4
+        "pct": 1
       },
       {
         "label": "announcement",
-        "pct": 4
+        "pct": 1
       }
     ],
     "contentElementDistribution": [
@@ -371,21 +371,119 @@
       "door",
       "burlington door"
     ],
-    "candidatesFound": 1,
+    "candidatesFound": 9,
     "selected": [
       {
-        "handle": "cagaragedoors.ca",
+        "handle": "motiongaragedoors",
         "track": "local",
         "code": "selected_location_match",
         "reason": "category: garage, door; content: garage, door",
         "categoryMatchScore": 100,
-        "contentMatchScore": 75,
+        "contentMatchScore": 60,
         "locationMatchScore": 60,
         "recencyScore": 100,
         "embeddingScore": null,
-        "followerBandFit": 100,
-        "successScore": 30,
-        "confidenceScore": 87
+        "followerBandFit": 0,
+        "successScore": 35,
+        "confidenceScore": 35
+      },
+      {
+        "handle": "magicgaragedoorshtx",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 28,
+        "confidenceScore": 34
+      },
+      {
+        "handle": "eurostarwindows",
+        "track": "reference",
+        "code": "selected_reference_model",
+        "reason": "category: door, burlington; content: door, doors; 1558 followers (in band), success 35",
+        "categoryMatchScore": 50,
+        "contentMatchScore": 45,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 50,
+        "successScore": 35,
+        "confidenceScore": 22
+      },
+      {
+        "handle": "jeramiekeen",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 22
+      },
+      {
+        "handle": "garagedoorsservices",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 90,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 20
+      },
+      {
+        "handle": "manara_services",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 10,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 23,
+        "confidenceScore": 19
+      },
+      {
+        "handle": "mountonsite",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 35,
+        "confidenceScore": 19
+      },
+      {
+        "handle": "jbradygaragedoors",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: garage, door; content: garage, door",
+        "categoryMatchScore": 100,
+        "contentMatchScore": 60,
+        "locationMatchScore": 60,
+        "recencyScore": 60,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 25,
+        "confidenceScore": 18
       }
     ],
     "rejected": [],
@@ -413,58 +511,144 @@
   },
   "competitors": [
     {
-      "handle": "cagaragedoors.ca",
-      "displayName": "CA Garage Doors",
+      "handle": "motiongaragedoors",
+      "displayName": "Motion Garage Doors",
       "type": "local",
-      "followers": 4548,
-      "posts": 70,
+      "followers": 1344,
+      "posts": 156,
       "profileImageAvailable": true,
       "latestPostAvailable": true,
-      "latestPostDate": "2026-05-19T13:14:51.000Z",
-      "activityStatus": "active",
+      "latestPostDate": "2026-05-29T17:02:29.000Z",
+      "activityStatus": "fresh",
       "latestPostType": "reel",
-      "latestPostHook": "🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeowner, especially seniors,",
+      "latestPostHook": "Crafted for heritage. Built to last. This custom real wood garage door was designed to complement the character of a timeless",
       "whySelected": "category: garage, door; content: garage, door",
-      "borrow": "Their carousel + description structure — rewrite in your own voice.",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "magicgaragedoorshtx",
+      "displayName": "Magicgaragedoorshtx",
+      "type": "local",
+      "followers": 572,
+      "posts": 48,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-28T14:09:21.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "reel",
+      "latestPostHook": "🚨 Same Day Garage Door Service! 🚨 Today we got a call from a customer whose garage door wasn’t operating properly and Magic",
+      "whySelected": "category: garage, door; content: garage, door",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "eurostarwindows",
+      "displayName": "EuroStar Windows and Doors",
+      "type": "reference",
+      "followers": 1558,
+      "posts": 652,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-04T22:33:11.000Z",
+      "activityStatus": "cooling",
+      "latestPostType": "carousel",
+      "latestPostHook": "From heritage restorations to ultra-modern builds, the right window system makes all the difference. Whether you’re replacing",
+      "whySelected": "category: door, burlington; content: door, doors; 1558 followers (in band), success 35",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "jeramiekeen",
+      "displayName": "Jeramie Keen/Owner @Sawtoothgaragedoors.com",
+      "type": "local",
+      "followers": 967,
+      "posts": 956,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-29T19:24:32.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "carousel",
+      "latestPostHook": "Ramming around in our sweet new Service Van on this Friday Afternoon, wish you guys were here to share the bumpy ride, (becau",
+      "whySelected": "category: garage, door; content: garage, door",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "garagedoorsservices",
+      "displayName": "Up & Down Garage Doors Services | 24/7 Garage Door Repair",
+      "type": "local",
+      "followers": 744,
+      "posts": 438,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-29T16:04:05.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "reel",
+      "latestPostHook": "If your garage is below or next to a nursery, your opener choice matters more than you think. Noise levels by drive type: 🔊",
+      "whySelected": "category: garage, door; content: garage, door",
+      "borrow": "Their carousel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "manara_services",
+      "displayName": "Manara Services",
+      "type": "local",
+      "followers": 1388,
+      "posts": 449,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2025-07-26T12:19:38.000Z",
+      "activityStatus": "stale",
+      "latestPostType": "image",
+      "latestPostHook": "Our version of “beam me up Scotty” 🤖",
+      "whySelected": "category: garage, door; content: garage, door",
+      "borrow": "Their carousel + hook structure — rewrite in your own voice.",
       "avoid": "Copying their exact creative or captions word-for-word."
     }
   ],
   "localSignal": {
     "successStories": [],
     "localHashtags": [
-      "forsale",
       "garagedoors",
-      "mississaugaontario",
-      "homerenovation",
-      "garagegoals",
+      "garagedoor",
+      "garagedoorservice",
+      "garagedoorservices",
       "newgaragedoor",
-      "ontarioscam",
-      "seniorfraud",
-      "garagedoorscam",
-      "consumeralert",
-      "protectseniors",
-      "torontoscam",
-      "cagaragedoors",
-      "reportfraud",
-      "adyvernescu"
+      "homeimprovement",
+      "sawtoothgaragedoors",
+      "garagedoorupgrade",
+      "garagedoorinstallation",
+      "garagedoorinstaller",
+      "garagedoorrepair",
+      "garagedo",
+      "garagedoormaintenance",
+      "sidehingedgaragedoor",
+      "forsale"
     ],
-    "spotlightedAccounts": [],
+    "spotlightedAccounts": [
+      "motiongaragedoors.ca",
+      "lopezboy55",
+      "gmail.com",
+      "sommerusa",
+      "jbradygaragedoors.co.uk"
+    ],
     "localWording": [
+      "installation",
+      "home",
       "company",
-      "price",
-      "business",
-      "canada",
-      "best",
-      "ontario",
-      "services",
-      "based",
-      "also",
+      "repair",
       "look",
-      "saying",
+      "wood",
+      "best",
+      "great",
+      "price",
       "about",
-      "website",
       "trust",
-      "guaranteed"
+      "mississauga",
+      "style",
+      "business",
+      "every"
     ],
     "complementaryTerms": [
       "home services",
@@ -484,12 +668,82 @@
   },
   "observedPosts": [
     {
-      "account": "cagaragedoors.ca",
+      "account": "motiongaragedoors",
+      "postType": "image",
+      "hook": "Crafted for heritage. Built to last. This custom real wood garage door was designed to complement th",
+      "date": "2026-05-29T17:02:29.000Z",
+      "postUrl": "https://www.instagram.com/p/DY7h2p5OPOu/",
+      "captionFirstLine": "✨ Sleek • Modern • Full Glass ✨",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "magicgaragedoorshtx",
+      "postType": "image",
+      "hook": "🚨 Same Day Garage Door Service! 🚨 Today we got a call from a customer whose garage door wasn’t ope",
+      "date": "2026-05-28T14:09:21.000Z",
+      "postUrl": "https://www.instagram.com/p/DY4pj78sNPc/",
+      "captionFirstLine": "🎄✨ Merry Christmas & Happy Holidays from Magic Garage Doors HTX! ✨🎄",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "eurostarwindows",
+      "postType": "image",
+      "hook": "From heritage restorations to ultra-modern builds, the right window system makes all the difference.",
+      "date": "2026-05-04T22:33:11.000Z",
+      "postUrl": "https://www.instagram.com/p/DX7wNJpjQ3D/",
+      "captionFirstLine": "Living large with light ✨ ",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "jeramiekeen",
+      "postType": "image",
+      "hook": "Ramming around in our sweet new Service Van on this Friday Afternoon, wish you guys were here to sha",
+      "date": "2026-05-29T19:24:32.000Z",
+      "postUrl": "https://www.instagram.com/p/DY7yfXqmiKv/",
+      "captionFirstLine": "Hope Everyone goes out there and continues crushing their Dreams today",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "garagedoorsservices",
       "postType": "carousel",
-      "hook": "🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeow",
-      "date": "2026-05-19T13:14:51.000Z",
-      "postUrl": "https://www.instagram.com/p/DYhYK6dCECg/",
-      "captionFirstLine": "Best Quality Garage Doors",
+      "hook": "If your garage is below or next to a nursery, your opener choice matters more than you think. Noise ",
+      "date": "2026-05-29T16:04:05.000Z",
+      "postUrl": "https://www.instagram.com/p/DY7bgBuNrEB/",
+      "captionFirstLine": "Investing in your home? The new garage door is offset by the massive boost in home value! ",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear carousel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "manara_services",
+      "postType": "carousel",
+      "hook": "Our version of “beam me up Scotty” 🤖",
+      "date": "2025-07-26T12:19:38.000Z",
+      "postUrl": "https://www.instagram.com/p/DMkh0uSA9vr/",
+      "captionFirstLine": "Drove into the garage door 2 days before hand over to new home owner? 🚪💥🚗 ",
       "thumbnailAvailable": true,
       "whyItWorks": "Clear carousel format that's easy to scan and save.",
       "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
@@ -546,8 +800,8 @@
         "hamiltonontario",
         "oakvilleontario",
         "mississaugaontario",
-        "forsale",
-        "garagedoors"
+        "garagedoors",
+        "garagedoor"
       ]
     },
     {
@@ -790,14 +1044,7 @@
     "whyMonthlyMatters": "Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.",
     "nextRunCta": "Re-run the audit on your review date to measure what moved."
   },
-  "dataGaps": [
-    {
-      "area": "Competitor coverage",
-      "severity": "medium",
-      "detail": "Only 1 relevant competitor(s) selected.",
-      "recommendedFix": "Expand discovery to reference markets (garage door, best garage door, top garage door, garage door new york, ny, garage door boston, ma, garage door chicago, il)."
-    }
-  ],
+  "dataGaps": [],
   "evidence": [
     {
       "id": "cat.source",
@@ -845,7 +1092,7 @@
       "id": "market.postsStudied",
       "sourceType": "market_pattern",
       "label": "Category posts studied",
-      "value": 100,
+      "value": 432,
       "confidence": 85
     },
     {
@@ -859,14 +1106,14 @@
       "id": "competitors.candidates",
       "sourceType": "competitor",
       "label": "Competitor candidates found",
-      "value": 1,
+      "value": 9,
       "confidence": 70
     },
     {
       "id": "competitors.selected",
       "sourceType": "competitor",
       "label": "Competitors selected after relevance gate",
-      "value": 1,
+      "value": 6,
       "confidence": 80
     }
   ],
@@ -934,7 +1181,7 @@
       "score": 88,
       "level": "medium",
       "reasons": [
-        "100 posts studied"
+        "432 posts studied"
       ],
       "sourceCoverage": [
         "category corpus"
@@ -943,15 +1190,19 @@
     },
     {
       "sectionId": "competitors",
-      "score": 80,
+      "score": 88,
       "level": "medium",
       "reasons": [
-        "1 selected, 0 rejected"
+        "6 selected (1 reference, 5 local) · 6/6 with post data"
       ],
       "sourceCoverage": [
-        "scored competitor candidates"
+        "scored competitor candidates",
+        "in-band reference models",
+        "competitor post-level data"
       ],
-      "dataGaps": []
+      "dataGaps": [
+        "Limited aspirational reference models (1) — niche has few large accounts"
+      ]
     },
     {
       "sectionId": "observedPosts",
@@ -1001,11 +1252,42 @@
       "dataGaps": []
     }
   ],
-  "overallConfidence": 83,
+  "overallConfidence": 84,
   "validation": {
     "passed": true,
     "blockingCount": 0,
-    "warningCount": 0,
-    "issues": []
+    "warningCount": 6,
+    "issues": [
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @eurostarwindows has a low confidence score (22) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @jeramiekeen has a low confidence score (22) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @garagedoorsservices has a low confidence score (20) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @manara_services has a low confidence score (19) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @mountonsite has a low confidence score (19) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @jbradygaragedoors has a low confidence score (18) — low-engagement peer in a thin niche."
+      }
+    ]
   }
 }

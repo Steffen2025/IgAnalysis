@@ -10,7 +10,7 @@
 - **Normalized category:** Marketing agency
 - **Category kind:** service
 - **Market / location:** Burlington, Halton
-- **Generated:** 2026-05-31T00:12:03.577Z
+- **Generated:** 2026-05-31T00:31:30.353Z
 - **Review date:** June 27, 2026
 - **Model used:** openai/gpt-5.4-nano
 - **Prompt version:** instagram-intelligence-v1.1.0
@@ -289,8 +289,8 @@ Do not change anything else yet—just confirm the two destinations you will tes
 | Metric | You | Market avg |
 | --- | --- | --- |
 | Posts / week | 0.2 | 2.2 |
-| Avg caption length | 669 chars | 338 chars |
-| Avg hashtags / post | 16.9 | 6.1 |
+| Avg caption length | 669 chars | 320 chars |
+| Avg hashtags / post | 16.9 | 5.8 |
 | Top format | image | reel |
 
 **Activity level:** Below market volume
@@ -299,14 +299,14 @@ Do not change anything else yet—just confirm the two destinations you will tes
 
 ## 9. Market Pattern Dashboard
 
-- **Posts studied:** 447
-- **Average caption:** 338 chars
-- **Average hashtags:** 6.1
-- **Average emojis:** 1.6
+- **Posts studied:** 472
+- **Average caption:** 320 chars
+- **Average hashtags:** 5.8
+- **Average emojis:** 1.5
 
-**Top formats:** reel 49% · image 28% · carousel 23%
+**Top formats:** reel 49% · image 29% · carousel 22%
 
-**Hook types:** description 78% · question 13% · claim 6% · story 2% · direct address 1%
+**Hook types:** description 79% · question 12% · claim 6% · story 2% · direct address 1%
 
 **Content elements:** customer focus 23% · personality 23% · offer present 20% · location anchored 20% · owner team 14%
 
@@ -321,12 +321,12 @@ Do not change anything else yet—just confirm the two destinations you will tes
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | @awanidigitals | local | selected_location_match | 75 | 30 | — | 0 | 45 | 78 | category: marketing, agency; content: marketing, lead |
 | @allthesethingsagency | local | selected_location_match | 50 | 0 | — | 0 | 10 | 55 | category: agency, burlington |
-| @askaviarya | local | selected_location_match | 50 | 15 | — | 0 | 45 | 53 | category: agency, burlington; content: business |
 | @_shri_digital_ | reference | selected_reference_model | 25 | 0 | — | 50 | 12 | 53 | Vetted by live discovery (success 53) |
 | @socialdigital_services_ | reference | selected_reference_model | 50 | 15 | — | 100 | 16 | 40 | category: marketing, agency; content: marketing; 10644 followers (in band), success 16 |
-| @hkagencysecret | reference | selected_reference_model | 50 | 15 | — | 100 | 5 | 40 | category: marketing, agency; content: marketing; 6341 followers (in band), success 5 |
 | @sldigitalmarketingofficial | reference | selected_reference_model | 25 | 30 | — | 100 | 45 | 36 | category: marketing; content: business, marketing; 3214 followers (in band), success 45 |
 | @marketing_examples | reference | selected_reference_model | 50 | 15 | — | 100 | 11 | 31 | category: marketing, tips; content: marketing; 25833 followers (in band), success 11 |
+| @vitamindmarketing | local | selected_location_match | 75 | 15 | — | 0 | 45 | 24 | category: marketing, agency; content: marketing |
+| @digitalmarketingagency.online | reference | selected_reference_model | 50 | 15 | — | 50 | 45 | 24 | category: marketing, agency; content: marketing; 79464 followers (in band), success 45 |
 
 ## 11. Competitor Relevance Board
 
@@ -336,7 +336,7 @@ Do not change anything else yet—just confirm the two destinations you will tes
 - Last posted: 2026-05-30T07:39:28.000Z (fresh) · Type: image
 - Latest hook: “Happy birthday to our content lead @dose.of.beth Thank you for the creativity and dedication you bring to the team. We wish y”
 - Why selected: category: marketing, agency; content: marketing, lead
-- Borrow: Their reel + hook structure — rewrite in your own voice.
+- Borrow: Their image + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
 **@allthesethingsagency — All These Things** (local)
@@ -354,15 +354,6 @@ Do not change anything else yet—just confirm the two destinations you will tes
 - Last posted: 2026-04-13T13:51:54.000Z (stale) · Type: reel
 - Latest hook: “We Are Waiting To Grow ✨ You’re business Lets connect . . . [ social media, agency, marketing, grow, business, connect, manag”
 - Why selected: Vetted by live discovery (success 53)
-- Borrow: Their image + hook structure — rewrite in your own voice.
-- Avoid: Copying their exact creative or captions word-for-word.
-
-**@askaviarya — Avi Arya  #TheAskAviAryaShow** (local)
-- Followers: 143659 · Posts: 7652
-- Profile image: yes · Latest post: yes
-- Last posted: 2026-05-29T14:30:00.000Z (fresh) · Type: carousel
-- Latest hook: “Prompting is yesterday’s skill. The future belongs to people who build AI systems that think, decide, and execute without con”
-- Why selected: category: agency, burlington; content: business
 - Borrow: Their reel + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
@@ -375,20 +366,29 @@ Do not change anything else yet—just confirm the two destinations you will tes
 - Borrow: Their image + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
-**@hkagencysecret — OT mui | Marketing Agency | 唔驚 | 瘋言瘋語** (reference)
-- Followers: 6341 · Posts: 42
+**@sldigitalmarketingofficial — SL DIGITAL MARKETING** (reference)
+- Followers: 3214 · Posts: 364
 - Profile image: yes · Latest post: yes
-- Last posted: 2024-12-31T10:46:05.000Z (stale) · Type: carousel
-- Latest hook: “2024 話咁快就完左 唯一冇變嘅係 OT mui 繼續燃燒生命 OT 🥺🥺🥺 趁住2025 仲有幾個鐘就到，不如我哋一齊回顧一下2024年最備受「關注」嘅agency！！ 經過各位 BB 嘅踴躍投票，今年Top 3名單已經出爐： 1. OMG”
-- Why selected: category: marketing, agency; content: marketing; 6341 followers (in band), success 5
+- Last posted: 2026-05-25T13:48:42.000Z (fresh) · Type: reel
+- Latest hook: “Day 1 of Series one problem at one day! Need assistance or want to solve any of your problem without any cost? Comment down”
+- Why selected: category: marketing; content: business, marketing; 3214 followers (in band), success 45
+- Borrow: Their reel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@vitamindmarketing — Vitamin D Marketing & Design** (local)
+- Followers: 1356 · Posts: 577
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-26T15:34:39.000Z (fresh) · Type: reel
+- Latest hook: “📣 Our latest article is out in Spectrum Magazine – Dental Business Edition! In this feature, the team at Vitamin D Marketing”
+- Why selected: category: marketing, agency; content: marketing
 - Borrow: Their image + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
 ## 12. Observed Competitor Posts
 
-**@awanidigitals · reel · 2026-05-30T07:39:28.000Z**
+**@awanidigitals · image · 2026-05-30T07:39:28.000Z**
 - Hook: “Happy birthday to our content lead @dose.of.beth Thank you for the creativity and dedication you bri”
-- Why it works: Clear reel format that's easy to scan and save.
+- Why it works: Clear image format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
 **@allthesethingsagency · carousel · 2025-08-22T07:49:59.000Z**
@@ -396,14 +396,9 @@ Do not change anything else yet—just confirm the two destinations you will tes
 - Why it works: Clear carousel format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
-**@askaviarya · reel · 2026-05-29T14:30:00.000Z**
-- Hook: “Prompting is yesterday’s skill. The future belongs to people who build AI systems that think, decide”
-- Why it works: Clear reel format that's easy to scan and save.
-- How to adapt: Recreate the angle in your own voice with your local CTA.
-
-**@_shri_digital_ · image · 2026-04-13T13:51:54.000Z**
+**@_shri_digital_ · reel · 2026-04-13T13:51:54.000Z**
 - Hook: “We Are Waiting To Grow ✨ You’re business Lets connect . . . [ social media, agency, marketing, grow,”
-- Why it works: Clear image format that's easy to scan and save.
+- Why it works: Clear reel format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
 **@socialdigital_services_ · image · 2026-05-05T07:05:25.000Z**
@@ -411,8 +406,13 @@ Do not change anything else yet—just confirm the two destinations you will tes
 - Why it works: Clear image format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
-**@hkagencysecret · image · 2024-12-31T10:46:05.000Z**
-- Hook: “2024 話咁快就完左 唯一冇變嘅係 OT mui 繼續燃燒生命 OT 🥺🥺🥺 趁住2025 仲有幾個鐘就到，不如我哋一齊回顧一下2024年最備受「關注」嘅agency！！ 經過各位 BB 嘅踴”
+**@sldigitalmarketingofficial · reel · 2026-05-25T13:48:42.000Z**
+- Hook: “Day 1 of Series one problem at one day! Need assistance or want to solve any of your problem without”
+- Why it works: Clear reel format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@vitamindmarketing · image · 2026-05-26T15:34:39.000Z**
+- Hook: “📣 Our latest article is out in Spectrum Magazine – Dental Business Edition! In this feature, the te”
 - Why it works: Clear image format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
@@ -444,9 +444,9 @@ Local signal mined from the surrounding local business pool to complement the di
 
 _No local accounts in the 5k–50k success band were found — see complementary industries below._
 
-**Accounts local businesses spotlight/tag:** @asicstennis, @gudzdesigns, @barlowcommunity, @shoregrillandgrotto, @tavaresrealestate, @tanya_castrichinirealtor, @dose.of.beth, @asicsvolleyball
+**Accounts local businesses spotlight/tag:** @dose.of.beth, @asicstennis, @gudzdesigns, @barlowcommunity, @shoregrillandgrotto, @tavaresrealestate, @tanya_castrichinirealtor, @asicsvolleyball
 
-**Local wording in use:** business, website, content, automation, help, year, systems, growth, brands, people, team, design, brand, real, work
+**Local wording in use:** website, team, content, year, help, brands, design, business, ahead, brand, people, journey, grow, happy, thank
 
 **Complementary industries to study (same audience, thin direct niche):** home services, burlington home services, home improvement, burlington home improvement, contractor, burlington contractor, local renovation, burlington local renovation, home maintenance, burlington home maintenance, agency, word
 
@@ -669,7 +669,7 @@ _No significant data gaps detected._
 | score.overall | score | Overall score | 46 | 92 |
 | score.local | score | Local visibility score | 0 | 92 |
 | score.sales | score | Sales readiness score | 56 | 92 |
-| market.postsStudied | market_pattern | Category posts studied | 447 | 85 |
+| market.postsStudied | market_pattern | Category posts studied | 472 | 85 |
 | market.cadence | score | Client posts/week vs market | 0.2/wk | 80 |
 | competitors.candidates | competitor | Competitor candidates found | 14 | 70 |
 | competitors.selected | competitor | Competitors selected after relevance gate | 6 | 80 |
@@ -678,7 +678,7 @@ _No significant data gaps detected._
 
 - **Result:** PASSED
 - **Blocking:** 0
-- **Warnings:** 0
+- **Warnings:** 2
 - **Overall confidence:** 85/100
 
 **Section confidence:**
@@ -695,3 +695,7 @@ _No significant data gaps detected._
 | hashtags | 75 | medium | — |
 | toolkit | 75 | medium | — |
 | aiPrompts | 80 | medium | — |
+
+**Issues:**
+- ⚠️ [selected_relevance_threshold] Selected @vitamindmarketing has a low confidence score (24) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @digitalmarketingagency.online has a low confidence score (24) — low-engagement peer in a thin niche.

@@ -80,6 +80,24 @@ function profileRelevant(p: NormalizedProfile, vocab: string[]): boolean {
 }
 
 /**
+ * English-only gate. Reference/local models are only useful if the client can
+ * read and adapt them, so reject accounts whose name/bio/category is
+ * predominantly non-Latin (CJK, Hangul, Arabic, Cyrillic, etc.). Empty text is
+ * allowed (a sparse bio shouldn't fail on language alone).
+ */
+function isLikelyEnglish(p: NormalizedProfile): boolean {
+  const text = `${p.full_name ?? ""} ${p.bio ?? ""} ${p.category ?? ""}`;
+  if (!text.trim()) return true;
+  const cjk = (text.match(/[　-鿿가-힯＀-￯぀-ヿ]/g) ?? []).length; // CJK, Hangul, kana, fullwidth
+  const otherScript = (text.match(/[Ѐ-ӿ؀-ۿ֐-׿฀-๿]/g) ?? []).length; // Cyrillic, Arabic, Hebrew, Thai
+  const latin = (text.match(/[A-Za-z]/g) ?? []).length;
+  const nonLatin = cjk + otherScript;
+  if (cjk >= 4) return false;              // any meaningful run of CJK → not English
+  if (nonLatin > latin) return false;       // script is dominated by a non-Latin alphabet
+  return true;
+}
+
+/**
  * Engagement-based success score (0-100) from the profile's inline latestPosts.
  *
  * This is the PRIMARY signal Phase 3 ranks on: a 4k-follower account with a 12%
@@ -327,10 +345,22 @@ export async function discoverAndPersistReferences(
     if (!h) continue;
     const fc = p.follower_count;
     if (fc == null) { result.rejected.push({ handle: h, reason: "follower count unavailable" }); continue; }
+    if (!isLikelyEnglish(p)) { result.rejected.push({ handle: h, reason: "non-English profile (English-only)" }); continue; }
     if (!profileRelevant(p, vocab)) { result.rejected.push({ handle: h, reason: "no category relevance in bio" }); continue; }
     if (fc < HARD_FLOOR) { result.rejected.push({ handle: h, reason: `followers ${fc} below ${HARD_FLOOR} learn-floor` }); continue; }
-    if (fc > HARD_CEIL) { result.rejected.push({ handle: h, reason: `followers ${fc} above ${HARD_CEIL} (national brand — tactics don't transfer)` }); continue; }
-    const type = inReferenceBand(fc, band) === "in" ? "reference_model" : "local_intel";
+    // Classify by band: in-band → reference model; genuinely small (below the
+    // band) → local peer; above the band → reject (too large to be either a
+    // reachable reference or a real local peer — tactics won't transfer).
+    const bandState = inReferenceBand(fc, band);
+    let type: "reference_model" | "local_intel";
+    if (bandState === "in") {
+      type = "reference_model";
+    } else if (fc < band.min) {
+      type = "local_intel";
+    } else {
+      result.rejected.push({ handle: h, reason: `followers ${fc} above the ${band.min}-${band.max} study band — too large to model` });
+      continue;
+    }
     survivors.push({ p, success: successScoreFromProfile(p), type });
   }
   // Engagement success is the PRIMARY ranker; source proof and size break ties.
@@ -387,6 +417,7 @@ export async function discoverAndPersistReferences(
           const h = (p.username ?? "").toLowerCase();
           const fc = p.follower_count;
           if (!h || fc == null || seen.has(h)) continue;
+          if (!isLikelyEnglish(p)) continue;
           if (fc < HARD_FLOOR || fc > HARD_CEIL || inReferenceBand(fc, band) !== "in") continue;
           const hay = `${p.full_name ?? ""} ${p.bio ?? ""} ${p.category ?? ""}`.toLowerCase();
           const matched = compVocab.find((v) => hay.includes(v));

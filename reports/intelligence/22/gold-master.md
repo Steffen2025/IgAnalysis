@@ -10,7 +10,7 @@
 - **Normalized category:** Garage door company
 - **Category kind:** service
 - **Market / location:** Burlington, Ontario
-- **Generated:** 2026-05-30T16:03:12.074Z
+- **Generated:** 2026-05-30T21:58:27.710Z
 - **Review date:** June 26, 2026
 - **Model used:** openai/gpt-5.4-nano
 - **Prompt version:** instagram-intelligence-v1.1.0
@@ -248,8 +248,8 @@ Mandatory settings:
 | Metric | You | Market avg |
 | --- | --- | --- |
 | Posts / week | 0.5 | 0.3 |
-| Avg caption length | 441 chars | 496 chars |
-| Avg hashtags / post | 5.4 | 6.5 |
+| Avg caption length | 441 chars | 115 chars |
+| Avg hashtags / post | 5.4 | 1.5 |
 | Top format | image | image |
 
 **Activity level:** Above market volume
@@ -258,14 +258,14 @@ Mandatory settings:
 
 ## 9. Market Pattern Dashboard
 
-- **Posts studied:** 100
-- **Average caption:** 496 chars
-- **Average hashtags:** 6.5
-- **Average emojis:** 1.7
+- **Posts studied:** 432
+- **Average caption:** 115 chars
+- **Average hashtags:** 1.5
+- **Average emojis:** 0.4
 
-**Top formats:** image 38% · carousel 35% · reel 27%
+**Top formats:** image 47% · carousel 29% · reel 25%
 
-**Hook types:** description 60% · question 24% · claim 8% · number list 4% · announcement 4%
+**Hook types:** description 91% · question 6% · claim 2% · number list 1% · announcement 1%
 
 **Content elements:** offer present 44% · location anchored 27% · owner team 10% · product media 9% · customer focus 9%
 
@@ -273,28 +273,105 @@ Mandatory settings:
 
 **Search terms used:** garage door, garage door repair, garage door installation, garage door opener, garage door spring, burlington garage door, oakville garage door, hamilton garage door, overhead door, garage door service, garage door tips, garage door burlington, garage door ontario, garage, burlington garage, door, burlington door
 
-**Candidates found:** 1 · **Selected:** 1 · **Rejected:** 0
+**Candidates found:** 9 · **Selected:** 8 · **Rejected:** 0
 
 **Selected:**
 | Handle | Track | Code | Cat | Content | Semantic | Band | Success | Conf | Reason |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| @cagaragedoors.ca | local | selected_location_match | 100 | 75 | — | 100 | 30 | 87 | category: garage, door; content: garage, door |
+| @motiongaragedoors | local | selected_location_match | 100 | 60 | — | 0 | 35 | 35 | category: garage, door; content: garage, door |
+| @magicgaragedoorshtx | local | selected_location_match | 100 | 60 | — | 0 | 28 | 34 | category: garage, door; content: garage, door |
+| @eurostarwindows | reference | selected_reference_model | 50 | 45 | — | 50 | 35 | 22 | category: door, burlington; content: door, doors; 1558 followers (in band), success 35 |
+| @jeramiekeen | local | selected_location_match | 100 | 60 | — | 0 | 45 | 22 | category: garage, door; content: garage, door |
+| @garagedoorsservices | local | selected_location_match | 100 | 90 | — | 0 | 45 | 20 | category: garage, door; content: garage, door |
+| @manara_services | local | selected_location_match | 100 | 60 | — | 0 | 23 | 19 | category: garage, door; content: garage, door |
+| @mountonsite | local | selected_location_match | 100 | 60 | — | 0 | 35 | 19 | category: garage, door; content: garage, door |
+| @jbradygaragedoors | local | selected_location_match | 100 | 60 | — | 0 | 25 | 18 | category: garage, door; content: garage, door |
 
 ## 11. Competitor Relevance Board
 
-**@cagaragedoors.ca — CA Garage Doors** (local)
-- Followers: 4548 · Posts: 70
+**@motiongaragedoors — Motion Garage Doors** (local)
+- Followers: 1344 · Posts: 156
 - Profile image: yes · Latest post: yes
-- Last posted: 2026-05-19T13:14:51.000Z (active) · Type: reel
-- Latest hook: “🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeowner, especially seniors,”
+- Last posted: 2026-05-29T17:02:29.000Z (fresh) · Type: reel
+- Latest hook: “Crafted for heritage. Built to last. This custom real wood garage door was designed to complement the character of a timeless”
 - Why selected: category: garage, door; content: garage, door
-- Borrow: Their carousel + description structure — rewrite in your own voice.
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@magicgaragedoorshtx — Magicgaragedoorshtx** (local)
+- Followers: 572 · Posts: 48
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-28T14:09:21.000Z (fresh) · Type: reel
+- Latest hook: “🚨 Same Day Garage Door Service! 🚨 Today we got a call from a customer whose garage door wasn’t operating properly and Magic”
+- Why selected: category: garage, door; content: garage, door
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@eurostarwindows — EuroStar Windows and Doors** (reference)
+- Followers: 1558 · Posts: 652
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-04T22:33:11.000Z (cooling) · Type: carousel
+- Latest hook: “From heritage restorations to ultra-modern builds, the right window system makes all the difference. Whether you’re replacing”
+- Why selected: category: door, burlington; content: door, doors; 1558 followers (in band), success 35
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@jeramiekeen — Jeramie Keen/Owner @Sawtoothgaragedoors.com** (local)
+- Followers: 967 · Posts: 956
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-29T19:24:32.000Z (fresh) · Type: carousel
+- Latest hook: “Ramming around in our sweet new Service Van on this Friday Afternoon, wish you guys were here to share the bumpy ride, (becau”
+- Why selected: category: garage, door; content: garage, door
+- Borrow: Their image + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@garagedoorsservices — Up & Down Garage Doors Services | 24/7 Garage Door Repair** (local)
+- Followers: 744 · Posts: 438
+- Profile image: yes · Latest post: yes
+- Last posted: 2026-05-29T16:04:05.000Z (fresh) · Type: reel
+- Latest hook: “If your garage is below or next to a nursery, your opener choice matters more than you think. Noise levels by drive type: 🔊”
+- Why selected: category: garage, door; content: garage, door
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
+- Avoid: Copying their exact creative or captions word-for-word.
+
+**@manara_services — Manara Services** (local)
+- Followers: 1388 · Posts: 449
+- Profile image: yes · Latest post: yes
+- Last posted: 2025-07-26T12:19:38.000Z (stale) · Type: image
+- Latest hook: “Our version of “beam me up Scotty” 🤖”
+- Why selected: category: garage, door; content: garage, door
+- Borrow: Their carousel + hook structure — rewrite in your own voice.
 - Avoid: Copying their exact creative or captions word-for-word.
 
 ## 12. Observed Competitor Posts
 
-**@cagaragedoors.ca · carousel · 2026-05-19T13:14:51.000Z**
-- Hook: “🚨 PROTECTING SENIORS & MY BUSINESS – PLEASE READ & SHARE 🚨 This post is a WARNING for every homeow”
+**@motiongaragedoors · image · 2026-05-29T17:02:29.000Z**
+- Hook: “Crafted for heritage. Built to last. This custom real wood garage door was designed to complement th”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@magicgaragedoorshtx · image · 2026-05-28T14:09:21.000Z**
+- Hook: “🚨 Same Day Garage Door Service! 🚨 Today we got a call from a customer whose garage door wasn’t ope”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@eurostarwindows · image · 2026-05-04T22:33:11.000Z**
+- Hook: “From heritage restorations to ultra-modern builds, the right window system makes all the difference.”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@jeramiekeen · image · 2026-05-29T19:24:32.000Z**
+- Hook: “Ramming around in our sweet new Service Van on this Friday Afternoon, wish you guys were here to sha”
+- Why it works: Clear image format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@garagedoorsservices · carousel · 2026-05-29T16:04:05.000Z**
+- Hook: “If your garage is below or next to a nursery, your opener choice matters more than you think. Noise ”
+- Why it works: Clear carousel format that's easy to scan and save.
+- How to adapt: Recreate the angle in your own voice with your local CTA.
+
+**@manara_services · carousel · 2025-07-26T12:19:38.000Z**
+- Hook: “Our version of “beam me up Scotty” 🤖”
 - Why it works: Clear carousel format that's easy to scan and save.
 - How to adapt: Recreate the angle in your own voice with your local CTA.
 
@@ -326,13 +403,15 @@ Local signal mined from the surrounding local business pool to complement the di
 
 _No local accounts in the 5k–50k success band were found — see complementary industries below._
 
-**Local wording in use:** company, price, business, canada, best, ontario, services, based, also, look, saying, about, website, trust, guaranteed
+**Accounts local businesses spotlight/tag:** @motiongaragedoors.ca, @lopezboy55, @gmail.com, @sommerusa, @jbradygaragedoors.co.uk
+
+**Local wording in use:** installation, home, company, repair, look, wood, best, great, price, about, trust, mississauga, style, business, every
 
 **Complementary industries to study (same audience, thin direct niche):** home services, burlington home services, home improvement, burlington home improvement, contractor, burlington contractor, local renovation, burlington local renovation, home maintenance, burlington home maintenance, door company, garage
 
 ## 15. Hashtag Strategy
 
-- **local:** #burlingtonontario #burlington #haltonregion #hamiltonontario #oakvilleontario #mississaugaontario #forsale #garagedoors
+- **local:** #burlingtonontario #burlington #haltonregion #hamiltonontario #oakvilleontario #mississaugaontario #garagedoors #garagedoor
 - **category:** #garagedoorrepair #garagedoorinstallation #garagedoorservice #garageoperators #garagegateoperator #garageinstallation #overheaddoor
 - **audience:** #homeowners #commercialproperty #propertymaintenance #homeimprovement #curbappeal #safetyfirst #familyhome
 - **authority:** #licensedandinsured #qualityservice #trustedlocalbusiness #oninstall #serviceandinstallation
@@ -551,9 +630,9 @@ Write a post whose single goal is to get the reader to book — no other ask.
 
 ## 22. Data Gaps and Confidence
 
-- **[medium] Competitor coverage:** Only 1 relevant competitor(s) selected. → _Expand discovery to reference markets (garage door, best garage door, top garage door, garage door new york, ny, garage door boston, ma, garage door chicago, il)._
+_No significant data gaps detected._
 
-**Overall confidence:** 83/100
+**Overall confidence:** 84/100
 
 ## 23. Source Evidence Index
 
@@ -565,17 +644,17 @@ Write a post whose single goal is to get the reader to book — no other ask.
 | score.overall | score | Overall score | 54 | 92 |
 | score.local | score | Local visibility score | 37 | 92 |
 | score.sales | score | Sales readiness score | 29 | 92 |
-| market.postsStudied | market_pattern | Category posts studied | 100 | 85 |
+| market.postsStudied | market_pattern | Category posts studied | 432 | 85 |
 | market.cadence | score | Client posts/week vs market | 0.5/wk | 80 |
-| competitors.candidates | competitor | Competitor candidates found | 1 | 70 |
-| competitors.selected | competitor | Competitors selected after relevance gate | 1 | 80 |
+| competitors.candidates | competitor | Competitor candidates found | 9 | 70 |
+| competitors.selected | competitor | Competitors selected after relevance gate | 6 | 80 |
 
 ## 24. Validation Summary
 
 - **Result:** PASSED
 - **Blocking:** 0
-- **Warnings:** 0
-- **Overall confidence:** 83/100
+- **Warnings:** 6
+- **Overall confidence:** 84/100
 
 **Section confidence:**
 | Section | Score | Level | Gaps |
@@ -586,8 +665,16 @@ Write a post whose single goal is to get the reader to book — no other ask.
 | nextSevenDays | 85 | medium | — |
 | sprint | 88 | medium | — |
 | marketPatterns | 88 | medium | — |
-| competitors | 80 | medium | — |
+| competitors | 88 | medium | Limited aspirational reference models (1) — niche has few large accounts |
 | observedPosts | 80 | medium | — |
 | hashtags | 75 | medium | — |
 | toolkit | 75 | medium | — |
 | aiPrompts | 80 | medium | — |
+
+**Issues:**
+- ⚠️ [selected_relevance_threshold] Selected @eurostarwindows has a low confidence score (22) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @jeramiekeen has a low confidence score (22) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @garagedoorsservices has a low confidence score (20) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @manara_services has a low confidence score (19) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @mountonsite has a low confidence score (19) — low-engagement peer in a thin niche.
+- ⚠️ [selected_relevance_threshold] Selected @jbradygaragedoors has a low confidence score (18) — low-engagement peer in a thin niche.

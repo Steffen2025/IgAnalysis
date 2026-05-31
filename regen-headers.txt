@@ -1,0 +1,10 @@
+HTTP/1.1 302 Found
+location: /audits/24?regenerated=1
+set-cookie: botlogix_audit_session=ZThJOthWBohm7ssaDXr9XLFwFit5UPxC.cZ6nt%2FJVVAktwhPmY3l%2BFTnNSrFVB%2BnAtL2miFmsxo4; Path=/; HttpOnly; SameSite=Lax
+x-robots-tag: noindex, nofollow
+cache-control: no-store
+content-length: 0
+Date: Thu, 28 May 2026 13:43:26 GMT
+Connection: keep-alive
+Keep-Alive: timeout=72
+

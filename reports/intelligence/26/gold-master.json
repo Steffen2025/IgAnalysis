@@ -10,7 +10,7 @@
     "marketLabel": "Burlington, Halton",
     "city": "Burlington",
     "region": "Halton",
-    "generatedAt": "2026-05-31T00:12:03.577Z",
+    "generatedAt": "2026-05-31T00:31:30.353Z",
     "reviewDate": "June 27, 2026",
     "modelUsed": "openai/gpt-5.4-nano",
     "promptVersion": "instagram-intelligence-v1.1.0",
@@ -271,12 +271,12 @@
       {
         "metric": "Avg caption length",
         "client": "669 chars",
-        "market": "338 chars"
+        "market": "320 chars"
       },
       {
         "metric": "Avg hashtags / post",
         "client": "16.9",
-        "market": "6.1"
+        "market": "5.8"
       },
       {
         "metric": "Top format",
@@ -289,10 +289,10 @@
     "cadenceVerdict": "increase"
   },
   "marketPatterns": {
-    "postsStudied": 447,
-    "avgCaptionChars": 338,
-    "avgHashtags": 6.1,
-    "avgEmojis": 1.6,
+    "postsStudied": 472,
+    "avgCaptionChars": 320,
+    "avgHashtags": 5.8,
+    "avgEmojis": 1.5,
     "topFormats": [
       {
         "label": "reel",
@@ -300,21 +300,21 @@
       },
       {
         "label": "image",
-        "pct": 28
+        "pct": 29
       },
       {
         "label": "carousel",
-        "pct": 23
+        "pct": 22
       }
     ],
     "hookDistribution": [
       {
         "label": "description",
-        "pct": 78
+        "pct": 79
       },
       {
         "label": "question",
-        "pct": 13
+        "pct": 12
       },
       {
         "label": "claim",
@@ -395,20 +395,6 @@
         "confidenceScore": 55
       },
       {
-        "handle": "askaviarya",
-        "track": "local",
-        "code": "selected_location_match",
-        "reason": "category: agency, burlington; content: business",
-        "categoryMatchScore": 50,
-        "contentMatchScore": 15,
-        "locationMatchScore": 60,
-        "recencyScore": 100,
-        "embeddingScore": null,
-        "followerBandFit": 0,
-        "successScore": 45,
-        "confidenceScore": 53
-      },
-      {
         "handle": "_shri_digital_",
         "track": "reference",
         "code": "selected_reference_model",
@@ -434,20 +420,6 @@
         "embeddingScore": null,
         "followerBandFit": 100,
         "successScore": 16,
-        "confidenceScore": 40
-      },
-      {
-        "handle": "hkagencysecret",
-        "track": "reference",
-        "code": "selected_reference_model",
-        "reason": "category: marketing, agency; content: marketing; 6341 followers (in band), success 5",
-        "categoryMatchScore": 50,
-        "contentMatchScore": 15,
-        "locationMatchScore": 0,
-        "recencyScore": 10,
-        "embeddingScore": null,
-        "followerBandFit": 100,
-        "successScore": 5,
         "confidenceScore": 40
       },
       {
@@ -477,6 +449,34 @@
         "followerBandFit": 100,
         "successScore": 11,
         "confidenceScore": 31
+      },
+      {
+        "handle": "vitamindmarketing",
+        "track": "local",
+        "code": "selected_location_match",
+        "reason": "category: marketing, agency; content: marketing",
+        "categoryMatchScore": 75,
+        "contentMatchScore": 15,
+        "locationMatchScore": 60,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 0,
+        "successScore": 45,
+        "confidenceScore": 24
+      },
+      {
+        "handle": "digitalmarketingagency.online",
+        "track": "reference",
+        "code": "selected_reference_model",
+        "reason": "category: marketing, agency; content: marketing; 79464 followers (in band), success 45",
+        "categoryMatchScore": 50,
+        "contentMatchScore": 15,
+        "locationMatchScore": 0,
+        "recencyScore": 100,
+        "embeddingScore": null,
+        "followerBandFit": 50,
+        "successScore": 45,
+        "confidenceScore": 24
       }
     ],
     "rejected": [],
@@ -515,7 +515,7 @@
       "latestPostType": "image",
       "latestPostHook": "Happy birthday to our content lead @dose.of.beth Thank you for the creativity and dedication you bring to the team. We wish y",
       "whySelected": "category: marketing, agency; content: marketing, lead",
-      "borrow": "Their reel + hook structure — rewrite in your own voice.",
+      "borrow": "Their image + hook structure — rewrite in your own voice.",
       "avoid": "Copying their exact creative or captions word-for-word."
     },
     {
@@ -547,22 +547,6 @@
       "latestPostType": "reel",
       "latestPostHook": "We Are Waiting To Grow ✨ You’re business Lets connect . . . [ social media, agency, marketing, grow, business, connect, manag",
       "whySelected": "Vetted by live discovery (success 53)",
-      "borrow": "Their image + hook structure — rewrite in your own voice.",
-      "avoid": "Copying their exact creative or captions word-for-word."
-    },
-    {
-      "handle": "askaviarya",
-      "displayName": "Avi Arya  #TheAskAviAryaShow",
-      "type": "local",
-      "followers": 143659,
-      "posts": 7652,
-      "profileImageAvailable": true,
-      "latestPostAvailable": true,
-      "latestPostDate": "2026-05-29T14:30:00.000Z",
-      "activityStatus": "fresh",
-      "latestPostType": "carousel",
-      "latestPostHook": "Prompting is yesterday’s skill. The future belongs to people who build AI systems that think, decide, and execute without con",
-      "whySelected": "category: agency, burlington; content: business",
       "borrow": "Their reel + hook structure — rewrite in your own voice.",
       "avoid": "Copying their exact creative or captions word-for-word."
     },
@@ -583,18 +567,34 @@
       "avoid": "Copying their exact creative or captions word-for-word."
     },
     {
-      "handle": "hkagencysecret",
-      "displayName": "OT mui | Marketing Agency | 唔驚 | 瘋言瘋語",
+      "handle": "sldigitalmarketingofficial",
+      "displayName": "SL DIGITAL MARKETING",
       "type": "reference",
-      "followers": 6341,
-      "posts": 42,
+      "followers": 3214,
+      "posts": 364,
       "profileImageAvailable": true,
       "latestPostAvailable": true,
-      "latestPostDate": "2024-12-31T10:46:05.000Z",
-      "activityStatus": "stale",
-      "latestPostType": "carousel",
-      "latestPostHook": "2024 話咁快就完左 唯一冇變嘅係 OT mui 繼續燃燒生命 OT 🥺🥺🥺 趁住2025 仲有幾個鐘就到，不如我哋一齊回顧一下2024年最備受「關注」嘅agency！！ 經過各位 BB 嘅踴躍投票，今年Top 3名單已經出爐： 1. OMG",
-      "whySelected": "category: marketing, agency; content: marketing; 6341 followers (in band), success 5",
+      "latestPostDate": "2026-05-25T13:48:42.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "reel",
+      "latestPostHook": "Day 1 of Series one problem at one day! Need assistance or want to solve any of your problem without any cost? Comment down",
+      "whySelected": "category: marketing; content: business, marketing; 3214 followers (in band), success 45",
+      "borrow": "Their reel + hook structure — rewrite in your own voice.",
+      "avoid": "Copying their exact creative or captions word-for-word."
+    },
+    {
+      "handle": "vitamindmarketing",
+      "displayName": "Vitamin D Marketing & Design",
+      "type": "local",
+      "followers": 1356,
+      "posts": 577,
+      "profileImageAvailable": true,
+      "latestPostAvailable": true,
+      "latestPostDate": "2026-05-26T15:34:39.000Z",
+      "activityStatus": "fresh",
+      "latestPostType": "reel",
+      "latestPostHook": "📣 Our latest article is out in Spectrum Magazine – Dental Business Edition! In this feature, the team at Vitamin D Marketing",
+      "whySelected": "category: marketing, agency; content: marketing",
       "borrow": "Their image + hook structure — rewrite in your own voice.",
       "avoid": "Copying their exact creative or captions word-for-word."
     }
@@ -619,31 +619,31 @@
       "aisearch"
     ],
     "spotlightedAccounts": [
+      "dose.of.beth",
       "asicstennis",
       "gudzdesigns",
       "barlowcommunity",
       "shoregrillandgrotto",
       "tavaresrealestate",
       "tanya_castrichinirealtor",
-      "dose.of.beth",
       "asicsvolleyball"
     ],
     "localWording": [
-      "business",
       "website",
-      "content",
-      "automation",
-      "help",
-      "year",
-      "systems",
-      "growth",
-      "brands",
-      "people",
       "team",
+      "content",
+      "year",
+      "help",
+      "brands",
       "design",
+      "business",
+      "ahead",
       "brand",
-      "real",
-      "work"
+      "people",
+      "journey",
+      "grow",
+      "happy",
+      "thank"
     ],
     "complementaryTerms": [
       "home services",
@@ -664,13 +664,13 @@
   "observedPosts": [
     {
       "account": "awanidigitals",
-      "postType": "reel",
+      "postType": "image",
       "hook": "Happy birthday to our content lead @dose.of.beth Thank you for the creativity and dedication you bri",
       "date": "2026-05-30T07:39:28.000Z",
       "postUrl": "https://www.instagram.com/p/DY9FudNINyO/",
-      "captionFirstLine": "Advertising puts your brand in front of people",
+      "captionFirstLine": "Happy birthday to our content lead @dose.of.beth ",
       "thumbnailAvailable": true,
-      "whyItWorks": "Clear reel format that's easy to scan and save.",
+      "whyItWorks": "Clear image format that's easy to scan and save.",
       "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
       "evidenceIds": [
         "competitors.selected"
@@ -691,28 +691,14 @@
       ]
     },
     {
-      "account": "askaviarya",
-      "postType": "reel",
-      "hook": "Prompting is yesterday’s skill. The future belongs to people who build AI systems that think, decide",
-      "date": "2026-05-29T14:30:00.000Z",
-      "postUrl": "https://www.instagram.com/p/DY7QxBFjhEx/",
-      "captionFirstLine": "Ads are just the vehicle",
-      "thumbnailAvailable": true,
-      "whyItWorks": "Clear reel format that's easy to scan and save.",
-      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
-      "evidenceIds": [
-        "competitors.selected"
-      ]
-    },
-    {
       "account": "_shri_digital_",
-      "postType": "image",
+      "postType": "reel",
       "hook": "We Are Waiting To Grow ✨ You’re business Lets connect . . . [ social media, agency, marketing, grow,",
       "date": "2026-04-13T13:51:54.000Z",
       "postUrl": "https://www.instagram.com/p/DXEvzNMDOyH/",
-      "captionFirstLine": "Words sell",
+      "captionFirstLine": "Me and chatgpt after it helps me finish all things 🥱🥱",
       "thumbnailAvailable": true,
-      "whyItWorks": "Clear image format that's easy to scan and save.",
+      "whyItWorks": "Clear reel format that's easy to scan and save.",
       "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
       "evidenceIds": [
         "competitors.selected"
@@ -724,7 +710,7 @@
       "hook": "Visibility is good. Conversions are better🚀",
       "date": "2026-05-05T07:05:25.000Z",
       "postUrl": "https://www.instagram.com/p/DX8qnRsT7Wd/",
-      "captionFirstLine": "Get your strategies right!!🚀",
+      "captionFirstLine": "Online presence is a must 👍🏻",
       "thumbnailAvailable": true,
       "whyItWorks": "Clear image format that's easy to scan and save.",
       "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
@@ -733,12 +719,26 @@
       ]
     },
     {
-      "account": "hkagencysecret",
+      "account": "sldigitalmarketingofficial",
+      "postType": "reel",
+      "hook": "Day 1 of Series one problem at one day! Need assistance or want to solve any of your problem without",
+      "date": "2026-05-25T13:48:42.000Z",
+      "postUrl": "https://www.instagram.com/p/DYw4wbOzJoT/",
+      "captionFirstLine": "Looking for a luxury website for your brand? ",
+      "thumbnailAvailable": true,
+      "whyItWorks": "Clear reel format that's easy to scan and save.",
+      "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
+      "evidenceIds": [
+        "competitors.selected"
+      ]
+    },
+    {
+      "account": "vitamindmarketing",
       "postType": "image",
-      "hook": "2024 話咁快就完左 唯一冇變嘅係 OT mui 繼續燃燒生命 OT 🥺🥺🥺 趁住2025 仲有幾個鐘就到，不如我哋一齊回顧一下2024年最備受「關注」嘅agency！！ 經過各位 BB 嘅踴",
-      "date": "2024-12-31T10:46:05.000Z",
-      "postUrl": "https://www.instagram.com/p/DEPWkZdvkHn/",
-      "captionFirstLine": "#工作小妙招",
+      "hook": "📣 Our latest article is out in Spectrum Magazine – Dental Business Edition! In this feature, the te",
+      "date": "2026-05-26T15:34:39.000Z",
+      "postUrl": "https://www.instagram.com/p/DYzpQFKOMrD/",
+      "captionFirstLine": "Sun’s out…intern’s in 😎",
       "thumbnailAvailable": true,
       "whyItWorks": "Clear image format that's easy to scan and save.",
       "howToAdapt": "Recreate the angle in your own voice with your local CTA.",
@@ -1083,7 +1083,7 @@
       "id": "market.postsStudied",
       "sourceType": "market_pattern",
       "label": "Category posts studied",
-      "value": 447,
+      "value": 472,
       "confidence": 85
     },
     {
@@ -1172,7 +1172,7 @@
       "score": 88,
       "level": "medium",
       "reasons": [
-        "447 posts studied"
+        "472 posts studied"
       ],
       "sourceCoverage": [
         "category corpus"
@@ -1245,7 +1245,18 @@
   "validation": {
     "passed": true,
     "blockingCount": 0,
-    "warningCount": 0,
-    "issues": []
+    "warningCount": 2,
+    "issues": [
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @vitamindmarketing has a low confidence score (24) — low-engagement peer in a thin niche."
+      },
+      {
+        "rule": "selected_relevance_threshold",
+        "severity": "warning",
+        "detail": "Selected @digitalmarketingagency.online has a low confidence score (24) — low-engagement peer in a thin niche."
+      }
+    ]
   }
 }
