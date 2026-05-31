@@ -22,6 +22,7 @@ import { discoverCompetitors, generateComplementaryTerms } from "./competitorDis
 import { buildClientSignature } from "./clientSignature.js";
 import { buildLocalSignal } from "./localIntelligence.js";
 import { renderGoldMasterMarkdown } from "./goldMasterMarkdown.js";
+import { renderDeliverable } from "./deliverableMarkdown.js";
 import { validateGoldMaster, renderValidationReport } from "./validateGoldMaster.js";
 import { computeSectionConfidence, overallConfidence } from "./confidence.js";
 import { LlmRunLog, runLlmTask, type LlmTask } from "../llm/llmClient.js";
@@ -656,12 +657,14 @@ export async function generateGoldMaster(
   const outDir = path.resolve("reports", "intelligence", String(auditId));
   mkdirSync(outDir, { recursive: true });
   const paths = {
+    report: path.join(outDir, "report.md"),
     json: path.join(outDir, "gold-master.json"),
     md: path.join(outDir, "gold-master.md"),
     competitorDebug: path.join(outDir, "competitor-debug.md"),
     validation: path.join(outDir, "validation-report.md"),
     runLog: path.join(outDir, "llm-run-log.json"),
   };
+  writeFileSync(paths.report, renderDeliverable(gm), "utf-8");
   writeFileSync(paths.json, JSON.stringify(gm, null, 2), "utf-8");
   writeFileSync(paths.md, finalMarkdown, "utf-8");
   writeFileSync(paths.competitorDebug, renderCompetitorDebug(gm), "utf-8");

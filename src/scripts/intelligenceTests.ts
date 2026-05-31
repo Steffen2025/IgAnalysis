@@ -12,6 +12,7 @@ import { ctaForKind } from "../services/audit/categoryCopy.js";
 import { scoreCandidate, evaluateCompetitors, type RelevanceContext } from "../services/instagram-intelligence/competitorRelevance.js";
 import { generateHashtags } from "../services/instagram-intelligence/competitorDiscovery.js";
 import { computeSectionConfidence } from "../services/instagram-intelligence/confidence.js";
+import { renderDeliverable } from "../services/instagram-intelligence/deliverableMarkdown.js";
 import { validateGoldMaster } from "../services/instagram-intelligence/validateGoldMaster.js";
 import { getClientConfig } from "../services/instagram-intelligence/clientConfig.js";
 import type { ReportCompetitor } from "../services/report/reportDataAssembler.js";
@@ -109,12 +110,20 @@ function minimalGm(overrides: Partial<GoldMasterIntelligence>): GoldMasterIntell
     sectionConfidence: [{ sectionId: "s", score: 80, level: "medium", reasons: [], sourceCoverage: [], dataGaps: [] }],
     marketPatterns: { postsStudied: 10, avgCaptionChars: 100, avgHashtags: 5, avgEmojis: 1, topFormats: [], hookDistribution: [], contentElementDistribution: [] },
     marketComparison: { rows: [], activityLevel: "ok", interpretation: "x", cadenceVerdict: "maintain" },
-    meta: { normalizedCategory: "moving app", categoryKind: "app" },
+    meta: { auditId: 1, account: "Acme", handle: "acme", website: "https://x.co", rawCategory: "x", normalizedCategory: "moving app", categoryKind: "app", marketLabel: "Toronto, ON", city: "Toronto", region: "ON", generatedAt: "2026-05-31T00:00:00.000Z", reviewDate: "June 27, 2026", modelUsed: "openai/gpt-5.4-nano", promptVersion: "instagram-intelligence-v1.1.0", dataConfidence: 80 },
     category: { normalizedCategory: "moving app", categoryKind: "app", confidence: 80, source: "raw", whatItSells: "", likelyAudience: "", contentThatWorks: "", ctaType: "download", ctaOptions: ["Download the app"] },
     competitors: [],
     competitorDebug: { searchTermsUsed: [], candidatesFound: 0, selected: [], rejected: [], emptyReason: "search_problem", recommendedSearchTerms: [] },
     observedPosts: [],
+    account: { displayName: "Acme", handle: "acme", bio: "We do x", rawCategory: "x", normalizedBusinessType: "moving app", website: "https://x.co", followerCount: 720, postCount: 94, postsPerWeek: 0.2333333333341111, profileGaps: ["Bio lacks CTA"], ctaStatus: "Present", localSignalStatus: "ok" },
+    localSignal: { successStories: [], localHashtags: [], spotlightedAccounts: [], localWording: [], complementaryTerms: [], note: "" },
+    contentMechanics: [],
+    visibilityStrategy: [],
+    toolkit: { hookFormulas: ["Hook A"], captionFormulas: ["Caption A"], ctaOptions: ["Book"], reelIdeas: [], carouselIdeas: [], proofIdeas: [] },
+    immediateContent: { hooks: ["Hook 1"], captionTopics: [], carouselIdeas: [], reelIdeas: [], storyIdeas: [] },
+    day30: { bringBack: ["insights"], whatWeCompare: ["scores"], whyMonthlyMatters: "Instagram shifts weekly.", nextRunCta: "Re-run." },
     dataGaps: [],
+    validation: { passed: true, blockingCount: 0, warningCount: 0, issues: [] },
     overallConfidence: 70,
   } as unknown as GoldMasterIntelligence;
   return { ...base, ...overrides };
@@ -205,6 +214,19 @@ test("thin niche (no reference models) names the gap honestly", () => {
 test("zero competitors → low confidence", () => {
   const s = compConf(minimalGm({ competitors: [] }));
   assert.ok(s.score < 50, `expected low score; got ${s.score}`);
+});
+
+// ── Client-facing deliverable renderer ──
+test("deliverable renders the narrative parts in order", () => {
+  const md = renderDeliverable(minimalGm({}));
+  for (const h of ["# Instagram Growth Plan", "## Executive Summary", "## Part 1 — Where You Stand Today", "## Part 2 — What's Working In Your Market", "## Part 3 — Your 30-Day Plan", "## Part 4 — Your Content Toolkit", "## Appendix"]) {
+    assert.ok(md.includes(h), `missing section: ${h}`);
+  }
+});
+test("deliverable rounds posts/week and hides raw internals", () => {
+  const md = renderDeliverable(minimalGm({}));
+  assert.doesNotMatch(md, /0\.2333333/, "posts/week must be rounded");
+  assert.ok(!md.includes("selected_reference_model"), "raw reason codes must not leak into the client report");
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
