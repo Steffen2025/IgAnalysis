@@ -140,3 +140,7 @@
 - [2026-05-27] Test runs need an explicit cleanup path in the dashboard so temporary audits can be deleted without manual database work.
 - [2026-05-28] Before resuming feature QA after runtime interruptions, re-verify critical local dependencies first (Docker engine/Postgres), then rerun one full dashboard flow to confirm output integrity.
 - [2026-05-29] Keep the context system lean: skills are instructions, references are storage, memory is current state — never blend them. Heavy material goes to `.claude/references/` and is read only on demand.
+- [2026-05-31] The intelligence engine (`src/services/instagram-intelligence/`) is under active development with standing approval — editing this subsystem's `src/` is expected (Hard Rule 7 still applies elsewhere). Paid Apify discovery stays gated behind an explicit `--live` flag; never run it silently.
+- [2026-05-31] Competitor data must be ENGLISH-ONLY and engagement-discovered. Reject predominantly non-Latin accounts; discover by hashtag top posts / IG user search / relatedProfiles, not SEO alone; the existing `apify/instagram-scraper` covers every mode (no new actor).
+- [2026-05-31] The client deliverable is a teaching FIELD GUIDE, not an audit dump: every number answers what it means / good or bad / why / what to do / how to know it improved. End on "what success looks like," not a sales pitch.
+- [2026-05-31] When committing with `git add -A`, always unstage secrets/scratch first (`cookies-*.txt`, `*.log`, `.env`). Verify with `git show --stat` before declaring a commit clean.

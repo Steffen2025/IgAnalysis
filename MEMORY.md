@@ -1,6 +1,6 @@
 # MEMORY.md — Current State Index
 
-Last Updated: 2026-05-29
+Last Updated: 2026-05-31
 
 > Concise current-state index. State lives here; rules live in `AGENTS.md`;
 > project detail lives in `memory/projects/`; long examples live in
@@ -23,8 +23,9 @@ Last Updated: 2026-05-29
 
 | Project | Status | Next Action | Deadline |
 |---------|--------|-------------|----------|
-| BotLogix IG Analysis / Social Intelligence | In Progress | Build-ready spec done (`docs/teardown-and-tracking-plan.md`, project: `memory/projects/ig-teardown-tracker.md`); await go-ahead, then M1 (schema + teardown orchestrator + 100-content pull). Focus: BotLogix + BoxBuddy, 5 accounts each, 30-day tracking, markdown-first | TBD |
-| IG Audit Admin Dashboard (engine) | In Progress | Re-verify tuned report outputs after restart, then resume SMTP/email validation | TBD |
+| IG Intelligence Pipeline (Gold Master + deliverable) | In Progress | Competitor discovery (4 lanes), report alignment, confidence, `--live` productionization, English-only, and the 20-section client field guide (md/html/pdf) are DONE. Next: deliverable design-system polish + exact logo PNG. Run: `intelligence.ts generate --auditId=<id> [--live]`. On GitHub `Steffen2025/IgAnalysis` | TBD |
+| BotLogix IG Analysis / Social Intelligence | In Progress | Begin the 5-accounts-per-business-unit, 30-day tracking pass (BotLogix + BoxBuddy). Teardown spec: `memory/projects/ig-teardown-tracker.md` | TBD |
+| IG Audit Admin Dashboard (engine) | In Progress | Resume SMTP/email validation; legacy Marp deck path untouched by the new deliverable | TBD |
 | Premium Report Intelligence Modules | Planned | Add Local Market Map, Opportunity Scoreboard, Content Pattern Bank, Local Lead Playbook, 30-Day Delta System | TBD |
 
 ---
@@ -42,7 +43,11 @@ Last Updated: 2026-05-29
 ## Decisions That Affect How I Work
 
 - AGENTS.md and MEMORY.md are the master repo-local memory; new scaffolds merge in, never overwrite — 2026-05-25
-- Start small: 5 accounts per business unit, track 30 days, markdown reports first; defer designed PDFs until data + workflow are proven — 2026-05-29
+- Start small: 5 accounts per business unit, track 30 days — 2026-05-29 (the "defer designed reports" half is now superseded for the intelligence path: designed md/html/pdf deliverable is built — 2026-05-31)
+- Competitor discovery is engagement-driven (hashtag top posts / IG user search / relatedProfiles), pooled wide then soft-gated; NO new Apify actor; report TRUSTS vetted discovery rows; English-only — 2026-05-31
+- Client deliverable is a teaching field guide, not an audit dump; no sales pitch — 2026-05-31
+- LLM via OpenRouter direct (nano default, mini escalation); keys in gitignored `.env` only — 2026-05-30
+- Repo pushed to GitHub `Steffen2025/IgAnalysis` (origin/master) — 2026-05-31
 - Skills = instructions, References = storage, Memory = current state; never blend them — 2026-05-29
 - Build the audit product as an internal private dashboard first; defer public SaaS/billing/subdomain — 2026-05-25
 - Use Postgres as the default DB; SQLite is now only a legacy import source — 2026-05-25
@@ -89,6 +94,11 @@ Last Updated: 2026-05-29
 
 ## Last Updated
 
+- 2026-05-31 — Logged the IG intelligence pipeline milestone: 4-lane competitor
+  discovery, trusted report alignment, data-quality confidence, `--live`
+  productionization, English-only filtering, and the 20-section client field
+  guide (md/html/pdf). Repo on GitHub `Steffen2025/IgAnalysis`. Detail in
+  `memory/projects/botlogix-ig-analysis.md`.
 - 2026-05-29 — Context cleanup pass: rewrote MEMORY.md to the standard index
   structure, merged dashboard project state with the new IG Analysis / Social
   Intelligence framing, added the three business units, and trimmed template
