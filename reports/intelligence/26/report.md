@@ -1,174 +1,281 @@
-# Instagram Growth Plan — @botlogix
+# Instagram Growth Intelligence Report
 
-**BotLogix - AI Solutions** · Marketing agency · Burlington, Halton
-Prepared by BotLogix · 2026-05-31 · Review on June 27, 2026
+### A 30-Day Action Plan to Improve Visibility, Trust, Content, and Local Lead Flow
 
-> A 30-day plan to turn your Instagram into a discovery and lead channel — built from your own account, your market, and the accounts already winning in your space.
+**BotLogix - AI Solutions** · @botlogix · Marketing agency · Burlington, Halton
+Power level today: **46/100** · 720 followers · 94 posts
+Prepared by BotLogix · 2026-05-31
 
----
-## Executive Summary
-
-**Where you stand:** 46/100. The basics are in place but under-used — most of the upside is still on the table.
-
-**Your biggest opportunity:** Lock in Burlington/Halton local discovery across profile + posts
-
-**Your first three moves this week:**
-1. **Lock in Burlington/Halton local discovery across profile + posts** — +10 local reach, ~60 min.
-2. **Create 2 pinned “how-to-buy/start” posts to convert better** — +15 profile conversion, ~3 hours.
-3. **Run a tight link-in-bio A/B test aligned to your best post type** — +8 profile conversion, ~45 min.
-
-**The headline:** your strongest area is **competitor gap** (70/100); the fastest win is **local visibility** (0/100). This plan spends most of its energy there.
+> **Your next 30 days are mapped inside.** You do not need to become an Instagram expert — you need to know which moves matter, why they matter, and what to do this week.
 
 ---
-## The Big Picture
+## How to Use This Guide
 
-Let's be straight about where @botlogix is and where it can go. You're a marketing agency in Burlington, Halton with 720 followers and a real offer — the bones are here. What's missing isn't effort or talent; it's a **repeatable system** that tells Instagram who you are, who you serve, and why someone should act.
+This is a field guide, not a one-time report. Keep it open beside you while you work.
 
-The single clearest signal in the data: **cadence**. You post about 0.2×/week; the accounts winning in your category post around 2.2×/week — roughly 11× more often. Instagram rewards consistency, and right now that's the cheapest, highest-leverage lever you have. You don't need to post more *kinds* of things — you need a rhythm you can actually keep.
+**The three steps, in order:**
+1. **Fix the profile first** — it's the front door; everything else sends people to it.
+2. **Publish the next 7 days** — momentum beats perfection.
+3. **Repeat what earns saves, replies, comments, and profile visits** — let the data pick your winners.
 
-**The 30-day bet:** fix **local visibility** first (today it scores 0/100), because it's the gap throttling everything downstream. That starts with one move — *lock in burlington/halton local discovery across profile + posts* — and the rest of this plan compounds off it. We're not chasing virality. We're building a profile that converts, a cadence the algorithm trusts, and a signature format that makes you recognisable.
-
-Everything below is sequenced so each step makes the next one easier. Read it once end-to-end, then work Part 3 day by day.
-
----
-## Part 1 — Where You Stand Today
-
-A clear, honest read on your account as it is right now — the numbers, and what's quietly holding it back. No fluff: this is the baseline we'll measure against in 30 days.
-
-### Your scorecard
-
-- **Overall** `█████░░░░░ 46/100`
-- **Profile conversion** `██████░░░░ 55/100`
-- **Content performance** `█████░░░░░ 50/100`
-- **Local visibility** `░░░░░░░░░░ 0/100`
-- **Sales readiness** `██████░░░░ 56/100`
-- **Competitor gap** `███████░░░ 70/100`
-
-> **Fix first:** Local visibility (0/100) — Add city + category to the name field, captions, and geotags. This is where the plan focuses.
->
-> **Lean on:** Competitor gap (70/100) is already your strength — use it as the foundation, don't neglect it.
-
-### Profile snapshot
-
-- **Display name:** BotLogix - AI Solutions
-- **Bio:** 🔵 Botlogix helps small businesses use AI, agents, and workflows to save time, improve follow-up, and build smarter systems.
-- **Link:** https://botlogix.ca
-- **Followers:** 720 · **Posts:** 94 · **Posts/week:** 0.2
-- **CTA status:** Present · **Local signal:** Under-labeled for the market
-
-### What's holding you back
-
-These are small, fixable things — but each one quietly costs you reach or conversions every single day:
-
-- Bio lacks a clear who/offer/CTA
-- Missing city/category signals
+> **Do not try to do everything.** Start with the highest-leverage moves. This guide ranks every recommendation by **impact, difficulty, speed, and business value** so you always know what to touch next.
 
 ---
-## Part 2 — What's Working In Your Market
+## The Short Version
 
-This is the part most audits skip. We studied **472 real posts** across your category and pulled the accounts already succeeding in it — so your plan is built on what the market actually rewards, not generic best-practice.
+**Your account is not broken — it is under-signalled. Most of the upside is still on the table.**
 
-### How you compare
+| | |
+| --- | --- |
+| **Biggest opportunity** | Lock in Burlington/Halton local discovery across profile + posts |
+| **Biggest weakness** | Local visibility (0/100) — terms checked: burlington, halton, hamilton, greater toronto area |
+| **Fastest win** | Run a tight link-in-bio A/B test aligned to your best post type |
+| **30-day target** | More findable, a clearer profile, more useful content, and an obvious next step for buyers |
 
-| Metric | You | Market average |
-| --- | --- | --- |
-| Posts / week | 0.2 | 2.2 |
-| Avg caption length | 669 chars | 320 chars |
-| Avg hashtags / post | 16.9 | 5.8 |
-| Top format | image | reel |
+This is the whole plan in one glance. The rest of the guide proves it and shows you exactly how.
+
+---
+## Where You Stand Today
+
+Your full diagnostic picture. These are decision tools, not vanity numbers — each one tells you whether to leave it alone or fix it now.
+
+| Band | Meaning |
+| --- | --- |
+| 80–100 | Strong asset — protect it |
+| 60–79 | Usable — needs refinement |
+| 40–59 | Underperforming — improve soon |
+| 0–39 | Fix first — biggest leverage |
+
+**Overall** `█████░░░░░ 46/100` — *Underperforming*
+
+**Profile conversion** `██████░░░░ 55/100` — *Underperforming*
+- _What it means:_ 🔵 Botlogix helps small businesses use AI, agents, and workflows to save time, i
+- _Why it matters:_ A visitor decides in seconds whether to follow or leave.
+- _Changes it fastest:_ A/B test the link-in-bio destination and pinned posts.
+
+**Content performance** `█████░░░░░ 50/100` — *Underperforming*
+- _What it means:_ 1 posts in last 30 days (~0.23/wk)
+- _Why it matters:_ Saves and shares drive reach far more than likes.
+- _Changes it fastest:_ Double down on your best format and cut low performers.
+
+**Local visibility** `░░░░░░░░░░ 0/100` — *Fix first*
+- _What it means:_ terms checked: burlington, halton, hamilton, greater toronto area
+- _Why it matters:_ Discovery depends on clear category + location signals.
+- _Changes it fastest:_ Add city + category to the name field, captions, and geotags.
+
+**Sales readiness** `██████░░░░ 56/100` — *Underperforming*
+- _What it means:_ 35/50
+- _Why it matters:_ Attention is wasted without an obvious next step.
+- _Changes it fastest:_ Add proof posts and a pinned how-to-buy/how-to-start.
+
+**Competitor gap** `███████░░░ 70/100` — *Usable — needs refinement*
+- _What it means:_ client=0.23/wk  ref=2.24/wk
+- _Why it matters:_ You're judged against active accounts in your space.
+- _Changes it fastest:_ Differentiate with a signature format competitors don't use.
+
+---
+## What the Numbers Mean
+
+A quick lesson in reading your own account. Five indicators decide whether Instagram shows you — and whether buyers act.
+
+### Local visibility — 0/100 (Fix first)
+- **What we measured:** terms checked: burlington, halton, hamilton, greater toronto area
+- **What your number means:** The biggest constraint on your growth right now.
+- **Why Instagram cares:** Instagram needs clear category + location signals to know who to show you to.
+- **Why buyers care:** Buyers search and browse locally — if you're invisible there, you're invisible to them.
+- **What to do next:** Add city + category to the name field, captions, and geotags.
+
+### Profile conversion — 55/100 (Underperforming)
+- **What we measured:** 🔵 Botlogix helps small businesses use AI, agents, and workflows to save time, i
+- **What your number means:** Underperforming — real upside if you act.
+- **Why Instagram cares:** A clear profile keeps people on your page, which tells Instagram you're worth surfacing.
+- **Why buyers care:** A visitor decides in seconds whether to follow or leave.
+- **What to do next:** A/B test the link-in-bio destination and pinned posts.
+
+### Content performance — 50/100 (Underperforming)
+- **What we measured:** 1 posts in last 30 days (~0.23/wk)
+- **What your number means:** Underperforming — real upside if you act.
+- **Why Instagram cares:** Saves and shares drive reach far more than likes.
+- **Why buyers care:** Useful content is what earns the follow and the eventual enquiry.
+- **What to do next:** Double down on your best format and cut low performers.
+
+### Sales readiness — 56/100 (Underperforming)
+- **What we measured:** 35/50
+- **What your number means:** Underperforming — real upside if you act.
+- **Why Instagram cares:** Profiles with an obvious next step convert attention the algorithm sends you.
+- **Why buyers care:** Attention is wasted without an obvious way to take the next step.
+- **What to do next:** Add proof posts and a pinned how-to-buy/how-to-start.
+
+### Competitor gap — 70/100 (Usable — needs refinement)
+- **What we measured:** client=0.23/wk  ref=2.24/wk
+- **What your number means:** A working asset you can build on.
+- **Why Instagram cares:** Active, differentiated accounts get rewarded over copycats.
+- **Why buyers care:** You're judged against the accounts buyers already follow.
+- **What to do next:** Differentiate with a signature format competitors don't use.
+
+---
+## The Growth Diagnosis
+
+**You do not have one Instagram problem. You have a sequence problem.** People have to move through five stages — and you're only as strong as your weakest one.
+
+| Stage | The question | Your score | Status |
+| --- | --- | --- | --- |
+| 1. Get found | Can the right local people discover you? | 0/100 | Fix first |
+| 2. Make sense fast | Does your profile explain who you help in seconds? | 55/100 | Underperforming |
+| 3. Be worth following | Is your content useful enough to save and follow? | 50/100 | Underperforming |
+| 4. Stand out | Do you look different from every other account in your space? | 70/100 | Usable — needs refinement |
+| 5. Drive action | Is there an obvious next step for someone ready to buy? | 56/100 | Underperforming |
+
+**The break in your chain is "Get found".** Traffic leaks out there first, so that's where this plan starts. Fix the earliest weak stage and every stage after it gets easier.
+
+---
+## What Your Competitors Are Teaching Us
+
+We studied **472 real posts** and pulled the accounts already winning in your space. The point isn't to copy them — it's to see what the market is already rewarding.
+
+| Account | Type | Followers | Format | Best thing to learn |
+| --- | --- | --- | --- | --- |
+| @awanidigitals | Local | 1,107 | image | Their image + hook structure |
+| @allthesethingsagency | Local | 1,076 | carousel | Their carousel + hook structure |
+| @_shri_digital_ | Reference | 1,797 | reel | Their reel + hook structure |
+| @socialdigital_services_ | Reference | 10,644 | reel | Their image + hook structure |
+| @sldigitalmarketingofficial | Reference | 3,214 | reel | Their reel + hook structure |
+| @vitamindmarketing | Local | 1,356 | reel | Their image + hook structure |
+
+> **Do not copy their creative or captions word-for-word.** Borrow the *structure* — the format, the hook style, the cadence — and rebuild it in your own voice.
+
+---
+## Five Lessons From the Market
+
+Translating the data into moves you can make this week.
+
+**1. The market leads with **reel** content**
+- _Why it works:_ reel earns the most reach in your category right now.
+- _How to adapt it:_ Make reel your default format — at least one per week.
+- _First post idea:_ A reel walking through one common question your buyers ask.
+
+**2. Winning posts open with a **description** hook**
+- _Why it works:_ description openers stop the scroll and set up the payoff.
+- _How to adapt it:_ Write your first line as a description, then deliver one concrete takeaway.
+- _First post idea:_ "Here's what most Burlington buyers get wrong about marketing agency"
+
+**3. Top accounts emphasize **customer focus****
+- _Why it works:_ Content that centres the customer (not the brand) gets saved and shared.
+- _How to adapt it:_ Frame posts around the buyer's problem, not your services.
+- _First post idea:_ A before/after or a "mistake I keep seeing" post about your customers' situation.
+
+**4. Consistency beats intensity**
+- _Why it works:_ The accounts ahead of you simply post on a steady rhythm.
+- _How to adapt it:_ Pick a cadence you can keep for 30 days and hold it.
+- _First post idea:_ Batch three posts this weekend so next week is already done.
+
+**5. Every post points somewhere**
+- _Why it works:_ Reach without a next step doesn't convert.
+- _How to adapt it:_ End every caption with one clear action: "Book a free quote".
+- _First post idea:_ A post whose only job is to get the reader to book a free quote.
+
+---
+## What the Market Is Rewarding
+
+How you stack up against 472 posts in your category — with the action for each gap.
+
+| Metric | You | Market | What to do |
+| --- | --- | --- | --- |
+| Posts / week | 0.2 | 2.2 | Raise cadence to a rhythm you can keep. |
+| Avg caption length | 669 chars | 320 chars | Tighten the first line; move detail lower. |
+| Avg hashtags / post | 16.9 | 5.8 | Fewer, more intentional tags (local + intent + authority). |
+| Top format | image | reel | Match the market's working pattern. |
 
 **Read:** Raise your posting rhythm. You post 0.2×/week vs a market average near 2.2×. Build a repeatable weekly cadence so the algorithm and your audience see you consistently.
 
-**What this means for you:**
-- Your captions run **669 characters** vs the market's 320 — you're over-writing. Lead with the hook in line one; move detail lower or cut it.
-- You use **16.9 hashtags/post** against a market norm of 5.8. More isn't better — a tight, intentional set (local + category) reads as confident, not spammy.
-- The market wins with **reel**; you lean on **image**. Shift weight toward reel — it's what earns reach in your space right now.
-
-### Accounts worth studying
-
-We surfaced **6 relevant accounts** — 3 aspirational reference models and 3 local peers. Don't copy them; reverse-engineer *why* their posts work and rebuild that in your own voice. The borrow/avoid lines tell you exactly how.
-
-**Reference models — aspirational accounts in your space:**
-
-#### @_shri_digital_ — SHRI DIGITAL
-*Reference model*
-
-- **Why it's here:** An aspirational Marketing agency account (1,797 followers) — big enough to learn from, reachable enough to catch. Activity: stale.
-- **A recent post:** "We Are Waiting To Grow ✨ You’re business Lets connect . . . [ social media, agency, marketing, grow, business,"
-- **Borrow:** Their reel + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-#### @socialdigital_services_ — Social digital services | PR & Marketing agency
-*Reference model*
-
-- **Why it's here:** An aspirational Marketing agency account (10,644 followers) — big enough to learn from, reachable enough to catch. Activity: cooling.
-- **A recent post:** "Visibility is good. Conversions are better🚀"
-- **Borrow:** Their image + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-#### @sldigitalmarketingofficial — SL DIGITAL MARKETING
-*Reference model*
-
-- **Why it's here:** An aspirational Marketing agency account (3,214 followers) — big enough to learn from, reachable enough to catch. Activity: fresh.
-- **A recent post:** "Day 1 of Series one problem at one day! Need assistance or want to solve any of your problem without any cost?"
-- **Borrow:** Their reel + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-**Local peers — your own market:**
-
-#### @awanidigitals — Integrated Marketing Communications Agency
-*Local peer*
-
-- **Why it's here:** A local peer in Burlington, Halton (1,107 followers) — a direct read on what works in your own market. Activity: fresh.
-- **A recent post:** "Happy birthday to our content lead @dose.of.beth Thank you for the creativity and dedication you bring to the"
-- **Borrow:** Their image + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-#### @allthesethingsagency — All These Things
-*Local peer*
-
-- **Why it's here:** A local peer in Burlington, Halton (1,076 followers) — a direct read on what works in your own market. Activity: stale.
-- **A recent post:** "The @asicstennis players are a happy bunch 🙂 Love these portraits for clay season shot by @_albin_ @devon_kri"
-- **Borrow:** Their carousel + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-#### @vitamindmarketing — Vitamin D Marketing & Design
-*Local peer*
-
-- **Why it's here:** A local peer in Burlington, Halton (1,356 followers) — a direct read on what works in your own market. Activity: fresh.
-- **A recent post:** "📣 Our latest article is out in Spectrum Magazine – Dental Business Edition! In this feature, the team at Vita"
-- **Borrow:** Their image + hook structure — rewrite in your own voice.
-- **Avoid:** Copying their exact creative or captions word-for-word.
-
-### The patterns that win in your category
-
-From 472 posts studied:
-
-- **Top formats:** reel 49% · image 29% · carousel 22%
-- **Hook styles:** description 79% · question 12% · claim 6% · story 2% · direct address 1%
-- **What posts emphasize:** customer focus 23% · personality 23% · offer present 20% · location anchored 20% · owner team 14%
-
-**The takeaway:** in your category, reel-first content opening with a description hook is the proven pattern. Make that your default and you're already aligned with what the algorithm and your audience reward.
-
-### Local & adjacent opportunities
-
-Discovery in a local market is a different game from going viral. These are the levers that put you in front of the *right* nearby people:
-
-- **Accounts local businesses tag/spotlight:** @dose.of.beth, @asicstennis, @gudzdesigns, @barlowcommunity, @shoregrillandgrotto, @tavaresrealestate, @tanya_castrichinirealtor, @asicsvolleyball — engaging and being tagged by these builds local reach.
-- **Language that resonates locally:** website, team, content, year, help, brands, design, business, ahead, brand, people, journey — weave these naturally into captions.
-- **Adjacent industries reaching the same audience:** home services, burlington home services, home improvement, burlington home improvement, contractor, burlington contractor, local renovation, burlington local renovation — borrow their formats and collaborate, don't compete.
+**Proven pattern in your category:** reel-first content, opening with a description hook, centred on customer focus. Make that your default and you're aligned with what already works.
 
 ---
-## Part 3 — Your 30-Day Plan
+## Content Pattern Recipes
 
-Everything above points here. The logic is simple: fix **local visibility** first, build a cadence you can keep, and turn attention into action with a clear next step. Five moves, a day-by-day first week, a four-week sprint, and exactly how we'll know it worked.
+Four formulas to keep beside you when you post. Fill in the brackets and publish.
 
-### The five moves that matter most
+### Educational proof post
+- **When to use it:** When you want to build authority.
+- **Opening line:** "Here's what I'd check first if you're choosing a marketing agency in Burlington."
+- **Structure:** Hook → 3 quick points → one concrete takeaway → CTA.
+- **CTA:** Book a free quote
+- **Example idea:** A short teach on the #1 thing buyers overlook.
 
-Do them in order — each is sequenced to make the next one land harder.
+### Local FAQ post
+- **When to use it:** When you want local discovery.
+- **Opening line:** "Burlington buyers ask me this all the time…"
+- **Structure:** Question → plain-English answer → local proof → CTA.
+- **CTA:** Book a free quote
+- **Example idea:** Answer the single most common question you get, tagged to Burlington.
 
-#### 1. Lock in Burlington/Halton local discovery across profile + posts
-*high impact · medium effort · ~60 min · expected: +10 local reach*
+### Customer objection post
+- **When to use it:** When you want replies and DMs.
+- **Opening line:** "‘It's too expensive / too early / not for me’ — let's talk about that."
+- **Structure:** Objection → why it's understandable → the reframe → CTA.
+- **CTA:** Book a free quote
+- **Example idea:** Turn your most common objection into a first-line hook.
+
+### Proof / case-study post
+- **When to use it:** When you want trust.
+- **Opening line:** "Here's what changed for a Burlington client in 30 days."
+- **Structure:** Before → what you did → result → CTA.
+- **CTA:** Book a free quote
+- **Example idea:** One real result (anonymised if needed) told as a mini story.
+
+---
+## The Local Visibility Plan
+
+> **Local growth is not one trick. It is repeated context.** Burlington should appear naturally everywhere a buyer or the algorithm looks.
+
+**Profile signals**
+- Put "Marketing agency" + Burlington in your name field and the first line of your bio.
+- Make your link point to the single highest-value next step.
+**Post signals**
+- Add a Burlington location tag to every post.
+- Drop one natural local line in each caption ("Serving Burlington & nearby").
+**Search signals**
+- Lead with your local hashtag set: #burlingtonontario #haltonregion #haltonhills #oakvilleontario #torontobusiness #ontariobusinessowners
+**Community signals**
+- Engage with the accounts local businesses tag: @dose.of.beth, @asicstennis, @gudzdesigns, @barlowcommunity, @shoregrillandgrotto, @tavaresrealestate.
+**Proof signals**
+- Pin a "how I help Burlington" post and save Highlights for Services, Proof, and FAQ.
+
+---
+## Profile Fix Blueprint
+
+Your first fix, made dead simple. The profile is the front door — get this right before anything else.
+
+**Before (today):**
+- Name: BotLogix - AI Solutions
+- Bio: 🔵 Botlogix helps small businesses use AI, agents, and workflows to save time, improve follow-up, and build smarter systems.
+- Issues: Bio lacks a clear who/offer/CTA; Missing city/category signals
+
+**After (recommended structure):**
+```
+Line 1: Who you help
+Line 2: Where you help them (Burlington + nearby)
+Line 3: The problem you solve
+Line 4: CTA — Book a free quote
+```
+
+**Worked example:**
+```
+Helping Burlington people searching for help in this category get a better result
+Serving Burlington, Halton
+Products/services in the "Marketing agency" space
+Book a free quote — link below
+```
+
+---
+## The Five Moves That Matter Most
+
+Ranked by leverage. Do them in order — each makes the next one land harder.
+
+### 1. Lock in Burlington/Halton local discovery across profile + posts
+| Impact | Effort | Time | Expected | When |
+| --- | --- | --- | --- | --- |
+| high | medium | 60 min | +10 local reach | This week |
 
 **Why this matters:** Local visibility scored 0, meaning Instagram has weak signals for Burlington/Halton buyers. Adding clear location + category signals increases who sees your content when people search or browse locally.
 
@@ -176,8 +283,12 @@ Do them in order — each is sequenced to make the next one land harder.
 2) Update every post caption to include one local line near the end: "Serving small businesses in Burlington & Halton." (keep it natural).
 3) Add location tags on every new post: "Burlington, ON" or "Halton" (choose one and stay consistent).
 
-#### 2. Create 2 pinned “how-to-buy/start” posts to convert better
-*high impact · medium effort · ~3 hours · expected: +15 profile conversion*
+**Track:** local reach / profile visits
+
+### 2. Create 2 pinned “how-to-buy/start” posts to convert better
+| Impact | Effort | Time | Expected | When |
+| --- | --- | --- | --- | --- |
+| high | medium | 3 hours | +15 profile conversion | Week 1 |
 
 **Why this matters:** Sales readiness is 56/100; visitors likely understand what you do but don’t have an obvious next step. Pinned guides reduce friction and increase follower-to-lead conversion.
 
@@ -186,8 +297,12 @@ Post 1 (carousel): "How to get AI workflows working for your business (7 steps)"
 Post 2 (reel or carousel): "What BotLogix does in your first week" with slides/frames: audit → workflow design → automation setup → follow-up messaging system → handoff + next steps.
 Then pin both posts at the top of your profile and add a final line on each: "Learn more at botlogix.ca".
 
-#### 3. Run a tight link-in-bio A/B test aligned to your best post type
-*medium impact · low effort · ~45 min · expected: +8 profile conversion*
+**Track:** link taps / DMs
+
+### 3. Run a tight link-in-bio A/B test aligned to your best post type
+| Impact | Effort | Time | Expected | When |
+| --- | --- | --- | --- | --- |
+| medium | low | 45 min | +8 profile conversion | Week 1 |
 
 **Why this matters:** Profile conversion is 55. The link-in-bio is the bottleneck for turning interest into site visits/leads. A/B testing the destination and pinned-post order can quickly improve conversion without changing your posting cadence.
 
@@ -199,8 +314,12 @@ Also pin order:
 - Second pin: the other guide.
 Keep everything else unchanged during the test.
 
-#### 4. Adopt a signature content format that differentiates from competitors
-*medium impact · medium effort · ~2 hours (setup + first post), then 45 min/post · expected: +12 content performance*
+**Track:** profile visits → follows
+
+### 4. Adopt a signature content format that differentiates from competitors
+| Impact | Effort | Time | Expected | When |
+| --- | --- | --- | --- | --- |
+| medium | medium | 2 hours (setup + first post), then 45 min/post | +12 content performance | Weeks 2–3 |
 
 **Why this matters:** Competitor gap is 70, meaning you have room to win. A signature format makes your account instantly recognizable and improves saves/shares versus generic “AI tips.”
 
@@ -215,8 +334,12 @@ Format per post (carousel, 6 slides):
 6) Where to start: "See examples at botlogix.ca".
 Use the local audience line: "Built for small businesses in Burlington & Halton."
 
-#### 5. Increase content depth without increasing posting frequency: optimize the next 2 posts
-*medium impact · low effort · ~45 min per post · expected: +8 content performance*
+**Track:** profile visits → follows
+
+### 5. Increase content depth without increasing posting frequency: optimize the next 2 posts
+| Impact | Effort | Time | Expected | When |
+| --- | --- | --- | --- | --- |
+| medium | low | 45 min per post | +8 content performance | Weeks 2–3 |
 
 **Why this matters:** Content performance is 50 and activity is low (about 0.2 posts/week). Since you’re already below market average, the highest leverage is improving per-post conversion and shareability—not simply posting more often.
 
@@ -227,17 +350,21 @@ Use the local audience line: "Built for small businesses in Burlington & Halton.
 4) Use consistent local phrasing: “for Burlington & Halton small businesses.”
 5) Ensure captions are scannable (short paragraphs, 1 emoji per section max).
 
-### Your first seven days
+**Track:** saves + shares
 
-Small daily blocks — 15–30 minutes — that stack into a finished foundation by day 7.
+---
+## Your First 7 Days
 
-**Day 1 — Lock in Burlington/Halton local discovery signals** *(15-30 min)*
+Small daily blocks — 15–30 minutes — that stack into a finished foundation by day 7. Check each off as you go.
+
+**☐ Day 1 — Lock in Burlington/Halton local discovery signals** *(15-30 min)*
 - 1) Go to your Instagram profile and change the display name to: "BotLogix - AI for Small Business | Burlington".
 2) Create a reusable caption footer line (paste-ready): "Serving small businesses in Burlington & Halton.".
 3) Decide one consistent location tag you’ll use most often for posts today: "Burlington, ON" OR "Halton" (pick one and commit).
+- _Why this matters:_ Local visibility is currently weak; stronger Burlington/Halton signals improve who sees your content in local search and browsing.
 - _Done when:_ Your display name is updated and you have a finalized caption footer line plus a chosen primary location tag for consistency.
 
-**Day 2 — Build conversion-ready pinned posts (part 1: assets)** *(15-30 min)*
+**☐ Day 2 — Build conversion-ready pinned posts (part 1: assets)** *(15-30 min)*
 - Write the 7-slide carousel body in your notes using this exact structure (one line per slide, simple language):
 Slide 1: How to get AI workflows working for your business (7 steps)
 Slide 2: Pick the workflow you need (follow-up, lead capture, inbox, scheduling)
@@ -247,9 +374,10 @@ Slide 5: Set clear rules (what it should do, what it should not do)
 Slide 6: Connect your inputs (data + messages) and test with real examples
 Slide 7: Measure the time saved and tighten follow-up
 Finish the caption with: "Serving small businesses in Burlington & Halton." and a natural line: "Learn more at botlogix.ca".
+- _Why this matters:_ Pinned guides reduce friction for small business owners who want an obvious starting point, improving profile conversion.
 - _Done when:_ All 7 slide lines + a ready-to-paste caption footer and CTA are drafted.
 
-**Day 3 — Build conversion-ready pinned posts (part 2: assets)** *(15-30 min)*
+**☐ Day 3 — Build conversion-ready pinned posts (part 2: assets)** *(15-30 min)*
 - Create a script or slide list for this post in your notes:
 Title: What BotLogix does in your first week
 Frame/Slide order:
@@ -259,9 +387,10 @@ Frame/Slide order:
 4) Follow-up system: we generate consistent, on-brand replies
 5) Handoff + next steps: you know what’s running and what to improve next
 Add a caption ending with: "Built for small businesses in Burlington & Halton." and "Learn more at botlogix.ca".
+- _Why this matters:_ This clarifies what you do and what the customer gets quickly, which is a common conversion gap for marketing-service accounts.
 - _Done when:_ Your first-week post script/slide outline + caption with local line and site CTA is ready.
 
-**Day 4 — Publish pinned posts** *(15-30 min)*
+**☐ Day 4 — Publish pinned posts** *(15-30 min)*
 - 1) Publish the carousel for “How to get AI workflows working for your business (7 steps)” with the draft text from Day 2.
 2) Add location tag(s) to the post using your chosen primary tag (Burlington, ON OR Halton).
 3) Pin this post to the top of your profile.
@@ -269,9 +398,10 @@ Add a caption ending with: "Built for small businesses in Burlington & Halton." 
 5) Add the same primary location tag.
 6) Pin the second post under it so visitors see both immediately.
 7) Confirm both posts include the line “Serving small businesses in Burlington & Halton.” (or the exact local phrasing you used).
+- _Why this matters:_ Pinned content increases the chance a visitor immediately understands the next step and how it works for their business.
 - _Done when:_ Both posts are live and pinned at the top of your profile in a clear order.
 
-**Day 5 — Set up a local signature format to improve per-post performance** *(15-30 min)*
+**☐ Day 5 — Set up a local signature format to improve per-post performance** *(15-30 min)*
 - Draft the first post using this exact template (carousel, 6 slides):
 Slide 1: AI Workflow Fixes (Burlington/Halton Edition)
 Slide 2: Common problem: “Your Instagram DMs don’t turn into booked calls.”
@@ -286,9 +416,10 @@ Example 1: “Thanks for reaching out—quick question: are you looking to start
 Example 2: “If you share your current offer, I can suggest a simple workflow to speed up follow-up.”
 Slide 6: Where to start: "See examples at botlogix.ca"
 Caption end: "Built for small businesses in Burlington & Halton."
+- _Why this matters:_ A recognizable series helps your account stand out versus generic AI tips, boosting saves/shares and returning visitors.
 - _Done when:_ A complete draft for the first signature-format carousel is ready to publish.
 
-**Day 6 — Improve conversion via link-in-bio A/B test setup** *(15-30 min)*
+**☐ Day 6 — Improve conversion via link-in-bio A/B test setup** *(15-30 min)*
 - Choose your 14-day test setup and prepare the two destinations:
 Variant A destination: https://botlogix.ca (homepage)
 Variant B destination: If you have a dedicated landing page for AI workflows/agents, set Variant B to that exact URL. If you do not have one, write down the URL you will create and use (new page name to create later): "AI Workflows for Small Businesses".
@@ -296,63 +427,73 @@ Also decide your pinned order rule for the test:
 - Pin #1: the best-performing current format you have (carousel or reel).
 - Pin #2: the other guide.
 Do not change anything else yet—just confirm the two destinations you will test and the pinned order you’ll keep constant during the 14 days.
+- _Why this matters:_ Profile conversion is the bottleneck; A/B testing the link destination and keeping pinned posts constant helps you identify what turns interest into clicks.
 - _Done when:_ You’ve selected the exact Variant A URL and Variant B URL (or identified that Variant B requires a specific new page URL you’ll create).
 
-**Day 7 — Publish signature-format post + ensure scannable, local, conversion-ready copy** *(15-30 min)*
+**☐ Day 7 — Publish signature-format post + ensure scannable, local, conversion-ready copy** *(15-30 min)*
 - 1) Publish the carousel drafted on Day 5.
 2) Add the primary location tag consistently (Burlington, ON OR Halton).
 3) In the caption, keep it scannable: short lines, no big blocks.
 4) Include one natural local line near the end: "Serving small businesses in Burlington & Halton.".
 5) End with a non-pushy site line: "See examples at botlogix.ca".
 6) Double-check that your first line (opening sentence) states the outcome/problem in plain language (DMs to booked calls).
+- _Why this matters:_ This combines differentiation (signature series) with local relevance and a low-friction next step, improving saves, shares, and downstream site visits.
 - _Done when:_ The signature-format post is live with clean scannability, local signaling, and a clear site destination.
 
-### The 30-day sprint
+---
+## Days 8–14 — Build Proof & Trust
 
-Zoom out: here's how the month builds, week by week, from foundation to measurable momentum.
+**Theme: Build repeatable content and trust signals.**
 
-**Week 1 — Fix the foundation**
-- Rewrite bio + link path
-- Save 3 highlights
-- Add city/category signals
-- _Output:_ Conversion-ready profile · _Measure:_ Profile visits → follows
+- ☐ Publish 3–4 posts
+- ☐ Use the market's top format once
+- ☐ Add hooks + hashtags every post
 
-**Week 2 — Post with a rhythm**
-- Publish 3–4 posts
-- Use the market's top format once
-- Add hooks + hashtags every post
-- _Output:_ Consistent week of content · _Measure:_ Reach + saves per post
+_Goal:_ Post with a rhythm · _Output:_ Consistent week of content
 
-**Week 3 — Turn attention into action**
-- Add explicit "book" CTA to every post
-- Reply to all comments < 2h
-- Pin a how-to-start post
-- _Output:_ Clear conversion path · _Measure:_ Link taps / DMs
-
-**Week 4 — Measure & prepare review**
-- Screenshot 28-day insights
-- List top 3 + worst 2 posts
-- Note what to stop
-- _Output:_ Review-ready data · _Measure:_ Trend vs week-1 baseline
-
-### How we'll measure success
-
-Vanity metrics lie. These are the checkpoints that actually tell you whether the system is working:
-
-**Day 7** — measure Profile visits, reach, saves, DMs. Good sign: Profile visits trending up. Adjust if: No movement → sharpen hooks + bio.
-**Day 14** — measure Saves/shares per post, follower delta. Good sign: Saves rising on tip posts. Adjust if: Flat saves → change formats.
-**Day 30** — measure All KPIs vs baseline + score re-run. Good sign: Overall score up 5+. Adjust if: Stalled → revisit weakest dimension.
-
-**At day 30, bring back:** 28-day insights screenshots; Top 3 + worst 2 posts; Which fixes you completed.
-**Why monthly:** Instagram shifts weekly; a monthly review turns guessing into a system with fresh data and new actions.
+**Track:** Profile visits · DMs · comments · saves · best-performing format
 
 ---
-## Part 4 — Your Content Toolkit
+## Days 15–21 — Test What Resonates
 
-The point of a plan is that you never stare at a blank screen. These are copy-paste building blocks tuned to your category and market — fill in the brackets and post.
+**Theme: Find what the market responds to.**
 
-### Hook formulas
-*The first line decides whether anyone reads the rest. Start here.*
+- ☐ Add explicit "book" CTA to every post
+- ☐ Reply to all comments < 2h
+- ☐ Pin a how-to-start post
+
+_Goal:_ Turn attention into action · _Output:_ Clear conversion path
+
+**Testing table — fill this in as you post:**
+
+| Post | Format | Hook type | CTA | Result | Keep / improve / stop |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+|  |  |  |  |  |  |
+
+**Track:** Which hook, format, and CTA earned the most response
+
+---
+## Days 22–30 — Turn It Into a System
+
+**Theme: Build next month from what worked.**
+
+- ☐ Screenshot 28-day insights
+- ☐ List top 3 + worst 2 posts
+- ☐ Note what to stop
+
+_Goal:_ Measure & prepare review · _Output:_ Review-ready data
+
+**Track:** Best 3 posts · best hook · best CTA · best topic
+
+---
+## Copy-and-Use Posting Toolkit
+
+Never start from a blank screen. Everything here is tuned to your category and market.
+
+### Hook starters
+*The first line decides whether anyone reads the rest.*
 
 - Burlington businesses: if you’re still doing {manual task} yourself, you’re paying a 'time tax'—here’s the AI workflow to remove it.
 - Most small businesses in Halton are losing sales at {stage of funnel}… not because of ads, but because follow-up is slow. Want the fix?
@@ -363,7 +504,7 @@ The point of a plan is that you never stare at a blank screen. These are copy-pa
 - If you’re a coach/ecom shop in Burlington and you’re posting but not converting, you likely have a {lead-to-sale} gap. Here’s how to close it.
 - The easiest way to save time with AI isn’t 'chatbots'—it’s workflows that trigger at {trigger}.
 
-### Caption formulas
+### Caption frameworks
 Problem → Local context → Simple mechanism → Outcome
 
 Burlington/ Halton small business owners: if follow-up takes hours, leads go cold.
@@ -407,6 +548,12 @@ After: {new: AI drafts replies, workflow routes, follow-up reminders trigger}
 We focus on saving time while improving customer experience—built for small teams.
 See what we do: https://botlogix.ca
 
+### CTA lines
+- Book a free quote
+- Book now — link in bio
+- DM us or tap the link in bio to book.
+- book
+
 ### Hashtag sets
 *Rotate these — a tight, intentional set beats 30 generic tags.*
 
@@ -418,7 +565,7 @@ See what we do: https://botlogix.ca
 - **test:** #aitransformation #automationwins #smartworkflows #leadsystem #followupautomation
 
 ### Copy-ready AI prompts
-*Paste these into your AI tool of choice to draft fast — then edit into your voice.*
+*Paste into your AI tool to draft fast, then edit into your voice.*
 
 **Daily post**
 ```
@@ -450,7 +597,7 @@ Write a Burlington + Marketing agency authority post that builds trust and ends 
 Write a post whose single goal is to get the reader to book — no other ask.
 ```
 
-### Idea bank — 10 hooks to start from
+### 10 hooks to start from
 - The #1 mistake people make with [topic]
 - Before you [action], read this
 - [Number] things nobody tells you about [topic]
@@ -462,34 +609,71 @@ Write a post whose single goal is to get the reader to book — no other ask.
 - [Topic] in 30 seconds
 - What I wish I knew before [event]
 
-### Quick wins
-- _[today]_ Update bio with one benefit + CTA "book".
-- _[today]_ Add city + category to your name field.
-- _[this week]_ Publish one hook-led post and one in the market's top format.
-- _[this week]_ Save 3 Story highlights (Services, Proof, FAQ).
-- _[this week]_ Comment on 5 relevant accounts per day.
-- _[this month]_ Build a 4-post/week rhythm with hashtags every post.
-- _[this month]_ Add a pinned how-to-start/how-to-buy post.
-- _[this month]_ Test one new format and keep the winner.
-- _[in 30 days]_ Screenshot 28-day insights and compare to baseline.
-- _[in 30 days]_ Re-run this audit to measure movement.
+---
+## Your 30-Day Content Calendar
+
+Twelve posts, three a week, mapped to the month's themes. Each slot is ready to fill and ship.
+
+**Week 1 — Fix signals**
+
+| # | Topic | Format | Hook | CTA | Local signal |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Profile relaunch / who you help | Carousel | Burlington businesses: if you’re still doing {manual task} yourself, you’re payi | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 2 | Burlington FAQ | Reel | Most small businesses in Halton are losing sales at {stage of funnel}… not becau | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 3 | Common mistake + fix | Image | I watched {specific scenario common to ecom/service businesses}—and it takes {ti | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+
+**Week 2 — Build trust**
+
+| # | Topic | Format | Hook | CTA | Local signal |
+| --- | --- | --- | --- | --- | --- |
+| 4 | Proof / case study | Carousel | Stop guessing your next follow-up message. This AI agent can generate {message t | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 5 | Behind the scenes | Reel | Your Instagram DMs are a goldmine—if you can respond fast. Here’s a simple AI sy | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 6 | Myth vs truth | Image | Before you hire another VA, try this: automate {inbox/replies/lead capture} with | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+
+**Week 3 — Test engagement**
+
+| # | Topic | Format | Hook | CTA | Local signal |
+| --- | --- | --- | --- | --- | --- |
+| 7 | Question / poll post | Carousel | If you’re a coach/ecom shop in Burlington and you’re posting but not converting, | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 8 | Objection reframe | Reel | The easiest way to save time with AI isn’t 'chatbots'—it’s workflows that trigge | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 9 | Quick how-to | Image | The #1 mistake people make with [topic] | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+
+**Week 4 — Repeat winners**
+
+| # | Topic | Format | Hook | CTA | Local signal |
+| --- | --- | --- | --- | --- | --- |
+| 10 | Best post, new angle | Carousel | Before you [action], read this | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 11 | Customer win | Reel | [Number] things nobody tells you about [topic] | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
+| 12 | Plan-ahead / save-this | Image | Save this for your next [event] | Book a free quote | Burlington location tag + #burlingtonontario #haltonregion #haltonhills |
 
 ---
-## What This Unlocks
+## Your Next Checkpoint
 
-Thirty days of this isn't about a magic spike — it's about compounding. Close the local visibility gap, hold the cadence, and ship one signature format consistently, and three things change at once: Instagram starts showing you to the right local people, visitors who land on your profile understand the offer in seconds, and the ones who are ready get an obvious next step.
+Re-measure on **June 27, 2026**. Growth on Instagram isn't one big leap — it's a monthly loop of act → measure → adjust. This is loop one.
 
-That's the system. It keeps paying off after the 30 days, because every post now reinforces a clear position instead of starting from scratch.
+**What to measure in 30 days:**
+- Score movement (re-run this report)
+- Follower growth
+- Profile visits
+- Website / link clicks
+- DMs
+- Post saves & comments
+- Best format · best hook · best CTA
 
-**Then we measure.** Re-run this analysis on **June 27, 2026** to see exactly what moved — and to set the next month's focus from fresh data. Growth on Instagram isn't one big leap; it's a monthly loop of *act → measure → adjust*. This is loop one.
+**What success looks like in 30 days:**
+- Your profile clearly says who you help and where (Burlington)
+- Every post carries a local signal
+- Every post has a clear next step
+- You have 8–12 new content assets
+- You know which format earned the most response
+- You have a sharper plan for the next 30 days
 
 ---
-## Appendix — How this was built
+## Appendix — How This Was Built
 
-This plan was generated from a live analysis of @botlogix, 472 posts across the Marketing agency category, and 6 vetted, English-language competitor accounts discovered and scored for relevance and engagement success.
+Generated from a live analysis of @botlogix, 472 posts across the Marketing agency category, and 6 vetted, English-language competitor accounts scored for relevance and engagement.
 
-- **Overall confidence:** 85/100
-- **Model:** openai/gpt-5.4-nano · **Method version:** instagram-intelligence-v1.1.0
-- **Validation:** passed (0 blocking, 2 warnings)
+- **Overall confidence:** 85/100 · **Validation:** passed (0 blocking, 2 warnings)
+- **Method version:** instagram-intelligence-v1.1.0
 
-_Full competitor discovery detail, evidence index, and per-section confidence are available in the technical report (gold-master.md)._
+_Full discovery detail, evidence index, and per-section confidence live in the technical report (gold-master.md)._

@@ -50,8 +50,12 @@ header.cover .logo-chip{display:inline-block;background:#fff;padding:10px 16px;b
 header.cover .logo-chip img{height:30px;display:block}
 header.cover .kicker{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#7fd3e0;font-weight:600;margin-bottom:8px}
 header.cover h1{font-family:var(--serif);font-size:40px;line-height:1.08;margin:0 0 12px;color:#fff;font-weight:600}
-header.cover .tagline{font-size:15px;color:#cfe0ee;margin:0 0 18px;max-width:560px;line-height:1.5}
+header.cover .tagline{font-size:15px;color:#cfe0ee;margin:0 0 22px;max-width:560px;line-height:1.5}
 header.cover .meta{font-size:13px;color:#9fb3c8}
+header.cover .hero{display:flex;align-items:baseline;gap:14px;margin:0 0 18px}
+header.cover .hero .score{font-family:var(--serif);font-size:64px;font-weight:600;color:#fff;line-height:1}
+header.cover .hero .of{font-size:20px;color:#7fd3e0}
+header.cover .hero .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9fb3c8}
 main{padding:8px 56px 56px}
 h2{font-family:var(--serif);font-size:26px;font-weight:600;margin:44px 0 4px;padding-top:26px;border-top:2px solid var(--accent);color:var(--text)}
 h2:first-of-type{border-top:none;padding-top:0;margin-top:24px}
@@ -83,9 +87,10 @@ h4 + p em{display:inline-block;font-style:normal;font-size:11px;letter-spacing:.
 @media print{
   body{background:#fff}
   .page{box-shadow:none;max-width:none}
-  h2{break-after:avoid}
-  h4,blockquote,pre,table{break-inside:avoid}
-  header.cover{padding:40px}
+  main h2{break-before:page;break-after:avoid}
+  main h2:first-of-type{break-before:auto}
+  h3,h4,blockquote,pre,table,li{break-inside:avoid}
+  header.cover{padding:40px;break-after:page}
 }
 `;
 
@@ -102,6 +107,7 @@ export function renderDeliverableHtml(gm: GoldMasterIntelligence): string {
   const reportBody = firstHr >= 0 ? body.slice(firstHr + 4) : body;
   const logo = logoDataUri();
   const date = new Date(m.generatedAt).toISOString().slice(0, 10);
+  const overall = gm.scores.find((s) => /overall/i.test(s.dimension))?.score ?? gm.scores[0]?.score ?? 0;
 
   return `<!doctype html>
 <html lang="en">
@@ -116,9 +122,10 @@ export function renderDeliverableHtml(gm: GoldMasterIntelligence): string {
 <header class="cover">
 ${logo ? `<span class="logo-chip"><img src="${logo}" alt="BotLogix"></span>` : `<div class="kicker">BotLogix</div>`}
 <div class="kicker">Instagram Growth Plan</div>
-<h1>@${m.handle}</h1>
-<p class="tagline">A 30-day strategy to turn your Instagram into a discovery and lead channel — built from your own account, your market, and the accounts already winning in your space.</p>
-<div class="meta">${m.account} · ${m.normalizedCategory} · ${m.marketLabel || m.city}<br>Prepared by BotLogix · ${date} · Review on ${m.reviewDate}</div>
+<h1>Instagram Growth Intelligence Report</h1>
+<p class="tagline">A 30-day action plan to improve visibility, trust, content, and local lead flow — built from your own account, your market, and the accounts already winning in your space.</p>
+<div class="hero"><span class="score">${overall}</span><span class="of">/100</span><span class="label">Power level today<br>Your next 30 days are mapped inside</span></div>
+<div class="meta">@${m.handle} · ${m.account} · ${m.normalizedCategory} · ${m.marketLabel || m.city}<br>Prepared by BotLogix · ${date} · Review on ${m.reviewDate}</div>
 </header>
 <main>
 ${reportBody}

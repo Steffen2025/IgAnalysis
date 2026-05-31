@@ -1,14 +1,14 @@
 /**
- * Client-facing deliverable renderer — "Instagram Growth Plan".
+ * Client-facing deliverable — "Instagram Growth Intelligence Report".
  *
- * Consumes the same GoldMasterIntelligence object as goldMasterMarkdown.ts, but
- * arranges it as an advisory document a business owner wants to read: lead with
- * the answer, then a strategic narrative (Big Picture → Stand → Market → Plan →
- * Toolkit → What This Unlocks), with diagnostic internals kept to a short
- * methodology appendix. See docs/report-blueprint.md.
+ * A premium 20-section field guide (not an audit dump). Built from the same
+ * GoldMasterIntelligence object, arranged so a business owner walks away
+ * thinking "I understand my Instagram, I know what to fix, what to post, and
+ * what to track." Every number is taught: what it means, good or bad, why it
+ * matters, what to do, how to know it improved. See docs/report-blueprint.md.
  *
- * The strategy is synthesised deterministically from the data — no hype, no
- * invented numbers. Voice: practical, direct, human, encouraging.
+ * Voice: practical, direct, human, encouraging. No hype, minimal emojis.
+ * All strategy is synthesised deterministically — no invented numbers.
  */
 
 import type {
@@ -18,305 +18,397 @@ import type {
   MetricComparison,
 } from "./goldMasterSchema.js";
 
-function bar(score: number): string {
-  const filled = Math.max(0, Math.min(10, Math.round(score / 10)));
-  return `${"█".repeat(filled)}${"░".repeat(10 - filled)} ${score}/100`;
-}
-
 function num(n: number | null | undefined): string {
   return n == null ? "—" : n.toLocaleString("en-US");
 }
-
-/** Parse the leading number out of a "0.2" / "669 chars" / "image" cell. */
 function leadNum(s: string | undefined): number | null {
   if (!s) return null;
   const m = s.match(/-?\d+(\.\d+)?/);
   return m ? Number(m[0]) : null;
 }
-
 function findRow(rows: MetricComparison[], re: RegExp): MetricComparison | undefined {
   return rows.find((r) => re.test(r.metric));
 }
-
-/** Honest, non-hype read of the overall score. */
+function bar(score: number): string {
+  const filled = Math.max(0, Math.min(10, Math.round(score / 10)));
+  return `${"█".repeat(filled)}${"░".repeat(10 - filled)} ${score}/100`;
+}
+function scoreLabel(s: number): string {
+  if (s >= 80) return "Strong asset";
+  if (s >= 60) return "Usable — needs refinement";
+  if (s >= 40) return "Underperforming";
+  return "Fix first";
+}
 function verdict(score: number): string {
   if (score >= 80) return "Strong. The work now is sharpening the edges, not fixing fundamentals.";
   if (score >= 60) return "Solid foundation. A focused month of consistency moves you into competitive territory.";
-  if (score >= 40) return "The basics are in place but under-used — most of the upside is still on the table.";
+  if (score >= 40) return "Your account is not broken — it is under-signalled. Most of the upside is still on the table.";
   return "Early days. The fundamentals need attention, which means the gains from this plan are large.";
 }
-
-function dims(scores: ScoreDiagnosis[]): { overall: ScoreDiagnosis | null; rest: ScoreDiagnosis[] } {
+function dims(scores: ScoreDiagnosis[]) {
   const overall = scores.find((s) => /overall/i.test(s.dimension)) ?? null;
   const rest = scores.filter((s) => s !== overall);
   return { overall, rest };
 }
-
-/** A clean, human "why this account is here" line — no internal scores. */
-function whyHere(c: CompetitorCard, category: string, market: string): string {
-  if (c.whySelected.startsWith("Adjacent industry")) return c.whySelected;
-  if (c.type === "reference") {
-    return `An aspirational ${category} account (${num(c.followers)} followers) — big enough to learn from, reachable enough to catch. Activity: ${c.activityStatus}.`;
-  }
-  return `A local peer in ${market} (${num(c.followers)} followers) — a direct read on what works in your own market. Activity: ${c.activityStatus}.`;
-}
-
-function competitorBlock(c: CompetitorCard, category: string, market: string): string {
-  const label = c.whySelected.startsWith("Adjacent industry")
-    ? "Adjacent industry"
-    : c.type === "reference" ? "Reference model" : "Local peer";
-  const lines = [
-    `#### @${c.handle} — ${c.displayName}`,
-    `*${label}*`,
-    "",
-    `- **Why it's here:** ${whyHere(c, category, market)}`,
-  ];
-  if (c.latestPostHook) lines.push(`- **A recent post:** "${c.latestPostHook.slice(0, 110).trim()}"`);
-  lines.push(`- **Borrow:** ${c.borrow}`);
-  lines.push(`- **Avoid:** ${c.avoid}`);
-  return lines.join("\n");
+function find(scores: ScoreDiagnosis[], re: RegExp): ScoreDiagnosis | undefined {
+  return scores.find((s) => re.test(s.dimension));
 }
 
 export function renderDeliverable(gm: GoldMasterIntelligence): string {
   const m = gm.meta;
-  const category = m.normalizedCategory;
+  const cat = m.normalizedCategory;
   const market = m.marketLabel || m.city || "your market";
+  const city = m.city || market;
   const { overall, rest } = dims(gm.scores);
   const overallScore = overall?.score ?? gm.scores[0]?.score ?? 0;
   const weakest = [...rest].sort((a, b) => a.score - b.score)[0];
   const strongest = [...rest].sort((a, b) => b.score - a.score)[0];
   const topFix = gm.fixes[0];
+  const cta = gm.category.ctaOptions[0] ?? "book";
   const out: string[] = [];
   const p = (s = "") => out.push(s);
 
   // ── COVER ──
-  p(`# Instagram Growth Plan — @${m.handle}`);
+  p(`# Instagram Growth Intelligence Report`);
   p();
-  p(`**${m.account}** · ${category} · ${market}`);
-  p(`Prepared by BotLogix · ${new Date(m.generatedAt).toISOString().slice(0, 10)} · Review on ${m.reviewDate}`);
+  p(`### A 30-Day Action Plan to Improve Visibility, Trust, Content, and Local Lead Flow`);
   p();
-  p("> A 30-day plan to turn your Instagram into a discovery and lead channel — built from your own account, your market, and the accounts already winning in your space.");
+  p(`**${m.account}** · @${m.handle} · ${cat} · ${market}`);
+  p(`Power level today: **${overallScore}/100** · ${num(gm.account.followerCount)} followers · ${num(gm.account.postCount)} posts`);
+  p(`Prepared by BotLogix · ${new Date(m.generatedAt).toISOString().slice(0, 10)}`);
+  p();
+  p("> **Your next 30 days are mapped inside.** You do not need to become an Instagram expert — you need to know which moves matter, why they matter, and what to do this week.");
   p();
   p("---");
 
-  // ── EXECUTIVE SUMMARY ──
-  p("## Executive Summary");
+  // ── 1. HOW TO USE THIS GUIDE ──
+  p("## How to Use This Guide");
   p();
-  p(`**Where you stand:** ${overallScore}/100. ${verdict(overallScore)}`);
+  p("This is a field guide, not a one-time report. Keep it open beside you while you work.");
   p();
-  p(`**Your biggest opportunity:** ${topFix?.title ?? "Tighten profile + cadence for local discovery."}`);
+  p("**The three steps, in order:**");
+  p("1. **Fix the profile first** — it's the front door; everything else sends people to it.");
+  p("2. **Publish the next 7 days** — momentum beats perfection.");
+  p("3. **Repeat what earns saves, replies, comments, and profile visits** — let the data pick your winners.");
   p();
-  p("**Your first three moves this week:**");
-  gm.fixes.slice(0, 3).forEach((f, i) => p(`${i + 1}. **${f.title}** — ${f.expectedLift}, ~${f.timeRequired}.`));
+  p("> **Do not try to do everything.** Start with the highest-leverage moves. This guide ranks every recommendation by **impact, difficulty, speed, and business value** so you always know what to touch next.");
   p();
-  if (weakest && strongest) {
-    p(`**The headline:** your strongest area is **${strongest.dimension.toLowerCase()}** (${strongest.score}/100); the fastest win is **${weakest.dimension.toLowerCase()}** (${weakest.score}/100). This plan spends most of its energy there.`);
+  p("---");
+
+  // ── 2. THE SHORT VERSION ──
+  p("## The Short Version");
+  p();
+  p(`**${verdict(overallScore)}**`);
+  p();
+  p("| | |");
+  p("| --- | --- |");
+  p(`| **Biggest opportunity** | ${topFix?.title ?? "Local discovery"} |`);
+  p(`| **Biggest weakness** | ${weakest ? `${weakest.dimension} (${weakest.score}/100) — ${weakest.whatWeSaw}` : "—"} |`);
+  p(`| **Fastest win** | ${gm.fixes.find((f) => f.effort === "low")?.title ?? topFix?.title ?? "Tighten bio, location tags, local hashtags"} |`);
+  p(`| **30-day target** | More findable, a clearer profile, more useful content, and an obvious next step for buyers |`);
+  p();
+  p("This is the whole plan in one glance. The rest of the guide proves it and shows you exactly how.");
+  p();
+  p("---");
+
+  // ── 3. WHERE YOU STAND TODAY (scoreboard) ──
+  p("## Where You Stand Today");
+  p();
+  p("Your full diagnostic picture. These are decision tools, not vanity numbers — each one tells you whether to leave it alone or fix it now.");
+  p();
+  p("| Band | Meaning |");
+  p("| --- | --- |");
+  p("| 80–100 | Strong asset — protect it |");
+  p("| 60–79 | Usable — needs refinement |");
+  p("| 40–59 | Underperforming — improve soon |");
+  p("| 0–39 | Fix first — biggest leverage |");
+  p();
+  if (overall) p(`**Overall** \`${bar(overall.score)}\` — *${scoreLabel(overall.score)}*`);
+  p();
+  for (const s of rest) {
+    p(`**${s.dimension}** \`${bar(s.score)}\` — *${scoreLabel(s.score)}*`);
+    p(`- _What it means:_ ${s.whatWeSaw}`);
+    p(`- _Why it matters:_ ${s.whyItMatters}`);
+    p(`- _Changes it fastest:_ ${s.nextMove}`);
     p();
   }
   p("---");
 
-  // ── THE BIG PICTURE (strategic synthesis) ──
-  p("## The Big Picture");
+  // ── 4. WHAT THE NUMBERS MEAN ──
+  p("## What the Numbers Mean");
   p();
-  p(`Let's be straight about where @${m.handle} is and where it can go. You're a ${category.toLowerCase()} in ${market} with ${num(gm.account.followerCount)} followers and a real offer — the bones are here. What's missing isn't effort or talent; it's a **repeatable system** that tells Instagram who you are, who you serve, and why someone should act.`);
+  p("A quick lesson in reading your own account. Five indicators decide whether Instagram shows you — and whether buyers act.");
   p();
-  // Cadence reality from the market comparison.
-  const ppwRow = findRow(gm.marketComparison.rows, /week/i);
-  const clientPpw = leadNum(ppwRow?.client);
-  const marketPpw = leadNum(ppwRow?.market);
-  if (clientPpw != null && marketPpw != null && marketPpw > 0) {
-    const ratio = clientPpw > 0 ? Math.round(marketPpw / clientPpw) : null;
-    p(`The single clearest signal in the data: **cadence**. You post about ${clientPpw}×/week; the accounts winning in your category post around ${marketPpw}×/week${ratio && ratio >= 2 ? ` — roughly ${ratio}× more often` : ""}. Instagram rewards consistency, and right now that's the cheapest, highest-leverage lever you have. You don't need to post more *kinds* of things — you need a rhythm you can actually keep.`);
-    p();
-  }
-  if (weakest) {
-    p(`**The 30-day bet:** fix **${weakest.dimension.toLowerCase()}** first (today it scores ${weakest.score}/100), because it's the gap throttling everything downstream. ${topFix ? `That starts with one move — *${topFix.title.toLowerCase()}* — and the rest of this plan compounds off it.` : ""} We're not chasing virality. We're building a profile that converts, a cadence the algorithm trusts, and a signature format that makes you recognisable.`);
-    p();
-  }
-  p(`Everything below is sequenced so each step makes the next one easier. Read it once end-to-end, then work Part 3 day by day.`);
-  p();
-  p("---");
-
-  // ── PART 1 — WHERE YOU STAND ──
-  p("## Part 1 — Where You Stand Today");
-  p();
-  p("A clear, honest read on your account as it is right now — the numbers, and what's quietly holding it back. No fluff: this is the baseline we'll measure against in 30 days.");
-  p();
-  p("### Your scorecard");
-  p();
-  if (overall) p(`- **Overall** \`${bar(overall.score)}\``);
-  for (const s of rest) p(`- **${s.dimension}** \`${bar(s.score)}\``);
-  p();
-  if (weakest) p(`> **Fix first:** ${weakest.dimension} (${weakest.score}/100) — ${weakest.nextMove} This is where the plan focuses.`);
-  if (strongest) p(`>\n> **Lean on:** ${strongest.dimension} (${strongest.score}/100) is already your strength — use it as the foundation, don't neglect it.`);
-  p();
-  p("### Profile snapshot");
-  p();
-  p(`- **Display name:** ${gm.account.displayName}`);
-  p(`- **Bio:** ${gm.account.bio ?? "—"}`);
-  p(`- **Link:** ${gm.account.website ?? "—"}`);
-  const ppw = gm.account.postsPerWeek == null ? "—" : Math.round(gm.account.postsPerWeek * 10) / 10;
-  p(`- **Followers:** ${num(gm.account.followerCount)} · **Posts:** ${num(gm.account.postCount)} · **Posts/week:** ${ppw}`);
-  p(`- **CTA status:** ${gm.account.ctaStatus} · **Local signal:** ${gm.account.localSignalStatus}`);
-  p();
-  if (gm.account.profileGaps.length) {
-    p("### What's holding you back");
-    p();
-    p("These are small, fixable things — but each one quietly costs you reach or conversions every single day:");
-    p();
-    for (const g of gm.account.profileGaps) p(`- ${g}`);
+  const indicators: Array<{ d?: ScoreDiagnosis; igCares: string; buyersCare: string }> = [
+    { d: find(gm.scores, /local/i), igCares: "Instagram needs clear category + location signals to know who to show you to.", buyersCare: "Buyers search and browse locally — if you're invisible there, you're invisible to them." },
+    { d: find(gm.scores, /profile|conversion/i), igCares: "A clear profile keeps people on your page, which tells Instagram you're worth surfacing.", buyersCare: "A visitor decides in seconds whether to follow or leave." },
+    { d: find(gm.scores, /content/i), igCares: "Saves and shares drive reach far more than likes.", buyersCare: "Useful content is what earns the follow and the eventual enquiry." },
+    { d: find(gm.scores, /sales|readiness/i), igCares: "Profiles with an obvious next step convert attention the algorithm sends you.", buyersCare: "Attention is wasted without an obvious way to take the next step." },
+    { d: find(gm.scores, /competitor/i), igCares: "Active, differentiated accounts get rewarded over copycats.", buyersCare: "You're judged against the accounts buyers already follow." },
+  ];
+  for (const i of indicators) {
+    if (!i.d) continue;
+    p(`### ${i.d.dimension} — ${i.d.score}/100 (${scoreLabel(i.d.score)})`);
+    p(`- **What we measured:** ${i.d.whatWeSaw}`);
+    p(`- **What your number means:** ${i.d.score >= 60 ? "A working asset you can build on." : i.d.score >= 40 ? "Underperforming — real upside if you act." : "The biggest constraint on your growth right now."}`);
+    p(`- **Why Instagram cares:** ${i.igCares}`);
+    p(`- **Why buyers care:** ${i.buyersCare}`);
+    p(`- **What to do next:** ${i.d.nextMove}`);
     p();
   }
   p("---");
 
-  // ── PART 2 — WHAT'S WORKING IN YOUR MARKET ──
-  p("## Part 2 — What's Working In Your Market");
+  // ── 5. THE GROWTH DIAGNOSIS ──
+  p("## The Growth Diagnosis");
   p();
-  p(`This is the part most audits skip. We studied **${num(gm.marketPatterns.postsStudied)} real posts** across your category and pulled the accounts already succeeding in it — so your plan is built on what the market actually rewards, not generic best-practice.`);
+  p("**You do not have one Instagram problem. You have a sequence problem.** People have to move through five stages — and you're only as strong as your weakest one.");
   p();
-  p("### How you compare");
+  const funnel: Array<{ stage: string; q: string; d?: ScoreDiagnosis }> = [
+    { stage: "1. Get found", q: "Can the right local people discover you?", d: find(gm.scores, /local/i) },
+    { stage: "2. Make sense fast", q: "Does your profile explain who you help in seconds?", d: find(gm.scores, /profile|conversion/i) },
+    { stage: "3. Be worth following", q: "Is your content useful enough to save and follow?", d: find(gm.scores, /content/i) },
+    { stage: "4. Stand out", q: "Do you look different from every other account in your space?", d: find(gm.scores, /competitor/i) },
+    { stage: "5. Drive action", q: "Is there an obvious next step for someone ready to buy?", d: find(gm.scores, /sales|readiness/i) },
+  ];
+  p("| Stage | The question | Your score | Status |");
+  p("| --- | --- | --- | --- |");
+  for (const f of funnel) {
+    const sc = f.d?.score;
+    p(`| ${f.stage} | ${f.q} | ${sc == null ? "—" : `${sc}/100`} | ${sc == null ? "—" : scoreLabel(sc)} |`);
+  }
   p();
-  p("| Metric | You | Market average |");
-  p("| --- | --- | --- |");
-  for (const r of gm.marketComparison.rows) p(`| ${r.metric} | ${r.client} | ${r.market} |`);
+  if (weakest) p(`**The break in your chain is "${funnel.find((f) => f.d === weakest)?.stage.replace(/^\d+\.\s*/, "") ?? weakest.dimension}".** Traffic leaks out there first, so that's where this plan starts. Fix the earliest weak stage and every stage after it gets easier.`);
+  p();
+  p("---");
+
+  // ── 6. WHAT YOUR COMPETITORS ARE TEACHING US (board) ──
+  p("## What Your Competitors Are Teaching Us");
+  p();
+  p(`We studied **${num(gm.marketPatterns.postsStudied)} real posts** and pulled the accounts already winning in your space. The point isn't to copy them — it's to see what the market is already rewarding.`);
+  p();
+  if (gm.competitors.length) {
+    p("| Account | Type | Followers | Format | Best thing to learn |");
+    p("| --- | --- | --- | --- | --- |");
+    for (const c of gm.competitors) {
+      const label = c.whySelected.startsWith("Adjacent industry") ? "Adjacent" : c.type === "reference" ? "Reference" : "Local";
+      const learn = c.borrow.replace(/\s*—.*$/, "").replace(/\.$/, "");
+      p(`| @${c.handle} | ${label} | ${num(c.followers)} | ${c.latestPostType ?? "—"} | ${learn} |`);
+    }
+    p();
+    p("> **Do not copy their creative or captions word-for-word.** Borrow the *structure* — the format, the hook style, the cadence — and rebuild it in your own voice.");
+  } else {
+    p("_No competitor accounts cleared the relevance bar for this niche — see the Market patterns below for the category-level read._");
+  }
+  p();
+  p("---");
+
+  // ── 7. COMPETITOR LESSONS ──
+  p("## Five Lessons From the Market");
+  p();
+  p("Translating the data into moves you can make this week.");
+  p();
+  const topFmt = gm.marketPatterns.topFormats[0]?.label ?? "reel";
+  const topHook = gm.marketPatterns.hookDistribution[0]?.label ?? "description";
+  const topEl = gm.marketPatterns.contentElementDistribution[0]?.label ?? "customer focus";
+  const lessons = [
+    { l: `The market leads with **${topFmt}** content`, why: `${topFmt} earns the most reach in your category right now.`, adapt: `Make ${topFmt} your default format — at least one per week.`, post: `A ${topFmt} walking through one common question your buyers ask.` },
+    { l: `Winning posts open with a **${topHook}** hook`, why: `${topHook} openers stop the scroll and set up the payoff.`, adapt: `Write your first line as a ${topHook}, then deliver one concrete takeaway.`, post: `"${topHook === "question" ? `The one question every ${city} buyer should ask before choosing a ${cat.toLowerCase()}` : `Here's what most ${city} buyers get wrong about ${cat.toLowerCase()}`}"` },
+    { l: `Top accounts emphasize **${topEl}**`, why: `Content that centres the customer (not the brand) gets saved and shared.`, adapt: `Frame posts around the buyer's problem, not your services.`, post: `A before/after or a "mistake I keep seeing" post about your customers' situation.` },
+    { l: `Consistency beats intensity`, why: `The accounts ahead of you simply post on a steady rhythm.`, adapt: `Pick a cadence you can keep for 30 days and hold it.`, post: `Batch three posts this weekend so next week is already done.` },
+    { l: `Every post points somewhere`, why: `Reach without a next step doesn't convert.`, adapt: `End every caption with one clear action: "${cta}".`, post: `A post whose only job is to get the reader to ${cta.toLowerCase()}.` },
+  ];
+  lessons.forEach((x, i) => {
+    p(`**${i + 1}. ${x.l}**`);
+    p(`- _Why it works:_ ${x.why}`);
+    p(`- _How to adapt it:_ ${x.adapt}`);
+    p(`- _First post idea:_ ${x.post}`);
+    p();
+  });
+  p("---");
+
+  // ── 8. WHAT THE MARKET IS REWARDING (pattern snapshot) ──
+  p("## What the Market Is Rewarding");
+  p();
+  p(`How you stack up against ${num(gm.marketPatterns.postsStudied)} posts in your category — with the action for each gap.`);
+  p();
+  p("| Metric | You | Market | What to do |");
+  p("| --- | --- | --- | --- |");
+  const advice = (metric: string, c: number | null, mk: number | null): string => {
+    if (c == null || mk == null) return "Match the market's working pattern.";
+    if (/week/i.test(metric)) return c < mk ? "Raise cadence to a rhythm you can keep." : "Hold your rhythm; focus on quality.";
+    if (/caption/i.test(metric)) return c > mk * 1.3 ? "Tighten the first line; move detail lower." : "Keep captions useful and scannable.";
+    if (/hashtag/i.test(metric)) return c > mk * 1.4 ? "Fewer, more intentional tags (local + intent + authority)." : "Keep a tight, intentional set.";
+    return "Match the market's working pattern.";
+  };
+  for (const r of gm.marketComparison.rows) {
+    p(`| ${r.metric} | ${r.client} | ${r.market} | ${advice(r.metric, leadNum(r.client), leadNum(r.market))} |`);
+  }
   p();
   p(`**Read:** ${gm.marketComparison.interpretation}`);
   p();
-  // Strategic synthesis of the gaps.
-  const capRow = findRow(gm.marketComparison.rows, /caption/i);
-  const tagRow = findRow(gm.marketComparison.rows, /hashtag/i);
-  const fmtRow = findRow(gm.marketComparison.rows, /format/i);
-  const insights: string[] = [];
-  const cCap = leadNum(capRow?.client); const mCap = leadNum(capRow?.market);
-  if (cCap != null && mCap != null && cCap > mCap * 1.3) insights.push(`Your captions run **${cCap} characters** vs the market's ${mCap} — you're over-writing. Lead with the hook in line one; move detail lower or cut it.`);
-  const cTag = leadNum(tagRow?.client); const mTag = leadNum(tagRow?.market);
-  if (cTag != null && mTag != null && cTag > mTag * 1.4) insights.push(`You use **${cTag} hashtags/post** against a market norm of ${mTag}. More isn't better — a tight, intentional set (local + category) reads as confident, not spammy.`);
-  if (fmtRow && fmtRow.client && fmtRow.market && fmtRow.client.toLowerCase() !== fmtRow.market.toLowerCase()) insights.push(`The market wins with **${fmtRow.market}**; you lean on **${fmtRow.client}**. Shift weight toward ${fmtRow.market} — it's what earns reach in your space right now.`);
-  if (insights.length) {
-    p("**What this means for you:**");
-    for (const i of insights) p(`- ${i}`);
-    p();
-  }
-  if (gm.competitors.length) {
-    p("### Accounts worth studying");
-    p();
-    const refs = gm.competitors.filter((c) => c.type === "reference");
-    const locals = gm.competitors.filter((c) => c.type === "local");
-    p(`We surfaced **${gm.competitors.length} relevant accounts** — ${refs.length} aspirational reference models and ${locals.length} local peers. Don't copy them; reverse-engineer *why* their posts work and rebuild that in your own voice. The borrow/avoid lines tell you exactly how.`);
-    p();
-    if (refs.length) {
-      p("**Reference models — aspirational accounts in your space:**");
-      p();
-      for (const c of refs) { p(competitorBlock(c, category, market)); p(); }
-    }
-    if (locals.length) {
-      p("**Local peers — your own market:**");
-      p();
-      for (const c of locals) { p(competitorBlock(c, category, market)); p(); }
-    }
-  }
-  p("### The patterns that win in your category");
+  p(`**Proven pattern in your category:** ${topFmt}-first content, opening with a ${topHook} hook, centred on ${topEl}. Make that your default and you're aligned with what already works.`);
   p();
-  const fmtDist = (d: { label: string; pct: number }[]) => d.slice(0, 5).map((x) => `${x.label} ${x.pct}%`).join(" · ");
-  p(`From ${num(gm.marketPatterns.postsStudied)} posts studied:`);
+  p("---");
+
+  // ── 9. CONTENT PATTERN RECIPES ──
+  p("## Content Pattern Recipes");
   p();
-  p(`- **Top formats:** ${fmtDist(gm.marketPatterns.topFormats) || "—"}`);
-  p(`- **Hook styles:** ${fmtDist(gm.marketPatterns.hookDistribution) || "—"}`);
-  p(`- **What posts emphasize:** ${fmtDist(gm.marketPatterns.contentElementDistribution) || "—"}`);
+  p("Four formulas to keep beside you when you post. Fill in the brackets and publish.");
   p();
-  const topFmt = gm.marketPatterns.topFormats[0]?.label;
-  const topHook = gm.marketPatterns.hookDistribution[0]?.label;
-  if (topFmt && topHook) p(`**The takeaway:** in your category, ${topFmt}-first content opening with a ${topHook} hook is the proven pattern. Make that your default and you're already aligned with what the algorithm and your audience reward.`);
-  p();
-  // Local & adjacent opportunities (only when there's real signal).
-  const ls = gm.localSignal;
-  const hasLocal = ls.spotlightedAccounts.length || ls.localWording.length || ls.complementaryTerms.length || ls.successStories.length;
-  if (hasLocal) {
-    p("### Local & adjacent opportunities");
-    p();
-    p("Discovery in a local market is a different game from going viral. These are the levers that put you in front of the *right* nearby people:");
-    p();
-    if (ls.successStories.length) {
-      p("**Local accounts doing well (study these closely):**");
-      for (const s of ls.successStories) p(`- @${s.handle} (${num(s.followers)} followers) — ${s.whatTheyDoWell}`);
-      p();
-    }
-    if (ls.spotlightedAccounts.length) p(`- **Accounts local businesses tag/spotlight:** ${ls.spotlightedAccounts.map((h) => `@${h}`).join(", ")} — engaging and being tagged by these builds local reach.`);
-    if (ls.localWording.length) p(`- **Language that resonates locally:** ${ls.localWording.slice(0, 12).join(", ")} — weave these naturally into captions.`);
-    if (ls.complementaryTerms.length) p(`- **Adjacent industries reaching the same audience:** ${ls.complementaryTerms.slice(0, 8).join(", ")} — borrow their formats and collaborate, don't compete.`);
+  const recipes = [
+    { name: "Educational proof post", when: "When you want to build authority.", open: `"Here's what I'd check first if you're choosing a ${cat.toLowerCase()} in ${city}."`, structure: "Hook → 3 quick points → one concrete takeaway → CTA.", idea: `A short teach on the #1 thing buyers overlook.` },
+    { name: "Local FAQ post", when: "When you want local discovery.", open: `"${city} buyers ask me this all the time…"`, structure: "Question → plain-English answer → local proof → CTA.", idea: `Answer the single most common question you get, tagged to ${city}.` },
+    { name: "Customer objection post", when: "When you want replies and DMs.", open: `"‘It's too expensive / too early / not for me’ — let's talk about that."`, structure: "Objection → why it's understandable → the reframe → CTA.", idea: `Turn your most common objection into a first-line hook.` },
+    { name: "Proof / case-study post", when: "When you want trust.", open: `"Here's what changed for a ${city} client in 30 days."`, structure: "Before → what you did → result → CTA.", idea: `One real result (anonymised if needed) told as a mini story.` },
+  ];
+  for (const r of recipes) {
+    p(`### ${r.name}`);
+    p(`- **When to use it:** ${r.when}`);
+    p(`- **Opening line:** ${r.open}`);
+    p(`- **Structure:** ${r.structure}`);
+    p(`- **CTA:** ${cta}`);
+    p(`- **Example idea:** ${r.idea}`);
     p();
   }
   p("---");
 
-  // ── PART 3 — YOUR 30-DAY PLAN ──
-  p("## Part 3 — Your 30-Day Plan");
+  // ── 10. THE LOCAL VISIBILITY PLAN ──
+  p("## The Local Visibility Plan");
   p();
-  p(`Everything above points here. The logic is simple: ${weakest ? `fix **${weakest.dimension.toLowerCase()}** first, ` : ""}build a cadence you can keep, and turn attention into action with a clear next step. Five moves, a day-by-day first week, a four-week sprint, and exactly how we'll know it worked.`);
+  p(`> **Local growth is not one trick. It is repeated context.** ${city} should appear naturally everywhere a buyer or the algorithm looks.`);
   p();
-  p("### The five moves that matter most");
+  p("**Profile signals**");
+  p(`- Put "${cat}" + ${city} in your name field and the first line of your bio.`);
+  p(`- Make your link point to the single highest-value next step.`);
+  p("**Post signals**");
+  p(`- Add a ${city} location tag to every post.`);
+  p(`- Drop one natural local line in each caption ("Serving ${city} & nearby").`);
+  p("**Search signals**");
+  if (gm.hashtags.find((h) => h.group === "local")) p(`- Lead with your local hashtag set: ${gm.hashtags.find((h) => h.group === "local")!.tags.slice(0, 6).map((t) => `#${t.replace(/^#/, "")}`).join(" ")}`);
+  else p(`- Build a local hashtag set (city + region + neighbourhood) and use it every post.`);
+  p("**Community signals**");
+  if (gm.localSignal.spotlightedAccounts.length) p(`- Engage with the accounts local businesses tag: ${gm.localSignal.spotlightedAccounts.slice(0, 6).map((h) => `@${h}`).join(", ")}.`);
+  else p(`- Comment on 5 local accounts a day; get tagged in local conversations.`);
+  p("**Proof signals**");
+  p(`- Pin a "how I help ${city}" post and save Highlights for Services, Proof, and FAQ.`);
   p();
-  p("Do them in order — each is sequenced to make the next one land harder.");
+  p("---");
+
+  // ── 11. PROFILE FIX BLUEPRINT ──
+  p("## Profile Fix Blueprint");
+  p();
+  p("Your first fix, made dead simple. The profile is the front door — get this right before anything else.");
+  p();
+  p("**Before (today):**");
+  p(`- Name: ${gm.account.displayName}`);
+  p(`- Bio: ${gm.account.bio ?? "—"}`);
+  if (gm.account.profileGaps.length) p(`- Issues: ${gm.account.profileGaps.join("; ")}`);
+  p();
+  p("**After (recommended structure):**");
+  p("```");
+  p(`Line 1: Who you help`);
+  p(`Line 2: Where you help them (${city} + nearby)`);
+  p(`Line 3: The problem you solve`);
+  p(`Line 4: CTA — ${cta}`);
+  p("```");
+  p();
+  p(`**Worked example:**`);
+  p("```");
+  p(`Helping ${city} ${gm.category.likelyAudience ? gm.category.likelyAudience.toLowerCase().replace(/\.$/, "") : "customers"} get a better result`);
+  p(`Serving ${market}`);
+  p(`${gm.category.whatItSells ? gm.category.whatItSells.replace(/\.$/, "") : cat}`);
+  p(`${cta} — link below`);
+  p("```");
+  p();
+  p("---");
+
+  // ── 12. THE FIVE MOVES THAT MATTER MOST ──
+  p("## The Five Moves That Matter Most");
+  p();
+  p("Ranked by leverage. Do them in order — each makes the next one land harder.");
   p();
   gm.fixes.forEach((f, i) => {
-    p(`#### ${i + 1}. ${f.title}`);
-    p(`*${f.impact} impact · ${f.effort} effort · ~${f.timeRequired} · expected: ${f.expectedLift}*`);
+    p(`### ${i + 1}. ${f.title}`);
+    p(`| Impact | Effort | Time | Expected | When |`);
+    p(`| --- | --- | --- | --- | --- |`);
+    p(`| ${f.impact} | ${f.effort} | ${f.timeRequired} | ${f.expectedLift} | ${i === 0 ? "This week" : i < 3 ? "Week 1" : "Weeks 2–3"} |`);
     p();
     p(`**Why this matters:** ${f.whyItMatters}`);
     p();
     p(`**Do this:** ${f.exactAction}`);
     p();
+    p(`**Track:** ${f.scoreArea === "local" ? "local reach / profile visits" : f.scoreArea === "sales" ? "link taps / DMs" : f.scoreArea === "content" ? "saves + shares" : "profile visits → follows"}`);
+    p();
   });
-  p("### Your first seven days");
+  p("---");
+
+  // ── 13. YOUR FIRST 7 DAYS ──
+  p("## Your First 7 Days");
   p();
-  p("Small daily blocks — 15–30 minutes — that stack into a finished foundation by day 7.");
+  p("Small daily blocks — 15–30 minutes — that stack into a finished foundation by day 7. Check each off as you go.");
   p();
   for (const d of gm.nextSevenDays) {
-    p(`**Day ${d.day} — ${d.objective}** *(${d.timeEstimate})*`);
+    p(`**☐ Day ${d.day} — ${d.objective}** *(${d.timeEstimate})*`);
     p(`- ${d.exactInstruction}`);
+    p(`- _Why this matters:_ ${d.whyItMatters}`);
     p(`- _Done when:_ ${d.outputByEndOfDay}`);
-    p();
-  }
-  p("### The 30-day sprint");
-  p();
-  p("Zoom out: here's how the month builds, week by week, from foundation to measurable momentum.");
-  p();
-  for (const w of gm.sprint) {
-    p(`**Week ${w.week} — ${w.goal}**`);
-    for (const a of w.actions) p(`- ${a}`);
-    p(`- _Output:_ ${w.output} · _Measure:_ ${w.measure}`);
-    p();
-  }
-  p("### How we'll measure success");
-  p();
-  p("Vanity metrics lie. These are the checkpoints that actually tell you whether the system is working:");
-  p();
-  for (const c of gm.measurement) {
-    p(`**Day ${c.dayMark}** — measure ${c.measure}. Good sign: ${c.goodSign}. Adjust if: ${c.adjustIf}.`);
-  }
-  p();
-  if (gm.day30.bringBack.length) {
-    p(`**At day 30, bring back:** ${gm.day30.bringBack.join("; ")}.`);
-    p(`**Why monthly:** ${gm.day30.whyMonthlyMatters}`);
     p();
   }
   p("---");
 
-  // ── PART 4 — TOOLKIT ──
-  p("## Part 4 — Your Content Toolkit");
+  // ── 14–16. 30-DAY GROWTH SPRINT (weeks 2-4) ──
+  const sprintBlocks = [
+    { title: "Days 8–14 — Build Proof & Trust", theme: "Build repeatable content and trust signals.", w: gm.sprint[1], track: "Profile visits · DMs · comments · saves · best-performing format" },
+    { title: "Days 15–21 — Test What Resonates", theme: "Find what the market responds to.", w: gm.sprint[2], track: "Which hook, format, and CTA earned the most response" },
+    { title: "Days 22–30 — Turn It Into a System", theme: "Build next month from what worked.", w: gm.sprint[3], track: "Best 3 posts · best hook · best CTA · best topic" },
+  ];
+  for (const b of sprintBlocks) {
+    p(`## ${b.title}`);
+    p();
+    p(`**Theme: ${b.theme}**`);
+    p();
+    if (b.w) {
+      for (const a of b.w.actions) p(`- ☐ ${a}`);
+      p();
+      p(`_Goal:_ ${b.w.goal} · _Output:_ ${b.w.output}`);
+    } else {
+      p("- ☐ Publish on your chosen cadence and keep the local signals on every post.");
+    }
+    p();
+    if (b.title.startsWith("Days 15")) {
+      p("**Testing table — fill this in as you post:**");
+      p();
+      p("| Post | Format | Hook type | CTA | Result | Keep / improve / stop |");
+      p("| --- | --- | --- | --- | --- | --- |");
+      p("|  |  |  |  |  |  |");
+      p("|  |  |  |  |  |  |");
+      p("|  |  |  |  |  |  |");
+      p();
+    }
+    p(`**Track:** ${b.track}`);
+    p();
+    p("---");
+  }
+
+  // ── 17. COPY-AND-USE TOOLKIT ──
+  p("## Copy-and-Use Posting Toolkit");
   p();
-  p("The point of a plan is that you never stare at a blank screen. These are copy-paste building blocks tuned to your category and market — fill in the brackets and post.");
+  p("Never start from a blank screen. Everything here is tuned to your category and market.");
   p();
   if (gm.toolkit.hookFormulas.length) {
-    p("### Hook formulas");
-    p("*The first line decides whether anyone reads the rest. Start here.*");
+    p("### Hook starters");
+    p("*The first line decides whether anyone reads the rest.*");
     p();
     for (const h of gm.toolkit.hookFormulas) p(`- ${h}`);
     p();
   }
   if (gm.toolkit.captionFormulas.length) {
-    p("### Caption formulas");
+    p("### Caption frameworks");
     for (const c of gm.toolkit.captionFormulas) { p(c); p(); }
   }
+  p("### CTA lines");
+  for (const c of gm.category.ctaOptions.slice(0, 5)) p(`- ${c}`);
+  p();
   if (gm.hashtags.length) {
     p("### Hashtag sets");
     p("*Rotate these — a tight, intentional set beats 30 generic tags.*");
@@ -326,7 +418,7 @@ export function renderDeliverable(gm: GoldMasterIntelligence): string {
   }
   if (gm.aiPrompts.length) {
     p("### Copy-ready AI prompts");
-    p("*Paste these into your AI tool of choice to draft fast — then edit into your voice.*");
+    p("*Paste into your AI tool to draft fast, then edit into your voice.*");
     p();
     for (const pr of gm.aiPrompts) {
       p(`**${pr.label}**`);
@@ -337,43 +429,75 @@ export function renderDeliverable(gm: GoldMasterIntelligence): string {
     }
   }
   if (gm.immediateContent.hooks.length) {
-    p("### Idea bank — 10 hooks to start from");
+    p("### 10 hooks to start from");
     for (const h of gm.immediateContent.hooks) p(`- ${h}`);
     p();
   }
-  if (gm.quickActions.length) {
-    p("### Quick wins");
-    for (const q of gm.quickActions) p(`- _[${q.when.replace(/_/g, " ")}]_ ${q.action}`);
+  p("---");
+
+  // ── 18. 30-DAY CONTENT CALENDAR ──
+  p("## Your 30-Day Content Calendar");
+  p();
+  p("Twelve posts, three a week, mapped to the month's themes. Each slot is ready to fill and ship.");
+  p();
+  const localTags = gm.hashtags.find((h) => h.group === "local")?.tags.slice(0, 3).map((t) => `#${t.replace(/^#/, "")}`).join(" ") ?? `#${city.replace(/[^a-z0-9]/gi, "").toLowerCase()}`;
+  const localSig = `${city} location tag + ${localTags}`;
+  const hookBank = [...gm.toolkit.hookFormulas, ...gm.immediateContent.hooks];
+  const fmts = ["Carousel", "Reel", "Image"];
+  const weeks = [
+    { wk: "Week 1 — Fix signals", topics: ["Profile relaunch / who you help", `${city} FAQ`, "Common mistake + fix"] },
+    { wk: "Week 2 — Build trust", topics: ["Proof / case study", "Behind the scenes", "Myth vs truth"] },
+    { wk: "Week 3 — Test engagement", topics: ["Question / poll post", "Objection reframe", "Quick how-to"] },
+    { wk: "Week 4 — Repeat winners", topics: ["Best post, new angle", "Customer win", "Plan-ahead / save-this"] },
+  ];
+  let slot = 0;
+  for (const w of weeks) {
+    p(`**${w.wk}**`);
+    p();
+    p("| # | Topic | Format | Hook | CTA | Local signal |");
+    p("| --- | --- | --- | --- | --- | --- |");
+    w.topics.forEach((topic, ti) => {
+      slot++;
+      const hook = (hookBank[slot - 1] ?? `A ${topic.toLowerCase()} for ${city} buyers`).replace(/\|/g, "/").slice(0, 80);
+      p(`| ${slot} | ${topic} | ${fmts[ti % fmts.length]} | ${hook} | ${cta} | ${localSig} |`);
+    });
     p();
   }
   p("---");
 
-  // ── WHAT THIS UNLOCKS (closing) ──
-  p("## What This Unlocks");
+  // ── 19. YOUR NEXT CHECKPOINT ──
+  p("## Your Next Checkpoint");
   p();
-  p(`Thirty days of this isn't about a magic spike — it's about compounding. ${weakest ? `Close the ${weakest.dimension.toLowerCase()} gap, ` : ""}hold the cadence, and ship one signature format consistently, and three things change at once: Instagram starts showing you to the right local people, visitors who land on your profile understand the offer in seconds, and the ones who are ready get an obvious next step.`);
+  p(`Re-measure on **${m.reviewDate}**. Growth on Instagram isn't one big leap — it's a monthly loop of act → measure → adjust. This is loop one.`);
   p();
-  p(`That's the system. It keeps paying off after the 30 days, because every post now reinforces a clear position instead of starting from scratch.`);
+  p("**What to measure in 30 days:**");
+  p("- Score movement (re-run this report)");
+  p("- Follower growth");
+  p("- Profile visits");
+  p("- Website / link clicks");
+  p("- DMs");
+  p("- Post saves & comments");
+  p("- Best format · best hook · best CTA");
   p();
-  p(`**Then we measure.** Re-run this analysis on **${m.reviewDate}** to see exactly what moved — and to set the next month's focus from fresh data. Growth on Instagram isn't one big leap; it's a monthly loop of *act → measure → adjust*. This is loop one.`);
+  p("**What success looks like in 30 days:**");
+  p(`- Your profile clearly says who you help and where (${city})`);
+  p("- Every post carries a local signal");
+  p("- Every post has a clear next step");
+  p("- You have 8–12 new content assets");
+  p("- You know which format earned the most response");
+  p("- You have a sharper plan for the next 30 days");
   p();
   p("---");
 
-  // ── APPENDIX — METHODOLOGY ──
-  p("## Appendix — How this was built");
+  // ── APPENDIX ──
+  p("## Appendix — How This Was Built");
   p();
-  p(`This plan was generated from a live analysis of @${m.handle}, ${num(gm.marketPatterns.postsStudied)} posts across the ${category} category, and ${gm.competitors.length} vetted, English-language competitor accounts discovered and scored for relevance and engagement success.`);
+  p(`Generated from a live analysis of @${m.handle}, ${num(gm.marketPatterns.postsStudied)} posts across the ${cat} category, and ${gm.competitors.length} vetted, English-language competitor accounts scored for relevance and engagement.`);
   p();
-  p(`- **Overall confidence:** ${gm.overallConfidence}/100`);
-  p(`- **Model:** ${m.modelUsed} · **Method version:** ${m.promptVersion}`);
-  p(`- **Validation:** ${gm.validation.passed ? "passed" : "failed"} (${gm.validation.blockingCount} blocking, ${gm.validation.warningCount} warnings)`);
-  if (gm.dataGaps.length) {
-    p();
-    p("**Known data gaps:**");
-    for (const g of gm.dataGaps) p(`- _${g.severity}_ — ${g.area}: ${g.detail}`);
-  }
+  p(`- **Overall confidence:** ${gm.overallConfidence}/100 · **Validation:** ${gm.validation.passed ? "passed" : "failed"} (${gm.validation.blockingCount} blocking, ${gm.validation.warningCount} warnings)`);
+  p(`- **Method version:** ${m.promptVersion}`);
   p();
-  p("_Full competitor discovery detail, evidence index, and per-section confidence are available in the technical report (gold-master.md)._");
+  p("_Full discovery detail, evidence index, and per-section confidence live in the technical report (gold-master.md)._");
   p();
 
   return out.join("\n");

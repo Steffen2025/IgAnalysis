@@ -218,9 +218,9 @@ test("zero competitors → low confidence", () => {
 });
 
 // ── Client-facing deliverable renderer ──
-test("deliverable renders the narrative parts in order", () => {
+test("deliverable renders the field-guide sections in order", () => {
   const md = renderDeliverable(minimalGm({}));
-  for (const h of ["# Instagram Growth Plan", "## Executive Summary", "## Part 1 — Where You Stand Today", "## Part 2 — What's Working In Your Market", "## Part 3 — Your 30-Day Plan", "## Part 4 — Your Content Toolkit", "## Appendix"]) {
+  for (const h of ["# Instagram Growth Intelligence Report", "## How to Use This Guide", "## The Short Version", "## Where You Stand Today", "## What the Numbers Mean", "## The Growth Diagnosis", "## The Five Moves That Matter Most", "## Your First 7 Days", "## Days 8–14", "## Your 30-Day Content Calendar", "## Your Next Checkpoint", "## Appendix"]) {
     assert.ok(md.includes(h), `missing section: ${h}`);
   }
 });

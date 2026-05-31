@@ -10,7 +10,7 @@
 - **Normalized category:** Marketing agency
 - **Category kind:** service
 - **Market / location:** Burlington, Halton
-- **Generated:** 2026-05-31T00:31:30.353Z
+- **Generated:** 2026-05-31T14:36:29.359Z
 - **Review date:** June 27, 2026
 - **Model used:** openai/gpt-5.4-nano
 - **Prompt version:** instagram-intelligence-v1.1.0
