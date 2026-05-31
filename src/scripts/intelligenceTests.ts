@@ -13,6 +13,7 @@ import { scoreCandidate, evaluateCompetitors, type RelevanceContext } from "../s
 import { generateHashtags } from "../services/instagram-intelligence/competitorDiscovery.js";
 import { computeSectionConfidence } from "../services/instagram-intelligence/confidence.js";
 import { renderDeliverable } from "../services/instagram-intelligence/deliverableMarkdown.js";
+import { renderDeliverableHtml } from "../services/instagram-intelligence/deliverableHtml.js";
 import { validateGoldMaster } from "../services/instagram-intelligence/validateGoldMaster.js";
 import { getClientConfig } from "../services/instagram-intelligence/clientConfig.js";
 import type { ReportCompetitor } from "../services/report/reportDataAssembler.js";
@@ -227,6 +228,14 @@ test("deliverable rounds posts/week and hides raw internals", () => {
   const md = renderDeliverable(minimalGm({}));
   assert.doesNotMatch(md, /0\.2333333/, "posts/week must be rounded");
   assert.ok(!md.includes("selected_reference_model"), "raw reason codes must not leak into the client report");
+});
+
+test("html deliverable is a self-contained styled document", () => {
+  const html = renderDeliverableHtml(minimalGm({}));
+  assert.match(html, /^<!doctype html>/i);
+  assert.ok(html.includes('<header class="cover">'), "branded cover present");
+  assert.ok(html.includes("<style>"), "embedded CSS present");
+  assert.doesNotMatch(html, /[█░]/, "raw monospace bars must be converted to HTML meters");
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);
