@@ -23,7 +23,7 @@ Last Updated: 2026-05-31
 
 | Project | Status | Next Action | Deadline |
 |---------|--------|-------------|----------|
-| IG Intelligence Pipeline (Gold Master + deliverable) | In Progress | Competitor discovery (4 lanes), report alignment, confidence, `--live` productionization, English-only, and the 20-section client field guide (md/html/pdf) are DONE. Next: deliverable design-system polish + exact logo PNG. Run: `intelligence.ts generate --auditId=<id> [--live]`. On GitHub `Steffen2025/IgAnalysis` | TBD |
+| IG Intelligence Pipeline (Gold Master + deliverable) | In Progress | Discovery (4 lanes), confidence, `--live`, the 20-section field guide, AND the designed 20-page Blueprint (`templates/blueprint/` + `blueprintData.ts`) are DONE. Dashboard input now runs the pipeline (Blueprint = the output); new-audit form trimmed. Containerized deploy dry-run PASSED (image builds, in-container chromium renders PDFs). **Next: actual VPS deploy** (server + DNS for audit.botlogix.ca + Traefik). Run: `intelligence.ts generate --auditId=<id> [--live]`. GitHub `Steffen2025/IgAnalysis` | TBD |
 | BotLogix IG Analysis / Social Intelligence | In Progress | Begin the 5-accounts-per-business-unit, 30-day tracking pass (BotLogix + BoxBuddy). Teardown spec: `memory/projects/ig-teardown-tracker.md` | TBD |
 | IG Audit Admin Dashboard (engine) | In Progress | Resume SMTP/email validation; legacy Marp deck path untouched by the new deliverable | TBD |
 | Premium Report Intelligence Modules | Planned | Add Local Market Map, Opportunity Scoreboard, Content Pattern Bank, Local Lead Playbook, 30-Day Delta System | TBD |
@@ -62,9 +62,11 @@ Last Updated: 2026-05-31
 - [ ] Select the 5 Instagram accounts per business unit to start 30-day tracking — current focus BotLogix + BoxBuddy; a discovery step will propose ranked candidates for a human pick (provide seed niche keywords + region). AEC Benefits deferred.
 - [ ] Provide a dedicated research IG account (`IG_SESSION_COOKIE`) for best-effort story capture during cohort tracking.
 - [ ] Re-verify tuned report outputs after restart (duplicate headings removed, day blocks filled, artifact cards deduped).
+- [ ] **Deploy to the VPS**: push the validated Docker image; needs a server + DNS A record for `audit.botlogix.ca` + a running Traefik (labels assume resolver `le` + external `traefik` net). Use `docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d`.
 - [ ] Configure SMTP credentials before using the Email Report button with beta testers.
-- [ ] Resolve Docker Desktop engine instability (`dockerDesktopLinuxEngine` API 500) that blocked final live verification.
+- [ ] Docker Desktop engine instability recurs (Linux engine pipe drops under load); restart Docker Desktop to recover. Local Postgres must use host port 15432, not 55432 (Windows-reserved); local dashboard must use a free port (5057 held by `botlogix-social-studio`).
 - [ ] Decide beta pricing (Month 1 free + Months 2–6 at $100/mo, or another founding-tester offer).
+- [x] ✓ Wired the designed 20-page Blueprint into the engine + dashboard; trimmed the input form; containerized deploy dry-run passed (2026-06-02).
 - [x] ✓ Verify one full dashboard-created audit from form submission through COMPLETE.
 - [x] ✓ Validate the delete-audit cleanup path (DB rows + generated files).
 
@@ -94,6 +96,12 @@ Last Updated: 2026-05-31
 
 ## Last Updated
 
+- 2026-06-02 — Wired the designed 20-page Blueprint into the engine
+  (`templates/blueprint/` + `blueprintData.ts`) and made it the dashboard's
+  output (input form trimmed; legacy Marp decks retired). Containerized deploy
+  dry-run PASSED (image builds with Chromium 148; in-container PDF render proven).
+  App is deploy-ready — remaining step is the actual VPS push (DNS + Traefik).
+  Detail in today's daily log + `memory/projects/botlogix-ig-analysis.md`.
 - 2026-05-31 — Logged the IG intelligence pipeline milestone: 4-lane competitor
   discovery, trusted report alignment, data-quality confidence, `--live`
   productionization, English-only filtering, and the 20-section client field

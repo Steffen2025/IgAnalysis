@@ -9,8 +9,12 @@ import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
 
 function browserCandidates(): string[] {
+  // Honor an explicit browser path first (set in the Docker image as
+  // CHROME_PATH=/usr/bin/chromium; PUPPETEER_EXECUTABLE_PATH also respected).
+  const explicit = (process.env.CHROME_PATH || process.env.PUPPETEER_EXECUTABLE_PATH || "").trim();
+  const prefix = explicit ? [explicit] : [];
   if (process.platform === "win32") {
-    return [
+    return [...prefix,
       "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
       "C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe",
       "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
@@ -18,13 +22,13 @@ function browserCandidates(): string[] {
     ];
   }
   if (process.platform === "darwin") {
-    return [
+    return [...prefix,
       "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       "/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge",
       "/Applications/Chromium.app/Contents/MacOS/Chromium",
     ];
   }
-  return ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser", "/usr/bin/microsoft-edge"];
+  return [...prefix, "/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser", "/usr/bin/microsoft-edge"];
 }
 
 function fileUrl(p: string): string {

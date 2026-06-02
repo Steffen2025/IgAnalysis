@@ -9,13 +9,20 @@ export async function emailReport(auditId: number, emailTo: string): Promise<voi
   const audit = await first(db.select().from(audits).where(eq(audits.id, auditId)).limit(1));
   if (!audit) throw new Error(`Audit ${auditId} not found`);
 
-  const artifact = (await db
+  const pdfs = (await db
     .select()
     .from(report_artifacts)
     .where(eq(report_artifacts.audit_id, auditId)))
-    .find((item) => item.kind === "pdf" && item.theme === "dark");
+    .filter((item) => item.kind === "pdf");
 
-  if (!artifact) throw new Error("No dark PDF artifact found. Generate the report first.");
+  // Prefer the designed Blueprint, then the client report, then a legacy deck.
+  const artifact =
+    pdfs.find((item) => item.path.toLowerCase().includes("/blueprint/")) ??
+    pdfs.find((item) => /\/report\.pdf$/i.test(item.path)) ??
+    pdfs.find((item) => item.theme === "dark") ??
+    pdfs[0];
+
+  if (!artifact) throw new Error("No PDF artifact found. Generate the report first.");
 
   const host = process.env.SMTP_HOST;
   const user = process.env.SMTP_USER;

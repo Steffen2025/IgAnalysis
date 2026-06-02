@@ -24,6 +24,7 @@ import { buildLocalSignal } from "./localIntelligence.js";
 import { renderGoldMasterMarkdown } from "./goldMasterMarkdown.js";
 import { renderDeliverable } from "./deliverableMarkdown.js";
 import { renderDeliverableHtml } from "./deliverableHtml.js";
+import { writeBlueprint } from "./blueprintData.js";
 import { htmlToPdf } from "./htmlToPdf.js";
 import { validateGoldMaster, renderValidationReport } from "./validateGoldMaster.js";
 import { computeSectionConfidence, overallConfidence } from "./confidence.js";
@@ -358,7 +359,17 @@ function buildCategoryDiagnosis(norm: ReturnType<typeof normalizeCategory>, kind
 
 export interface GoldMasterResult {
   gm: GoldMasterIntelligence;
-  paths: { json: string; md: string; competitorDebug: string; validation: string; runLog: string };
+  paths: {
+    report: string;
+    reportHtml: string;
+    json: string;
+    md: string;
+    competitorDebug: string;
+    validation: string;
+    runLog: string;
+    blueprint?: string;
+    blueprintData?: string;
+  };
   passed: boolean;
 }
 
@@ -658,7 +669,7 @@ export async function generateGoldMaster(
   // ── Write artifacts ──
   const outDir = path.resolve("reports", "intelligence", String(auditId));
   mkdirSync(outDir, { recursive: true });
-  const paths = {
+  const paths: GoldMasterResult["paths"] = {
     report: path.join(outDir, "report.md"),
     reportHtml: path.join(outDir, "report.html"),
     json: path.join(outDir, "gold-master.json"),
@@ -677,6 +688,20 @@ export async function generateGoldMaster(
   writeFileSync(paths.competitorDebug, renderCompetitorDebug(gm), "utf-8");
   writeFileSync(paths.validation, renderValidationReport(summary, auditId), "utf-8");
   writeFileSync(paths.runLog, JSON.stringify(log.toJSON(), null, 2), "utf-8");
+
+  // ── Designed 20-page Blueprint (data-driven template pack) ──
+  // Renders a self-contained blueprint/ next to the report: copies the fixed
+  // template layer and writes the per-client auto/data.js. Best-effort — a
+  // missing template layer is logged, never fatal to the core run.
+  try {
+    const bp = writeBlueprint(gm, outDir);
+    paths.blueprint = bp.blueprintHtml;
+    paths.blueprintData = bp.dataJs;
+    const bpPdf = htmlToPdf(bp.blueprintHtml, path.join(bp.blueprintDir, "Instagram Growth Blueprint.pdf"));
+    if (bpPdf) console.log(`Blueprint PDF: ${bpPdf}`);
+  } catch (e) {
+    console.warn(`Blueprint skipped: ${(e as Error).message}`);
+  }
 
   return { gm, paths, passed: summary.passed };
 }

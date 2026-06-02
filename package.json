@@ -45,6 +45,7 @@
     "marked": "^18.0.4",
     "nodemailer": "^8.0.8",
     "postgres": "^3.4.9",
+    "tsx": "^4.22.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -54,7 +55,6 @@
     "@types/nodemailer": "^8.0.0",
     "better-sqlite3": "^12.10.0",
     "drizzle-kit": "^0.31.10",
-    "tsx": "^4.22.3",
     "typescript": "^6.0.3"
   }
 }

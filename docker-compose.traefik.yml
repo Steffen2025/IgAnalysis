@@ -1,0 +1,31 @@
+# Traefik reverse-proxy overlay for the dashboard.
+#
+# Usage (on the VPS, with a Traefik instance already running):
+#   docker network create traefik         # once, if it doesn't exist
+#   docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d dashboard
+#
+# Assumes Traefik has a `websecure` entrypoint (443) and an ACME cert resolver
+# named `le`. Adjust entrypoint/certresolver names to match your Traefik config.
+services:
+  dashboard:
+    # Base compose keeps a 127.0.0.1:5057 bind (local-only, not public) for
+    # on-box healthchecks. Traefik reaches the container over the `traefik`
+    # network on port 5057 — public traffic only ever arrives via Traefik.
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik"
+      - "traefik.http.routers.botlogix-audit.rule=Host(`audit.botlogix.ca`)"
+      - "traefik.http.routers.botlogix-audit.entrypoints=websecure"
+      - "traefik.http.routers.botlogix-audit.tls=true"
+      - "traefik.http.routers.botlogix-audit.tls.certresolver=letsencrypt"
+      - "traefik.http.services.botlogix-audit.loadbalancer.server.port=5057"
+      # Belt-and-suspenders: keep the app un-indexed at the proxy too.
+      - "traefik.http.middlewares.botlogix-noindex.headers.customresponseheaders.X-Robots-Tag=noindex, nofollow"
+      - "traefik.http.routers.botlogix-audit.middlewares=botlogix-noindex"
+
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,29 @@
+# Hostinger VPS overlay — Instagram audit dashboard at audit.botlogix.ca
+#
+# Traefik on this VPS uses the FILE provider (/opt/boxbuddy/traefik/dynamic.yml),
+# not Docker labels. Run deploy/patch-traefik-audit.py once, then:
+#
+#   docker compose -f docker-compose.yml -f docker-compose.vps.yml up -d
+#
+# botlogix-social-studio already binds host 5057 — this overlay clears host ports.
+
+services:
+  dashboard:
+    container_name: botlogix-ig-audit
+    ports: !reset []
+    networks:
+      - default
+      - boxbuddy
+    environment:
+      ADMIN_COOKIE_SECURE: "true"
+      TRUST_PROXY: "true"
+      PUBLIC_BASE_URL: https://audit.botlogix.ca
+
+  postgres:
+    container_name: botlogix-ig-postgres
+    ports: !reset []
+
+networks:
+  boxbuddy:
+    external: true
+    name: boxbuddy_boxbuddy-network

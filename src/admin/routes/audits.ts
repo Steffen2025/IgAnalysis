@@ -41,10 +41,6 @@ const newAuditSchema = z.object({
   service_area: optionalText,
   main_offer: optionalText,
   target_audience: optionalText,
-  follower_goal: optionalText,
-  business_outcome: optionalText,
-  mode: z.enum(["local_only", "reference_only", "mixed"]).default("mixed"),
-  reference_markets: optionalText,
   delivery_email: optionalText,
 });
 
@@ -109,7 +105,6 @@ export async function auditRoutes(app: FastifyInstance): Promise<void> {
         }));
     }
 
-    const referenceMarkets = parseReferenceMarkets(parsed.data.reference_markets);
     const [inserted] = await db.insert(audits)
       .values({
         business_name: parsed.data.business_name || displayNameFromInstagramUrl(instagramUrl),
@@ -120,12 +115,10 @@ export async function auditRoutes(app: FastifyInstance): Promise<void> {
         business_category: parsed.data.business_category,
         main_offer: parsed.data.main_offer || null,
         target_audience: parsed.data.target_audience || null,
-        follower_goal: parsed.data.follower_goal || null,
-        business_outcome: parsed.data.business_outcome || null,
         delivery_email: parsed.data.delivery_email || null,
         report_type: "full_gtm",
-        mode: parsed.data.mode,
-        reference_markets: referenceMarkets.length ? JSON.stringify(referenceMarkets) : null,
+        // mode/reference_markets retired from the form; the new intelligence
+        // pipeline derives competitor scope itself (DB default mode applies).
         status: "queued",
         status_detail: "CREATED",
       })
@@ -238,11 +231,4 @@ export async function auditRoutes(app: FastifyInstance): Promise<void> {
     return reply.redirect(`/audits?deleted=${auditId}`);
   });
 
-}
-
-function parseReferenceMarkets(value: string): string[] {
-  return value
-    .split(/[;\n]+/)
-    .map((item) => item.trim())
-    .filter(Boolean);
 }

@@ -32,6 +32,8 @@ export interface InstagramClientInput {
 export interface ClientConfig {
   /** Lowercased handle, no @. */
   handle: string;
+  /** Curated client-facing display name (e.g. "BoxBuddy" for @boxbuddyapp). */
+  displayName?: string;
   /** Optional explicit business type — strongest category signal when set. */
   businessType?: string;
   /** Curated category/local search terms for competitor discovery. */
@@ -62,6 +64,7 @@ export function configFromInput(input: InstagramClientInput): ClientConfig {
  */
 const BOXBUDDY: ClientConfig = {
   handle: "boxbuddyapp",
+  displayName: "BoxBuddy",
   businessType: "moving and home inventory app",
   categorySearchTerms: [
     "moving app",
@@ -98,6 +101,7 @@ const BOXBUDDY: ClientConfig = {
  */
 const ACTIVEDOOR: ClientConfig = {
   handle: "activedoor",
+  displayName: "Active Door",
   businessType: "garage door company",
   categorySearchTerms: [
     "garage door", "garage door repair", "garage door installation", "garage door opener",
@@ -114,6 +118,7 @@ const ACTIVEDOOR: ClientConfig = {
  */
 const JELINEK: ClientConfig = {
   handle: "jelinekmortgages",
+  displayName: "Jelinek Mortgages",
   businessType: "mortgage broker",
   categorySearchTerms: [
     "mortgage broker", "mortgage rates", "first time home buyer", "mortgage refinance",

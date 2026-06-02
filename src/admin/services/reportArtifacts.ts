@@ -87,7 +87,16 @@ export function deleteAuditFiles(auditId: number): number {
     if (!absolute) continue;
     rmSync(absolute, { force: true });
   }
-  return candidates.size;
+  let removed = candidates.size;
+
+  // Also remove the intelligence pipeline output folder (Gold Master, client
+  // report, and the generated Blueprint live under reports/intelligence/<id>/).
+  const intelDir = path.resolve(process.cwd(), "reports", "intelligence", String(auditId));
+  if (existsSync(intelDir)) {
+    rmSync(intelDir, { recursive: true, force: true });
+    removed += 1;
+  }
+  return removed;
 }
 
 export function safeResolveRelativePath(relativePath: string): string | null {

@@ -14,6 +14,7 @@ import { generateHashtags } from "../services/instagram-intelligence/competitorD
 import { computeSectionConfidence } from "../services/instagram-intelligence/confidence.js";
 import { renderDeliverable } from "../services/instagram-intelligence/deliverableMarkdown.js";
 import { renderDeliverableHtml } from "../services/instagram-intelligence/deliverableHtml.js";
+import { buildBlueprintData, renderBlueprintDataJs } from "../services/instagram-intelligence/blueprintData.js";
 import { validateGoldMaster } from "../services/instagram-intelligence/validateGoldMaster.js";
 import { getClientConfig } from "../services/instagram-intelligence/clientConfig.js";
 import type { ReportCompetitor } from "../services/report/reportDataAssembler.js";
@@ -236,6 +237,81 @@ test("html deliverable is a self-contained styled document", () => {
   assert.ok(html.includes('<header class="cover">'), "branded cover present");
   assert.ok(html.includes("<style>"), "embedded CSS present");
   assert.doesNotMatch(html, /[█░]/, "raw monospace bars must be converted to HTML meters");
+});
+
+// ── Blueprint (20-page template pack) data renderer ──
+function bpGm(): GoldMasterIntelligence {
+  return minimalGm({
+    scores: [
+      { dimension: "Overall", score: 46, whatWeSaw: "blend", whyItMatters: "y", nextMove: "n" },
+      { dimension: "Local visibility", score: 18, whatWeSaw: "no geotags", whyItMatters: "discovery", nextMove: "add city" },
+      { dimension: "Profile conversion", score: 55, whatWeSaw: "weak bio", whyItMatters: "first impression", nextMove: "rewrite bio" },
+      { dimension: "Content performance", score: 50, whatWeSaw: "static feed", whyItMatters: "reach", nextMove: "more reels" },
+      { dimension: "Sales readiness", score: 56, whatWeSaw: "no CTA", whyItMatters: "conversion", nextMove: "add CTA" },
+      { dimension: "Competitor gap", score: 70, whatWeSaw: "behind on cadence", whyItMatters: "ranked vs peers", nextMove: "post more" },
+    ] as never,
+    marketComparison: { rows: [{ metric: "Posts / week", client: "1.2", market: "4.0" }, { metric: "Avg caption length", client: "40 chars", market: "120 chars" }], activityLevel: "below", interpretation: "post more", cadenceVerdict: "increase" } as never,
+    competitors: [card("reference"), card("local")] as never,
+  });
+}
+
+test("blueprint: fixed cardinalities hold", () => {
+  const d = buildBlueprintData(bpGm()) as Record<string, unknown[]>;
+  assert.equal((d.pillars as unknown[]).length, 5, "pillars must be 5");
+  assert.equal((d.chain as unknown[]).length, 5, "chain must be 5");
+  assert.equal((d.cadence_slots as unknown[]).length, 3, "cadence_slots must be 3");
+  assert.equal((d.offer_paths as unknown[]).length, 3, "offer_paths must be 3");
+  assert.equal((d.four_week_arc as unknown[]).length, 4, "four_week_arc must be 4");
+  assert.equal((d.seven_day_plan as unknown[]).length, 7, "seven_day_plan must be 7");
+  assert.equal((d.hook_starters as unknown[]).length, 5, "hook_starters must be 5");
+  assert.equal((d.caption_frameworks as unknown[]).length, 3, "caption_frameworks must be 3");
+  assert.equal((d.cta_ladder as unknown[]).length, 4, "cta_ladder must be 4");
+  assert.equal((d.hashtag_sets as unknown[]).length, 3, "hashtag_sets must be 3");
+  assert.ok((d.competitors as unknown[]).length <= 5, "competitors must be ≤ 5");
+  const cal = d.calendar as Array<{ posts: unknown[] }>;
+  assert.equal(cal.length, 4, "calendar must be 4 weeks");
+  assert.ok(cal.every((w) => w.posts.length === 3), "each calendar week must have 3 posts");
+});
+
+test("blueprint: fixed pillar keys in order, with tone + diagnostics", () => {
+  const d = buildBlueprintData(bpGm()) as Record<string, unknown>;
+  const pillars = d.pillars as Array<Record<string, unknown>>;
+  assert.deepEqual(pillars.map((p) => p.key), ["local_visibility", "profile_conversion", "content_performance", "sales_readiness", "competitor_gap"]);
+  for (const p of pillars) {
+    assert.ok(["red", "amber", "brand"].includes(p.chip_tone as string), `bad chip_tone: ${p.chip_tone}`);
+    for (const k of ["one_liner", "what_measured", "why_matters", "what_next"]) assert.ok((p[k] as string).length > 0, `pillar ${p.key} missing ${k}`);
+  }
+  // content pillar must carry format_mix; sales pillar must carry funnel.
+  assert.ok((pillars[2] as { format_mix?: unknown }).format_mix, "content pillar needs format_mix");
+  assert.equal(((pillars[3] as { funnel: unknown[] }).funnel).length, 4, "sales pillar funnel needs 4 stages");
+});
+
+test("blueprint: score_delta = target − current, one chain bottleneck", () => {
+  const d = buildBlueprintData(bpGm()) as Record<string, unknown>;
+  assert.equal(d.current_score, 46);
+  assert.equal(d.score_delta, `+${(d.target_score as number) - 46}`);
+  const chain = d.chain as Array<{ bottleneck?: boolean; score: number }>;
+  assert.equal(chain.filter((s) => s.bottleneck).length, 1, "exactly one bottleneck");
+  assert.ok(chain.find((s) => s.bottleneck)!.score === Math.min(...chain.map((s) => s.score)), "bottleneck is the lowest stage");
+});
+
+test("blueprint: narrative block present and tokens resolvable", () => {
+  const d = buildBlueprintData(bpGm()) as Record<string, Record<string, unknown>>;
+  const n = d.narrative;
+  for (const k of ["cover_lead", "hook_cards", "dashboard_cards", "accountability_intro", "close_headline", "checkpoint_metrics"]) assert.ok(n[k], `narrative missing ${k}`);
+  assert.equal((n.hook_cards as unknown[]).length, 3);
+  assert.equal((n.dashboard_cards as unknown[]).length, 4);
+});
+
+test("blueprint: data.js is valid JS that sets window.BLUEPRINT_DATA", () => {
+  const js = renderBlueprintDataJs(bpGm());
+  assert.match(js, /window\.BLUEPRINT_DATA\s*=/);
+  const win: Record<string, unknown> = {};
+  // eslint-disable-next-line no-new-func
+  new Function("window", js)(win);
+  const data = win.BLUEPRINT_DATA as Record<string, unknown>;
+  assert.ok(data && (data.pillars as unknown[]).length === 5, "evaluated data.js must expose 5 pillars");
+  assert.deepEqual(data, buildBlueprintData(bpGm()), "rendered JS must round-trip to the builder output");
 });
 
 console.log(`\n${passed} passed, ${failed} failed`);

@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { eq } from "drizzle-orm";
 import { db } from "../../db/index.js";
@@ -9,11 +9,8 @@ import { runAudit } from "../../services/audit/orchestrator.js";
 import { runScoring } from "../../services/scoring/scoringOrchestrator.js";
 import { runPatternAnalysis } from "../../services/patterns/patternOrchestrator.js";
 import { runEnrichment } from "../../services/comments/enrichmentOrchestrator.js";
-import { generateReport } from "../../services/report/reportOrchestrator.js";
-import { generateHTMLReport } from "../../services/html-report/htmlGenerator.js";
-import { generateMarpMarkdown } from "../../services/marp-report/marpGenerator.js";
-import { convertDeck } from "../../services/marp-report/marpConverter.js";
-import { recordArtifact } from "./reportArtifacts.js";
+import { generateGoldMaster } from "../../services/instagram-intelligence/generateGoldMaster.js";
+import { recordArtifact, type ArtifactInput } from "./reportArtifacts.js";
 
 export type AdminJobKind = "full_audit" | "regenerate_reports";
 export type AdminJobStatus = "queued" | "running" | "complete" | "failed";
@@ -132,45 +129,37 @@ async function runFullAuditJob(job: AdminJob): Promise<void> {
 
 async function generateArtifacts(
   job: AdminJob,
-  options: { forceRegenerate: boolean },
+  _options: { forceRegenerate: boolean },
 ): Promise<void> {
   const audit = await first(db.select().from(audits).where(eq(audits.id, job.auditId)).limit(1));
   if (!audit) throw new Error(`Audit ${job.auditId} not found`);
 
-  const reportsDir = path.resolve(process.cwd(), "reports");
-  const marpDir = path.join(reportsDir, "marp");
-  mkdirSync(reportsDir, { recursive: true });
-  mkdirSync(marpDir, { recursive: true });
+  // The intelligence pipeline is the single source of client deliverables: it
+  // builds the Gold Master, the field-guide report (md/html/pdf), and the
+  // designed 20-page Blueprint — all from the scored/scraped data already in the
+  // DB (non-live; no extra paid Apify run). See generateGoldMaster.
+  job.step = "Building intelligence report + Blueprint";
+  const result = await generateGoldMaster(job.auditId);
 
-  job.step = "Generating report sections";
-  const report = await generateReport(job.auditId, { forceRegenerate: options.forceRegenerate });
-  const mdPath = path.join(reportsDir, `audit-${job.auditId}.md`);
-  writeFileSync(mdPath, report.compiledMarkdown, "utf-8");
-  await recordArtifact({ auditId: job.auditId, kind: "markdown", theme: "standard", filePath: mdPath });
+  // Surface the client-facing artifacts on the audit page (distinguished by
+  // path; theme stays "standard"). PDFs are best-effort, so only record what
+  // actually exists on disk.
+  const blueprintDir = path.dirname(result.paths.blueprint ?? path.resolve("reports", "intelligence", String(job.auditId), "blueprint", "blueprint.html"));
+  const candidates: Array<ArtifactInput> = [
+    { auditId: job.auditId, kind: "pdf", theme: "standard", filePath: path.join(blueprintDir, "Instagram Growth Blueprint.pdf") },
+    { auditId: job.auditId, kind: "html", theme: "standard", filePath: result.paths.blueprint ?? "" },
+    { auditId: job.auditId, kind: "pdf", theme: "standard", filePath: path.join(path.dirname(result.paths.report), "report.pdf") },
+    { auditId: job.auditId, kind: "html", theme: "standard", filePath: result.paths.reportHtml },
+    { auditId: job.auditId, kind: "markdown", theme: "standard", filePath: result.paths.report },
+    { auditId: job.auditId, kind: "markdown", theme: "standard", filePath: result.paths.md },
+  ];
+  for (const a of candidates) {
+    if (a.filePath && existsSync(path.resolve(process.cwd(), a.filePath))) await recordArtifact(a);
+  }
 
-  job.step = "Rendering HTML report";
-  const html = await generateHTMLReport(job.auditId);
-  const htmlPath = path.join(reportsDir, `audit-${job.auditId}.html`);
-  writeFileSync(htmlPath, html, "utf-8");
-  await recordArtifact({ auditId: job.auditId, kind: "html", theme: "standard", filePath: htmlPath });
-
-  job.step = "Building action workbook (light)";
-  const lightMdPath = path.join(marpDir, `audit-${job.auditId}-light.md`);
-  writeFileSync(lightMdPath, await generateMarpMarkdown(job.auditId, "light"), "utf-8");
-  await recordArtifact({ auditId: job.auditId, kind: "markdown", theme: "light", filePath: lightMdPath });
-  const light = await convertDeck(lightMdPath, marpDir, `audit-${job.auditId}-light`, "themes/botlogix-light.css");
-  await recordArtifact({ auditId: job.auditId, kind: "pdf", theme: "light", filePath: light.pdf });
-  await recordArtifact({ auditId: job.auditId, kind: "html", theme: "light", filePath: light.html });
-  await recordArtifact({ auditId: job.auditId, kind: "pptx", theme: "light", filePath: light.pptx });
-
-  job.step = "Building dark deck export";
-  const darkMdPath = path.join(marpDir, `audit-${job.auditId}-dark.md`);
-  writeFileSync(darkMdPath, await generateMarpMarkdown(job.auditId, "dark"), "utf-8");
-  await recordArtifact({ auditId: job.auditId, kind: "markdown", theme: "dark", filePath: darkMdPath });
-  const dark = await convertDeck(darkMdPath, marpDir, `audit-${job.auditId}-dark`, "themes/botlogix-dark.css");
-  await recordArtifact({ auditId: job.auditId, kind: "pdf", theme: "dark", filePath: dark.pdf });
-  await recordArtifact({ auditId: job.auditId, kind: "html", theme: "dark", filePath: dark.html });
-  await recordArtifact({ auditId: job.auditId, kind: "pptx", theme: "dark", filePath: dark.pptx });
-
+  if (!result.passed) {
+    const blocking = result.gm.validation.issues.filter((i) => i.severity === "blocking").map((i) => i.detail).join("; ");
+    job.step = `Completed with validation warnings: ${blocking || "see validation report"}`;
+  }
   await setPhase(job.auditId, AuditPhase.COMPLETE);
 }

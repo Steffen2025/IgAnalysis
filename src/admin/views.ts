@@ -181,7 +181,6 @@ export function auditsIndexPage(params: {
 
 export function newAuditPage(params: { error?: string; values?: Record<string, string> } = {}): string {
   const v = (name: string) => e(params.values?.[name] ?? "");
-  const mode = v("mode") || "mixed";
   return layout({
     title: "New Audit",
     active: "/audits/new",
@@ -240,7 +239,7 @@ export function newAuditPage(params: { error?: string; values?: Record<string, s
         </div>
         <div>
           <strong>Report artifacts</strong>
-          <span>Dark deck, light deck, PDF, HTML, PPTX, and dashboard links are generated in the background.</span>
+          <span>The Gold Master, client field-guide report (md/html/PDF), and the designed 20-page Blueprint are generated in the background.</span>
         </div>
       </section>
 
@@ -253,19 +252,9 @@ export function newAuditPage(params: { error?: string; values?: Record<string, s
           ${field("business_name", "Business name", v("business_name"), false, "Auto-detect from Instagram")}
           ${field("website_url", "Website URL", v("website_url"), false, "Auto-detect from bio link")}
           ${field("service_area", "Service area override", v("service_area"), false, "Optional, e.g. Hamilton, Ontario, Canada")}
-          ${field("follower_goal", "Follower goal", v("follower_goal"), false, "Auto-suggest from baseline")}
           ${textarea("main_offer", "Main offer", v("main_offer"), false, "Auto-detect from bio and posts")}
           ${textarea("target_audience", "Target audience", v("target_audience"), false, "Auto-infer from category and market")}
-          ${textarea("business_outcome", "Business goal", v("business_outcome"), false, "Local leads, DMs, bookings, revenue")}
-          ${field("reference_markets", "Reference markets", v("reference_markets"), false, "Leave blank for defaults, or add: Austin, TX; Nashville, TN; Denver, CO")}
           ${field("delivery_email", "Delivery email", v("delivery_email"), false, "optional")}
-          <label>Audit mode
-          <select name="mode">
-            <option value="mixed" ${mode === "mixed" ? "selected" : ""}>Local + inspiration markets</option>
-            <option value="local_only" ${mode === "local_only" ? "selected" : ""}>Local competitors only</option>
-            <option value="reference_only" ${mode === "reference_only" ? "selected" : ""}>Inspiration markets only</option>
-          </select>
-          </label>
         </div>
       </details>
 
@@ -317,8 +306,8 @@ export function auditShowPage(params: {
   const inferredArtifacts = [...params.inferredArtifacts].filter((artifact) => isPrimaryInferredArtifact(artifact.path)).sort(compareInferredArtifacts);
   const recordedArtifactPaths = new Set(recordedArtifacts.map((artifact) => normalizeArtifactPath(artifact.path)));
   const artifactRows = [
-    ...recordedArtifacts.map((artifact) => `<div class="artifact ${artifact.theme === "dark" && artifact.kind === "pdf" ? "artifact-primary" : ""}">
-      <div><strong>${e(artifactLabel(artifact.theme, artifact.kind))}</strong><small>${e(artifact.path)} · ${formatBytes(artifact.size_bytes)}</small></div>
+    ...recordedArtifacts.map((artifact) => `<div class="artifact ${isPrimaryArtifact(artifact) ? "artifact-primary" : ""}">
+      <div><strong>${e(artifactLabel(artifact.theme, artifact.kind, artifact.path))}</strong><small>${e(artifact.path)} · ${formatBytes(artifact.size_bytes)}</small></div>
       <a href="/artifacts/${artifact.id}">Open</a>
     </div>`),
     ...inferredArtifacts
@@ -385,8 +374,8 @@ export function auditShowPage(params: {
       </article>
       <article class="control-card">
         <span class="eyebrow">Reports</span>
-        <h3>Refresh the deck files</h3>
-        <p>Rebuild the dark and light report outputs without rerunning the full scrape.</p>
+        <h3>Rebuild the Blueprint + report</h3>
+        <p>Regenerate the Gold Master, client report, and 20-page Blueprint from the latest scored data — no re-scrape.</p>
         <form method="post" action="/audits/${audit.id}/regenerate">
           <button type="submit" ${params.running ? "disabled" : ""}>Regenerate Reports</button>
         </form>
@@ -413,8 +402,8 @@ export function auditShowPage(params: {
     ${failedRows}
     <div class="two-col">
       <section class="panel">
-        <div class="panel-head"><h2>Test reports</h2><span>${artifactRows ? "Dark + light PDFs only" : "None yet"}</span></div>
-        <div class="artifact-list">${artifactRows || `<div class="empty">Run or regenerate reports to create artifacts.</div>`}</div>
+        <div class="panel-head"><h2>Client deliverables</h2><span>${artifactRows ? "Blueprint + client report" : "None yet"}</span></div>
+        <div class="artifact-list">${artifactRows || `<div class="empty">Run or regenerate reports to create the Blueprint + report.</div>`}</div>
       </section>
       <section class="panel">
         <div class="panel-head"><h2>Scrape jobs</h2><span>Apify progress</span></div>
@@ -447,6 +436,13 @@ export function auditShowPage(params: {
 
 function artifactRank(theme: string | null | undefined, kind: string | null | undefined, pathValue = ""): number {
   const pathLower = pathValue.toLowerCase();
+  // New intelligence outputs rank first (the client deliverables).
+  if (pathLower.includes("/blueprint/") && kind === "pdf") return -6;
+  if (pathLower.includes("/blueprint/") && kind === "html") return -5;
+  if (/\/report\.pdf$/.test(pathLower)) return -4;
+  if (/\/report\.html$/.test(pathLower)) return -3;
+  if (/\/report\.md$/.test(pathLower)) return -2;
+  if (/\/gold-master\.md$/.test(pathLower)) return -1;
   if (theme === "dark" && kind === "pdf") return 0;
   if (theme === "dark" && kind === "html") return 1;
   if (theme === "dark" && kind === "pptx") return 2;
@@ -472,6 +468,11 @@ function compareArtifacts(a: ReportArtifact, b: ReportArtifact): number {
 }
 
 function isPrimaryArtifact(artifact: ReportArtifact): boolean {
+  const pathLower = (artifact.path ?? "").toLowerCase();
+  // New deliverables: the Blueprint (pdf/html) and the client report PDF.
+  if (pathLower.includes("/blueprint/") && (artifact.kind === "pdf" || artifact.kind === "html")) return true;
+  if (/\/report\.(pdf|html)$/.test(pathLower)) return true;
+  // Legacy decks (kept so older audits still surface their primaries).
   return artifact.kind === "pdf" && (artifact.theme === "dark" || artifact.theme === "light");
 }
 
@@ -488,7 +489,14 @@ function inferredKind(pathValue: string): string {
   return ext === "pdf" || ext === "html" || ext === "pptx" || ext === "md" ? (ext === "md" ? "markdown" : ext) : "file";
 }
 
-function artifactLabel(theme: string | null | undefined, kind: string | null | undefined): string {
+function artifactLabel(theme: string | null | undefined, kind: string | null | undefined, pathValue = ""): string {
+  const pathLower = pathValue.toLowerCase();
+  if (pathLower.includes("/blueprint/") && kind === "pdf") return "Instagram Growth Blueprint - PDF";
+  if (pathLower.includes("/blueprint/") && kind === "html") return "Instagram Growth Blueprint - web";
+  if (/\/report\.pdf$/.test(pathLower)) return "Client report - PDF";
+  if (/\/report\.html$/.test(pathLower)) return "Client report - web";
+  if (/\/report\.md$/.test(pathLower)) return "Client report - Markdown";
+  if (/\/gold-master\.md$/.test(pathLower)) return "Gold Master (technical)";
   if (theme === "dark" && kind === "pdf") return "Recommended report - dark PDF";
   if (theme === "dark" && kind === "html") return "Dark web deck";
   if (theme === "dark" && kind === "pptx") return "Dark PowerPoint";

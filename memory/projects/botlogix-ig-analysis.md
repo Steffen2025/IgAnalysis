@@ -112,10 +112,13 @@ pretty. Designed reports come later.
 - [ ] Deliverable design-system polish: light-gray cards around the 4-card summary + recipe cards, softer section dividers (currently tables/headings).
 - [ ] Drop the exact BotLogix wordmark at repo-root `BotLogix Logo.png` (cover auto-embeds it as base64; I could not save the chat-attached image bytes to disk).
 - [ ] Optional content refinement: pull each competitor's actual top format/hook into the "borrow" line (currently generic).
+- [ ] **VPS deploy**: push the validated `botlogix-ig-analysis-dashboard:latest` image; needs server + DNS (`audit.botlogix.ca`) + running Traefik. `docker compose -f docker-compose.yml -f docker-compose.traefik.yml up -d`.
 - [ ] Select the 5 Instagram accounts per business unit to track.
 - [ ] Configure SMTP credentials for real beta-tester delivery.
-- [ ] Resolve Docker Desktop engine instability (`dockerDesktopLinuxEngine` API 500).
+- [ ] Docker Desktop Linux engine drops under load (recurring) — restart Docker Desktop to recover. Local: Postgres on host port 15432 (55432 is Windows-reserved); dashboard on a free port (5057 taken by `botlogix-social-studio`).
 - [ ] Premium modules: Local Market Map, Opportunity Scoreboard, Content Pattern Bank, Local Lead Playbook, 30-Day Delta System.
+- [x] ✓ Dashboard input wired to the pipeline (Blueprint is the output); new-audit form trimmed; containerized deploy dry-run passed (image builds, in-container chromium renders PDFs) (2026-06-02).
+- [x] ✓ Designed 20-page Blueprint wired in: template pack vendored at `templates/blueprint/`; `blueprintData.ts` maps GoldMaster → `auto/data.js` + self-contained `reports/intelligence/<id>/blueprint/`; charts computed from scores; 5 fixture tests; verified on audit 27 (2026-06-02).
 - [x] ✓ Competitor discovery rebuilt (4 lanes) + report alignment + data-quality confidence (2026-05-31).
 - [x] ✓ Client deliverable rebuilt as a 20-section field guide (md + branded html + pdf) (2026-05-31).
 - [x] ✓ English-only competitor filter; above-band outlier fix (2026-05-31).
@@ -147,14 +150,36 @@ Read only when the task requires them:
 | 2026-05-29 | Context-system cleanup pass; reframed project around IG Analysis / Social Intelligence. |
 | 2026-05-30 | Built the Gold Master intelligence pipeline; moved LLM to OpenRouter direct; fail-closed validation; profile-first input. |
 | 2026-05-31 | Rebuilt competitor discovery (4 engagement lanes, soft band, success ranking); aligned report selection to trusted discovery rows; data-quality confidence; productionized via `--live`; English-only filter + above-band outlier fix; rebuilt the client deliverable as a 20-section field guide (md + branded HTML + PDF); pushed to GitHub `Steffen2025/IgAnalysis`. |
+| 2026-06-02 | Wired the Claude-Design 20-page Blueprint into the engine (`templates/blueprint/` + `blueprintData.ts`); wired the admin "Launch Audit"/"Regenerate" job to run `generateGoldMaster` (Blueprint becomes the dashboard output; legacy Marp decks removed); trimmed the new-audit form. Deploy prep: fixed Dockerfile blocker (`tsx`→deps so the slim prod image can run), `htmlToPdf` honors `CHROME_PATH`, rewrote `DEPLOYMENT.md`, added `docker-compose.traefik.yml` (validated). Local container dry-run PASSED after a Docker Desktop restart (engine v29.5.2): image builds (1.43 GB, Chromium 148), container boots healthy, login works, the dashboard job runs `generateGoldMaster` in-container, and in-container chromium renders the Blueprint/report PDFs (proven by delete→regenerate→recreated, served 200 application/pdf). Host port note: `botlogix-social-studio` holds 5057, so the dry-run used 5077 via a throwaway override; on the VPS use the committed compose + `docker-compose.traefik.yml`. Next: actual VPS deploy (needs server + DNS for audit.botlogix.ca + a running Traefik). |
 
 ## Notes
 
-- Local admin URLs used: `:5057`, `:5058` (fallback), `:5059` (Postgres). Local Postgres on `127.0.0.1:55432`.
+- **Dashboard now produces the Blueprint (2026-06-02):** the admin "Launch Audit" /
+  "Regenerate" job (`auditRunner.ts`) runs `generateGoldMaster` after scrape→score→
+  patterns→enrichment — producing the Gold Master, field-guide report, and 20-page
+  Blueprint (legacy Marp decks removed). Audit-detail surfaces them as primary
+  "Client deliverables"; email attaches the Blueprint PDF; delete cleans
+  `reports/intelligence/<id>/`. New-audit form trimmed to the fields the pipeline
+  uses (dropped follower_goal, business_outcome, reference_markets, mode select).
+  Verified live: regenerated audit 27 via the dashboard → Blueprint PDF (2.8 MB) opens.
+- **Local Postgres host port moved 55432 → 15432:** Windows reserved the 55392–55491
+  range (WinNAT), so `55432` fails to bind ("socket access forbidden"). Bring DB up with
+  `POSTGRES_PORT=15432 docker compose up -d --force-recreate postgres` (data volume
+  `postgres_data` is preserved). Run the admin server with
+  `DATABASE_URL=postgres://botlogix:botlogix@127.0.0.1:15432/botlogix`. To make
+  `npm run admin` work without the inline env, add those two lines (`POSTGRES_PORT`,
+  `DATABASE_URL`) to `.env`. Admin default password is `botlogix` (set `ADMIN_PASSWORD`).
+- Local admin URLs used: `:5057`, `:5058` (fallback), `:5059` (Postgres). Local Postgres on `127.0.0.1:55432` (now 15432 — see above).
 - Fallback admin password and secrets live in `.env` — never print or commit them. Set `ADMIN_PASSWORD`/`SESSION_SECRET` before deployment.
 - VPS/subdomain deployment waits until the local workflow is useful.
 
 ## Last Updated
+
+2026-06-02 — Wired the designed 20-page Blueprint into the engine and made it the
+dashboard's output (input form trimmed; legacy Marp decks retired). Deploy prep:
+Dockerfile blocker fixed, `htmlToPdf` honors `CHROME_PATH`, `DEPLOYMENT.md`
+rewritten, `docker-compose.traefik.yml` added. Containerized deploy dry-run PASSED
+(image builds with Chromium 148; in-container PDF render proven). Next: VPS push.
 
 2026-05-31 — Logged the competitor-discovery rebuild (4 lanes, soft band,
 trusted report alignment, English-only), the productionized `--live` flow, and
